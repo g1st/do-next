@@ -1,7 +1,5 @@
-// import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// import { NavLink } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -10,15 +8,26 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import withWidth from '@material-ui/core/withWidth';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
-// import NavDrawer from '../NavDrawer';
+import { withRouter } from 'next/router';
+import Router from 'next/router';
 
-const styles = {
+import NavDrawer from './NavDrawer/NavDrawer';
+import CartDrawer from './CartDrawer/CartDrawer';
+import { DrawerContext } from './DrawerContext';
+
+const styles = theme => ({
   root: {
     flexGrow: 1
   },
   flex: {
-    flex: 1
+    flex: 1,
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center'
+    }
   },
   menuButton: {
     marginLeft: -12,
@@ -27,10 +36,40 @@ const styles = {
   iconButton: {
     marginLeft: 20,
     marginRight: 0
+  },
+  tabIndicator: {
+    display: 'none'
+  },
+  arrowDown: {
+    width: 0,
+    height: 0,
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    borderLeft: '6px solid transparent',
+    borderRight: '6px solid transparent',
+    borderTop: `6px solid`,
+    marginLeft: `5px`
+  },
+  toggleNav: {
+    [theme.breakpoints.up('md')]: {
+      display: 'visible'
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
+  },
+  toggleNavMenu: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'visible'
+    }
   }
-};
+});
 
-class AppNavBar extends React.Component {
+class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.toggleDrawer = (type, open) => () => {
@@ -40,155 +79,158 @@ class AppNavBar extends React.Component {
     };
 
     this.state = {
-      value: 0,
-      smallBar: true,
+      value: this.props.pathname,
+      anchorEl: null,
       drawerNav: false,
       drawerCart: false,
       toggleDrawer: this.toggleDrawer
     };
   }
-
-  static async getInitialProps(ctx) {
-    const { location } = ctx.pathname;
-    console.log('hi');
-
-    this.setState(() => {
-      switch (location) {
-        case '/':
-          return { value: 0, smallBar: window.innerWidth < 800 };
-        case '/works':
-          return { value: 1, smallBar: window.innerWidth < 800 };
-        case '/about':
-          return { value: 2, smallBar: window.innerWidth < 800 };
-        case '/contact':
-          return { value: 3, smallBar: window.innerWidth < 800 };
-        default:
-          return 1;
-      }
-    });
-    window.addEventListener('resize', this.handleWidthChange);
-    return {};
+  componentDidMount() {
+    // this.setState(() => ({
+    //   value: this.props.pathname
+    // }));
+    // this.setState(() => {
+    //   switch (this.props.pathname) {
+    //     case '/':
+    //       return { value: '/' };
+    //     case '/works':
+    //       return { value: 'works' };
+    //     case '/about':
+    //       return { value: 'about' };
+    //     case '/contact':
+    //       return { value: 'contact' };
+    //     default:
+    //       return '/';
+    //   }
+    // });
   }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener('resize', this.handleWidthChange);
-  // }
+  handleChange = (event, value) => {
+    this.setState({ value });
+    if (value == '/') {
+      Router.push('/');
+    }
+    // if (value == '/works') {
+    //   Router.push('/works');
+    // }
+    if (value == '/about') {
+      Router.push('/about');
+    }
+    if (value == '/contact') {
+      Router.push('/contact');
+    }
+  };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (nextState.smallBar !== this.state.smallBar) {
-  //     return true;
-  //   }
-  //   if (nextState.value !== this.state.value) {
-  //     return true;
-  //   }
-  //   if (nextState.drawerNav !== this.state.drawerNav) {
-  //     return true;
-  //   }
-  //   if (nextState.drawerCart !== this.state.drawerCart) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
 
-  // handleChange = (event, value) => {
-  //   this.setState(() => ({
-  //     value
-  //   }));
-  // };
+  handleClose = (e, linkTo) => {
+    // just actually closing panel
+    if (linkTo != 'backdropClick') {
+      Router.push(linkTo);
+    }
+    this.setState({ anchorEl: null });
+  };
 
-  // handleWidthChange = () => {
-  //   this.setState(() => ({ smallBar: window.innerWidth < 800 }));
-  // };
   render() {
-    return <div>I'M headddddddder</div>;
+    const { classes } = this.props;
+    const { value, anchorEl } = this.state;
+
+    let navigation = (
+      <Tabs
+        value={value}
+        onChange={this.handleChange}
+        indicatorColor="secondary"
+        textColor="secondary"
+        centered
+        classes={{ indicator: classes.tabIndicator }}
+        className={classes.toggleNav}
+      >
+        <Tab label="Home" value="/" to="/" />
+        <Tab
+          label={
+            <span>
+              Works
+              <span className={classes.arrowDown} />
+            </span>
+          }
+          value="/works"
+          aria-owns={anchorEl ? this.props.pathname : null}
+          aria-haspopup="true"
+          onClick={this.handleClick}
+        />
+        <Tab label="About" value="/about" to="/about" />
+        <Tab label="Contact" value="/contact" to="/contact" />
+      </Tabs>
+    );
+
+    let smallMenu = (
+      <IconButton
+        className={[classes.menuButton, classes.toggleNavMenu].join(' ')}
+        color="inherit"
+        aria-label="Menu"
+        onClick={this.toggleDrawer('drawerNav', true)}
+      >
+        <MenuIcon />
+      </IconButton>
+    );
+
+    return (
+      <div>
+        <div>
+          <div className={classes.root}>
+            <DrawerContext.Provider value={this.state}>
+              <NavDrawer />
+              <CartDrawer />
+            </DrawerContext.Provider>
+            <AppBar>
+              <Toolbar>
+                {smallMenu}
+                <Typography
+                  variant="h6"
+                  color="inherit"
+                  className={classes.flex}
+                >
+                  Dovile Jewellery
+                </Typography>
+                {navigation}
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={e => this.handleClose(e, '/works/golden')}>
+                    Golden
+                  </MenuItem>
+                  <MenuItem onClick={e => this.handleClose(e, '/works/wooden')}>
+                    Wooden
+                  </MenuItem>
+                  <MenuItem onClick={e => this.handleClose(e, '/works/silver')}>
+                    Silver
+                  </MenuItem>
+                </Menu>
+                <IconButton
+                  className={classes.iconButton}
+                  color="inherit"
+                  aria-label="Shopping Basket"
+                  onClick={this.toggleDrawer('drawerCart', true)}
+                >
+                  <ShoppingBasketIcon />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+          </div>
+        </div>
+      </div>
+    );
   }
-
-  // render() {
-  //   const { classes } = this.props;
-
-  //   let mobileMenu = null;
-  //   let navigation = (
-  //     <Tabs
-  //       value={this.state.value}
-  //       onChange={this.handleChange}
-  //       indicatorColor="secondary"
-  //       textColor="secondary"
-  //       centered
-  //     >
-  //       <Tab
-  //         label="Home"
-  //         disableRipple={this.state.smallBar ? false : true}
-  //         component={NavLink}
-  //         to="/"
-  //       />
-  //       <Tab
-  //         label="Works"
-  //         disableRipple={this.state.smallBar ? false : true}
-  //         component={NavLink}
-  //         to="/works"
-  //       />
-  //       <Tab
-  //         label="About"
-  //         disableRipple={this.state.smallBar ? false : true}
-  //         component={NavLink}
-  //         to="/about"
-  //       />
-  //       <Tab
-  //         label="Contact"
-  //         disableRipple={this.state.smallBar ? false : true}
-  //         component={NavLink}
-  //         to="/contact"
-  //       />
-  //     </Tabs>
-  //   );
-  //   if (this.state.smallBar) {
-  //     navigation = null;
-  //     mobileMenu = (
-  //       <IconButton
-  //         className={classes.menuButton}
-  //         color="inherit"
-  //         aria-label="Menu"
-  //         onClick={this.toggleDrawer('drawerNav', true)}
-  //       >
-  //         <MenuIcon />
-  //       </IconButton>
-  //     );
-  //   }
-
-  //   return (
-  //     <div className={classes.root}>
-  //       {/* <DrawerContext.Provider value={this.state}> */}
-  //       {/* <NavDrawer />
-  //         <CartDrawer /> */}
-  //       {/* </DrawerContext.Provider> */}
-  //       <AppBar>
-  //         <Toolbar>
-  //           {mobileMenu}
-  //           <Typography
-  //             variant="title"
-  //             color="inherit"
-  //             className={classes.flex}
-  //           >
-  //             Dovile Jewellery
-  //           </Typography>
-  //           {navigation}
-  //           <IconButton
-  //             className={classes.iconButton}
-  //             color="inherit"
-  //             aria-label="Shopping Basket"
-  //             onClick={this.toggleDrawer('drawerCart', true)}
-  //           >
-  //             <ShoppingBasketIcon />
-  //           </IconButton>
-  //         </Toolbar>
-  //       </AppBar>
-  //     </div>
-  //   );
-  // }
 }
 
-AppNavBar.propTypes = {
+NavBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(AppNavBar);
+export default withRouter(withWidth()(withStyles(styles)(NavBar)));
