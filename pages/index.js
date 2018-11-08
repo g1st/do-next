@@ -1,34 +1,50 @@
 import Layout from '../components/Layout';
-import { Subscribe } from 'unstated';
-import {
-  ClockContainer,
-  CounterContainer,
-  NavBarContainer
-} from '../containers';
-import { Clock, Counter, NavBar } from '../components/components';
+import Link from 'next/link';
+import axios from 'axios';
 
 class Index extends React.Component {
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
+  static async getInitialProps({ pathname, req }) {
+    // credits http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
+    if (req) {
+      // If `req` is defined, we're rendering on the server and should use
+      // MongoDB directly. One could also use the REST API, but that's slow
+      // and inelegant.
+      const { db } = req;
+      // Note that `db` above comes from express middleware
 
+      const data = await db
+        .collection('works')
+        .find()
+        .toArray();
+
+      return { data: JSON.stringify(data), pathname, from: 'server' };
+    }
+
+    // Otherwise, we're rendering on the client and need to use the API
+    const works = await axios.get('/api').then(res => {
+      return res.data;
+    });
+
+    return { data: JSON.stringify(works), pathname, from: 'rest api' };
+  }
   render() {
     return (
-      <Layout>
+      <Layout pathname={this.props.pathname}>
         <div>alohha</div>
-        <Subscribe to={[ClockContainer, CounterContainer, NavBarContainer]}>
-          {(clock, counter, navbar) => {
-            this.timer = clock.interval;
-            return (
-              <div>
-                <Clock clock={clock} />
-                <Counter counter={counter} />
-                <NavBar navbar={navbar} />
-              </div>
-            );
-          }}
-        </Subscribe>
-        <div>antras aloha</div>
+        <Link href="/works">
+          <a>Works</a>
+        </Link>
+        <br />
+        <Link href="/about">
+          <a>About</a>
+        </Link>
+        <br />
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+        <div>Path: {this.props.pathname}</div>
+        <div>From: {this.props.from}</div>
+        <div>Data: {this.props.data}</div>
       </Layout>
     );
   }
