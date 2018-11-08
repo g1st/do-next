@@ -13,7 +13,6 @@ class MyDocument extends Document {
     return (
       <html lang="en" dir="ltr">
         <Head>
-          <title>My page</title>
           <meta charSet="utf-8" />
           {styleTags}
           {/* Use minimum-scale=1 to enable GPU rasterization */}

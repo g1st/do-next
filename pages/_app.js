@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
 import getPageContext from '../src/getPageContext';
 import { Provider } from 'unstated';
+import Head from 'next/head';
 
 class MyApp extends App {
   constructor(props) {
@@ -35,15 +36,19 @@ class MyApp extends App {
             generateClassName={this.pageContext.generateClassName}
           >
             {/* Unstated Context Provider */}
-            <Provider>
-              {/* MuiThemeProvider makes the theme available down the React
+            {/* MuiThemeProvider makes the theme available down the React
               tree thanks to React context. */}
+            <Provider>
               <MuiThemeProvider
                 theme={this.pageContext.theme}
                 sheetsManager={this.pageContext.sheetsManager}
               >
                 {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
+                <Head>
+                  <title>Dovile Jewellery</title>
+                </Head>
+
                 <Component pageContext={this.pageContext} {...pageProps} />
               </MuiThemeProvider>
             </Provider>
