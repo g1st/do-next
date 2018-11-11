@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Link from 'next/link';
 
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
@@ -16,6 +17,8 @@ class Works extends React.Component {
     }
 
     const works = await axios.get('/api').then(res => {
+      console.log('works again calling');
+
       return res.data;
     });
 
@@ -29,6 +32,9 @@ class Works extends React.Component {
           <p>This is Works page.</p>
           <p>path: {this.props.pathname}</p>
           <p>from: {this.props.from}</p>
+          <Link href="/piece">
+            <a>Dedicated item page</a>
+          </Link>
           {/* <p>data: {this.props.data}</p> */}
           <Gallery data={this.props.data} />
         </div>

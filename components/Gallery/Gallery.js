@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import GridList from '@material-ui/core/GridList';
@@ -55,11 +56,15 @@ const Gallery = props => {
       >
         {data.map(item => (
           <GridListTile key={item._id} cols={1}>
-            <ItemCard
-              price={item.price}
-              name={item.name}
-              img={`/static/uploads/${item.images[0]}`}
-            />
+            <Link as={`/piece/${item._id}`} href={`/piece?id=${item._id}`}>
+              <a style={{ textDecoration: 'none' }}>
+                <ItemCard
+                  price={item.price}
+                  name={item.name}
+                  img={`/static/uploads/${item.images[0]}`}
+                />
+              </a>
+            </Link>
           </GridListTile>
         ))}
         {/* {items.map(item => (
