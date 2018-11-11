@@ -52,6 +52,13 @@ co(function*() {
   });
   server.use('/api', api(db, upload));
 
+  // make clean URL's possible from server
+  server.get('/piece/:id', (req, res) => {
+    const actualPage = '/piece';
+    const queryParams = { id: req.params.id };
+    app.render(req, res, actualPage, queryParams);
+  });
+
   // Everything that isn't '/api' gets passed along to Next.js
   server.get('*', (req, res) => {
     return handle(req, res);
