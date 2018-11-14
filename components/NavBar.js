@@ -11,10 +11,12 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import withWidth from '@material-ui/core/withWidth';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import Badge from '@material-ui/core/Badge';
 import { withRouter } from 'next/router';
 import Router from 'next/router';
+import { Subscribe } from 'unstated';
 
+import CartContainer from '../containers/CartContainer';
 import NavDrawer from './NavDrawer/NavDrawer';
 import CartDrawer from './CartDrawer/CartDrawer';
 import { DrawerContext } from './DrawerContext';
@@ -85,25 +87,6 @@ class NavBar extends React.Component {
       drawerCart: false,
       toggleDrawer: this.toggleDrawer
     };
-  }
-  componentDidMount() {
-    // this.setState(() => ({
-    //   value: this.props.pathname
-    // }));
-    // this.setState(() => {
-    //   switch (this.props.pathname) {
-    //     case '/':
-    //       return { value: '/' };
-    //     case '/works':
-    //       return { value: 'works' };
-    //     case '/about':
-    //       return { value: 'about' };
-    //     case '/contact':
-    //       return { value: 'contact' };
-    //     default:
-    //       return '/';
-    //   }
-    // });
   }
 
   handleChange = (event, value) => {
@@ -218,7 +201,17 @@ class NavBar extends React.Component {
                   aria-label="Shopping Basket"
                   onClick={this.toggleDrawer('drawerCart', true)}
                 >
-                  <ShoppingBasketIcon />
+                  <Subscribe to={[CartContainer]}>
+                    {cart => {
+                      return cart.state.count ? (
+                        <Badge badgeContent={cart.state.count}>
+                          <ShoppingBasketIcon />
+                        </Badge>
+                      ) : (
+                        <ShoppingBasketIcon />
+                      );
+                    }}
+                  </Subscribe>
                 </IconButton>
               </Toolbar>
             </AppBar>
