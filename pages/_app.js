@@ -7,6 +7,10 @@ import getPageContext from '../src/getPageContext';
 import { Provider } from 'unstated';
 import Head from 'next/head';
 
+import CartContainer from '../containers/CartContainer';
+
+let cart = new CartContainer();
+
 class MyApp extends App {
   constructor(props) {
     super(props);
@@ -30,15 +34,14 @@ class MyApp extends App {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Container>
-          {/* Wrap every page in Jss and Theme providers */}
-          <JssProvider
-            registry={this.pageContext.sheetsRegistry}
-            generateClassName={this.pageContext.generateClassName}
-          >
-            {/* Unstated Context Provider */}
-            {/* MuiThemeProvider makes the theme available down the React
+          <Provider inject={[cart]}>
+            {/* Wrap every page in Jss and Theme providers */}
+            <JssProvider
+              registry={this.pageContext.sheetsRegistry}
+              generateClassName={this.pageContext.generateClassName}
+            >
+              {/* MuiThemeProvider makes the theme available down the React
               tree thanks to React context. */}
-            <Provider>
               <MuiThemeProvider
                 theme={this.pageContext.theme}
                 sheetsManager={this.pageContext.sheetsManager}
@@ -48,11 +51,10 @@ class MyApp extends App {
                 <Head>
                   <title>Dovile Jewellery</title>
                 </Head>
-
                 <Component pageContext={this.pageContext} {...pageProps} />
               </MuiThemeProvider>
-            </Provider>
-          </JssProvider>
+            </JssProvider>
+          </Provider>
         </Container>
       </React.Fragment>
     );
