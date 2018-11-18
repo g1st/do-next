@@ -28,6 +28,18 @@ module.exports = (db, upload) => {
     })
   );
 
+  router.get(
+    '/single',
+    wrapAsync(async function(req) {
+      const id = req.query.id;
+
+      const works = await Works.findById(id, (err, data) => {
+        if (err) return console.error(err);
+      });
+      return works;
+    })
+  );
+
   router.post('/update', upload.array('photos[]', 10), async (req, res) => {
     const {
       title,
