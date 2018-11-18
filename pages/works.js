@@ -17,8 +17,6 @@ class Works extends React.Component {
     }
 
     const works = await axios.get('/api').then(res => {
-      console.log('works again calling');
-
       return res.data;
     });
 
