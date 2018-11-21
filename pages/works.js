@@ -33,8 +33,11 @@ class Works extends React.Component {
           <Link href="/piece">
             <a>Dedicated item page</a>
           </Link>
-          {/* <p>data: {this.props.data}</p> */}
-          <Gallery data={this.props.data} />
+          {this.props.data.length > 0 ? (
+            <Gallery data={this.props.data} />
+          ) : (
+            <p>Gallery empty</p>
+          )}
         </div>
       </Layout>
     );

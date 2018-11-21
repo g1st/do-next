@@ -11,7 +11,7 @@ import CartContainer from '../containers/CartContainer';
 import { Wrapper, Images, Info, Title } from '../styles/Piece';
 
 class Piece extends React.Component {
-  static async getInitialProps({ pathname, req, query, asPath }) {
+  static async getInitialProps({ pathname, req, query }) {
     if (req) {
       const { db } = req;
       const id = req.params.id;
@@ -36,7 +36,10 @@ class Piece extends React.Component {
 
   render() {
     const pieceId = this.props.router.query.id;
-    console.log(this.props.data);
+
+    if (this.props.data.length < 1) {
+      return <p>Page doesn't exist</p>;
+    }
 
     const {
       name,
@@ -48,10 +51,9 @@ class Piece extends React.Component {
     } = this.props.data[0];
 
     const gallery = images.map(image => ({
-      original: `/static/uploads/${image}`,
-      thumbnail: `/static/uploads/${image}`
+      original: `/static/uploads/${image.resized}`,
+      thumbnail: `/static/uploads/${image.thumb}`
     }));
-    console.log(gallery);
 
     return (
       <Layout pathname={this.props.pathname}>
@@ -60,7 +62,7 @@ class Piece extends React.Component {
         <p>This is the item page.</p>
         <Wrapper>
           <Images>
-            <ImageGallery items={gallery} />
+            <ImageGallery items={gallery} lazyLoad={true} />
           </Images>
           <Info>
             <Typography variant="h2">{name}</Typography>

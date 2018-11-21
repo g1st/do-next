@@ -5,6 +5,7 @@ const sendMail = require('./mail');
 const fs = require('fs');
 const { promisify } = require('util');
 const asyncUnlink = promisify(fs.unlink);
+const sharp = require('sharp');
 
 module.exports = (db, upload) => {
   const router = express.Router();
@@ -41,6 +42,9 @@ module.exports = (db, upload) => {
   );
 
   router.post('/update', upload.array('photos[]', 10), async (req, res) => {
+    // squared shape for better gallery experience
+    const imageSizes = { resized: 900, thumb: 300 };
+
     const {
       title,
       description,
@@ -52,7 +56,17 @@ module.exports = (db, upload) => {
       available
     } = req.body;
 
-    const images = req.files.map(image => image.filename);
+    const images = req.files.map(image => {
+      const dot = image.filename.indexOf('.');
+
+      return {
+        resized: image.filename,
+        thumb:
+          image.filename.substring(0, dot) +
+          imageSizes.thumb +
+          image.filename.substring(dot)
+      };
+    });
 
     const piece = {
       name: title,
@@ -71,7 +85,7 @@ module.exports = (db, upload) => {
     const error = work.validateSync();
 
     if (error) {
-      // remove already uploaded images (not elegant but rarelly will happen irl)
+      // remove already uploaded images (not elegant but rarely will happen irl)
       images.forEach(async image => {
         await asyncUnlink(`static/uploads/${image}`);
       });
@@ -81,7 +95,51 @@ module.exports = (db, upload) => {
 
     await db.collection('works').insertOne(work);
 
-    res.json({ msg: 'Work has been added/updated', error });
+    const writeFile = (file, size) => {
+      return new Promise((resolve, reject) => {
+        sharp(file)
+          .resize(size, size)
+          .toBuffer(async function(err, buffer) {
+            const dot = file.indexOf('.');
+            // overwrites original multers file
+            if (size === imageSizes.resized) {
+              size = '';
+            }
+            fs.writeFile(
+              file.substring(0, dot) + size + file.substring(dot),
+              buffer,
+              err => {
+                if (err) {
+                  reject(err);
+                } else {
+                  resolve(file);
+                  console.log('file saved, size: ', size);
+                }
+              }
+            );
+          });
+      });
+    };
+
+    let sizes = req.files.map(obj => {
+      return [
+        { path: obj.path, size: imageSizes.resized },
+        { path: obj.path, size: imageSizes.thumb }
+      ];
+    });
+
+    let files = sizes.map(photo =>
+      photo.map(photo => writeFile(photo.path, photo.size))
+    );
+
+    Promise.all(files)
+      .then(val => console.log(val))
+      .catch(err => console.log(err));
+
+    res.json({
+      msg: 'Work has been added/updated',
+      error
+    });
   });
 
   router.post('/send', (req, res) => {
