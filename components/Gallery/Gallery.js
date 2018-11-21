@@ -56,12 +56,12 @@ const Gallery = props => {
       >
         {data.map(item => (
           <GridListTile key={item._id} cols={1}>
-            <Link as={`/piece/${item._id}`} href={`/piece?id=${item._id}`}>
+            <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
               <a style={{ textDecoration: 'none' }}>
                 <ItemCard
                   price={item.price}
                   name={item.name}
-                  img={`/static/uploads/${item.images[0]}`}
+                  img={`/static/uploads/${item.images[0].thumb}`}
                 />
               </a>
             </Link>
