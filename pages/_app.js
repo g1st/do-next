@@ -6,6 +6,7 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import getPageContext from '../src/getPageContext';
 import { Provider } from 'unstated';
 import Head from 'next/head';
+import '../styles/emptyFileToFixNextjsBug.css';
 
 import CartContainer from '../containers/CartContainer';
 
