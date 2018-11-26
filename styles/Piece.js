@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import 'react-image-gallery/styles/css/image-gallery.css';
 
 export const Wrapper = styled.div`
   /* display: flex; */
