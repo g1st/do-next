@@ -4,7 +4,6 @@ import { Subscribe } from 'unstated';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import ImageGallery from 'react-image-gallery';
-import 'react-image-gallery/styles/css/image-gallery.css';
 
 import Layout from '../components/Layout.js';
 import CartContainer from '../containers/CartContainer';
