@@ -8,7 +8,7 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 
 import Layout from '../components/Layout.js';
 import CartContainer from '../containers/CartContainer';
-import { Wrapper, Images, Info, Title } from '../styles/Piece';
+import { Wrapper, Images, Info } from '../styles/Piece';
 
 class Piece extends React.Component {
   static async getInitialProps({ pathname, req, query }) {
