@@ -1,28 +1,29 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  /* display: flex; */
-  width: 100%;
+  max-width: 1280px;
+  display: block;
+  @media (min-width: 768px) {
+    display: flex;
+  }
 `;
 Wrapper.displayName = 'Wrapper';
 
 export const Images = styled.div`
-  /* display: flex; */
-  @media (min-width: 960px) {
-    width: 60%;
-    display: inline-block;
+  flex: 50%;
+  max-width: 500px;
+  margin: 0 auto 40px auto;
+  @media (min-width: 768px) {
+    max-width: unset;
   }
-  background-color: greenyellow;
 `;
 Images.displayName = 'Images';
 
 export const Info = styled.div`
-  /* display: flex; */
-  @media (min-width: 960px) {
-    width: 40%;
-    display: inline-block;
+  flex: 50%;
+  @media (min-width: 768px) {
+    padding-left: 50px;
   }
-  background-color: red;
 `;
 Info.displayName = 'Info';
 
