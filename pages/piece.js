@@ -1,14 +1,33 @@
 import React from 'react';
 import { withRouter } from 'next/router';
+import withWidth from '@material-ui/core/withWidth';
+import { withStyles } from '@material-ui/core/styles';
 import { Subscribe } from 'unstated';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import ImageGallery from 'react-image-gallery';
+import Button from '@material-ui/core/Button';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 import Layout from '../components/Layout.js';
 import CartContainer from '../containers/CartContainer';
 import { Wrapper, Images, Info } from '../styles/Piece';
+
+const styles = {
+  marginBottom: {
+    marginBottom: '1.25rem'
+  },
+  marginBottomBig: {
+    marginBottom: '3rem'
+  },
+  thumbnailPosition: {
+    xs: 'bottom',
+    sm: 'bottom',
+    md: 'left',
+    lg: 'left',
+    xl: 'left'
+  }
+};
 
 class Piece extends React.Component {
   static async getInitialProps({ pathname, req, query }) {
@@ -35,7 +54,8 @@ class Piece extends React.Component {
   }
 
   render() {
-    const pieceId = this.props.router.query.id;
+    // const pieceId = this.props.router.query.id;
+    const { classes, width } = this.props;
 
     if (this.props.data.length < 1) {
       return <p>Page doesn't exist</p>;
@@ -57,28 +77,54 @@ class Piece extends React.Component {
 
     return (
       <Layout pathname={this.props.pathname}>
-        <h1>{pieceId}</h1>
+        {console.log(width)}
+        {/* <h1>{pieceId}</h1> */}
         {/* <p>{this.props.router}</p> */}
-        <p>This is the item page.</p>
+        {/* <p>This is the item page.</p> */}
         <Wrapper>
           <Images>
-            <ImageGallery items={gallery} lazyLoad={true} />
+            <ImageGallery
+              items={gallery}
+              lazyLoad={true}
+              showNav={false}
+              thumbnailPosition={styles.thumbnailPosition[width]}
+              showPlayButton={false}
+              showFullscreenButton={false}
+            />
           </Images>
           <Info>
-            <Typography variant="h2">{name}</Typography>
-            <Typography variant="body1">{description}</Typography>
-            <Typography variant="body1">Materials: {materials}</Typography>
-            <Typography variant="body1">{price}</Typography>
+            <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
+              {name}
+            </Typography>
+            <Typography
+              variant="body1"
+              classes={{ body1: classes.marginBottom }}
+            >
+              {description}
+            </Typography>
+            <Typography
+              variant="body1"
+              classes={{ body1: classes.marginBottom }}
+            >
+              Materials: {materials}
+            </Typography>
+            <Typography
+              variant="body1"
+              classes={{ body1: classes.marginBottom }}
+            >
+              Price: {price}
+            </Typography>
             <Subscribe to={[CartContainer]}>
               {cart => (
                 <div>
-                  <span>Add to Cart</span>
-                  <button
+                  <Button
+                    variant="contained"
+                    color="secondary"
                     value={_id}
                     onClick={el => cart.addItem(el.target.value)}
                   >
-                    Add
-                  </button>
+                    Add To Cart
+                  </Button>
                 </div>
               )}
             </Subscribe>
@@ -89,4 +135,4 @@ class Piece extends React.Component {
   }
 }
 
-export default withRouter(Piece);
+export default withRouter(withStyles(styles)(withWidth()(Piece)));
