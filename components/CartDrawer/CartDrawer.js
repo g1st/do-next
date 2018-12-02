@@ -8,7 +8,7 @@ import CartDrawerContent from './CartDrawerContent';
 
 const styles = {
   list: {
-    width: 250
+    width: 450
   }
 };
 
@@ -31,7 +31,6 @@ class CartDrawer extends Component {
           className={classes.list}
           tabIndex={0}
           role="button"
-          onClick={this.context.toggleDrawer('drawerCart', false)}
           onKeyDown={this.context.toggleDrawer('drawerCart', false)}
         >
           {sideCart}
