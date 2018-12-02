@@ -67,8 +67,17 @@ class Piece extends React.Component {
       materials,
       price,
       _id,
-      images
+      images,
+      available
     } = this.props.data[0];
+
+    const dataForCart = {
+      name,
+      price,
+      images,
+      _id,
+      available
+    };
 
     const gallery = images.map(image => ({
       original: `/static/uploads/${image.resized}`,
@@ -77,7 +86,7 @@ class Piece extends React.Component {
 
     return (
       <Layout pathname={this.props.pathname}>
-        {console.log(width)}
+        {console.log(dataForCart)}
         {/* <h1>{pieceId}</h1> */}
         {/* <p>{this.props.router}</p> */}
         {/* <p>This is the item page.</p> */}
@@ -118,10 +127,10 @@ class Piece extends React.Component {
               {cart => (
                 <div>
                   <Button
+                    size="medium"
                     variant="contained"
                     color="secondary"
-                    value={_id}
-                    onClick={el => cart.addItem(el.target.value)}
+                    onClick={el => cart.addItem(dataForCart)}
                   >
                     Add To Cart
                   </Button>
