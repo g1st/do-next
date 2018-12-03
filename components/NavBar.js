@@ -12,6 +12,8 @@ import withWidth from '@material-ui/core/withWidth';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Badge from '@material-ui/core/Badge';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import ExpandLess from '@material-ui/icons/ExpandLess';
 import { withRouter } from 'next/router';
 import Router from 'next/router';
 import { Subscribe } from 'unstated';
@@ -42,17 +44,6 @@ const styles = theme => ({
   tabIndicator: {
     display: 'none'
   },
-  arrowDown: {
-    width: 0,
-    height: 0,
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    borderLeft: '6px solid transparent',
-    borderRight: '6px solid transparent',
-    borderTop: `6px solid`,
-    marginLeft: `5px`
-  },
   toggleNav: {
     [theme.breakpoints.up('md')]: {
       display: 'visible'
@@ -68,6 +59,10 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       display: 'visible'
     }
+  },
+  badge: {
+    color: '#ffffff',
+    backgroundColor: '#EE7600'
   }
 });
 
@@ -120,7 +115,6 @@ class NavBar extends React.Component {
   render() {
     const { classes } = this.props;
     const { value, anchorEl } = this.state;
-
     let navigation = (
       <Tabs
         value={value}
@@ -134,10 +128,14 @@ class NavBar extends React.Component {
         <Tab label="Home" value="/" to="/" />
         <Tab
           label={
-            <span>
-              Works
-              <span className={classes.arrowDown} />
-            </span>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <span style={{ paddingRight: 6 }}>Works</span>
+              {this.state.anchorEl ? (
+                <ExpandLess fontSize="small" />
+              ) : (
+                <ExpandMore fontSize="small" />
+              )}
+            </div>
           }
           value="/works"
           aria-owns={anchorEl ? this.props.pathname : null}
@@ -205,7 +203,10 @@ class NavBar extends React.Component {
                   <Subscribe to={[CartContainer]}>
                     {cart => {
                       return cart.state.count ? (
-                        <Badge badgeContent={cart.state.count}>
+                        <Badge
+                          badgeContent={cart.state.count}
+                          classes={{ badge: classes.badge }}
+                        >
                           <ShoppingBasketIcon />
                         </Badge>
                       ) : (
