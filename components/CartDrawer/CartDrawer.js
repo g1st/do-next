@@ -18,7 +18,11 @@ class CartDrawer extends Component {
   render() {
     const { classes } = this.props;
 
-    const sideCart = <CartDrawerContent />;
+    const sideCart = (
+      <CartDrawerContent
+        closeDrawer={this.context.toggleDrawer('drawerCart', false)}
+      />
+    );
 
     return (
       <Drawer
