@@ -35,7 +35,6 @@ class NavDrawer extends Component {
             className={classes.list}
             tabIndex={0}
             role="button"
-            onClick={this.context.toggleDrawer('drawerNav', false)}
             onKeyDown={this.context.toggleDrawer('drawerNav', false)}
           >
             {sideNavList}
