@@ -55,9 +55,9 @@ class Piece extends React.Component {
 
   render() {
     // const pieceId = this.props.router.query.id;
-    const { classes, width } = this.props;
+    const { classes, width, data } = this.props;
 
-    if (this.props.data.length < 1) {
+    if (data.length < 1 || data[0] === null) {
       return <p>Page doesn't exist</p>;
     }
 
