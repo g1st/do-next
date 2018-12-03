@@ -4,27 +4,33 @@ export default class CartContainer extends Container {
   state = {
     selectedItems: [],
     count: 0,
-    totalPrice: 0
+    totalPrice: 0,
+    totalItems: 0
   };
 
   updateTotalPrice = items => {
     let total = 0;
+    let totalItems = 0;
     if (items) {
       this.setState(prevState => {
         for (let item of items) {
           total += item.price * item.quantity;
+          totalItems += item.quantity;
         }
         return {
-          totalPrice: total || 0
+          totalPrice: total || 0,
+          totalItems: totalItems || 0
         };
       });
     } else {
       this.setState(prevState => {
         for (let item of prevState.selectedItems) {
           total += item.price * item.quantity;
+          totalItems += item.quantity;
         }
         return {
-          totalPrice: total
+          totalPrice: total,
+          totalItems
         };
       });
     }
