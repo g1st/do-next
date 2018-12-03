@@ -109,7 +109,7 @@ class NavBar extends React.Component {
     if (linkTo != 'backdropClick') {
       Router.push(linkTo);
     }
-    this.setState({ anchorEl: null });
+    this.setState({ anchorEl: null, value: false });
   };
 
   render() {
