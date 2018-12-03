@@ -18,9 +18,6 @@ const styles = theme => ({
   },
   gridList: {
     width: '100%'
-  },
-  subheader: {
-    // width: '100%'
   }
 });
 
@@ -56,22 +53,14 @@ const Gallery = props => {
       >
         {data.map(item => (
           <GridListTile key={item._id} cols={1}>
-            <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
-              <a style={{ textDecoration: 'none' }}>
-                <ItemCard
-                  price={item.price}
-                  name={item.name}
-                  img={`/static/uploads/${item.images[0].thumb}`}
-                />
-              </a>
-            </Link>
+            <ItemCard
+              id={item._id}
+              price={item.price}
+              name={item.name}
+              img={`/static/uploads/${item.images[0].thumb}`}
+            />
           </GridListTile>
         ))}
-        {/* {items.map(item => (
-          <GridListTile key={item.id} cols={1}>
-            <ItemCard price={item.price} name={item.name} img={item.img} />
-          </GridListTile>
-        ))} */}
       </GridList>
     </div>
   );
