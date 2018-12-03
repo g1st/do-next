@@ -8,7 +8,7 @@ import CartDrawerContent from './CartDrawerContent';
 
 const styles = {
   list: {
-    width: 450
+    width: 320
   }
 };
 
