@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import GridList from '@material-ui/core/GridList';
@@ -23,8 +22,6 @@ const styles = theme => ({
 
 const Gallery = props => {
   const { classes, width, data } = props;
-  console.log(props.data);
-  const { price, name, slug, images } = props.data[0];
 
   const columns = {
     xs: 1,
@@ -43,8 +40,6 @@ const Gallery = props => {
   };
   return (
     <div className={classes.root}>
-      {console.log(price, name, slug, images)}
-      {console.log(data)}
       <GridList
         cellHeight={'auto'}
         className={classes.gridList}
