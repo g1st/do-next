@@ -35,6 +35,10 @@ class Index extends React.Component {
           <a>Works</a>
         </Link>
         <br />
+        <Link href="/checkout">
+          <a>checkout</a>
+        </Link>
+        <br />
         <Link href="/about">
           <a>About</a>
         </Link>

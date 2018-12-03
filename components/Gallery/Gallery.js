@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import GridList from '@material-ui/core/GridList';
@@ -18,16 +17,11 @@ const styles = theme => ({
   },
   gridList: {
     width: '100%'
-  },
-  subheader: {
-    // width: '100%'
   }
 });
 
 const Gallery = props => {
   const { classes, width, data } = props;
-  console.log(props.data);
-  const { price, name, slug, images } = props.data[0];
 
   const columns = {
     xs: 1,
@@ -46,8 +40,6 @@ const Gallery = props => {
   };
   return (
     <div className={classes.root}>
-      {console.log(price, name, slug, images)}
-      {console.log(data)}
       <GridList
         cellHeight={'auto'}
         className={classes.gridList}
@@ -56,22 +48,14 @@ const Gallery = props => {
       >
         {data.map(item => (
           <GridListTile key={item._id} cols={1}>
-            <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
-              <a style={{ textDecoration: 'none' }}>
-                <ItemCard
-                  price={item.price}
-                  name={item.name}
-                  img={`/static/uploads/${item.images[0].thumb}`}
-                />
-              </a>
-            </Link>
+            <ItemCard
+              id={item._id}
+              price={item.price}
+              name={item.name}
+              img={`/static/uploads/${item.images[0].thumb}`}
+            />
           </GridListTile>
         ))}
-        {/* {items.map(item => (
-          <GridListTile key={item.id} cols={1}>
-            <ItemCard price={item.price} name={item.name} img={item.img} />
-          </GridListTile>
-        ))} */}
       </GridList>
     </div>
   );

@@ -8,12 +8,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Link from 'next/link';
 
 const styles = theme => ({
   card: {
     maxWidth: 280,
-    margin: '0 auto',
-    marginBottom: '50px',
+    margin: '0 auto 50px auto',
     '&:hover': {
       cursor: 'pointer'
     }
@@ -39,18 +39,26 @@ const styles = theme => ({
 });
 
 const ItemCard = props => {
-  const { price, name, img, classes } = props;
+  const { price, name, img, classes, id } = props;
   return (
     <Card className={classes.card}>
-      <CardMedia className={classes.media} image={img} title={name} />
-      <CardContent>
-        <Typography align="center" gutterBottom variant="h6" component="h2">
-          {name}
-        </Typography>
-        <Typography align="center" component="p" className={classes.textColor}>
-          {price}£
-        </Typography>
-      </CardContent>
+      <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
+        <a style={{ textDecoration: 'none' }}>
+          <CardMedia className={classes.media} image={img} title={name} />
+          <CardContent>
+            <Typography align="center" gutterBottom variant="h6" component="h2">
+              {name}
+            </Typography>
+            <Typography
+              align="center"
+              component="p"
+              className={classes.textColor}
+            >
+              {price}£
+            </Typography>
+          </CardContent>
+        </a>
+      </Link>
     </Card>
   );
 };

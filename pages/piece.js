@@ -55,9 +55,9 @@ class Piece extends React.Component {
 
   render() {
     // const pieceId = this.props.router.query.id;
-    const { classes, width } = this.props;
+    const { classes, width, data } = this.props;
 
-    if (this.props.data.length < 1) {
+    if (data.length < 1 || data[0] === null) {
       return <p>Page doesn't exist</p>;
     }
 
@@ -85,11 +85,8 @@ class Piece extends React.Component {
     }));
 
     return (
-      <Layout pathname={this.props.pathname}>
-        {console.log(dataForCart)}
-        {/* <h1>{pieceId}</h1> */}
-        {/* <p>{this.props.router}</p> */}
-        {/* <p>This is the item page.</p> */}
+      // to highlight works tab in navbar under any piece is loaded
+      <Layout pathname="/works">
         <Wrapper>
           <Images>
             <ImageGallery
