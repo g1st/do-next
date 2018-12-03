@@ -61,7 +61,7 @@ const CartDrawerContent = props => (
                 </IconButton>
                 <IconButton
                   style={{
-                    color: 'grey',
+                    color: 'rgba(0, 0, 0, 0.26)',
                     marginLeft: '4px'
                   }}
                   aria-label="Remove item"
