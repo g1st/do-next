@@ -85,11 +85,8 @@ class Piece extends React.Component {
     }));
 
     return (
-      <Layout pathname={this.props.pathname}>
-        {console.log(dataForCart)}
-        {/* <h1>{pieceId}</h1> */}
-        {/* <p>{this.props.router}</p> */}
-        {/* <p>This is the item page.</p> */}
+      // to highlight works tab in navbar under any piece is loaded
+      <Layout pathname="/works">
         <Wrapper>
           <Images>
             <ImageGallery
