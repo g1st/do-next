@@ -173,6 +173,7 @@ class NavBar extends React.Component {
                 {smallMenu}
                 <Typography
                   variant="h6"
+                  component="h1"
                   color="inherit"
                   className={classes.flex}
                 >
