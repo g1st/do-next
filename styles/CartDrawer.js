@@ -9,7 +9,7 @@ export const CartItems = styled.ul`
     height: 60px;
     align-items: center;
     padding: 8px;
-    background: skyblue;
+    background: rgba(0, 0, 0, 0.05);
     margin-bottom: 5px;
   }
 `;
