@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Layout from '../components/Layout';
 import { Subscribe } from 'unstated';
 import {
@@ -39,37 +40,74 @@ const handleReady = () => {
   console.log('[ready]');
 };
 class _CardForm extends Component {
+  state = { complete: false, error: false, disable: false };
+
   handleSubmit = ev => {
     ev.preventDefault();
+    this.setState(() => ({ disable: true }));
     if (this.props.stripe) {
       this.props.stripe
-        .createToken()
-        .then(payload => console.log('[token]', payload));
+        .createToken({ name: 'Name' })
+        .then(payload => {
+          console.log('[token]', payload);
+          return payload.token.id;
+        })
+        .then(token =>
+          axios
+            .post('http://localhost:3000/api/charge', { token })
+            .then(res => {
+              if (res.ok) {
+                console.log('Purchase completed successfully');
+                this.setState(() => ({
+                  complete: true
+                }));
+              }
+              console.log('its ok ', res);
+            })
+            .catch(err => {
+              console.log('its not ok ', err);
+              this.setState(() => ({ error: true }));
+            })
+        );
     } else {
       console.log('Form submitted before Stripe.js loaded.');
     }
   };
 
   render() {
+    const purchase = this.state.complete ? (
+      <p>Purchase Complete.</p>
+    ) : (
+      <div className="checkout">
+        <p>Would you like to complete the purchase?</p>
+        <form onSubmit={this.handleSubmit}>
+          <CardElement
+            onBlur={handleBlur}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onReady={handleReady}
+            {...CARD_ELEMENT_OPTIONS}
+          />
+          <button disabled={!this.props.stripe || this.state.disable}>
+            Pay
+          </button>
+        </form>
+      </div>
+    );
+
     return (
       <Subscribe to={[CartContainer]}>
         {cart => (
           <div>
             <div>Checkout component</div>
-            <div className="checkout">
-              <p>Would you like to complete the purchase?</p>
-              <form onSubmit={this.handleSubmit}>
-                <CardElement
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  onFocus={handleFocus}
-                  onReady={handleReady}
-                  {...CARD_ELEMENT_OPTIONS}
-                />
-                <button disabled={!this.props.stripe}>Pay</button>
-              </form>
-            </div>
-            <div>{JSON.stringify(cart)}</div>
+            {this.state.error ? (
+              <p>
+                We cannot process your payment. Please check your payment
+                details and try again.
+              </p>
+            ) : (
+              purchase
+            )}
           </div>
         )}
       </Subscribe>
@@ -95,7 +133,6 @@ class Checkout extends Component {
   }
 
   componentDidMount() {
-    1;
     if (window.Stripe) {
       this.setState({
         stripe: window.Stripe('pk_test_CkPX0rsL8Rg0GT3vYyQoe0jq')
