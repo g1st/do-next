@@ -1,3 +1,4 @@
+// require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const slugify = require('slugify');
 const Works = require('./models/works');
@@ -6,6 +7,9 @@ const fs = require('fs');
 const { promisify } = require('util');
 const asyncUnlink = promisify(fs.unlink);
 const sharp = require('sharp');
+require('dotenv').config();
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 module.exports = (db, upload) => {
   const router = express.Router();
@@ -156,6 +160,26 @@ module.exports = (db, upload) => {
         return res.json({ msg: err.message });
       });
   });
+
+  router.post(
+    '/charge',
+    wrapAsync(async (req, res) => {
+      try {
+        let { status } = await stripe.charges.create({
+          amount: 2000,
+          currency: 'usd',
+          description: 'An example charge',
+          source: req.body.token
+        });
+
+        return status;
+      } catch (err) {
+        console.log(err);
+
+        res.json({ err });
+      }
+    })
+  );
 
   // router.post('/', wrapAsync(async function (req) {
   //   const book = new BookType(req.body)
