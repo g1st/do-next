@@ -56,7 +56,7 @@ class _CardForm extends Component {
           axios
             .post('http://localhost:3000/api/charge', { token })
             .then(res => {
-              if (res.ok) {
+              if (res.status == 200) {
                 console.log('Purchase completed successfully');
                 this.setState(() => ({
                   complete: true
