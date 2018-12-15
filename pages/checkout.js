@@ -4,12 +4,18 @@ import Layout from '../components/Layout';
 import { Subscribe } from 'unstated';
 import {
   Elements,
-  CardElement,
   injectStripe,
-  StripeProvider
+  StripeProvider,
+  CardExpiryElement,
+  CardCVCElement,
+  PostalCodeElement,
+  CardNumberElement
 } from 'react-stripe-elements';
+import Button from '@material-ui/core/Button';
 
 import CartContainer from '../containers/CartContainer';
+import PaymentForm from '../components/PaymentForm';
+import { ElementContainer, Input } from '../styles/Checkout';
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -80,17 +86,65 @@ class _CardForm extends Component {
     ) : (
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
-        <form onSubmit={this.handleSubmit}>
-          <CardElement
-            onBlur={handleBlur}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onReady={handleReady}
-            {...CARD_ELEMENT_OPTIONS}
-          />
-          <button disabled={!this.props.stripe || this.state.disable}>
+        <PaymentForm />
+        <form>
+          <label>
+            Card number
+            <ElementContainer>
+              <CardNumberElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...CARD_ELEMENT_OPTIONS}
+              />
+            </ElementContainer>
+          </label>
+          <label>
+            Expiration date
+            <ElementContainer>
+              <CardExpiryElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...CARD_ELEMENT_OPTIONS}
+              />
+            </ElementContainer>
+          </label>
+          <label>
+            CVC
+            <ElementContainer>
+              <CardCVCElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...CARD_ELEMENT_OPTIONS}
+              />
+            </ElementContainer>
+          </label>
+          <label>
+            Postal code
+            <ElementContainer>
+              <PostalCodeElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...CARD_ELEMENT_OPTIONS}
+              />
+            </ElementContainer>
+          </label>
+
+          <Button
+            variant="contained"
+            color="secondary"
+            disabled={!this.props.stripe || this.state.disable}
+            onClick={this.handleSubmit}
+          >
             Pay
-          </button>
+          </Button>
         </form>
       </div>
     );
@@ -115,6 +169,8 @@ class _CardForm extends Component {
   }
 }
 
+// because injectStripe cannot be used on the same element that renders the Elements component;
+// it must be used on the child component of Elements
 const CardForm = injectStripe(_CardForm);
 class PulledOutElements extends Component {
   render() {
