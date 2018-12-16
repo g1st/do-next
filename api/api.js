@@ -167,7 +167,7 @@ module.exports = (db, upload) => {
       try {
         let { status } = await stripe.charges.create({
           amount: 2000,
-          currency: 'usd',
+          currency: 'gbp',
           description: 'An example charge',
           source: req.body.token
         });
