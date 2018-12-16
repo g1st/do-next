@@ -563,30 +563,25 @@ class _CardForm extends Component {
     );
 
     return (
-      <Subscribe to={[CartContainer]}>
-        {cart => (
-          <div>
-            {console.log(cart)}
-            <div>Checkout component</div>
-            {this.state.error ? (
-              <p>
-                We cannot process your payment. Please check your payment
-                details and try again.
-              </p>
-            ) : (
-              <Wrapper>
-                <ShippmentForm>{purchase}</ShippmentForm>
+      <div>
+        <div>Checkout component</div>
+        {this.state.error ? (
+          <p>
+            We cannot process your payment. Please check your payment details
+            and try again.
+          </p>
+        ) : (
+          <Wrapper>
+            <ShippmentForm>{purchase}</ShippmentForm>
 
-                <Cart>
-                  <div>Unique items: {cart.state.count}</div>
-                  <div>Total items: {cart.state.totalItems}</div>
-                  <div>Total price: {cart.state.totalPrice}£</div>
-                </Cart>
-              </Wrapper>
-            )}
-          </div>
+            <Cart>
+              <div>Unique items: {this.props.state.count}</div>
+              <div>Total items: {this.props.state.totalItems}</div>
+              <div>Total price: {this.props.state.totalPrice}£</div>
+            </Cart>
+          </Wrapper>
         )}
-      </Subscribe>
+      </div>
     );
   }
 }
