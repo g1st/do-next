@@ -1,6 +1,7 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import axios from 'axios';
+import { array } from 'prop-types';
 
 class Index extends React.Component {
   static async getInitialProps({ pathname, req }) {
@@ -17,19 +18,58 @@ class Index extends React.Component {
         .find()
         .toArray();
 
-      return { data: JSON.stringify(data), pathname, from: 'server' };
-    }
+      const collections = data.reduce((acc, next) => {
+        acc.push(next.group);
+        return acc;
+      }, []);
 
+      return {
+        data: JSON.stringify(data),
+        pathname,
+        from: 'server',
+        collections
+      };
+    }
+    // we are on a client and can access localStorage - no need for api call
+    if (localStorage.getItem('data')) {
+      return {
+        data: localStorage.getItem('data'),
+        collections: localStorage.getItem('collections').split(','),
+        from: 'rest api',
+        pathname
+      };
+    }
     // Otherwise, we're rendering on the client and need to use the API
     const works = await axios.get('/api').then(res => {
       return res.data;
     });
 
-    return { data: JSON.stringify(works), pathname, from: 'rest api' };
+    const collections = works.reduce((acc, next) => {
+      acc.push(next.group);
+      return acc;
+    }, []);
+
+    return {
+      data: JSON.stringify(works),
+      pathname,
+      from: 'rest api',
+      collections
+    };
   }
+  componentDidMount() {
+    // Save data to localStorage
+    if (!localStorage.getItem('data')) {
+      localStorage.setItem('data', this.props.data);
+      localStorage.setItem('collections', this.props.collections);
+    }
+  }
+
   render() {
     return (
-      <Layout pathname={this.props.pathname}>
+      <Layout
+        pathname={this.props.pathname}
+        collections={this.props.collections}
+      >
         <div>alohha</div>
         <Link href="/works">
           <a>Works</a>
