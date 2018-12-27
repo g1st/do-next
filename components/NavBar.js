@@ -184,6 +184,18 @@ class NavBar extends React.Component {
                   open={Boolean(anchorEl)}
                   onClose={this.handleClose}
                 >
+                  {this.props.collections.map(collection => {
+                    return (
+                      <MenuItem
+                        key={collection}
+                        onClick={e =>
+                          this.handleClose(e, `/works/${collection}`)
+                        }
+                      >
+                        {collection}
+                      </MenuItem>
+                    );
+                  })}
                   <MenuItem onClick={e => this.handleClose(e, '/works/golden')}>
                     Golden
                   </MenuItem>
