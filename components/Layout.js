@@ -7,7 +7,7 @@ const Layout = props => {
   return (
     <LayoutWrapper>
       <div>
-        <NavBar pathname={props.pathname} />
+        <NavBar pathname={props.pathname} collections={props.collections} />
       </div>
       <Main>{props.children}</Main>
       <Footer />
