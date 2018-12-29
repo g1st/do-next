@@ -11,10 +11,6 @@ import {
 } from '../styles/Contact';
 
 class Contact extends React.Component {
-  static async getInitialProps({ pathname }) {
-    return { pathname };
-  }
-
   state = {
     emailSent: false
   };
@@ -27,7 +23,10 @@ class Contact extends React.Component {
 
   render() {
     return (
-      <Layout pathname={this.props.pathname}>
+      <Layout
+        pathname={this.props.pathname}
+        collections={this.props.collections}
+      >
         <Wrapper>
           <ContactAbout>
             <ImageWrapper>
@@ -50,5 +49,9 @@ class Contact extends React.Component {
     );
   }
 }
+
+Contact.getInitialProps = async ({ pathname }) => {
+  return { pathname };
+};
 
 export default Contact;

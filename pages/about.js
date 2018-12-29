@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 
+import Layout from '../components/Layout';
+
 const styles = theme => ({
   root: {
     textAlign: 'center',
@@ -12,17 +14,14 @@ const styles = theme => ({
   }
 });
 
-import Layout from '../components/Layout';
-
 class About extends React.Component {
-  static async getInitialProps({ pathname }) {
-    return { pathname };
-  }
-
   render() {
     const { classes } = this.props;
     return (
-      <Layout pathname={this.props.pathname}>
+      <Layout
+        pathname={this.props.pathname}
+        collections={this.props.collections}
+      >
         <div>
           <div>
             <p>This is About page.</p>
@@ -54,6 +53,10 @@ class About extends React.Component {
 
 About.propTypes = {
   classes: PropTypes.object.isRequired
+};
+
+About.getInitialProps = async ({ pathname }) => {
+  return { pathname };
 };
 
 export default withStyles(styles)(About);
