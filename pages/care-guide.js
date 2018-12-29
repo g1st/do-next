@@ -55,7 +55,7 @@ class CareGuide extends React.Component {
     }, []);
 
     return {
-      data: JSON.stringifyworks,
+      data: JSON.stringify(works),
       pathname,
       from: 'rest api',
       collections
@@ -63,7 +63,11 @@ class CareGuide extends React.Component {
   }
 
   componentDidMount() {
-    if (!localStorage.getItem('data')) {
+    // there are no saved data or data was updated, update localStorage
+    if (
+      !localStorage.getItem('data') ||
+      localStorage.getItem('data') !== this.props.data
+    ) {
       localStorage.setItem('collections', this.props.collections);
       localStorage.setItem('data', this.props.data);
     }
@@ -71,8 +75,8 @@ class CareGuide extends React.Component {
 
   render() {
     return (
-      // For Material UI Tabs to know this endpoint not needed
-      <Layout pathname={false} collections={['this.props.collections']}>
+      // false for Material UI Tabs to know this endpoint not needed
+      <Layout pathname={false} collections={this.props.collections}>
         <Wrapper>
           <Figure>
             <Image src="../static/images/supa.jpg" alt="Crafts market" />
