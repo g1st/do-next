@@ -6,6 +6,7 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import getPageContext from '../src/getPageContext';
 import { Provider } from 'unstated';
 import Head from 'next/head';
+import axios from 'axios';
 import '../styles/emptyFileToFixNextjsBug.css';
 
 import CartContainer from '../containers/CartContainer';
@@ -18,6 +19,68 @@ class MyApp extends App {
     this.pageContext = getPageContext();
   }
 
+  static async getInitialProps({ Component, ctx }) {
+    var pageProps = {};
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+    // credits http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
+    if (ctx.req) {
+      // If `req` is defined, we're rendering on the server and should use
+      // MongoDB directly. One could also use the REST API, but that's slow
+      // and inelegant.
+      const { db } = ctx.req;
+      // Note that `db` above comes from express middleware
+      const data = await db
+        .collection('works')
+        .find()
+        .toArray();
+      const collections = data.reduce((acc, next) => {
+        acc.push(next.group);
+        return acc;
+      }, []);
+
+      pageProps = {
+        ...pageProps,
+        data: JSON.stringify(data),
+        from: 'server',
+        collections
+      };
+
+      return { pageProps };
+    }
+
+    // we are on a client and can access localStorage - no need for api call
+    if (localStorage.getItem('data')) {
+      pageProps = {
+        ...pageProps,
+        data: localStorage.getItem('data'),
+        collections: localStorage.getItem('collections').split(','),
+        from: 'rest api'
+      };
+
+      return { pageProps };
+    }
+    // Otherwise, we're rendering on the client and need to use the API
+    const works = await axios.get('/api').then(res => {
+      return res.data;
+    });
+
+    const collections = works.reduce((acc, next) => {
+      acc.push(next.group);
+      return acc;
+    }, []);
+
+    pageProps = {
+      ...pageProps,
+      data: JSON.stringify(works),
+      from: 'rest api',
+      collections
+    };
+
+    return { pageProps };
+  }
+
   pageContext = null;
 
   componentDidMount() {
@@ -25,6 +88,11 @@ class MyApp extends App {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
+    }
+    // Save data to localStorage
+    if (!localStorage.getItem('data')) {
+      localStorage.setItem('data', this.props.pageProps.data);
+      localStorage.setItem('collections', this.props.pageProps.collections);
     }
   }
 
