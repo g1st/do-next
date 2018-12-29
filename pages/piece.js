@@ -30,34 +30,10 @@ const styles = {
 };
 
 class Piece extends React.Component {
-  static async getInitialProps({ pathname, req, query }) {
-    if (req) {
-      const { db } = req;
-      const id = req.params.id;
-
-      const data = await db
-        .collection('works')
-        .find()
-        .toArray();
-
-      const onePiece = data.filter(obj => obj._id == id);
-
-      return { data: onePiece, pathname, from: 'server' };
-    }
-
-    const onePiece = await axios
-      .get('/api/single', { params: { id: query.id } })
-      .then(res => {
-        return res.data;
-      });
-    return { data: [onePiece], pathname, from: 'rest api' };
-  }
-
   render() {
-    // const pieceId = this.props.router.query.id;
-    const { classes, width, data } = this.props;
+    const { classes, width, onePieceData } = this.props;
 
-    if (data.length < 1 || data[0] === null) {
+    if (onePieceData.length < 1 || onePieceData[0] === null) {
       return <p>Page doesn't exist</p>;
     }
 
@@ -69,7 +45,7 @@ class Piece extends React.Component {
       _id,
       images,
       available
-    } = this.props.data[0];
+    } = this.props.onePieceData[0];
 
     const dataForCart = {
       name,
@@ -86,7 +62,7 @@ class Piece extends React.Component {
 
     return (
       // to highlight works tab in navbar under any piece is loaded
-      <Layout pathname="/works">
+      <Layout pathname="/works" collections={this.props.collections}>
         <Wrapper>
           <Images>
             <ImageGallery
@@ -140,5 +116,28 @@ class Piece extends React.Component {
     );
   }
 }
+
+Piece.getInitialProps = async ({ pathname, req, query }) => {
+  if (req) {
+    const { db } = req;
+    const id = req.params.id;
+
+    const data = await db
+      .collection('works')
+      .find()
+      .toArray();
+
+    const onePieceData = data.filter(obj => obj._id == id);
+
+    return { onePieceData, pathname };
+  }
+
+  const onePieceData = await axios
+    .get('/api/single', { params: { id: query.id } })
+    .then(res => {
+      return res.data;
+    });
+  return { onePieceData: [onePieceData], pathname };
+};
 
 export default withRouter(withStyles(styles)(withWidth()(Piece)));
