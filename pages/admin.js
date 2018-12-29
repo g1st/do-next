@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-
 import AdminForm from '../components/AdminForm';
 
 const Admin = () => {

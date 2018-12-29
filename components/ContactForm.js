@@ -124,8 +124,8 @@ class ContactForm extends Component {
           />
           <Button
             type="submit"
-            variant="outlined"
             size="medium"
+            variant="contained"
             color="secondary"
             className={classes.button}
           >

@@ -624,7 +624,7 @@ class Checkout extends Component {
 
   render() {
     return (
-      <Layout pathname={false}>
+      <Layout pathname={false} collections={this.props.collections}>
         <StripeProvider stripe={this.state.stripe}>
           <PulledOutElements />
         </StripeProvider>

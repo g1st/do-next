@@ -11,15 +11,9 @@ import {
   Mail
 } from '../styles/Commissions';
 
-const style = {
-  headline: {
-    paddingTop: '20px'
-  }
-};
-
-const Commissions = () => {
+const Commissions = props => {
   return (
-    <Layout pathname={false}>
+    <Layout pathname={false} collections={props.collections}>
       <Wrapper>
         <Figure>
           <Image src="../static/images/cufflinks.jpg" alt="Cufflinks" />
@@ -35,7 +29,9 @@ const Commissions = () => {
             color="secondary"
             variant="h5"
             gutterBottom
-            style={style.headline}
+            style={{
+              paddingTop: '20px'
+            }}
           >
             COMMISSIONS
           </Typography>
