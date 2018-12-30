@@ -21,7 +21,13 @@ const styles = theme => ({
 });
 
 const Gallery = props => {
-  const { classes, width, data } = props;
+  const { classes, width, data, showCollection } = props;
+
+  if (showCollection == 'all') {
+    var filtered = data;
+  } else {
+    filtered = data.filter(item => item.group == showCollection);
+  }
 
   const columns = {
     xs: 1,
@@ -46,7 +52,7 @@ const Gallery = props => {
         cols={columns[width] || 3}
         spacing={spacing[width] || 12}
       >
-        {data.map(item => (
+        {filtered.map(item => (
           <GridListTile key={item._id} cols={1}>
             <ItemCard
               id={item._id}

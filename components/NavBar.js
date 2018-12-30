@@ -104,11 +104,12 @@ class NavBar extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = (e, linkTo) => {
+  handleClose = (e, href, as) => {
     // just actually closing panel
-    if (linkTo != 'backdropClick') {
-      Router.push(linkTo);
+    if (href != 'backdropClick') {
+      Router.push(href, as);
     }
+
     this.setState({ anchorEl: null, value: false });
   };
 
@@ -184,27 +185,25 @@ class NavBar extends React.Component {
                   open={Boolean(anchorEl)}
                   onClose={this.handleClose}
                 >
+                  <MenuItem onClick={e => this.handleClose(e, '/works')}>
+                    SHOW ALL
+                  </MenuItem>
                   {this.props.collections.map(collection => {
                     return (
                       <MenuItem
                         key={collection}
                         onClick={e =>
-                          this.handleClose(e, `/works/${collection}`)
+                          this.handleClose(
+                            e,
+                            `/works?collection=${collection}`,
+                            `/works/${collection}`
+                          )
                         }
                       >
-                        {collection}
+                        {collection.toUpperCase()}
                       </MenuItem>
                     );
                   })}
-                  <MenuItem onClick={e => this.handleClose(e, '/works/golden')}>
-                    Golden
-                  </MenuItem>
-                  <MenuItem onClick={e => this.handleClose(e, '/works/wooden')}>
-                    Wooden
-                  </MenuItem>
-                  <MenuItem onClick={e => this.handleClose(e, '/works/silver')}>
-                    Silver
-                  </MenuItem>
                 </Menu>
                 <IconButton
                   className={classes.iconButton}
