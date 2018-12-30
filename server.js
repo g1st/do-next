@@ -58,6 +58,12 @@ co(function*() {
     app.render(req, res, actualPage, queryParams);
   });
 
+  server.get('/works/:collection', (req, res) => {
+    const actualPage = '/works';
+    const queryParams = { collection: req.params.collection.toLowerCase() };
+    app.render(req, res, actualPage, queryParams);
+  });
+
   // Everything that isn't '/api' gets passed along to Next.js
   server.get('*', (req, res) => {
     return handle(req, res);

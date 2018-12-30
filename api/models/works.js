@@ -22,7 +22,7 @@ const worksSchema = new mongoose.Schema(
     group: {
       type: String,
       required: 'Collection name is required',
-      set: capitalize,
+      set: toLowerCase,
       trim: true
     },
     materials: [{ type: String, trim: true }],
@@ -35,9 +35,9 @@ const worksSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-function capitalize(val) {
+function toLowerCase(val) {
   if (typeof val !== 'string') val = '';
-  return val.charAt(0).toUpperCase() + val.substring(1);
+  return val.toLowerCase();
 }
 
 module.exports = mongoose.model('Work', worksSchema);
