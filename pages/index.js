@@ -12,6 +12,10 @@ const Index = props => (
       <a>checkout</a>
     </Link>
     <br />
+    <Link href="/admin">
+      <a>admin</a>
+    </Link>
+    <br />
     <Link href="/about">
       <a>About</a>
     </Link>
