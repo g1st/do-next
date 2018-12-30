@@ -19,7 +19,7 @@ class MyApp extends App {
     this.pageContext = getPageContext();
   }
 
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx, router }) {
     var pageProps = {};
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
@@ -36,7 +36,7 @@ class MyApp extends App {
         .find()
         .toArray();
       const collections = data.reduce((acc, next) => {
-        acc.push(next.group);
+        if (!acc.includes(next.group)) acc.push(next.group.toLowerCase());
         return acc;
       }, []);
 
@@ -44,7 +44,8 @@ class MyApp extends App {
         ...pageProps,
         data: JSON.stringify(data),
         from: 'server',
-        collections
+        collections,
+        router
       };
 
       return { pageProps };
@@ -56,7 +57,8 @@ class MyApp extends App {
         ...pageProps,
         data: localStorage.getItem('data'),
         collections: localStorage.getItem('collections').split(','),
-        from: 'rest api'
+        from: 'rest api',
+        router
       };
 
       return { pageProps };
@@ -67,7 +69,7 @@ class MyApp extends App {
     });
 
     const collections = works.reduce((acc, next) => {
-      acc.push(next.group);
+      if (!acc.includes(next.group)) acc.push(next.group.toLowerCase());
       return acc;
     }, []);
 
@@ -75,7 +77,8 @@ class MyApp extends App {
       ...pageProps,
       data: JSON.stringify(works),
       from: 'rest api',
-      collections
+      collections,
+      router
     };
 
     return { pageProps };
@@ -90,7 +93,10 @@ class MyApp extends App {
       jssStyles.parentNode.removeChild(jssStyles);
     }
     // Save data to localStorage
-    if (!localStorage.getItem('data')) {
+    if (
+      !localStorage.getItem('data') ||
+      localStorage.getItem('data') != JSON.stringify(this.props.pageProps.data)
+    ) {
       localStorage.setItem('data', this.props.pageProps.data);
       localStorage.setItem('collections', this.props.pageProps.collections);
     }
