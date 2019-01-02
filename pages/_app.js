@@ -68,6 +68,7 @@ class MyApp extends App {
       return res.data;
     });
 
+    // To populate menu for user's created collections(works in frontend)
     const collections = works.reduce((acc, next) => {
       if (!acc.includes(next.group)) acc.push(next.group.toLowerCase());
       return acc;
