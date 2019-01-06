@@ -1,33 +1,31 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
-import axios from 'axios';
 
 import Gallery from '../components/Gallery/Gallery';
+
+const ITEMS_PER_PAGE = 6;
+
 class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: JSON.parse(props.data)
+      data: JSON.parse(props.data),
+      itemsLoaded: ITEMS_PER_PAGE,
+      dataForGallery: JSON.parse(props.data).slice(0, ITEMS_PER_PAGE)
     };
   }
 
-  async loadMore(skip = 12, limit = 6) {
-    // Otherwise, we're rendering on the client and need to use the API
-    const works = await axios
-      .get('/api', { params: { skip, limit } })
-      .then(res => {
-        console.log(res.data);
-        return res.data;
-      });
-
-    this.setState(
-      prevState => ({ data: [...prevState.data, ...works] }),
-      () => console.log(this.state.data)
-    );
+  loadMore() {
+    this.setState(prevState => ({
+      dataForGallery: this.state.data.slice(
+        0,
+        prevState.itemsLoaded + ITEMS_PER_PAGE
+      ),
+      itemsLoaded: prevState.itemsLoaded + ITEMS_PER_PAGE
+    }));
   }
 
   render() {
-    const data = JSON.parse(this.props.data);
     return (
       <Layout
         pathname={this.props.pathname}
@@ -55,16 +53,15 @@ class Index extends React.Component {
         </Link>
         <div>Path: {this.props.pathname}</div>
         <div>From: {this.props.from}</div>
-        <div>Data: {JSON.stringify(this.state.data)}</div>
-        {/* todo: load first 32, then load more button */}
+        {/* <div>Data: {JSON.stringify(this.state.data)}</div> */}
         {this.state.data.length > 0 ? (
-          <Gallery data={this.state.data} showCollection={'all'} />
+          <Gallery data={this.state.dataForGallery} showCollection={'all'} />
         ) : (
           <p>Gallery empty</p>
         )}
-        <button onClick={() => this.loadMore(12)}>
-          Just load rest for now
-        </button>
+        {this.state.data.length > this.state.itemsLoaded ? (
+          <button onClick={() => this.loadMore()}>Load More</button>
+        ) : null}
       </Layout>
     );
   }
