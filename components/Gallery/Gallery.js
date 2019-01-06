@@ -5,6 +5,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ItemCard from '../ItemCard/ItemCard';
+import PropTypes from 'prop-types';
 
 import { ItemsContainer } from '../../styles/Gallery';
 
@@ -65,6 +66,10 @@ const Gallery = props => {
       </GridList>
     </div>
   );
+};
+
+Gallery.propTypes = {
+  data: PropTypes.array
 };
 
 export default withWidth()(withStyles(styles)(Gallery));
