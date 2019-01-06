@@ -26,18 +26,9 @@ module.exports = (db, upload) => {
   router.get(
     '/',
     wrapAsync(async function(req) {
-      const { skip, limit } = req.query;
-      console.log(skip, limit);
-
-      const works = await Works.find(
-        {},
-        {},
-        { skip: Number(skip), limit: Number(limit) },
-        (err, data) => {
-          if (err) return console.error(err);
-        }
-      );
-      console.log(works);
+      const works = await Works.find((err, data) => {
+        if (err) return console.error(err);
+      });
 
       return works;
     })
