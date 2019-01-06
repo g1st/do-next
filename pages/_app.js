@@ -34,7 +34,6 @@ class MyApp extends App {
       const data = await db
         .collection('works')
         .find()
-        .limit(12)
         .toArray();
       const collections = data.reduce((acc, next) => {
         if (!acc.includes(next.group)) acc.push(next.group.toLowerCase());
