@@ -23,9 +23,9 @@ const styles = {
   thumbnailPosition: {
     xs: 'bottom',
     sm: 'bottom',
-    md: 'left',
-    lg: 'left',
-    xl: 'left'
+    md: 'bottom',
+    lg: 'bottom',
+    xl: 'bottom'
   }
 };
 
@@ -68,10 +68,10 @@ class Piece extends React.Component {
             <ImageGallery
               items={gallery}
               lazyLoad={true}
-              showNav={false}
+              showNav={true}
               thumbnailPosition={styles.thumbnailPosition[width]}
               showPlayButton={false}
-              showFullscreenButton={false}
+              showFullscreenButton={true}
             />
           </Images>
           <Info>
