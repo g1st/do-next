@@ -29,6 +29,7 @@ module.exports = (db, upload) => {
       const works = await Works.find((err, data) => {
         if (err) return console.error(err);
       });
+
       return works;
     })
   );
