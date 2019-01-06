@@ -44,14 +44,6 @@ const CartDrawerContent = props => (
                   </Typography>
                 </ItemInfo>
                 <IconButton
-                  onClick={() => cart.addItem(item)}
-                  color="secondary"
-                  aria-label="Increase quantity"
-                >
-                  <AddIcon fontSize="small" />
-                </IconButton>
-                <Typography variant="body2">{item.quantity}</Typography>
-                <IconButton
                   disabled={item.quantity > 1 ? false : true}
                   onClick={() => cart.removeOne(item)}
                   color="secondary"
@@ -59,13 +51,25 @@ const CartDrawerContent = props => (
                 >
                   <RemoveIcon fontSize="small" />
                 </IconButton>
+                <Typography variant="body2">{item.quantity}</Typography>
+                <IconButton
+                  onClick={() => cart.addItem(item)}
+                  color="secondary"
+                  aria-label="Increase quantity"
+                >
+                  <AddIcon fontSize="small" />
+                </IconButton>
                 <IconButton
                   style={{
                     color: 'rgba(0, 0, 0, 0.26)',
                     marginLeft: '4px'
                   }}
                   aria-label="Remove item"
-                  onClick={() => cart.removeItem(item)}
+                  onClick={() =>
+                    window.confirm(
+                      'Are you sure you want to remove this item?'
+                    ) && cart.removeItem(item)
+                  }
                 >
                   <ClearIcon fontSize="small" />
                 </IconButton>

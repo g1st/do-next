@@ -8,10 +8,11 @@ const ITEMS_PER_PAGE = 6;
 class Index extends React.Component {
   constructor(props) {
     super(props);
+    const data = JSON.parse(props.data);
     this.state = {
-      data: JSON.parse(props.data),
+      data,
       itemsLoaded: ITEMS_PER_PAGE,
-      dataForGallery: JSON.parse(props.data).slice(0, ITEMS_PER_PAGE)
+      dataForGallery: data.slice(0, ITEMS_PER_PAGE)
     };
   }
 
