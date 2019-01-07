@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
+import { withStyles } from '@material-ui/core/styles';
 
 import {
   Wrapper,
@@ -24,10 +26,14 @@ import {
 const styles = {
   links: {
     color: 'rgba(0, 0, 0, .54)'
+  },
+  root: {
+    textAlign: 'center'
   }
 };
 
-const Footer = () => {
+const Footer = props => {
+  const { classes } = props;
   return (
     <Wrapper>
       <Divider />
@@ -103,11 +109,15 @@ const Footer = () => {
           </FooterLinks>
         </FlexItem>
       </FlexContainer>
-      <Typography color="textSecondary" style={{ textAlign: 'center' }}>
+      <Typography color="textSecondary" classes={{ root: classes.root }}>
         &copy; {new Date().getFullYear()} Dovile Jewellery
       </Typography>
     </Wrapper>
   );
 };
 
-export default Footer;
+Footer.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Footer);
