@@ -10,13 +10,18 @@ export const Wrapper = styled.div`
 Wrapper.displayName = 'Wrapper';
 
 export const BrandLogo = styled.div`
-  padding-top: 40px;
-
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   @media (min-width: 960px) {
-    padding-top: 0px;
+    height: 340px;
   }
 `;
 BrandLogo.displayName = 'BrandLogo';
+
+export const Logo = styled.img``;
+Logo.displayName = 'Logo';
 
 export const FlexContainer = styled.div`
   @media (min-width: 960px) {
@@ -39,17 +44,16 @@ export const FlexItemDouble = styled.div`
   @media (min-width: 960px) {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
   }
-  /* align-items: center; */
   text-align: center;
-  height: 50%;
 `;
 FlexItemDouble.displayName = 'FlexItemDouble';
 
-export const Facebook = styled.img`
-  /* height: 24px; */
-`;
+export const DoubleItemsWrapper = styled.div``;
+DoubleItemsWrapper.displayName = 'DoubleItemsWrapper';
+
+export const Facebook = styled.img``;
 Facebook.displayName = 'Facebook';
 
 export const Instagram = styled.img``;
@@ -62,16 +66,20 @@ export const Social = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100px;
+  padding-bottom: 20px;
   margin: 0 auto;
-  padding: 40px 0;
 `;
 Social.displayName = 'Social';
 
 export const FooterLinks = styled.ul`
   list-style: none;
   list-style-type: none;
-  padding: 0;
+  padding: 20px 0;
   text-align: center;
+
+  @media (min-width: 960px) {
+    padding: 0;
+  }
 `;
 FooterLinks.displayName = 'FooterLinks';
 
