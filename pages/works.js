@@ -1,9 +1,20 @@
 import Link from 'next/link';
+import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
 
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
 
 const ITEMS_PER_PAGE = 6;
+
+const ButtonContainer = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
+  @media (min-width: 960px) {
+    padding-bottom: 40px;
+    padding-top: 20px;
+  }
+`;
 
 class Works extends React.Component {
   constructor(props) {
@@ -64,7 +75,16 @@ class Works extends React.Component {
         this.state[collection].data.length > this.state[collection].itemsLoaded
       ) {
         loadMoreButton = (
-          <button onClick={() => this.loadMore(collection)}>Load More</button>
+          <ButtonContainer>
+            <Button
+              size="medium"
+              variant="contained"
+              color="secondary"
+              onClick={() => this.loadMore(collection)}
+            >
+              Load More
+            </Button>
+          </ButtonContainer>
         );
       }
     }

@@ -1,9 +1,20 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
+import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
 
 import Gallery from '../components/Gallery/Gallery';
 
 const ITEMS_PER_PAGE = 6;
+
+const ButtonContainer = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
+  @media (min-width: 960px) {
+    padding-bottom: 40px;
+    padding-top: 20px;
+  }
+`;
 
 class Index extends React.Component {
   constructor(props) {
@@ -61,7 +72,16 @@ class Index extends React.Component {
           <p>Gallery empty</p>
         )}
         {this.state.data.length > this.state.itemsLoaded ? (
-          <button onClick={() => this.loadMore()}>Load More</button>
+          <ButtonContainer>
+            <Button
+              size="medium"
+              variant="contained"
+              color="secondary"
+              onClick={() => this.loadMore()}
+            >
+              Load More
+            </Button>
+          </ButtonContainer>
         ) : null}
       </Layout>
     );

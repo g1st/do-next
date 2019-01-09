@@ -1,13 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
+import { withStyles } from '@material-ui/core/styles';
 
 import {
   Wrapper,
   FlexContainer,
   FlexItem,
   FlexItemDouble,
+  DoubleItemsWrapper,
   BrandLogo,
   Social,
   FooterLinks,
@@ -16,56 +19,65 @@ import {
   Facebook,
   Instagram,
   Pinterest,
-  Mail
+  Mail,
+  Logo
 } from '../../styles/Footer';
 
 const styles = {
   links: {
     color: 'rgba(0, 0, 0, .54)'
+  },
+  root: {
+    textAlign: 'center'
   }
 };
 
-const Footer = () => {
+const Footer = props => {
+  const { classes } = props;
   return (
     <Wrapper>
       <Divider />
       <FlexContainer>
         <FlexItem>
           <BrandLogo>
-            {/* <Logo /> */}
-            <div>logo ale</div>
+            <Logo
+              src={'../../static/images/logo.png'}
+              alt="Dovile Jewellery logo"
+            />
           </BrandLogo>
         </FlexItem>
         <FlexItemDouble>
-          <Social>
-            <AnchorLink
-              href="https://www.facebook.com/artdovile/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Facebook src="/static/images/facebook-box.png" />
-            </AnchorLink>
-            <AnchorLink
-              href="https://www.instagram.com/dovilejewellery/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Instagram src="/static/images/instagram.png" />
-            </AnchorLink>
-            <AnchorLink
-              href="https://www.pinterest.com/dovilejewellery/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Pinterest src="/static/images/pinterest-box.png" />
-            </AnchorLink>
-          </Social>
-          <Typography color="textSecondary">
-            Dovile Jewellery, Jewellery Quarter, Birmingham, UK |{' '}
-            <Mail href="mailto:hello@dovilejewellery.com" target="_top">
-              hello@dovilejewellery.com
-            </Mail>
-          </Typography>
+          <DoubleItemsWrapper>
+            <Social>
+              <AnchorLink
+                href="https://www.facebook.com/artdovile/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Facebook src="/static/images/facebook-box.png" />
+              </AnchorLink>
+              <AnchorLink
+                href="https://www.instagram.com/dovilejewellery/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Instagram src="/static/images/instagram.png" />
+              </AnchorLink>
+              <AnchorLink
+                href="https://www.pinterest.com/dovilejewellery/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Pinterest src="/static/images/pinterest-box.png" />
+              </AnchorLink>
+            </Social>
+            <Typography color="textSecondary">
+              Dovile Jewellery, Jewellery Quarter, Birmingham, UK |{' '}
+              <Mail href="mailto:hello@dovilejewellery.com" target="_top">
+                hello@dovilejewellery.com
+              </Mail>
+            </Typography>
+          </DoubleItemsWrapper>
         </FlexItemDouble>
         <FlexItem>
           <FooterLinks>
@@ -97,8 +109,15 @@ const Footer = () => {
           </FooterLinks>
         </FlexItem>
       </FlexContainer>
+      <Typography color="textSecondary" classes={{ root: classes.root }}>
+        &copy; {new Date().getFullYear()} Dovile Jewellery
+      </Typography>
     </Wrapper>
   );
 };
 
-export default Footer;
+Footer.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Footer);
