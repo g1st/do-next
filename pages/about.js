@@ -9,13 +9,10 @@ import Layout from '../components/Layout';
 import {
   AnchorLink,
   AuthorNameText,
-  Education,
-  ProffesionalPosition,
-  UpcomingShows,
-  LatestEvents,
   WhereToFind,
   ShopOnline,
-  Time
+  Table,
+  Row
 } from '../styles/About';
 
 const styles = theme => ({
@@ -46,12 +43,10 @@ class About extends React.Component {
               Born 19/3/1989 in Dusetos, Lithuania
             </Typography>
           </AuthorNameText>
-          <Education>
-            <Typography variant="subtitle1">EDUCATION</Typography>
-          </Education>
-          <table>
+          <Typography variant="subtitle1">EDUCATION</Typography>
+          <Table>
             <tbody>
-              <tr>
+              <Row>
                 <td>
                   <Typography
                     variant="body2"
@@ -66,8 +61,8 @@ class About extends React.Component {
                     Arts, Lithuania
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   <Typography
                     variant="body2"
@@ -81,15 +76,13 @@ class About extends React.Component {
                     Study exchange Escola Massana, Barcelona, Spain
                   </Typography>
                 </td>
-              </tr>
+              </Row>
             </tbody>
-          </table>
-          <ProffesionalPosition>
-            <Typography variant="subtitle1">PROFESSIONAL POSITION</Typography>
-          </ProffesionalPosition>
-          <table>
+          </Table>
+          <Typography variant="subtitle1">PROFESSIONAL POSITION</Typography>
+          <Table>
             <tbody>
-              <tr>
+              <Row>
                 <td>
                   <Typography
                     variant="body2"
@@ -111,8 +104,8 @@ class About extends React.Component {
                     , Birmingham, UK
                   </Typography>{' '}
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   <Typography
                     variant="body2"
@@ -127,16 +120,14 @@ class About extends React.Component {
                     Jewellery tutor, Art Studio Ramios Bites, Vilnius, Lithuania
                   </Typography>
                 </td>
-              </tr>
+              </Row>
             </tbody>
-          </table>
+          </Table>
 
-          <UpcomingShows>
-            <Typography variant="subtitle1">UPCOMING SHOWS</Typography>
-          </UpcomingShows>
-          <table>
+          <Typography variant="subtitle1">UPCOMING SHOWS</Typography>
+          <Table>
             <tbody>
-              <tr>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -151,17 +142,15 @@ class About extends React.Component {
                     DAZZLE@DOVECOT, Edinburgh, UK
                   </Typography>
                 </td>
-              </tr>
+              </Row>
             </tbody>
-          </table>
+          </Table>
 
-          <LatestEvents>
-            <Typography variant="subtitle1">LATEST EVENTS</Typography>
-          </LatestEvents>
+          <Typography variant="subtitle1">LATEST EVENTS</Typography>
 
-          <table>
+          <Table>
             <tbody>
-              <tr>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -176,8 +165,8 @@ class About extends React.Component {
                     THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -193,8 +182,8 @@ class About extends React.Component {
                     Vilnius, Lithuania
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -210,8 +199,8 @@ class About extends React.Component {
                     Ruthin Craft Centre, Ruthin, Wales, UK
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -227,8 +216,8 @@ class About extends React.Component {
                     Wharf, London, UK
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -243,8 +232,8 @@ class About extends React.Component {
                     DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -259,8 +248,8 @@ class About extends React.Component {
                     MADE BY HAND CARDIFF, contemporary craft fair, Cardiff, UK
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -275,8 +264,8 @@ class About extends React.Component {
                     LUMINATES, group exhibition, Mint Shop, London, UK
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -292,8 +281,8 @@ class About extends React.Component {
                     UK
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -308,8 +297,8 @@ class About extends React.Component {
                     THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -325,8 +314,8 @@ class About extends React.Component {
                     Vilnius, Lithuania.
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -343,8 +332,8 @@ class About extends React.Component {
                     Museum. Wroclav, Poland.
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -359,8 +348,8 @@ class About extends React.Component {
                     THE EYE/HOME, group exhibition, Magan gallery, London, UK
                   </Typography>
                 </td>
-              </tr>
-              <tr>
+              </Row>
+              <Row>
                 <td>
                   {' '}
                   <Typography
@@ -376,9 +365,9 @@ class About extends React.Component {
                     Lithuania
                   </Typography>
                 </td>
-              </tr>
+              </Row>
             </tbody>
-          </table>
+          </Table>
 
           <WhereToFind>
             <Typography variant="subtitle1">
