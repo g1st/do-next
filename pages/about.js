@@ -14,6 +14,7 @@ import {
   UpcomingShows,
   LatestEvents,
   WhereToFind,
+  ShopOnline,
   Time
 } from '../styles/About';
 
@@ -21,6 +22,12 @@ const styles = theme => ({
   root: {
     textAlign: 'center',
     paddingTop: theme.spacing.unit * 20
+  },
+  body2: {
+    whiteSpace: 'nowrap'
+  },
+  tbody: {
+    verticalAlign: 'top'
   }
 });
 
@@ -35,124 +42,344 @@ class About extends React.Component {
         <div>
           <AuthorNameText>
             <Typography variant="h5">Dovile Kondrasovaite</Typography>
-            <Typography
-              variant="body2"
-              classes={{ subtitle1: classes.subtitle1 }}
-            >
+            <Typography variant="body2">
               Born 19/3/1989 in Dusetos, Lithuania
             </Typography>
           </AuthorNameText>
           <Education>
-            <Typography
-              variant="subtitle1"
-              classes={{ subtitle1: classes.subtitle1 }}
-            >
-              EDUCATION
-            </Typography>
+            <Typography variant="subtitle1">EDUCATION</Typography>
           </Education>
           <table>
-            <tr>
-              <td>
-                <Typography variant="body2">
-                  <Time>2008-2012</Time>
-                </Typography>
-              </td>
-              <td>
-                <Typography variant="body2">
-                  BA degree in jewellery and smithery, Vilnius Academy of Arts,
-                  Lithuania
-                </Typography>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Typography variant="body2">
-                  <Time>2011</Time>
-                </Typography>
-              </td>
-              <td>
-                <Typography variant="body2">
-                  Study exchange Escola Massana, Barcelona, Spain
-                </Typography>
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2008-2012
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    BA degree in jewellery and smithery, Vilnius Academy of
+                    Arts, Lithuania
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2011
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    Study exchange Escola Massana, Barcelona, Spain
+                  </Typography>
+                </td>
+              </tr>
+            </tbody>
           </table>
           <ProffesionalPosition>
             <Typography variant="subtitle1">PROFESSIONAL POSITION</Typography>
-            <Typography variant="body2">
-              2016-CURRENT, Jewellery tutor,{' '}
-              <AnchorLink
-                href="http://www.thequarterworkshop.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                The Quarterworkshop
-              </AnchorLink>
-              , Birmingham, UK
-            </Typography>
-            <Typography variant="body2">
-              2013-2015, Jewellery tutor, Art Studio Ramios Bites, Vilnius,
-              Lithuania
-            </Typography>
           </ProffesionalPosition>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2016-current
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    Jewellery tutor,{' '}
+                    <AnchorLink
+                      href="http://www.thequarterworkshop.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      The Quarterworkshop
+                    </AnchorLink>
+                    , Birmingham, UK
+                  </Typography>{' '}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2013-2015
+                  </Typography>
+                </td>
+                <td>
+                  {' '}
+                  <Typography variant="body2">
+                    Jewellery tutor, Art Studio Ramios Bites, Vilnius, Lithuania
+                  </Typography>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
           <UpcomingShows>
             <Typography variant="subtitle1">UPCOMING SHOWS</Typography>
-            <Typography variant="body2">
-              3-27 August DAZZLE@DOVECOT, Edinburgh, UK
-            </Typography>
           </UpcomingShows>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    3-27 Aug
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    DAZZLE@DOVECOT, Edinburgh, UK
+                  </Typography>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
           <LatestEvents>
             <Typography variant="subtitle1">LATEST EVENTS</Typography>
-            <Typography variant="body2">
-              2018 Jun THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
-            </Typography>
-            <Typography variant="body2">
-              2018 Mar AMBER TRIP, XV International Baltic Jewellery show,
-              Litexpo, Vilnius, Lithuania
-            </Typography>
-            <Typography variant="body2">
-              2017 Nov MAKING IT NOW, group exhibition curated by Gregory
-              Parsons, Ruthin Craft Centre, Ruthin, Wales, UK
-            </Typography>
-            <Typography variant="body2">
-              2017 Nov PRESENT, group exhibition, Studio Fusion Gallery, Oxo
-              Tower Wharf, London, UK
-            </Typography>
-            <Typography variant="body2">
-              2017 Nov DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London,
-              UK
-            </Typography>
-            <Typography variant="body2">
-              2017 Nov MADE BY HAND CARDIFF, contemporary craft fair, Cardiff,
-              UK
-            </Typography>
-            <Typography variant="body2">
-              2017 Sep LUMINATES, group exhibition, Mint Shop, London, UK
-            </Typography>
-            <Typography variant="body2">
-              2017 Jul NEW DESIGNERS, ONE YEAR ON, Business Design Centre,
-              London, UK
-            </Typography>
-            <Typography variant="body2">
-              2017 Jun THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
-            </Typography>
-            <Typography variant="body2">
-              2017 Mar AMBER TRIP, Art Jewellery Competition show & jewellery
-              show Vilnius, Lithuania.
-            </Typography>
-            <Typography variant="body2">
-              2017 Jan NATURE MORTE: Contemporary artists reinvigorate the
-              Still-Life tradition, group exhibition, Wroclaw National Museum.
-              Wroclav, Poland.
-            </Typography>
-            <Typography variant="body2">
-              2016 Jan THE EYE/HOME, group exhibition, Magan gallery, London, UK
-            </Typography>
-            <Typography variant="body2">
-              2015 Sep THE EYE, Contemporary Jewellery Symposium, Telsiai,
-              Lithuania
-            </Typography>
           </LatestEvents>
+
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2018 Jun
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2018 Mar
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
+                    Vilnius, Lithuania
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2017 Nov
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    MAKING IT NOW, group exhibition curated by Gregory Parsons,
+                    Ruthin Craft Centre, Ruthin, Wales, UK
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2017 Nov
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    PRESENT, group exhibition, Studio Fusion Gallery, Oxo Tower
+                    Wharf, London, UK
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2017 Nov
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2017 Nov
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    MADE BY HAND CARDIFF, contemporary craft fair, Cardiff, UK
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2017 Sep
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    LUMINATES, group exhibition, Mint Shop, London, UK
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2017 Jul
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    NEW DESIGNERS, ONE YEAR ON, Business Design Centre, London,
+                    UK
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2017 Jun
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2017 Mar
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    AMBER TRIP, Art Jewellery Competition show & jewellery show
+                    Vilnius, Lithuania.
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2017 Jan
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    NATURE MORTE: Contemporary artists reinvigorate the
+                    Still-Life tradition, group exhibition, Wroclaw National
+                    Museum. Wroclav, Poland.
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2016 Jan
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    THE EYE/HOME, group exhibition, Magan gallery, London, UK
+                  </Typography>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {' '}
+                  <Typography
+                    variant="body2"
+                    classes={{ body2: classes.body2 }}
+                  >
+                    2015 Sep
+                  </Typography>
+                </td>
+                <td>
+                  <Typography variant="body2">
+                    THE EYE, Contemporary Jewellery Symposium, Telsiai,
+                    Lithuania
+                  </Typography>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
           <WhereToFind>
             <Typography variant="subtitle1">
               WHERE TO FIND DOVILE JEWELLERY ​
@@ -182,6 +409,14 @@ class About extends React.Component {
               , Vilnius
             </Typography>
           </WhereToFind>
+          <ShopOnline>
+            <Typography variant="subtitle1">SHOP ONLINE</Typography>
+            <Typography variant="body2">
+              <AnchorLink href="https://miutto.com/collections/dovile-jewellery">
+                miutto
+              </AnchorLink>
+            </Typography>
+          </ShopOnline>
         </div>
       </Layout>
     );
