@@ -47,8 +47,9 @@ export const WhereToFind = styled.div`
 `;
 WhereToFind.displayName = 'WhereToFind';
 
-export const Time = styled.span`
-  /* background-color: orangered; */
-  white-space: nowrap;
+export const ShopOnline = styled.div`
+  & p:last-child {
+    margin-bottom: 20px;
+  }
 `;
-Time.displayName = 'Time';
+ShopOnline.displayName = 'ShopOnline';
