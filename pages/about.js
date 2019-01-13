@@ -15,7 +15,8 @@ import {
   WhereToFind,
   ShopOnline,
   Table,
-  Row
+  Row,
+  Data
 } from '../styles/About';
 
 const options = {
@@ -63,35 +64,35 @@ class About extends React.Component {
           <Table>
             <tbody>
               <Row>
-                <td>
+                <Data>
                   <Typography
                     variant="body2"
                     classes={{ body2: classes.body2 }}
                   >
                     2008-2012
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     BA degree in jewellery and smithery, Vilnius Academy of
                     Arts, Lithuania
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   <Typography
                     variant="body2"
                     classes={{ body2: classes.body2 }}
                   >
                     2011
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     Study exchange Escola Massana, Barcelona, Spain
                   </Typography>
-                </td>
+                </Data>
               </Row>
             </tbody>
           </Table>
@@ -99,15 +100,15 @@ class About extends React.Component {
           <Table>
             <tbody>
               <Row>
-                <td>
+                <Data>
                   <Typography
                     variant="body2"
                     classes={{ body2: classes.body2 }}
                   >
                     2016-current
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     Jewellery tutor,{' '}
                     <AnchorLink
@@ -119,23 +120,23 @@ class About extends React.Component {
                     </AnchorLink>
                     , Birmingham, UK
                   </Typography>{' '}
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   <Typography
                     variant="body2"
                     classes={{ body2: classes.body2 }}
                   >
                     2013-2015
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   {' '}
                   <Typography variant="body2">
                     Jewellery tutor, Art Studio Ramios Bites, Vilnius, Lithuania
                   </Typography>
-                </td>
+                </Data>
               </Row>
             </tbody>
           </Table>
@@ -144,7 +145,7 @@ class About extends React.Component {
           <Table>
             <tbody>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -152,12 +153,18 @@ class About extends React.Component {
                   >
                     3-27 Aug
                   </Typography>
-                </td>
-                <td>
-                  <Typography variant="body2">
-                    DAZZLE@DOVECOT, Edinburgh, UK
-                  </Typography>
-                </td>
+                </Data>
+                <Data>
+                  <AnchorLink
+                    href="http://www.dazzle-exhibitions.co.uk/Exhibitions/Exhibition.aspx?pageid=1674"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Typography variant="body2">
+                      DAZZLE@DOVECOT, Edinburgh, UK
+                    </Typography>
+                  </AnchorLink>
+                </Data>
               </Row>
             </tbody>
           </Table>
@@ -165,7 +172,7 @@ class About extends React.Component {
           <Table>
             <tbody>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -173,15 +180,15 @@ class About extends React.Component {
                   >
                     2018 Jun
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -189,16 +196,16 @@ class About extends React.Component {
                   >
                     2018 Mar
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
                     Vilnius, Lithuania
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -206,16 +213,16 @@ class About extends React.Component {
                   >
                     2017 Nov
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     MAKING IT NOW, group exhibition curated by Gregory Parsons,
                     Ruthin Craft Centre, Ruthin, Wales, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -223,16 +230,16 @@ class About extends React.Component {
                   >
                     2017 Nov
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     PRESENT, group exhibition, Studio Fusion Gallery, Oxo Tower
                     Wharf, London, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -240,15 +247,15 @@ class About extends React.Component {
                   >
                     2017 Nov
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -256,15 +263,15 @@ class About extends React.Component {
                   >
                     2017 Nov
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     MADE BY HAND CARDIFF, contemporary craft fair, Cardiff, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -272,15 +279,15 @@ class About extends React.Component {
                   >
                     2017 Sep
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     LUMINATES, group exhibition, Mint Shop, London, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -288,16 +295,16 @@ class About extends React.Component {
                   >
                     2017 Jul
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     NEW DESIGNERS, ONE YEAR ON, Business Design Centre, London,
                     UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -305,15 +312,15 @@ class About extends React.Component {
                   >
                     2017 Jun
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -321,16 +328,16 @@ class About extends React.Component {
                   >
                     2017 Mar
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     AMBER TRIP, Art Jewellery Competition show & jewellery show
                     Vilnius, Lithuania.
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -338,17 +345,17 @@ class About extends React.Component {
                   >
                     2017 Jan
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     NATURE MORTE: Contemporary artists reinvigorate the
                     Still-Life tradition, group exhibition, Wroclaw National
                     Museum. Wroclav, Poland.
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -356,15 +363,15 @@ class About extends React.Component {
                   >
                     2016 Jan
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     THE EYE/HOME, group exhibition, Magan gallery, London, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -372,13 +379,13 @@ class About extends React.Component {
                   >
                     2015 Sep
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     THE EYE, Contemporary Jewellery Symposium, Telsiai,
                     Lithuania
                   </Typography>
-                </td>
+                </Data>
               </Row>
             </tbody>
           </Table>
@@ -388,26 +395,42 @@ class About extends React.Component {
               WHERE TO FIND DOVILE JEWELLERY ​
             </Typography>
             <Typography variant="body2">
-              <AnchorLink href="https://studiofusiongallery.co.uk/">
-                STUDIO FUSION GALLERY
+              <AnchorLink
+                href="https://studiofusiongallery.co.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Studio Fusion Gallery
               </AnchorLink>
               , London
             </Typography>
             <Typography variant="body2">
-              <AnchorLink href="https://www.artisan-alchemy.co.uk/">
-                ARTISAN ALCHEMY GALLERY
+              <AnchorLink
+                href="https://www.artisan-alchemy.co.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Artisan Alchemy Gallery
               </AnchorLink>
               , Birmingham
             </Typography>
             <Typography variant="body2">
-              <AnchorLink href="http://www.vda.lt/lt/galerija-argentum/apie-galerija">
-                ARGENTUM GALLERY
+              <AnchorLink
+                href="http://www.vda.lt/lt/galerija-argentum/apie-galerija"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Argentum Gallery
               </AnchorLink>
               , Vilnius
             </Typography>
             <Typography variant="body2">
-              <AnchorLink href="https://www.facebook.com/theplaces17/">
-                THE PLACE
+              <AnchorLink
+                href="https://www.facebook.com/theplaces17/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The Place
               </AnchorLink>
               , Vilnius
             </Typography>
@@ -415,7 +438,11 @@ class About extends React.Component {
           <ShopOnline>
             <Typography variant="subtitle1">SHOP ONLINE</Typography>
             <Typography variant="body2">
-              <AnchorLink href="https://miutto.com/collections/dovile-jewellery">
+              <AnchorLink
+                href="https://miutto.com/collections/dovile-jewellery"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 miutto
               </AnchorLink>
             </Typography>

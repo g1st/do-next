@@ -33,3 +33,8 @@ export const Row = styled.tr`
   }
 `;
 Row.displayName = 'Row';
+
+export const Data = styled.td`
+  max-width: 600px;
+`;
+Data.displayName = 'Data';
