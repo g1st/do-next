@@ -4,7 +4,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
+import { buildUrl } from 'instafeed-lite';
+import axios from 'axios';
 
+import InstagramGallery from '../components/Gallery/InstagramGallery';
 import Layout from '../components/Layout';
 import {
   AnchorLink,
@@ -14,6 +17,18 @@ import {
   Table,
   Row
 } from '../styles/About';
+
+const options = {
+  accessToken: '1759380932.1677ed0.eb657c77753b4871aee13b962fe9b3b9',
+  clientId: '30dea650b15e4a8b821fe1db7ce9cc54',
+  get: 'user', // popular, user
+  locationId: null,
+  resolution: 'low_resolution', // thumbnail, low_resolution, standard_resolution
+  sortBy: 'most-recent', // none, least-commented, least-liked, least-recent, most-commented, most-liked, most-recent, random
+  tagName: null,
+  userId: 1759380932
+};
+const instagramUrl = buildUrl(options);
 
 const styles = theme => ({
   root: {
@@ -30,7 +45,8 @@ const styles = theme => ({
 
 class About extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, instagram } = this.props;
+
     return (
       <Layout
         pathname={this.props.pathname}
@@ -145,9 +161,7 @@ class About extends React.Component {
               </Row>
             </tbody>
           </Table>
-
           <Typography variant="subtitle1">LATEST EVENTS</Typography>
-
           <Table>
             <tbody>
               <Row>
@@ -407,6 +421,12 @@ class About extends React.Component {
             </Typography>
           </ShopOnline>
         </div>
+        {instagram && (
+          <InstagramGallery
+            data={instagram.data}
+            imageSize={options.resolution}
+          />
+        )}
       </Layout>
     );
   }
@@ -417,7 +437,11 @@ About.propTypes = {
 };
 
 About.getInitialProps = async ({ pathname }) => {
-  return { pathname };
+  const instagram = await axios
+    .get(instagramUrl)
+    .then(res => res.data)
+    .catch(err => console.log(err));
+  return { pathname, instagram };
 };
 
 export default withStyles(styles)(About);
