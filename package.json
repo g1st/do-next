@@ -20,6 +20,7 @@
     "co": "^4.6.0",
     "dotenv": "^6.1.0",
     "express": "^4.16.3",
+    "instafeed-lite": "^1.0.10",
     "jss": "^9.8.7",
     "mongoose": "^5.3.6",
     "multer": "^1.4.1",
