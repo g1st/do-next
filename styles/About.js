@@ -6,6 +6,7 @@ export const AnchorLink = styled.a`
 AnchorLink.displayName = 'AnchorLink';
 
 export const AuthorNameText = styled.div`
+  margin-top: 40px;
   margin-bottom: 20px;
 `;
 AuthorNameText.displayName = 'AuthorNameText';
@@ -33,3 +34,14 @@ export const Row = styled.tr`
   }
 `;
 Row.displayName = 'Row';
+
+export const Data = styled.td`
+  max-width: 600px;
+`;
+Data.displayName = 'Data';
+
+export const ImageGalleryWrapper = styled.div`
+  max-width: 760px;
+  margin: 0 auto;
+`;
+ImageGalleryWrapper.displayName = 'ImageGalleryWrapper';

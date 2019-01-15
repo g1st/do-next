@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Link from 'next/link';
+import withWidth from '@material-ui/core/withWidth';
 import { buildUrl } from 'instafeed-lite';
 import axios from 'axios';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 import InstagramGallery from '../components/Gallery/InstagramGallery';
 import Layout from '../components/Layout';
@@ -15,7 +16,9 @@ import {
   WhereToFind,
   ShopOnline,
   Table,
-  Row
+  Row,
+  Data,
+  ImageGalleryWrapper
 } from '../styles/About';
 
 const options = {
@@ -44,7 +47,100 @@ const styles = theme => ({
 });
 
 class About extends React.Component {
+  _renderItem = item => {
+    const onImageError = this.props.onImageError || this._handleImageError;
+
+    return (
+      <div className="image-gallery-image">
+        {item.imageSet ? (
+          <picture onLoad={this.props.onImageLoad} onError={onImageError}>
+            {item.imageSet.map((source, index) => (
+              <source
+                key={index}
+                media={source.media}
+                srcSet={source.srcSet}
+                type={source.type}
+              />
+            ))}
+            <img alt={item.originalAlt} src={item.original} />
+          </picture>
+        ) : (
+          <img
+            src={item.original}
+            alt={item.originalAlt}
+            srcSet={item.srcSet}
+            sizes={item.sizes}
+            title={item.originalTitle}
+            onLoad={this.props.onImageLoad}
+            onError={onImageError}
+          />
+        )}
+
+        {item.description && (
+          <div
+            className="image-gallery-description"
+            style={{ right: '0', left: 'initial' }}
+          >
+            {this.props.width == 'xs' ? (
+              <div>
+                <Typography variant="h6" color="primary" align="right">
+                  {item.description.split('|')[0]}
+                </Typography>
+                <Typography variant="body2" color="primary" align="right">
+                  {item.description.split('|')[1]}
+                </Typography>
+              </div>
+            ) : (
+              <div>
+                <Typography variant="h3" color="primary" align="right">
+                  {item.description.split('|')[0]}
+                </Typography>
+                <Typography variant="subtitle1" color="primary" align="right">
+                  {item.description.split('|')[1]}
+                </Typography>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   render() {
+    const gallery = [
+      {
+        original: `/static/images/dove.jpg`,
+        originalAlt: "Dovile's Portrait",
+        originalTitle: 'Image Title',
+        renderItem: this._renderItem
+      },
+      {
+        originalAlt: 'Dovile Jewellery Studio',
+        originalTitle: 'the studio',
+        // pipe [ '|' ] separates heading from body
+        description:
+          'the studio | is that special place where my time flies much faster than anywhere else.',
+        original: `/static/images/dove.jpg`,
+        renderItem: this._renderItem
+      },
+      {
+        originalAlt: 'Works',
+        originalTitle: 'the pieces',
+        original: `/static/images/dove.jpg`,
+        description:
+          'the pieces | are all one of a kind made with lots of patience, accuracy and passion.',
+        renderItem: this._renderItem
+      },
+      {
+        originalAlt: 'Works',
+        originalTitle: 'the pieces',
+        original: `/static/images/dove.jpg`,
+        description:
+          'the pieces | are all one of a kind made with lots of patience, accuracy and passion.',
+        renderItem: this._renderItem
+      }
+    ];
+
     const { classes, instagram } = this.props;
 
     return (
@@ -52,6 +148,19 @@ class About extends React.Component {
         pathname={this.props.pathname}
         collections={this.props.collections}
       >
+        <ImageGalleryWrapper>
+          <ImageGallery
+            items={gallery}
+            showNav={false}
+            showPlayButton={true}
+            showFullscreenButton={false}
+            showThumbnails={false}
+            autoPlay={true}
+            slideInterval={4000}
+            showBullets={true}
+          />
+        </ImageGalleryWrapper>
+
         <div>
           <AuthorNameText>
             <Typography variant="h5">Dovile Kondrasovaite</Typography>
@@ -63,35 +172,35 @@ class About extends React.Component {
           <Table>
             <tbody>
               <Row>
-                <td>
+                <Data>
                   <Typography
                     variant="body2"
                     classes={{ body2: classes.body2 }}
                   >
                     2008-2012
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     BA degree in jewellery and smithery, Vilnius Academy of
                     Arts, Lithuania
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   <Typography
                     variant="body2"
                     classes={{ body2: classes.body2 }}
                   >
                     2011
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     Study exchange Escola Massana, Barcelona, Spain
                   </Typography>
-                </td>
+                </Data>
               </Row>
             </tbody>
           </Table>
@@ -99,15 +208,15 @@ class About extends React.Component {
           <Table>
             <tbody>
               <Row>
-                <td>
+                <Data>
                   <Typography
                     variant="body2"
                     classes={{ body2: classes.body2 }}
                   >
                     2016-current
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     Jewellery tutor,{' '}
                     <AnchorLink
@@ -119,23 +228,23 @@ class About extends React.Component {
                     </AnchorLink>
                     , Birmingham, UK
                   </Typography>{' '}
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   <Typography
                     variant="body2"
                     classes={{ body2: classes.body2 }}
                   >
                     2013-2015
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   {' '}
                   <Typography variant="body2">
                     Jewellery tutor, Art Studio Ramios Bites, Vilnius, Lithuania
                   </Typography>
-                </td>
+                </Data>
               </Row>
             </tbody>
           </Table>
@@ -144,7 +253,7 @@ class About extends React.Component {
           <Table>
             <tbody>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -152,12 +261,18 @@ class About extends React.Component {
                   >
                     3-27 Aug
                   </Typography>
-                </td>
-                <td>
-                  <Typography variant="body2">
-                    DAZZLE@DOVECOT, Edinburgh, UK
-                  </Typography>
-                </td>
+                </Data>
+                <Data>
+                  <AnchorLink
+                    href="http://www.dazzle-exhibitions.co.uk/Exhibitions/Exhibition.aspx?pageid=1674"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Typography variant="body2">
+                      DAZZLE@DOVECOT, Edinburgh, UK
+                    </Typography>
+                  </AnchorLink>
+                </Data>
               </Row>
             </tbody>
           </Table>
@@ -165,7 +280,7 @@ class About extends React.Component {
           <Table>
             <tbody>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -173,15 +288,15 @@ class About extends React.Component {
                   >
                     2018 Jun
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -189,16 +304,16 @@ class About extends React.Component {
                   >
                     2018 Mar
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
                     Vilnius, Lithuania
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -206,16 +321,16 @@ class About extends React.Component {
                   >
                     2017 Nov
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     MAKING IT NOW, group exhibition curated by Gregory Parsons,
                     Ruthin Craft Centre, Ruthin, Wales, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -223,16 +338,16 @@ class About extends React.Component {
                   >
                     2017 Nov
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     PRESENT, group exhibition, Studio Fusion Gallery, Oxo Tower
                     Wharf, London, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -240,15 +355,15 @@ class About extends React.Component {
                   >
                     2017 Nov
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -256,15 +371,15 @@ class About extends React.Component {
                   >
                     2017 Nov
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     MADE BY HAND CARDIFF, contemporary craft fair, Cardiff, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -272,15 +387,15 @@ class About extends React.Component {
                   >
                     2017 Sep
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     LUMINATES, group exhibition, Mint Shop, London, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -288,16 +403,16 @@ class About extends React.Component {
                   >
                     2017 Jul
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     NEW DESIGNERS, ONE YEAR ON, Business Design Centre, London,
                     UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -305,15 +420,15 @@ class About extends React.Component {
                   >
                     2017 Jun
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -321,16 +436,16 @@ class About extends React.Component {
                   >
                     2017 Mar
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     AMBER TRIP, Art Jewellery Competition show & jewellery show
                     Vilnius, Lithuania.
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -338,17 +453,17 @@ class About extends React.Component {
                   >
                     2017 Jan
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     NATURE MORTE: Contemporary artists reinvigorate the
                     Still-Life tradition, group exhibition, Wroclaw National
                     Museum. Wroclav, Poland.
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -356,15 +471,15 @@ class About extends React.Component {
                   >
                     2016 Jan
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     THE EYE/HOME, group exhibition, Magan gallery, London, UK
                   </Typography>
-                </td>
+                </Data>
               </Row>
               <Row>
-                <td>
+                <Data>
                   {' '}
                   <Typography
                     variant="body2"
@@ -372,13 +487,13 @@ class About extends React.Component {
                   >
                     2015 Sep
                   </Typography>
-                </td>
-                <td>
+                </Data>
+                <Data>
                   <Typography variant="body2">
                     THE EYE, Contemporary Jewellery Symposium, Telsiai,
                     Lithuania
                   </Typography>
-                </td>
+                </Data>
               </Row>
             </tbody>
           </Table>
@@ -388,26 +503,42 @@ class About extends React.Component {
               WHERE TO FIND DOVILE JEWELLERY ​
             </Typography>
             <Typography variant="body2">
-              <AnchorLink href="https://studiofusiongallery.co.uk/">
-                STUDIO FUSION GALLERY
+              <AnchorLink
+                href="https://studiofusiongallery.co.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Studio Fusion Gallery
               </AnchorLink>
               , London
             </Typography>
             <Typography variant="body2">
-              <AnchorLink href="https://www.artisan-alchemy.co.uk/">
-                ARTISAN ALCHEMY GALLERY
+              <AnchorLink
+                href="https://www.artisan-alchemy.co.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Artisan Alchemy Gallery
               </AnchorLink>
               , Birmingham
             </Typography>
             <Typography variant="body2">
-              <AnchorLink href="http://www.vda.lt/lt/galerija-argentum/apie-galerija">
-                ARGENTUM GALLERY
+              <AnchorLink
+                href="http://www.vda.lt/lt/galerija-argentum/apie-galerija"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Argentum Gallery
               </AnchorLink>
               , Vilnius
             </Typography>
             <Typography variant="body2">
-              <AnchorLink href="https://www.facebook.com/theplaces17/">
-                THE PLACE
+              <AnchorLink
+                href="https://www.facebook.com/theplaces17/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The Place
               </AnchorLink>
               , Vilnius
             </Typography>
@@ -415,7 +546,11 @@ class About extends React.Component {
           <ShopOnline>
             <Typography variant="subtitle1">SHOP ONLINE</Typography>
             <Typography variant="body2">
-              <AnchorLink href="https://miutto.com/collections/dovile-jewellery">
+              <AnchorLink
+                href="https://miutto.com/collections/dovile-jewellery"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 miutto
               </AnchorLink>
             </Typography>
@@ -444,4 +579,4 @@ About.getInitialProps = async ({ pathname }) => {
   return { pathname, instagram };
 };
 
-export default withStyles(styles)(About);
+export default withStyles(styles)(withWidth()(About));
