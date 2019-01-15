@@ -73,11 +73,18 @@ export const Wrapper = styled.div`
 Wrapper.displayName = 'Wrapper';
 
 export const ShippmentForm = styled.div`
-  flex: 1;
+  flex: 2;
 `;
 ShippmentForm.displayName = 'ShippmentForm';
 
 export const Cart = styled.div`
   flex: 1;
+  order: 2;
 `;
 Cart.displayName = 'Cart';
+
+export const FormWrapper = styled.div`
+  /* max-width: 630px; */
+  margin: 0 auto;
+`;
+FormWrapper.displayName = 'FormWrapper';
