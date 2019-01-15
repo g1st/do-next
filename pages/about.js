@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Link from 'next/link';
+import withWidth from '@material-ui/core/withWidth';
 import { buildUrl } from 'instafeed-lite';
 import axios from 'axios';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 import InstagramGallery from '../components/Gallery/InstagramGallery';
 import Layout from '../components/Layout';
@@ -16,7 +17,8 @@ import {
   ShopOnline,
   Table,
   Row,
-  Data
+  Data,
+  ImageGalleryWrapper
 } from '../styles/About';
 
 const options = {
@@ -45,7 +47,100 @@ const styles = theme => ({
 });
 
 class About extends React.Component {
+  _renderItem = item => {
+    const onImageError = this.props.onImageError || this._handleImageError;
+
+    return (
+      <div className="image-gallery-image">
+        {item.imageSet ? (
+          <picture onLoad={this.props.onImageLoad} onError={onImageError}>
+            {item.imageSet.map((source, index) => (
+              <source
+                key={index}
+                media={source.media}
+                srcSet={source.srcSet}
+                type={source.type}
+              />
+            ))}
+            <img alt={item.originalAlt} src={item.original} />
+          </picture>
+        ) : (
+          <img
+            src={item.original}
+            alt={item.originalAlt}
+            srcSet={item.srcSet}
+            sizes={item.sizes}
+            title={item.originalTitle}
+            onLoad={this.props.onImageLoad}
+            onError={onImageError}
+          />
+        )}
+
+        {item.description && (
+          <div
+            className="image-gallery-description"
+            style={{ right: '0', left: 'initial' }}
+          >
+            {this.props.width == 'xs' ? (
+              <div>
+                <Typography variant="h6" color="primary" align="right">
+                  {item.description.split('|')[0]}
+                </Typography>
+                <Typography variant="body2" color="primary" align="right">
+                  {item.description.split('|')[1]}
+                </Typography>
+              </div>
+            ) : (
+              <div>
+                <Typography variant="h3" color="primary" align="right">
+                  {item.description.split('|')[0]}
+                </Typography>
+                <Typography variant="subtitle1" color="primary" align="right">
+                  {item.description.split('|')[1]}
+                </Typography>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   render() {
+    const gallery = [
+      {
+        original: `/static/images/dove.jpg`,
+        originalAlt: "Dovile's Portrait",
+        originalTitle: 'Image Title',
+        renderItem: this._renderItem
+      },
+      {
+        originalAlt: 'Dovile Jewellery Studio',
+        originalTitle: 'the studio',
+        // pipe [ '|' ] separates heading from body
+        description:
+          'the studio | is that special place where my time flies much faster than anywhere else.',
+        original: `/static/images/dove.jpg`,
+        renderItem: this._renderItem
+      },
+      {
+        originalAlt: 'Works',
+        originalTitle: 'the pieces',
+        original: `/static/images/dove.jpg`,
+        description:
+          'the pieces | are all one of a kind made with lots of patience, accuracy and passion.',
+        renderItem: this._renderItem
+      },
+      {
+        originalAlt: 'Works',
+        originalTitle: 'the pieces',
+        original: `/static/images/dove.jpg`,
+        description:
+          'the pieces | are all one of a kind made with lots of patience, accuracy and passion.',
+        renderItem: this._renderItem
+      }
+    ];
+
     const { classes, instagram } = this.props;
 
     return (
@@ -53,6 +148,19 @@ class About extends React.Component {
         pathname={this.props.pathname}
         collections={this.props.collections}
       >
+        <ImageGalleryWrapper>
+          <ImageGallery
+            items={gallery}
+            showNav={false}
+            showPlayButton={true}
+            showFullscreenButton={false}
+            showThumbnails={false}
+            autoPlay={true}
+            slideInterval={4000}
+            showBullets={true}
+          />
+        </ImageGalleryWrapper>
+
         <div>
           <AuthorNameText>
             <Typography variant="h5">Dovile Kondrasovaite</Typography>
@@ -471,4 +579,4 @@ About.getInitialProps = async ({ pathname }) => {
   return { pathname, instagram };
 };
 
-export default withStyles(styles)(About);
+export default withStyles(styles)(withWidth()(About));
