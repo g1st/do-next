@@ -134,4 +134,4 @@ const CartDrawerContent = props => {
   );
 };
 
-export default CartDrawerContent;
+export default React.memo(CartDrawerContent);
