@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'next/router';
-import withWidth from '@material-ui/core/withWidth';
 import { withStyles } from '@material-ui/core/styles';
 import { Subscribe } from 'unstated';
 import axios from 'axios';
@@ -31,7 +30,7 @@ const styles = {
 
 class Piece extends React.Component {
   render() {
-    const { classes, width, onePieceData } = this.props;
+    const { classes, onePieceData } = this.props;
 
     if (onePieceData.length < 1 || onePieceData[0] === null) {
       return <p>Page doesn't exist</p>;
@@ -69,7 +68,6 @@ class Piece extends React.Component {
               items={gallery}
               lazyLoad={true}
               showNav={true}
-              thumbnailPosition={styles.thumbnailPosition[width]}
               showPlayButton={false}
               showFullscreenButton={true}
             />
@@ -140,4 +138,4 @@ Piece.getInitialProps = async ({ pathname, req, query }) => {
   return { onePieceData: [onePieceData], pathname };
 };
 
-export default withRouter(withStyles(styles)(withWidth()(Piece)));
+export default withRouter(withStyles(styles)(Piece));
