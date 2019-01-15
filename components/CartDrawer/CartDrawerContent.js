@@ -8,86 +8,130 @@ import IconButton from '@material-ui/core/IconButton';
 import Link from 'next/link';
 
 import CartContainer from '../../containers/CartContainer';
-import { CartItems, Thumb, ItemInfo, Totals } from '../../styles/CartDrawer';
+import {
+  CartItems,
+  Thumb,
+  ItemInfo,
+  Totals,
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell
+} from '../../styles/CartDrawer';
 
-const CartDrawerContent = props => (
-  <Subscribe to={[CartContainer]}>
-    {cart => (
-      <div>
-        {cart.state.selectedItems.length > 0 ? (
-          <CartItems>
-            {cart.state.selectedItems.map((item, i) => (
-              <li key={i}>
-                <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
-                  <a
-                    style={{ textDecoration: 'none', height: '48px' }}
-                    target="_self"
-                    onClick={props.closeDrawer}
+const CartDrawerContent = props => {
+  // const { classes } = props;
+
+  return (
+    <Subscribe to={[CartContainer]}>
+      {cart => (
+        <div>
+          {cart.state.selectedItems.length > 0 ? (
+            <CartItems>
+              {cart.state.selectedItems.map((item, i) => (
+                <li key={i}>
+                  <Link
+                    href={`/piece?id=${item._id}`}
+                    as={`/piece/${item._id}`}
                   >
-                    <Thumb src={`/static/uploads/${item.images[0].thumb}`} />
-                  </a>
-                </Link>
-                <ItemInfo>
-                  <Typography
-                    variant="body2"
-                    style={{
-                      overflow: 'hidden',
-                      whiteSpace: 'nowrap',
-                      width: '98px',
-                      textOverflow: 'ellipsis'
-                    }}
+                    <a
+                      style={{ textDecoration: 'none', height: '48px' }}
+                      target="_self"
+                      onClick={props.closeDrawer}
+                    >
+                      <Thumb src={`/static/uploads/${item.images[0].thumb}`} />
+                    </a>
+                  </Link>
+                  <ItemInfo>
+                    <Typography
+                      variant="body2"
+                      style={{
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        width: '98px',
+                        textOverflow: 'ellipsis'
+                      }}
+                    >
+                      {item.name}
+                    </Typography>
+                    <Typography variant="body2" style={{ fontWeight: 300 }}>
+                      £{item.price.toFixed(2)}
+                    </Typography>
+                  </ItemInfo>
+                  <IconButton
+                    disabled={item.quantity > 1 ? false : true}
+                    onClick={() => cart.removeOne(item)}
+                    color="secondary"
+                    aria-label="Decrease quantity"
                   >
-                    {item.name}
-                  </Typography>
-                  <Typography variant="body2" style={{ fontWeight: 300 }}>
-                    {item.price}£
-                  </Typography>
-                </ItemInfo>
-                <IconButton
-                  disabled={item.quantity > 1 ? false : true}
-                  onClick={() => cart.removeOne(item)}
-                  color="secondary"
-                  aria-label="Decrease quantity"
-                >
-                  <RemoveIcon fontSize="small" />
-                </IconButton>
-                <Typography variant="body2">{item.quantity}</Typography>
-                <IconButton
-                  onClick={() => cart.addItem(item)}
-                  color="secondary"
-                  aria-label="Increase quantity"
-                >
-                  <AddIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  style={{
-                    color: 'rgba(0, 0, 0, 0.26)',
-                    marginLeft: '4px'
-                  }}
-                  aria-label="Remove item"
-                  onClick={() =>
-                    window.confirm(
-                      'Are you sure you want to remove this item?'
-                    ) && cart.removeItem(item)
-                  }
-                >
-                  <ClearIcon fontSize="small" />
-                </IconButton>
-              </li>
-            ))}
-          </CartItems>
-        ) : (
-          <p>Cart is empty</p>
-        )}
+                    <RemoveIcon fontSize="small" />
+                  </IconButton>
+                  <Typography variant="body2">{item.quantity}</Typography>
+                  <IconButton
+                    onClick={() => cart.addItem(item)}
+                    color="secondary"
+                    aria-label="Increase quantity"
+                  >
+                    <AddIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    style={{ color: 'rgba(0, 0, 0, 0.26)', marginLeft: '4px' }}
+                    aria-label="Remove item"
+                    onClick={() =>
+                      window.confirm(
+                        'Are you sure you want to remove this item?'
+                      ) && cart.removeItem(item)
+                    }
+                  >
+                    <ClearIcon fontSize="small" />
+                  </IconButton>
+                </li>
+              ))}
+            </CartItems>
+          ) : (
+            <p>Cart is empty</p>
+          )}
 
-        <Totals>
-          <div>Unique items: {cart.state.count}</div>
-          <div>Total items: {cart.state.totalItems}</div>
-          <div>Total price: {cart.state.totalPrice}£</div>
-        </Totals>
-      </div>
-    )}
-  </Subscribe>
-);
+          <Totals />
+          <Table>
+            <TableBody>
+              <TableRow>
+                <TableHead>
+                  <Typography variant="body1">Items</Typography>
+                </TableHead>
+                <TableCell>
+                  <Typography variant="body1">
+                    {cart.state.totalItems}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>
+                  <Typography variant="body1">Shipping</Typography>
+                </TableHead>
+                <TableCell>
+                  <Typography variant="body1">
+                    {'Free' || cart.state.count}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableHead>
+                  <Typography variant="body1">Total</Typography>
+                </TableHead>
+                <TableCell>
+                  <Typography variant="body1">
+                    £{cart.state.totalPrice.toFixed(2)}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      )}
+    </Subscribe>
+  );
+};
 
-export default CartDrawerContent;
+export default React.memo(CartDrawerContent);

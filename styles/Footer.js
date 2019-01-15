@@ -3,8 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   padding: 40px 5px 20px 5px;
   @media (min-width: 960px) {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px 0;
   }
 `;
 Wrapper.displayName = 'Wrapper';
