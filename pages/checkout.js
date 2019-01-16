@@ -565,6 +565,14 @@ class _CardForm extends Component {
       </div>
     );
 
+    // fix when navigating away from checkout, adding to cart and clicking on checkout manualy. (on checkout button in drawer make prop to false?)
+    let buyItNow = this.props.state.buyItNow._id ? true : false;
+
+    let checkoutPossible = false;
+    if (buyItNow || this.props.state.count > 0) {
+      checkoutPossible = true;
+    }
+
     return (
       <div>
         {this.state.error ? (
@@ -572,10 +580,10 @@ class _CardForm extends Component {
             We cannot process your payment. Please check your payment details
             and try again.
           </p>
-        ) : this.props.state.count > 0 ? (
+        ) : checkoutPossible ? (
           <Wrapper>
             <Cart>
-              <CartDrawerContent />
+              <CartDrawerContent buyItNow={buyItNow} />
             </Cart>
             <ShippmentForm>{purchase}</ShippmentForm>
           </Wrapper>

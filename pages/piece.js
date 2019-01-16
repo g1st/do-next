@@ -100,6 +100,14 @@ class Piece extends React.Component {
                   <Button
                     size="medium"
                     variant="contained"
+                    color="primary"
+                    onClick={el => cart.buyItem(dataForCart)}
+                  >
+                    Buy It Now
+                  </Button>
+                  <Button
+                    size="medium"
+                    variant="contained"
                     color="secondary"
                     onClick={el => cart.addItem(dataForCart)}
                   >
