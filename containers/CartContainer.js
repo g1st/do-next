@@ -1,11 +1,13 @@
 import { Container } from 'unstated';
+import Router from 'next/router';
 
 export default class CartContainer extends Container {
   state = {
     selectedItems: [],
     count: 0,
     totalPrice: 0,
-    totalItems: 0
+    totalItems: 0,
+    buyItNow: {}
   };
 
   updateTotalPrice = items => {
@@ -81,5 +83,10 @@ export default class CartContainer extends Container {
         count: updatedItems.length
       };
     });
+  };
+
+  buyItem = itemToBuy => {
+    this.setState(() => ({ buyItNow: itemToBuy }));
+    Router.push('/checkout');
   };
 }
