@@ -6,14 +6,20 @@ import Link from 'next/link';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import Router from 'next/router';
 
 class NavDrawerContent extends React.Component {
   state = {
     open: true
   };
 
-  handleClick = () => {
+  handleToggle = () => {
     this.setState(state => ({ open: !state.open }));
+  };
+
+  handleClick = (href, as) => {
+    Router.push(href, as);
+    this.props.closingDrawer();
   };
 
   render() {
@@ -24,33 +30,27 @@ class NavDrawerContent extends React.Component {
             <ListItemText primary="Home" />
           </Link>
         </ListItem>
-        <ListItem button onClick={this.handleClick}>
+        <ListItem button onClick={this.handleToggle}>
           <ListItemText primary="Works" />
           {this.state.open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
           <List component="div">
-            <ListItem button>
-              <ListItemText
-                inset
-                primary="Golden"
-                style={{ paddingLeft: '16px' }}
-              />
-            </ListItem>
-            <ListItem button>
-              <ListItemText
-                inset
-                primary="Wooden"
-                style={{ paddingLeft: '16px' }}
-              />
-            </ListItem>
-            <ListItem button>
-              <ListItemText
-                inset
-                primary="Silver"
-                style={{ paddingLeft: '16px' }}
-              />
-            </ListItem>
+            {this.props.collections.map(collection => (
+              <ListItem button key={collection}>
+                <ListItemText
+                  inset
+                  primary={collection.toUpperCase()}
+                  style={{ paddingLeft: '16px' }}
+                  onClick={() =>
+                    this.handleClick(
+                      `/works?collection=${collection}`,
+                      `/works/${collection}`
+                    )
+                  }
+                />
+              </ListItem>
+            ))}
           </List>
         </Collapse>
         <ListItem button to="/about">

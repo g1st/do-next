@@ -17,10 +17,12 @@ class NavDrawer extends Component {
 
   render() {
     const { classes } = this.props;
-
     const sideNavList = (
       <Fragment>
-        <NavDrawerContent />
+        <NavDrawerContent
+          collections={this.props.collections}
+          closingDrawer={this.context.toggleDrawer('drawerNav', false)}
+        />
       </Fragment>
     );
 
