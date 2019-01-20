@@ -42,18 +42,6 @@ const CARD_ELEMENT_OPTIONS = {
   }
 };
 
-const handleBlur = () => {
-  console.log('[blur]');
-};
-const handleChange = change => {
-  console.log('[change]', change);
-};
-const handleFocus = () => {
-  console.log('[focus]');
-};
-const handleReady = () => {
-  console.log('[ready]');
-};
 class _CardForm extends Component {
   state = {
     complete: false,
@@ -62,13 +50,17 @@ class _CardForm extends Component {
     email: '',
     first_name: '',
     last_name: '',
-    middle_name: '',
     phone: '',
     address1: '',
     address2: '',
     city: '',
     additional_info: '',
-    country: 'GB'
+    country: 'GB',
+    card_number: { complete: false, error: null },
+    card_expiration: { complete: false, error: null },
+    CVC_number: { complete: false, error: null },
+    zip_code: { complete: false, error: null },
+    stripe_errors: false
   };
 
   handleChange = name => event => {
@@ -77,8 +69,59 @@ class _CardForm extends Component {
     });
   };
 
+  handleBlur = () => {
+    console.log('[blur]');
+  };
+  handleStripeChange = (element, name) => {
+    if (!element.empty && element.complete) {
+      this.setState({ [name]: { complete: true, error: null } });
+    }
+    if (element.error) {
+      this.setState({
+        [name]: { ...this.state[name], error: element.error.message }
+      });
+    }
+    console.log('[change]', element, name);
+    console.log(this.state);
+  };
+  handleFocus = () => {
+    console.log('[focus]');
+  };
+  handleReady = () => {
+    console.log('[ready]');
+  };
+
+  isStripesInputsOk = () => {
+    console.log('checking for stripe errors');
+    if (
+      this.state.card_number.error ||
+      this.state.card_expiration.error ||
+      this.state.CVC_number.error ||
+      this.state.zip_code.error
+    ) {
+      this.setState({ stripe_errors: true });
+      return false;
+    }
+    if (
+      this.state.card_number.complete &&
+      this.state.card_expiration.complete &&
+      this.state.CVC_number.complete &&
+      this.state.zip_code.complete
+    ) {
+      return true;
+    }
+
+    // that means fields are left blank
+    this.setState(prevState => {
+      return { stripe_errors: true };
+    });
+
+    return false;
+  };
+
   handleSubmit = ev => {
     ev.preventDefault();
+    if (!this.isStripesInputsOk()) return;
     this.setState(() => ({ disable: true }));
     if (this.props.stripe) {
       this.props.stripe
@@ -132,6 +175,10 @@ class _CardForm extends Component {
               if (res.status == 200) {
                 console.log('Purchase completed successfully');
                 this.setState(() => ({ complete: true }));
+                // todo
+                // clear cart
+                // send confirmation email with order
+                // save client to db
               }
               console.log('its ok ', res);
             })
@@ -144,12 +191,6 @@ class _CardForm extends Component {
       console.log('Form submitted before Stripe.js loaded.');
     }
   };
-
-  componentDidMount() {
-    console.log('hi');
-    console.log(this.props.state);
-    console.log(this.props);
-  }
 
   render() {
     const purchase = this.state.complete ? (
@@ -496,50 +537,94 @@ class _CardForm extends Component {
               <Typography variant="body1">Card number *</Typography>
               <ElementContainer>
                 <CardNumberElement
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  onFocus={handleFocus}
-                  onReady={handleReady}
+                  onBlur={this.handleBlur}
+                  onChange={e => this.handleStripeChange(e, 'card_number')}
+                  onFocus={this.handleFocus}
+                  onReady={this.handleReady}
                   {...CARD_ELEMENT_OPTIONS}
                 />
               </ElementContainer>
+              {this.state.stripe_errors ? (
+                this.state.card_number.error ? (
+                  <Typography variant="body2" color="error">
+                    {this.state.card_number.error}
+                  </Typography>
+                ) : (
+                  <Typography variant="body2" color="error">
+                    Your card's number is blank.
+                  </Typography>
+                )
+              ) : null}
             </label>
             <label>
               <Typography variant="body1">Expiration date *</Typography>
               <ElementContainer>
                 <CardExpiryElement
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  onFocus={handleFocus}
-                  onReady={handleReady}
+                  onBlur={this.handleBlur}
+                  onChange={e => this.handleStripeChange(e, 'card_expiration')}
+                  onFocus={this.handleFocus}
+                  onReady={this.handleReady}
                   {...CARD_ELEMENT_OPTIONS}
                 />
               </ElementContainer>
+              {this.state.stripe_errors ? (
+                this.state.card_expiration.error ? (
+                  <Typography variant="body2" color="error">
+                    {this.state.card_expiration.error}
+                  </Typography>
+                ) : (
+                  <Typography variant="body2" color="error">
+                    Your card's expiration date is blank.
+                  </Typography>
+                )
+              ) : null}
             </label>
             <label>
               <Typography variant="body1">CVC *</Typography>
               <ElementContainer>
                 <CardCVCElement
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  onFocus={handleFocus}
-                  onReady={handleReady}
+                  onBlur={this.handleBlur}
+                  onChange={e => this.handleStripeChange(e, 'CVC_number')}
+                  onFocus={this.handleFocus}
+                  onReady={this.handleReady}
                   {...CARD_ELEMENT_OPTIONS}
                 />
               </ElementContainer>
+              {this.state.stripe_errors ? (
+                this.state.CVC_number.error ? (
+                  <Typography variant="body2" color="error">
+                    {this.state.CVC_number.error}
+                  </Typography>
+                ) : (
+                  <Typography variant="body2" color="error">
+                    Your card's security code is blank.
+                  </Typography>
+                )
+              ) : null}
             </label>
             <label>
               <Typography variant="body1">Postal code *</Typography>
 
               <ElementContainer>
                 <PostalCodeElement
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  onFocus={handleFocus}
-                  onReady={handleReady}
+                  onBlur={this.handleBlur}
+                  onChange={e => this.handleStripeChange(e, 'zip_code')}
+                  onFocus={this.handleFocus}
+                  onReady={this.handleReady}
                   {...CARD_ELEMENT_OPTIONS}
                 />
               </ElementContainer>
+              {this.state.stripe_errors ? (
+                this.state.zip_code.error ? (
+                  <Typography variant="body2" color="error">
+                    {this.state.zip_code.error}
+                  </Typography>
+                ) : (
+                  <Typography variant="body2" color="error">
+                    Your postal code is blank.
+                  </Typography>
+                )
+              ) : null}
             </label>
             <label htmlFor="additional_info">
               <Typography variant="body1">Additional information</Typography>
@@ -565,8 +650,11 @@ class _CardForm extends Component {
       </div>
     );
 
-    // fix when navigating away from checkout, adding to cart and clicking on checkout manualy. (on checkout button in drawer make prop to false?)
-    let buyItNow = this.props.state.buyItNow._id ? true : false;
+    let buyItNow = false;
+
+    if (this.props.state.buyItNow.hasOwnProperty('name')) {
+      buyItNow = true;
+    }
 
     let checkoutPossible = false;
     if (buyItNow || this.props.state.count > 0) {

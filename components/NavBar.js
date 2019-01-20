@@ -164,7 +164,7 @@ class NavBar extends React.Component {
         <div>
           <div className={classes.root}>
             <DrawerContext.Provider value={this.state}>
-              <NavDrawer />
+              <NavDrawer collections={this.props.collections} />
               <CartDrawer />
             </DrawerContext.Provider>
             <AppBar>
