@@ -19,6 +19,9 @@ const theme = createMuiTheme({
       light: grey[600],
       main: grey[900],
       dark: grey[900]
+    },
+    error: {
+      main: '#9e2146'
     }
   },
   props: {

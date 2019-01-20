@@ -145,12 +145,6 @@ class _CardForm extends Component {
     }
   };
 
-  componentDidMount() {
-    console.log('hi');
-    console.log(this.props.state);
-    console.log(this.props);
-  }
-
   render() {
     const purchase = this.state.complete ? (
       <p>Purchase Complete.</p>
@@ -565,8 +559,11 @@ class _CardForm extends Component {
       </div>
     );
 
-    // fix when navigating away from checkout, adding to cart and clicking on checkout manualy. (on checkout button in drawer make prop to false?)
-    let buyItNow = this.props.state.buyItNow._id ? true : false;
+    let buyItNow = false;
+
+    if (this.props.state.buyItNow.hasOwnProperty('name')) {
+      buyItNow = true;
+    }
 
     let checkoutPossible = false;
     if (buyItNow || this.props.state.count > 0) {
