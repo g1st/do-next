@@ -11,8 +11,10 @@ import {
   CardNumberElement
 } from 'react-stripe-elements';
 import Button from '@material-ui/core/Button';
-
+import { Subscribe } from 'unstated';
 import withContext from '../hoc/withUnstated';
+
+import CartContainer from '../containers/CartContainer';
 import Layout from '../components/Layout';
 import CartDrawerContent from '../components/CartDrawer/CartDrawerContent';
 import {
@@ -44,7 +46,7 @@ const CARD_ELEMENT_OPTIONS = {
 
 class _CardForm extends Component {
   state = {
-    complete: false,
+    orderComplete: false,
     error: false,
     disable: false,
     email: '',
@@ -74,11 +76,16 @@ class _CardForm extends Component {
   };
   handleStripeChange = (element, name) => {
     if (!element.empty && element.complete) {
-      this.setState({ [name]: { complete: true, error: null } });
+      this.setState({
+        [name]: { complete: true, error: null }
+      });
     }
     if (element.error) {
       this.setState({
-        [name]: { ...this.state[name], error: element.error.message }
+        [name]: {
+          ...this.state[name],
+          error: element.error.message
+        }
       });
     }
     console.log('[change]', element, name);
@@ -174,11 +181,12 @@ class _CardForm extends Component {
             .then(res => {
               if (res.status == 200) {
                 console.log('Purchase completed successfully');
-                this.setState(() => ({ complete: true }));
+                this.setState(() => ({ orderComplete: true }));
                 // todo
                 // clear cart
                 // send confirmation email with order
                 // save client to db
+                // probably will need redux
               }
               console.log('its ok ', res);
             })
@@ -193,7 +201,7 @@ class _CardForm extends Component {
   };
 
   render() {
-    const purchase = this.state.complete ? (
+    const purchase = this.state.orderComplete ? (
       <p>Purchase Complete.</p>
     ) : (
       <div>
@@ -549,7 +557,7 @@ class _CardForm extends Component {
                   <Typography variant="body2" color="error">
                     {this.state.card_number.error}
                   </Typography>
-                ) : (
+                ) : this.state.card_number.complete ? null : (
                   <Typography variant="body2" color="error">
                     Your card's number is blank.
                   </Typography>
@@ -572,7 +580,7 @@ class _CardForm extends Component {
                   <Typography variant="body2" color="error">
                     {this.state.card_expiration.error}
                   </Typography>
-                ) : (
+                ) : this.state.card_expiration.complete ? null : (
                   <Typography variant="body2" color="error">
                     Your card's expiration date is blank.
                   </Typography>
@@ -595,7 +603,7 @@ class _CardForm extends Component {
                   <Typography variant="body2" color="error">
                     {this.state.CVC_number.error}
                   </Typography>
-                ) : (
+                ) : this.state.CVC_number.complete ? null : (
                   <Typography variant="body2" color="error">
                     Your card's security code is blank.
                   </Typography>
@@ -619,7 +627,7 @@ class _CardForm extends Component {
                   <Typography variant="body2" color="error">
                     {this.state.zip_code.error}
                   </Typography>
-                ) : (
+                ) : this.state.zip_code.complete ? null : (
                   <Typography variant="body2" color="error">
                     Your postal code is blank.
                   </Typography>
@@ -675,6 +683,10 @@ class _CardForm extends Component {
             </Cart>
             <ShippmentForm>{purchase}</ShippmentForm>
           </Wrapper>
+        ) : this.state.orderComplete ? (
+          <Subscribe to={[CartContainer]}>
+            {cart => <div>{cart.clear()} dabu dy dabu dai</div>}
+          </Subscribe>
         ) : (
           <Typography variant="body1">Your Cart is empty.</Typography>
         )}
