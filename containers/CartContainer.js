@@ -110,4 +110,14 @@ export default class CartContainer extends Container {
   checkout = () => {
     this.setState(() => ({ buyItNow: {} }), () => Router.push('/checkout'));
   };
+
+  clear = () => {
+    this.setState(() => ({
+      selectedItems: [],
+      count: 0,
+      totalPrice: 0,
+      totalItems: 0,
+      buyItNow: {}
+    }));
+  };
 }
