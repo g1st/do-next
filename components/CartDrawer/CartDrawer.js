@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import Router from 'next/router';
 
+import { clearBuyItNow } from '../../store/actions';
 import { DrawerContext } from '../DrawerContext';
 import CartDrawerContent from './CartDrawerContent';
 
@@ -20,6 +21,11 @@ const styles = {
 
 class CartDrawer extends Component {
   static contextType = DrawerContext;
+
+  handleCheckout = () => {
+    this.props.clearBuyItNow();
+    Router.push('/checkout');
+  };
 
   render() {
     const { classes } = this.props;
@@ -54,7 +60,7 @@ class CartDrawer extends Component {
                 variant="contained"
                 color="secondary"
                 fullWidth
-                onClick={() => Router.push('/checkout')}
+                onClick={() => this.handleCheckout()}
               >
                 Checkout
               </Button>
@@ -70,8 +76,15 @@ const mapStateToProps = state => ({
   uniqueCartItems: state.cart.length
 });
 
+const mapDispatchToProps = dispatch => {
+  return { clearBuyItNow: () => dispatch(clearBuyItNow()) };
+};
+
 CartDrawer.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(CartDrawer));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(CartDrawer));

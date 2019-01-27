@@ -5,22 +5,18 @@ import {
   REMOVE_FROM_CART,
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
-  ADD_ONE
-} from '../constants/action-types_dovile';
+  BUY_IT_NOW_INCREASE_QUANTITY,
+  BUY_IT_NOW_DECREASE_QUANTITY,
+  BUY_IT_NOW,
+  CLEAR_BUY_IT_NOW
+} from '../constants/action-types';
 
 export const initialState = {
-  cart: []
+  cart: [],
+  buyItNow: {}
 };
 
 const cart = (state = initialState.cart, action) => {
-  if (action.type === ADD_ONE) {
-    return [...state, action.item];
-    // return state.concat(action.item)
-    // return Object.assign({}, state, {
-    //   cart: state.cart.concat(action.item)
-    //   // cart: [...state.cart, action.item] // or this ?
-    // });
-  }
   if (action.type === ADD_TO_CART) {
     // check if item is already in the cart
     if (state.some(item => item._id === action.item._id)) return state;
@@ -45,15 +41,33 @@ const cart = (state = initialState.cart, action) => {
   return state;
 };
 
-const dovile = combineReducers({
-  cart
-});
+const buyItNow = (state = initialState.buyItNow, action) => {
+  if (BUY_IT_NOW === action.type) {
+    return action.item;
+  }
+  if (CLEAR_BUY_IT_NOW === action.type) {
+    return {};
+  }
+  if (BUY_IT_NOW_DECREASE_QUANTITY === action.type) {
+    if (state.quantity > 0) {
+      return {
+        ...state,
+        quantity: state.quantity - 1
+      };
+    }
+  }
+  if (BUY_IT_NOW_INCREASE_QUANTITY === action.type) {
+    return {
+      ...state,
+      quantity: state.quantity + 1
+    };
+  }
+  return state;
+};
 
-// const dovile = (state = initialState, action) => {
-//   return {
-//     ...state,
-//     cart: cart(state.cart, action)
-//   };
-// };
+const dovile = combineReducers({
+  cart,
+  buyItNow
+});
 
 export default dovile;

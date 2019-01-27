@@ -662,9 +662,9 @@ class StripeForm extends Component {
 
     let buyItNow = false;
 
-    // if (this.props.state.buyItNow.hasOwnProperty('name')) {
-    //   buyItNow = true;
-    // }
+    if (this.props.buyItNowItem.hasOwnProperty('name')) {
+      buyItNow = true;
+    }
 
     let checkoutPossible = false;
     if (buyItNow || this.props.cart.length > 0) {
@@ -696,7 +696,8 @@ class StripeForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
+  buyItNowItem: state.buyItNow
 });
 
 export default connect(mapStateToProps)(StripeForm);
