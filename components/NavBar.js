@@ -16,9 +16,8 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import { withRouter } from 'next/router';
 import Router from 'next/router';
-import { Subscribe } from 'unstated';
+import { connect } from 'react-redux';
 
-import CartContainer from '../containers/CartContainer';
 import NavDrawer from './NavDrawer/NavDrawer';
 import CartDrawer from './CartDrawer/CartDrawer';
 import { DrawerContext } from './DrawerContext';
@@ -211,20 +210,16 @@ class NavBar extends React.Component {
                   aria-label="Shopping Basket"
                   onClick={this.toggleDrawer('drawerCart', true)}
                 >
-                  <Subscribe to={[CartContainer]}>
-                    {cart => {
-                      return cart.state.count ? (
-                        <Badge
-                          badgeContent={cart.state.count}
-                          classes={{ badge: classes.badge }}
-                        >
-                          <ShoppingBasketIcon />
-                        </Badge>
-                      ) : (
-                        <ShoppingBasketIcon />
-                      );
-                    }}
-                  </Subscribe>
+                  {this.props.uniqueCartItems ? (
+                    <Badge
+                      badgeContent={this.props.uniqueCartItems}
+                      classes={{ badge: classes.badge }}
+                    >
+                      <ShoppingBasketIcon />
+                    </Badge>
+                  ) : (
+                    <ShoppingBasketIcon />
+                  )}
                 </IconButton>
               </Toolbar>
             </AppBar>
@@ -235,8 +230,14 @@ class NavBar extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  uniqueCartItems: state.cart.length
+});
+
 NavBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withRouter(withWidth()(withStyles(styles)(NavBar)));
+export default connect(mapStateToProps)(
+  withRouter(withWidth()(withStyles(styles)(NavBar)))
+);

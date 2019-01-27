@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
-import { Subscribe } from 'unstated';
+import { connect } from 'react-redux';
+import Router from 'next/router';
 
-import CartContainer from '../../containers/CartContainer';
 import { DrawerContext } from '../DrawerContext';
 import CartDrawerContent from './CartDrawerContent';
 
@@ -46,32 +46,32 @@ class CartDrawer extends Component {
           onKeyDown={this.context.toggleDrawer('drawerCart', false)}
         >
           {sideCart}
-          <Subscribe to={[CartContainer]}>
-            {cart =>
-              cart.state.count > 0 ? (
-                <div style={{ width: 280 }}>
-                  <Button
-                    className={classes.button}
-                    size="medium"
-                    variant="contained"
-                    color="secondary"
-                    fullWidth
-                    onClick={() => cart.checkout()}
-                  >
-                    Checkout
-                  </Button>
-                </div>
-              ) : null
-            }
-          </Subscribe>
+          {this.props.uniqueCartItems > 0 ? (
+            <div style={{ width: 280 }}>
+              <Button
+                className={classes.button}
+                size="medium"
+                variant="contained"
+                color="secondary"
+                fullWidth
+                onClick={() => Router.push('/checkout')}
+              >
+                Checkout
+              </Button>
+            </div>
+          ) : null}
         </div>
       </Drawer>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  uniqueCartItems: state.cart.length
+});
+
 CartDrawer.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(CartDrawer);
+export default connect(mapStateToProps)(withStyles(styles)(CartDrawer));
