@@ -1,15 +1,15 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import { withStyles } from '@material-ui/core/styles';
-import { Subscribe } from 'unstated';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import ImageGallery from 'react-image-gallery';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
+import { addToCart } from '../store/actions/index_dovile';
 import Layout from '../components/Layout.js';
-import CartContainer from '../containers/CartContainer';
 import { Wrapper, Images, Info } from '../styles/Piece';
 
 const styles = {
@@ -51,7 +51,9 @@ class Piece extends React.Component {
       price,
       images,
       _id,
-      available
+      available,
+      quantity: 1,
+      totalPrice: price
     };
 
     const gallery = images.map(image => ({
@@ -94,28 +96,25 @@ class Piece extends React.Component {
             >
               Price: {price}
             </Typography>
-            <Subscribe to={[CartContainer]}>
-              {cart => (
-                <div>
-                  <Button
+            <div>
+              {/* <Button
                     size="medium"
                     variant="contained"
                     color="primary"
                     onClick={el => cart.buyItem(dataForCart)}
                   >
                     Buy It Now
-                  </Button>
-                  <Button
-                    size="medium"
-                    variant="contained"
-                    color="secondary"
-                    onClick={el => cart.addItem(dataForCart)}
-                  >
-                    Add To Cart
-                  </Button>
-                </div>
-              )}
-            </Subscribe>
+                  </Button> */}
+              <Button
+                size="medium"
+                variant="contained"
+                color="secondary"
+                onClick={el => this.props.addToCart(dataForCart)}
+              >
+                Add To Cart
+              </Button>
+              <div>{JSON.stringify(this.props.dump)}</div>
+            </div>
           </Info>
         </Wrapper>
       </Layout>
@@ -146,4 +145,14 @@ Piece.getInitialProps = async ({ pathname, req, query }) => {
   return { onePieceData: [onePieceData], pathname };
 };
 
-export default withRouter(withStyles(styles)(Piece));
+const mapStateToProps = state => ({ dump: state.cart });
+const mapDispatchToProps = dispatch => {
+  return {
+    addToCart: item => dispatch(addToCart(item))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(withStyles(styles)(Piece)));

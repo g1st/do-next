@@ -4,14 +4,12 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
 import getPageContext from '../src/getPageContext';
-import { Provider } from 'unstated';
 import Head from 'next/head';
 import axios from 'axios';
+import withReduxStore from '../lib/with-redux-store';
+import { Provider } from 'react-redux';
+
 import '../styles/emptyFileToFixNextjsBug.css';
-
-import CartContainer from '../containers/CartContainer';
-
-let cart = new CartContainer();
 
 class MyApp extends App {
   constructor(props) {
@@ -104,13 +102,13 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, reduxStore } = this.props;
     return (
       <React.Fragment>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Container>
-          <Provider inject={[cart]}>
+          <Provider store={reduxStore}>
             {/* Wrap every page in Jss and Theme providers */}
             <JssProvider
               registry={this.pageContext.sheetsRegistry}
@@ -137,4 +135,4 @@ class MyApp extends App {
   }
 }
 
-export default MyApp;
+export default withReduxStore(MyApp);
