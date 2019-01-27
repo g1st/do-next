@@ -7,8 +7,9 @@ import ImageGallery from 'react-image-gallery';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import Router from 'next/router';
 
-import { addToCart } from '../store/actions/index_dovile';
+import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
 import { Wrapper, Images, Info } from '../styles/Piece';
 
@@ -29,6 +30,11 @@ const styles = {
 };
 
 class Piece extends React.Component {
+  handleBuyItNow = item => {
+    this.props.buyItNow(item);
+    Router.push('/checkout');
+  };
+
   render() {
     const { classes, onePieceData } = this.props;
 
@@ -52,8 +58,7 @@ class Piece extends React.Component {
       images,
       _id,
       available,
-      quantity: 1,
-      totalPrice: price
+      quantity: 1
     };
 
     const gallery = images.map(image => ({
@@ -97,23 +102,22 @@ class Piece extends React.Component {
               Price: {price}
             </Typography>
             <div>
-              {/* <Button
-                    size="medium"
-                    variant="contained"
-                    color="primary"
-                    onClick={el => cart.buyItem(dataForCart)}
-                  >
-                    Buy It Now
-                  </Button> */}
+              <Button
+                size="medium"
+                variant="contained"
+                color="primary"
+                onClick={() => this.handleBuyItNow(dataForCart)}
+              >
+                Buy It Now
+              </Button>
               <Button
                 size="medium"
                 variant="contained"
                 color="secondary"
-                onClick={el => this.props.addToCart(dataForCart)}
+                onClick={() => this.props.addToCart(dataForCart)}
               >
                 Add To Cart
               </Button>
-              <div>{JSON.stringify(this.props.dump)}</div>
             </div>
           </Info>
         </Wrapper>
@@ -145,14 +149,14 @@ Piece.getInitialProps = async ({ pathname, req, query }) => {
   return { onePieceData: [onePieceData], pathname };
 };
 
-const mapStateToProps = state => ({ dump: state.cart });
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: item => dispatch(addToCart(item))
+    addToCart: item => dispatch(addToCart(item)),
+    buyItNow: item => dispatch(buyItNow(item))
   };
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(withRouter(withStyles(styles)(Piece)));
