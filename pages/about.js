@@ -568,7 +568,9 @@ class About extends React.Component {
 }
 
 About.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  collections: PropTypes.arrayOf(PropTypes.string)
 };
 
 About.getInitialProps = async ({ pathname }) => {

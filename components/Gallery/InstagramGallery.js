@@ -95,7 +95,9 @@ function InstagramGallery(props) {
 }
 
 InstagramGallery.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
+  imageSize: PropTypes.string
 };
 
 export default withStyles(styles)(withWidth()(InstagramGallery));

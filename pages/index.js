@@ -1,8 +1,9 @@
-import Layout from '../components/Layout';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 
+import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
 
 const ITEMS_PER_PAGE = 6;
@@ -87,6 +88,11 @@ class Index extends React.Component {
     );
   }
 }
+
+Index.propTypes = {
+  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  collections: PropTypes.arrayOf(PropTypes.string)
+};
 
 Index.getInitialProps = async ({ pathname }) => {
   return { pathname };

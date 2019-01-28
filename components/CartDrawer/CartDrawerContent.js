@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 
@@ -73,5 +74,9 @@ const mapStateToProps = state => ({
   cart: state.cart,
   buyItNowItem: state.buyItNow
 });
+
+CartDrawerContent.propTypes = {
+  buyItNow: PropTypes.bool
+};
 
 export default React.memo(connect(mapStateToProps)(CartDrawerContent));

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'next/router';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
@@ -125,6 +126,13 @@ class Piece extends React.Component {
     );
   }
 }
+
+Piece.propTypes = {
+  classes: PropTypes.object.isRequired,
+  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  collections: PropTypes.arrayOf(PropTypes.string),
+  onePieceData: PropTypes.arrayOf(PropTypes.object)
+};
 
 Piece.getInitialProps = async ({ pathname, req, query }) => {
   if (req) {

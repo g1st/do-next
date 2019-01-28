@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { Elements, injectStripe, StripeProvider } from 'react-stripe-elements';
 
@@ -54,5 +55,9 @@ class Checkout extends Component {
     );
   }
 }
+
+Checkout.propTypes = {
+  collections: PropTypes.arrayOf(PropTypes.string)
+};
 
 export default Checkout;

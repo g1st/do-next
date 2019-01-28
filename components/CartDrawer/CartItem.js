@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
@@ -105,6 +106,11 @@ const mapDispatchToProps = dispatch => {
     buyItNowDecreaseQuantity: () => dispatch(buyItNowDecreaseQuantity()),
     clearBuyItNow: () => dispatch(clearBuyItNow())
   };
+};
+
+CartItem.propTypes = {
+  buyItNow: PropTypes.bool,
+  data: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default connect(
