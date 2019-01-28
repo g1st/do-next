@@ -1,4 +1,5 @@
 import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
 
 import Layout from '../components/Layout';
 import Form from '../components/ContactForm';
@@ -49,6 +50,11 @@ class Contact extends React.Component {
     );
   }
 }
+
+Contact.propTypes = {
+  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  collections: PropTypes.arrayOf(PropTypes.string)
+};
 
 Contact.getInitialProps = async ({ pathname }) => {
   return { pathname };

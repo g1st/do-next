@@ -49,7 +49,8 @@ class NavDrawer extends Component {
 }
 
 NavDrawer.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  collections: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default withStyles(styles)(NavDrawer);

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -67,5 +68,10 @@ class NavDrawerContent extends React.Component {
     );
   }
 }
+
+NavDrawerContent.propTypes = {
+  collections: PropTypes.arrayOf(PropTypes.string),
+  closingDrawer: PropTypes.func
+};
 
 export default NavDrawerContent;

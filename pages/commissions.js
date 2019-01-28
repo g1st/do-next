@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
@@ -60,6 +61,10 @@ const Commissions = props => {
       </Wrapper>
     </Layout>
   );
+};
+
+Commissions.propTypes = {
+  collections: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default Commissions;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import NavBar from './NavBar';
 import Footer from './Footer/Footer';
 import { Main } from '../styles/Main';
@@ -13,6 +14,11 @@ const Layout = props => {
       <Footer />
     </LayoutWrapper>
   );
+};
+
+Layout.propTypes = {
+  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  collections: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default Layout;

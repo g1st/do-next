@@ -235,7 +235,9 @@ const mapStateToProps = state => ({
 });
 
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  collections: PropTypes.arrayOf(PropTypes.string),
+  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
 };
 
 export default connect(mapStateToProps)(

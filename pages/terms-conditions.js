@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
@@ -84,6 +85,10 @@ const TermsAndConditions = props => (
     </Wrapper>
   </Layout>
 );
+
+TermsAndConditions.propTypes = {
+  collections: PropTypes.arrayOf(PropTypes.string)
+};
 
 TermsAndConditions.getInitialProps = async ({ pathname }) => {
   return { pathname };

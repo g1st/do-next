@@ -63,4 +63,12 @@ const ItemCard = props => {
   );
 };
 
+ItemCard.propTypes = {
+  classes: PropTypes.object.isRequired,
+  price: PropTypes.number,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  img: PropTypes.string
+};
+
 export default withStyles(styles)(ItemCard);

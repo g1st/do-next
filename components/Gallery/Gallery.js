@@ -69,7 +69,8 @@ const Gallery = props => {
 };
 
 Gallery.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.arrayOf(PropTypes.object),
+  showCollection: PropTypes.string
 };
 
 export default withWidth()(withStyles(styles)(Gallery));
