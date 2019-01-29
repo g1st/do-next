@@ -149,12 +149,9 @@ class StripeForm extends Component {
             additional_info,
             country
           } = this.state;
-          // const {
-          //   count,
-          //   selectedItems,
-          //   totalItems,
-          //   totalPrice
-          // } = this.props.state;
+
+          //rytoj cia pacheckinti buyitnow kai buna kad updeitintu ka perki!
+
           const count = this.props.cart.length;
           const selectedItems = this.props.cart;
           const totalItems = cart.totalItems(this.props.cart);
@@ -248,23 +245,23 @@ class StripeForm extends Component {
                 onChange={this.handleChange('phone')}
               />
             </label>
-            <label htmlFor="address-1">
+            <label htmlFor="address1">
               <Typography variant="body1">Address line 1 *</Typography>
               <Input
                 type="text"
                 placeholder="House number and street name"
-                id="address-1"
+                id="address1"
                 onChange={this.handleChange('address1')}
                 required
               />
             </label>
-            <label htmlFor="address-2">
+            <label htmlFor="address2">
               <Typography variant="body1">Address line 2</Typography>
               <Input
                 type="text"
                 placeholder="Apartment number, floor number etc."
                 onChange={this.handleChange('address2')}
-                id="address-2"
+                id="address2"
               />
             </label>
             <label htmlFor="city">
@@ -273,6 +270,7 @@ class StripeForm extends Component {
                 type="text"
                 id="city"
                 onChange={this.handleChange('city')}
+                required
               />
             </label>
             <label htmlFor="country">
