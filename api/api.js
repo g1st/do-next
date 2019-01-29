@@ -7,6 +7,7 @@ const fs = require('fs');
 const { promisify } = require('util');
 const asyncUnlink = promisify(fs.unlink);
 const sharp = require('sharp');
+const { check, validationResult } = require('express-validator/check');
 require('dotenv').config();
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -164,22 +165,56 @@ module.exports = (db, upload) => {
 
   router.post(
     '/charge',
-    wrapAsync(async (req, res) => {
-      try {
-        let { status } = await stripe.charges.create({
-          amount: 2000,
-          currency: 'gbp',
-          description: 'An example charge',
-          source: req.body.token
-        });
+    [
+      check('additional.first_name')
+        .not()
+        .isEmpty()
+        .withMessage('First name is required'),
+      check('additional.last_name')
+        .not()
+        .isEmpty()
+        .withMessage('Last name is required'),
+      check('additional.email')
+        .isEmail()
+        .withMessage('Please enter a valid Email address.'),
+      check('additional.address1')
+        .isLength({ min: 5 })
+        .withMessage('Address field must have at least 5 characters.'),
+      check('additional.city')
+        .not()
+        .isEmpty()
+        .withMessage('City is required.'),
+      check('additional.country')
+        .isAlpha()
+        .withMessage('Country is required.')
+    ],
+    wrapAsync(
+      // password must be at least 5 chars long
+      async (req, res) => {
+        console.log(req.body);
+        const errors = validationResult(req);
+        console.log(errors);
+        if (!errors.isEmpty()) {
+          console.log(errors.array());
+          return res.status(422).json({ errors: errors.array() });
+        }
+        console.log(req.body);
+        try {
+          let { status } = await stripe.charges.create({
+            amount: 2000,
+            currency: 'gbp',
+            description: 'An example charge',
+            source: req.body.token
+          });
 
-        return status;
-      } catch (err) {
-        console.log(err);
+          return status;
+        } catch (err) {
+          console.log(err);
 
-        res.json({ err });
+          res.json({ err });
+        }
       }
-    })
+    )
   );
 
   // router.post('/', wrapAsync(async function (req) {
