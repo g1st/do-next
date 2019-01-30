@@ -8,7 +8,8 @@ import {
   BUY_IT_NOW_INCREASE_QUANTITY,
   BUY_IT_NOW_DECREASE_QUANTITY,
   BUY_IT_NOW,
-  CLEAR_BUY_IT_NOW
+  CLEAR_BUY_IT_NOW,
+  CLEAR_STATE
 } from '../constants/action-types';
 
 export const initialState = {
@@ -38,6 +39,9 @@ const cart = (state = initialState.cart, action) => {
       return item;
     });
   }
+  if (CLEAR_STATE === action.type) {
+    return [];
+  }
   return state;
 };
 
@@ -45,7 +49,7 @@ const buyItNow = (state = initialState.buyItNow, action) => {
   if (BUY_IT_NOW === action.type) {
     return action.item;
   }
-  if (CLEAR_BUY_IT_NOW === action.type) {
+  if (CLEAR_STATE === action.type || CLEAR_BUY_IT_NOW === action.type) {
     return {};
   }
   if (BUY_IT_NOW_DECREASE_QUANTITY === action.type) {

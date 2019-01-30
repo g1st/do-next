@@ -13,6 +13,7 @@ import {
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 
+import { clearState } from '../../store/actions';
 import { cart } from '../../util/helpers';
 import CartDrawerContent from '../../components/CartDrawer/CartDrawerContent';
 import {
@@ -150,12 +151,19 @@ class StripeForm extends Component {
             country
           } = this.state;
 
-          //rytoj cia pacheckinti buyitnow kai buna kad updeitintu ka perki!
-
           const count = this.props.cart.length;
           const selectedItems = this.props.cart;
           const totalItems = cart.totalItems(this.props.cart);
           const totalPrice = cart.totalPrice(this.props.cart);
+
+          // just to know if bought using cart or buyitnow button
+          const boughtFromCart = {
+            count,
+            selectedItems,
+            totalItems,
+            totalPrice
+          };
+          const boughtFromBuyItNow = this.props.buyItNowItem;
 
           axios
             .post('http://localhost:3000/api/charge', {
@@ -171,16 +179,16 @@ class StripeForm extends Component {
                 city,
                 additional_info,
                 country,
-                count,
-                selectedItems,
-                totalItems,
-                totalPrice
+                boughtFromCart,
+                boughtFromBuyItNow
               }
             })
             .then(res => {
               if (res.status == 200) {
                 console.log('Purchase completed successfully');
                 this.setState(() => ({ orderComplete: true }));
+                // empty redux state
+                this.props.clearState();
                 // todo
                 // clear cart
                 // send confirmation email with order
@@ -698,4 +706,11 @@ const mapStateToProps = state => ({
   buyItNowItem: state.buyItNow
 });
 
-export default connect(mapStateToProps)(StripeForm);
+const mapDispatchToProps = dispatch => {
+  return { clearState: () => dispatch(clearState()) };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StripeForm);
