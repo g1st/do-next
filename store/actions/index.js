@@ -28,8 +28,8 @@ export const buyItNow = item => {
   return { type: actionTypes.BUY_IT_NOW, item };
 };
 
-export const clearState = () => {
-  return { type: actionTypes.CLEAR_STATE };
+export const clearCart = () => {
+  return { type: actionTypes.CLEAR_CART };
 };
 
 export const clearBuyItNow = () => {

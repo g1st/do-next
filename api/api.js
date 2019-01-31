@@ -2,6 +2,7 @@
 const express = require('express');
 const slugify = require('slugify');
 const Works = require('./models/works');
+const Clients = require('./models/clients');
 const sendMail = require('./mail');
 const fs = require('fs');
 const { promisify } = require('util');
@@ -9,6 +10,7 @@ const asyncUnlink = promisify(fs.unlink);
 const sharp = require('sharp');
 const { check, validationResult } = require('express-validator/check');
 require('dotenv').config();
+const sendPurchaseEmail = require('./sendPurchaseEmail');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -169,11 +171,11 @@ module.exports = (db, upload) => {
       check('additional.first_name')
         .not()
         .isEmpty()
-        .withMessage('First name is required'),
+        .withMessage('First name is required.'),
       check('additional.last_name')
         .not()
         .isEmpty()
-        .withMessage('Last name is required'),
+        .withMessage('Last name is required.'),
       check('additional.email')
         .isEmail()
         .withMessage('Please enter a valid Email address.'),
@@ -188,33 +190,47 @@ module.exports = (db, upload) => {
         .isAlpha()
         .withMessage('Country is required.')
     ],
-    wrapAsync(
-      // password must be at least 5 chars long
-      async (req, res) => {
-        console.log(req.body);
-        const errors = validationResult(req);
-        console.log(errors);
-        if (!errors.isEmpty()) {
-          console.log(errors.array());
-          return res.status(422).json({ errors: errors.array() });
-        }
-        console.log(req.body);
-        try {
-          let { status } = await stripe.charges.create({
-            amount: 2000,
-            currency: 'gbp',
-            description: 'An example charge',
-            source: req.body.token
-          });
-
-          return status;
-        } catch (err) {
-          console.log(err);
-
-          res.json({ err });
-        }
+    wrapAsync(async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        console.log(errors.array());
+        // return res.status(422).json({ errors: errors.array() });
+        return { errors: errors.array() };
       }
-    )
+      console.log(req.body);
+      try {
+        let { status } = await stripe.charges.create({
+          amount: 2000,
+          currency: 'gbp',
+          description: 'An example charge',
+          source: req.body.token
+        });
+
+        // send confirmation email
+        await sendPurchaseEmail(req.body);
+        console.log('cia po email sent turetu but?');
+
+        const { first_name, last_name, email } = req.body.additional;
+        const { payload, additional } = req.body;
+        // save client to db
+        const client = new Clients({
+          first_name,
+          last_name,
+          email,
+          payload,
+          additional
+        });
+
+        await db.collection('clients').insertOne(client);
+
+        return status;
+      } catch (err) {
+        console.log('error message which i need to pass to front end?', err);
+        console.log(('why res is undefined???', res));
+
+        res.json({ err });
+      }
+    })
   );
 
   // router.post('/', wrapAsync(async function (req) {
