@@ -2,16 +2,17 @@
 const express = require('express');
 const slugify = require('slugify');
 const Works = require('./models/works');
-const Clients = require('./models/clients');
+const Orders = require('./models/orders');
 const sendMail = require('./mail');
 const fs = require('fs');
 const { promisify } = require('util');
 const asyncUnlink = promisify(fs.unlink);
 const sharp = require('sharp');
 const { check, validationResult } = require('express-validator/check');
+
 require('dotenv').config();
 const sendPurchaseEmail = require('./sendPurchaseEmail');
-
+const { shippingPrice } = require('../util/globals');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 module.exports = (db, upload) => {
@@ -198,36 +199,107 @@ module.exports = (db, upload) => {
         return { errors: errors.array() };
       }
       console.log(req.body);
+
+      const {
+        totalPrice,
+        shippingCost,
+        boughtFrom,
+        price,
+        _id
+      } = req.body.additional.purchaseDetails;
+
+      let amount;
+
+      if (boughtFrom == 'buyItNow') {
+        const item = await Works.findById(_id, 'price', (err, data) => {
+          if (err) return console.error(err);
+        });
+        const amountFromFrontEnd = price + shippingCost;
+
+        const amountFromBackend = item.price + shippingPrice;
+        amount =
+          amountFromFrontEnd === amountFromBackend ? amountFromFrontEnd : false;
+      } else {
+        // bought from cart, might be multiple
+        const items = req.body.additional.purchaseDetails.selectedItems.map(
+          item => {
+            return { id: item._id, quantity: item.quantity, price: item.price };
+          }
+        );
+
+        const pricePromises = items.map(async item => {
+          const price = await Works.findById(item.id, 'price', (err, data) => {
+            if (err) return console.error(err);
+          });
+          return price;
+        });
+
+        const prices = await Promise.all(pricePromises);
+        console.log('prices su quantity multiplier?', prices);
+
+        const foo = prices.map(
+          backendItem =>
+            items.filter(item => {
+              console.log('item.id', item.id);
+              console.log('backendItem._id', backendItem._id);
+              return backendItem._id === item.id;
+            })
+          // .map(frontItem => frontItem.quantity * backendItem.price)
+        );
+        // console.log();
+
+        console.log('su quantiti?', foo);
+
+        const amountFromBackend =
+          prices.reduce((acc, item) => acc + item.price, 0) + shippingPrice;
+
+        // price from frontend without quantities
+        const itemsPrice = items.reduce((acc, item) => {
+          return acc + item.price;
+        }, 0);
+
+        const amountFromFrontEnd = itemsPrice + shippingCost;
+
+        console.log('amountFromBackend', amountFromBackend);
+        console.log('amountFromFrontEnd', amountFromFrontEnd);
+
+        amountEqual =
+          amountFromFrontEnd === amountFromBackend ? amountFromFrontEnd : false;
+        if (amountFromFrontEnd) {
+          amount = totalPrice + shippingCost;
+        }
+      }
+
+      if (!amount) {
+        return { error: 'Invalid amount.' };
+      }
+
+      console.log('amount ========= ', amount);
+
+      // find price in db by id and use it to charge if its the same as from FE
+
       try {
         let { status } = await stripe.charges.create({
-          amount: 2000,
+          amount: amount * 100, // stripe needs cents
           currency: 'gbp',
-          description: 'An example charge',
+          description: `Charge for purchase at dovilejewellery.com`,
           source: req.body.token
         });
 
         // send confirmation email
         await sendPurchaseEmail(req.body);
-        console.log('cia po email sent turetu but?');
 
-        const { first_name, last_name, email } = req.body.additional;
         const { payload, additional } = req.body;
-        // save client to db
-        const client = new Clients({
-          first_name,
-          last_name,
-          email,
+        // save order to db
+        const order = new Orders({
           payload,
           additional
         });
 
-        await db.collection('clients').insertOne(client);
+        await db.collection('orders').insertOne(order);
 
         return status;
       } catch (err) {
-        console.log('error message which i need to pass to front end?', err);
-        console.log(('why res is undefined???', res));
-
         res.json({ err });
       }
     })
