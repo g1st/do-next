@@ -167,6 +167,7 @@ class StripeForm extends Component {
             console.log('is buyitnow pirko');
             purchaseDetails = {
               ...this.props.buyItNowItem,
+              shippingCost: this.props.shippingCost,
               boughtFrom: 'buyItNow'
             };
           } else {
@@ -180,7 +181,8 @@ class StripeForm extends Component {
               selectedItems,
               totalItems,
               totalPrice,
-              boughtFrom: 'cart'
+              boughtFrom: 'cart',
+              shippingCost: this.props.shippingCost
             };
           }
 
@@ -749,7 +751,8 @@ class StripeForm extends Component {
 
 const mapStateToProps = state => ({
   cart: state.cart,
-  buyItNowItem: state.buyItNow
+  buyItNowItem: state.buyItNow,
+  shippingCost: state.shippingCost
 });
 
 const mapDispatchToProps = dispatch => {

@@ -14,8 +14,6 @@ import {
   TableCell
 } from '../../styles/CartDrawer';
 
-const SHIPPING_PRICE = 5; // pounds
-
 const CartDrawerContent = props => {
   if (props.cart.length > 0 || props.buyItNow) {
     return (
@@ -45,7 +43,9 @@ const CartDrawerContent = props => {
               </TableHead>
               <TableCell>
                 <Typography variant="body1">
-                  {`£${SHIPPING_PRICE}` || 'Free'}
+                  {props.shippingCost != 0
+                    ? `£${props.shippingCost.toFixed(2)}`
+                    : 'Free'}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -57,8 +57,12 @@ const CartDrawerContent = props => {
                 <Typography variant="body1">
                   £
                   {props.buyItNow
-                    ? cart.totalPrice([props.buyItNowItem]).toFixed(2)
-                    : cart.totalPrice(props.cart).toFixed(2)}
+                    ? cart
+                        .totalPrice([props.buyItNowItem], props.shippingCost)
+                        .toFixed(2)
+                    : cart
+                        .totalPrice(props.cart, props.shippingCost)
+                        .toFixed(2)}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -72,7 +76,8 @@ const CartDrawerContent = props => {
 
 const mapStateToProps = state => ({
   cart: state.cart,
-  buyItNowItem: state.buyItNow
+  buyItNowItem: state.buyItNow,
+  shippingCost: state.shippingCost
 });
 
 CartDrawerContent.propTypes = {

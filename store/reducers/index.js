@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { shippingPrice } from '../../util/globals';
 
 import {
   ADD_TO_CART,
@@ -14,7 +15,8 @@ import {
 
 export const initialState = {
   cart: [],
-  buyItNow: {}
+  buyItNow: {},
+  shippingCost: shippingPrice
 };
 
 const cart = (state = initialState.cart, action) => {
@@ -69,9 +71,14 @@ const buyItNow = (state = initialState.buyItNow, action) => {
   return state;
 };
 
+const shippingCost = (state = initialState.shippingCost) => {
+  return state;
+};
+
 const dovile = combineReducers({
   cart,
-  buyItNow
+  buyItNow,
+  shippingCost
 });
 
 export default dovile;
