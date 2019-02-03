@@ -8,7 +8,7 @@ const fs = require('fs');
 const { promisify } = require('util');
 const asyncUnlink = promisify(fs.unlink);
 const sharp = require('sharp');
-const { check, validationResult } = require('express-validator/check');
+const { check, oneOf, validationResult } = require('express-validator/check');
 
 require('dotenv').config();
 const sendPurchaseEmail = require('./sendPurchaseEmail');
@@ -169,6 +169,46 @@ module.exports = (db, upload) => {
   router.post(
     '/charge',
     [
+      oneOf(
+        [
+          [
+            check('additional.purchaseDetails.available')
+              .not()
+              .exists(),
+            check('additional.purchaseDetails.selectedItems.*.available')
+              .isBoolean()
+              .equals('true')
+          ],
+          [
+            check('additional.purchaseDetails.available')
+              .isBoolean()
+              .equals('true'),
+            check('additional.purchaseDetails.selectedItems.*.available')
+              .not()
+              .exists()
+          ]
+        ],
+        'Sorry, item is not available.'
+      ),
+      oneOf(
+        [
+          [
+            check('additional.purchaseDetails.quantity')
+              .not()
+              .exists(),
+            check('additional.purchaseDetails.selectedItems.*.quantity').isInt({
+              min: 1
+            })
+          ],
+          [
+            check('additional.purchaseDetails.quantity').isInt({ min: 1 }),
+            check('additional.purchaseDetails.selectedItems.*.quantity')
+              .not()
+              .exists()
+          ]
+        ],
+        'The quantity is invalid.'
+      ),
       check('additional.first_name')
         .not()
         .isEmpty()
@@ -189,20 +229,23 @@ module.exports = (db, upload) => {
         .withMessage('City is required.'),
       check('additional.country')
         .isAlpha()
-        .withMessage('Country is required.')
+        .withMessage('Country is required.'),
+      check('additional.purchaseDetails.shippingCost')
+        .isFloat({ min: 0 })
+        .equals(shippingPrice.toString()) // same as backend
+        .withMessage('Shipping cost must be positive.')
     ],
     wrapAsync(async (req, res) => {
       const errors = validationResult(req);
+      console.log(req.body);
       if (!errors.isEmpty()) {
         console.log(errors.array());
         // return res.status(422).json({ errors: errors.array() });
         return { errors: errors.array() };
       }
-      console.log(req.body);
 
       const {
         totalPrice,
-        shippingCost,
         boughtFrom,
         price,
         _id
@@ -211,19 +254,26 @@ module.exports = (db, upload) => {
       let amount;
 
       if (boughtFrom == 'buyItNow') {
-        const item = await Works.findById(_id, 'price', (err, data) => {
-          if (err) return console.error(err);
-        });
-        const amountFromFrontEnd = price + shippingCost;
+        const amountFromBackend = await Works.findById(
+          _id,
+          'price',
+          (err, data) => {
+            if (err) return console.error(err);
+          }
+        );
 
-        const amountFromBackend = item.price + shippingPrice;
         amount =
-          amountFromFrontEnd === amountFromBackend ? amountFromFrontEnd : false;
+          price === amountFromBackend.price
+            ? amountFromBackend.price + shippingPrice
+            : false;
       } else {
-        // bought from cart, might be multiple
+        // bought from cart - might be multiple
         const items = req.body.additional.purchaseDetails.selectedItems.map(
           item => {
-            return { id: item._id, quantity: item.quantity, price: item.price };
+            return {
+              id: item._id,
+              price: item.price
+            };
           }
         );
 
@@ -234,49 +284,28 @@ module.exports = (db, upload) => {
           return price;
         });
 
-        const prices = await Promise.all(pricePromises);
-        console.log('prices su quantity multiplier?', prices);
+        const backendPrices = await Promise.all(pricePromises);
 
-        const foo = prices.map(
-          backendItem =>
-            items.filter(item => {
-              console.log('item.id', item.id);
-              console.log('backendItem._id', backendItem._id);
-              return backendItem._id === item.id;
-            })
-          // .map(frontItem => frontItem.quantity * backendItem.price)
+        const amountFromBackend = backendPrices.reduce(
+          (acc, item) => acc + item.price,
+          0
         );
-        // console.log();
 
-        console.log('su quantiti?', foo);
-
-        const amountFromBackend =
-          prices.reduce((acc, item) => acc + item.price, 0) + shippingPrice;
-
-        // price from frontend without quantities
-        const itemsPrice = items.reduce((acc, item) => {
+        // cumulative price from frontend
+        const amountFromFrontEnd = items.reduce((acc, item) => {
           return acc + item.price;
         }, 0);
 
-        const amountFromFrontEnd = itemsPrice + shippingCost;
-
-        console.log('amountFromBackend', amountFromBackend);
-        console.log('amountFromFrontEnd', amountFromFrontEnd);
-
-        amountEqual =
-          amountFromFrontEnd === amountFromBackend ? amountFromFrontEnd : false;
-        if (amountFromFrontEnd) {
-          amount = totalPrice + shippingCost;
-        }
+        amount =
+          amountFromFrontEnd === amountFromBackend
+            ? totalPrice + shippingPrice // totalPrice includes quantity multipliers (checked in validation)
+            : false;
       }
 
+      // if frontend price doesn't match with backend's throw an error
       if (!amount) {
-        return { error: 'Invalid amount.' };
+        return { errors: [{ param: '_error', msg: 'Invalid amount.' }] };
       }
-
-      console.log('amount ========= ', amount);
-
-      // find price in db by id and use it to charge if its the same as from FE
 
       try {
         let { status } = await stripe.charges.create({
@@ -286,8 +315,10 @@ module.exports = (db, upload) => {
           source: req.body.token
         });
 
-        // send confirmation email
+        // send confirmation email to seller
         await sendPurchaseEmail(req.body);
+
+        // TODO send confirmation email to buyer
 
         const { payload, additional } = req.body;
         // save order to db
