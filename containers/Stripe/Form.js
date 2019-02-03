@@ -241,8 +241,8 @@ class StripeForm extends Component {
     const output = this.state.backend_validation_errors
       ? this.state.backend_validation_errors
           .filter(error => error.param === element)
-          .map(error => {
-            return <span>{error.msg}</span>;
+          .map((error, i) => {
+            return <span key={i}>{error.msg}</span>;
           })
       : null;
     return output;
@@ -255,6 +255,13 @@ class StripeForm extends Component {
       <div>
         <FormWrapper>
           <form onSubmit={e => this.handleSubmit(e)}>
+            {this.state.backend_validation_errors
+              ? this.state.backend_validation_errors
+                  .filter(error => error.param == '_error')
+                  .map((error, i) => {
+                    return <p key={i}>{error.msg}</p>;
+                  })
+              : null}
             <label htmlFor="first_name">
               <Typography variant="body1">First name *</Typography>
               <Input
