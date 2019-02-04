@@ -87,6 +87,10 @@ export const FooterLink = styled.li`
     line-height: 28px;
     color: rgba(0, 0, 0, 0.54);
     text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 FooterLink.displayName = 'FooterLink';
@@ -97,5 +101,9 @@ AnchorLink.displayName = 'AnchorLink';
 export const Mail = styled.a`
   color: rgba(0, 0, 0, 0.54);
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 AnchorLink.displayName = 'AnchorLink';
