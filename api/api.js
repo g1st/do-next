@@ -221,19 +221,21 @@ module.exports = (db, upload) => {
         .isEmail()
         .withMessage('Please enter a valid Email address.'),
       check('additional.address1')
-        .isLength({ min: 5 })
-        .withMessage('Address field must have at least 5 characters.'),
+        .not()
+        .isEmpty()
+        .withMessage('Address field is required.'),
       check('additional.city')
         .not()
         .isEmpty()
         .withMessage('City is required.'),
       check('additional.country')
-        .isAlpha()
+        .not()
+        .isEmpty()
         .withMessage('Country is required.'),
       check('additional.purchaseDetails.shippingCost')
         .isFloat({ min: 0 })
         .equals(shippingPrice.toString()) // same as backend
-        .withMessage('Shipping cost must be positive.')
+        .withMessage('Shipping cost must be a positive number.')
     ],
     wrapAsync(async (req, res) => {
       const errors = validationResult(req);
