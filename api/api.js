@@ -250,7 +250,8 @@ module.exports = (db, upload) => {
         totalPrice,
         boughtFrom,
         price,
-        _id
+        _id,
+        quantity
       } = req.body.additional.purchaseDetails;
 
       let amount;
@@ -266,7 +267,7 @@ module.exports = (db, upload) => {
 
         amount =
           price === amountFromBackend.price
-            ? amountFromBackend.price + shippingPrice
+            ? amountFromBackend.price * quantity + shippingPrice
             : false;
       } else {
         // bought from cart - might be multiple
