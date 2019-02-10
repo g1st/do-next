@@ -28,7 +28,6 @@ import {
   TextArea,
   // Select,
   Wrapper,
-  ErrorMessage,
   ShippmentForm,
   Cart,
   FormWrapper
@@ -225,7 +224,7 @@ class StripeForm extends Component {
       ? this.state.backend_validation_errors
           .filter(error => error.param === element)
           .map((error, i) => {
-            return <ErrorMessage key={i}>{error.msg}</ErrorMessage>;
+            return error.msg;
           })
       : null;
     return output;
@@ -243,7 +242,7 @@ class StripeForm extends Component {
               ? this.state.backend_validation_errors
                   .filter(error => error.param == '_error')
                   .map((error, i) => {
-                    return <p key={i}>{error.msg}</p>;
+                    return <Error key={i}>{error.msg}</Error>;
                   })
               : null}
             <Grid container spacing={16}>
@@ -261,8 +260,8 @@ class StripeForm extends Component {
                   error={this.state.backend_validation_errors.some(
                     err => err.param == 'additional.first_name'
                   )}
+                  helperText={this.isNotValid('additional.first_name')}
                 />
-                {this.isNotValid('additional.first_name')}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -277,8 +276,8 @@ class StripeForm extends Component {
                     err => err.param == 'additional.last_name'
                   )}
                   InputLabelProps={{ required: false }}
+                  helperText={this.isNotValid('additional.last_name')}
                 />
-                {this.isNotValid('additional.last_name')}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -293,8 +292,8 @@ class StripeForm extends Component {
                     err => err.param == 'additional.email'
                   )}
                   InputLabelProps={{ required: false }}
+                  helperText={this.isNotValid('additional.email')}
                 />
-                {this.isNotValid('additional.email')}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -319,8 +318,8 @@ class StripeForm extends Component {
                   error={this.state.backend_validation_errors.some(
                     err => err.param == 'additional.address1'
                   )}
+                  helperText={this.isNotValid('additional.address1')}
                 />
-                {this.isNotValid('additional.address1')}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -334,7 +333,12 @@ class StripeForm extends Component {
               </Grid>
 
               <Grid item xs={6}>
-                <FormControl style={{ margin: '16px 0 8px 0' }}>
+                <FormControl
+                  style={{ margin: '16px 0 8px 0' }}
+                  error={this.state.backend_validation_errors.some(
+                    err => err.param == 'additional.country'
+                  )}
+                >
                   <InputLabel htmlFor="country">Country</InputLabel>
                   <Select
                     value={this.state.country}
@@ -606,9 +610,10 @@ class StripeForm extends Component {
                     <option value="ZM">Zambia</option>
                     <option value="ZW">Zimbabwe</option>
                   </Select>
+                  {this.isNotValid('additional.country') && (
+                    <Error>{this.isNotValid('additional.country')}</Error>
+                  )}
                 </FormControl>
-
-                {this.isNotValid('additional.country')}
               </Grid>
               <Grid item xs={6}>
                 <TextField
@@ -623,8 +628,8 @@ class StripeForm extends Component {
                   error={this.state.backend_validation_errors.some(
                     err => err.param == 'additional.city'
                   )}
+                  helperText={this.isNotValid('additional.city')}
                 />
-                {this.isNotValid('additional.city')}
               </Grid>
 
               <Grid item xs={7} sm={6}>
@@ -634,15 +639,16 @@ class StripeForm extends Component {
                   component={CardNumberElement}
                   name={'card_number'}
                   onChange={this.handleStripeChange}
-                  error={this.state.card_number.error}
+                  stripeError={
+                    this.state.card_number.error
+                      ? this.state.card_number.error
+                      : this.state.stripe_errors
+                      ? this.state.card_number.empty
+                        ? `Your card's number is blank`
+                        : null
+                      : null
+                  }
                 />
-                {this.state.card_number.error ? (
-                  <Error>{this.state.card_number.error}</Error>
-                ) : this.state.stripe_errors ? (
-                  this.state.card_number.empty ? (
-                    <Error>Your card's number is blank.</Error>
-                  ) : null
-                ) : null}
               </Grid>
               <Grid item xs={5} sm={6}>
                 <StripeElementWrapper
@@ -650,15 +656,16 @@ class StripeForm extends Component {
                   component={CardExpiryElement}
                   name={'card_expiration'}
                   onChange={this.handleStripeChange}
-                  error={this.state.card_expiration.error}
+                  stripeError={
+                    this.state.card_expiration.error
+                      ? this.state.card_expiration.error
+                      : this.state.stripe_errors
+                      ? this.state.card_expiration.empty
+                        ? `Your card's expiration day is blank.`
+                        : null
+                      : null
+                  }
                 />
-                {this.state.card_expiration.error ? (
-                  <Error>{this.state.card_expiration.error}</Error>
-                ) : this.state.stripe_errors ? (
-                  this.state.card_expiration.empty ? (
-                    <Error>Your card's expiration day is blank.</Error>
-                  ) : null
-                ) : null}
               </Grid>
               <Grid item xs={6}>
                 <StripeElementWrapper
@@ -666,15 +673,16 @@ class StripeForm extends Component {
                   component={CardCVCElement}
                   name={'CVC_number'}
                   onChange={this.handleStripeChange}
-                  error={this.state.CVC_number.error}
+                  stripeError={
+                    this.state.CVC_number.error
+                      ? this.state.CVC_number.error
+                      : this.state.stripe_errors
+                      ? this.state.CVC_number.empty
+                        ? `Your card's security number is blank.`
+                        : null
+                      : null
+                  }
                 />
-                {this.state.CVC_number.error ? (
-                  <Error>{this.state.CVC_number.error}</Error>
-                ) : this.state.stripe_errors ? (
-                  this.state.CVC_number.empty ? (
-                    <Error>Your card's security number is blank.</Error>
-                  ) : null
-                ) : null}
               </Grid>
               <Grid item xs={6}>
                 <StripeElementWrapper
@@ -682,15 +690,16 @@ class StripeForm extends Component {
                   component={PostalCodeElement}
                   name={'zip_code'}
                   onChange={this.handleStripeChange}
-                  error={this.state.zip_code.error}
+                  stripeError={
+                    this.state.zip_code.error
+                      ? this.state.zip_code.error
+                      : this.state.stripe_errors
+                      ? this.state.zip_code.empty
+                        ? `Your card's postal code is blank.`
+                        : null
+                      : null
+                  }
                 />
-                {this.state.zip_code.error ? (
-                  <Error>{this.state.zip_code.error}</Error>
-                ) : this.state.stripe_errors ? (
-                  this.state.zip_code.empty ? (
-                    <Error>Your card's postal code is blank.</Error>
-                  ) : null
-                ) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
