@@ -35,6 +35,7 @@ module.exports = data => {
   } = data.additional;
 
   const { totalPrice, shippingCost } = data.additional.purchaseDetails;
+  const totalPriceBuyItNow = purchaseData[0].price * purchaseData[0].quantity;
 
   const output = `
     <h3>Items purchased</h3>
@@ -51,12 +52,12 @@ module.exports = data => {
       .join(' ')}
     <p>Additional order information: ${additional_info || 'Not provided'}</p>
     <p>Amount: £${
-      boughtFrom === 'buyItNow' ? purchaseData[0].price : totalPrice
+      boughtFrom === 'buyItNow' ? totalPriceBuyItNow : totalPrice
     }</p>
     <p>Shipping cost: ${shippingCost == 0 ? 'Free' : `£${shippingCost}`}</p>
     <p>Total amount: £${
       boughtFrom === 'buyItNow'
-        ? purchaseData[0].price + shippingCost
+        ? totalPriceBuyItNow + shippingCost
         : totalPrice + shippingCost
     }</p>
     <p>Purchase time: ${new Date()}</p>

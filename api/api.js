@@ -151,20 +151,42 @@ module.exports = (db, upload) => {
     });
   });
 
-  router.post('/send', (req, res) => {
-    const { email, subject, message } = req.body;
+  router.post(
+    '/send',
+    [
+      check('email')
+        .isEmail()
+        .withMessage('Please enter a valid email address.'),
+      check('subject')
+        .not()
+        .isEmpty()
+        .withMessage('Please provide a subject.'),
+      check('message')
+        .not()
+        .isEmpty()
+        .withMessage('Please provide a message.')
+    ],
+    (req, res) => {
+      const { email, subject, message } = req.body;
 
-    sendMail({ email, subject, message })
-      .then(() => {
-        return res.json({
-          msg: 'Email has been sent'
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        console.log(errors.array());
+        return res.status(422).json({ errors: errors.array() });
+      }
+
+      sendMail({ email, subject, message })
+        .then(() => {
+          return res.json({
+            msg: 'Email has been sent.'
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          return res.json({ msg: err.message });
         });
-      })
-      .catch(err => {
-        console.log(err);
-        return res.json({ msg: err.message });
-      });
-  });
+    }
+  );
 
   router.post(
     '/charge',
@@ -250,7 +272,8 @@ module.exports = (db, upload) => {
         totalPrice,
         boughtFrom,
         price,
-        _id
+        _id,
+        quantity
       } = req.body.additional.purchaseDetails;
 
       let amount;
@@ -266,7 +289,7 @@ module.exports = (db, upload) => {
 
         amount =
           price === amountFromBackend.price
-            ? amountFromBackend.price + shippingPrice
+            ? amountFromBackend.price * quantity + shippingPrice
             : false;
       } else {
         // bought from cart - might be multiple

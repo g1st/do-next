@@ -46,7 +46,8 @@ class ContactForm extends Component {
     email: '',
     message: '',
     isSendingMail: false,
-    emailSent: false
+    emailSent: false,
+    errors: { message: null, email: null, subject: null }
   };
 
   handleChange = name => event => {
@@ -66,6 +67,10 @@ class ContactForm extends Component {
         message: this.state.message
       })
       .then(res => {
+        console.log('hillowwwwwww');
+
+        console.log(res);
+
         this.props.onEmailSend(true);
         this.setState(() => ({
           isSendingMail: false,
@@ -73,7 +78,16 @@ class ContactForm extends Component {
         }));
       })
       .catch(err => {
-        console.log(err);
+        // console.log(errors.map(err => ({ [err.param]: err.msg })));
+        const { errors } = err.response.data;
+        this.setState(() => ({
+          isSendingMail: false,
+          // errors: { ...errors.map(err => ({ [err.param]: err.msg })) },
+          errors: errors.reduce((acc, err) => {
+            acc[err.param] = err.msg;
+            return acc;
+          }, {})
+        }));
       });
   };
 
@@ -94,6 +108,7 @@ class ContactForm extends Component {
       <div className={classes.wrapper}>
         <form onSubmit={e => this.handleSubmit(e)}>
           <TextField
+            value={this.state.email}
             id="email"
             label="Email"
             placeholder="Your Email"
@@ -101,17 +116,27 @@ class ContactForm extends Component {
             required
             fullWidth
             margin="normal"
+            InputLabelProps={{ required: false }}
             onChange={this.handleChange('email')}
+            error={!!this.state.errors.email}
+            helperText={this.state.errors.email}
           />
           <TextField
+            value={this.state.subject}
             id="subject"
             label="Subject"
+            required
+            InputLabelProps={{ required: false }}
             type="text"
             margin="normal"
             fullWidth
             onChange={this.handleChange('subject')}
+            error={!!this.state.errors.subject}
+            helperText={this.state.errors.subject}
           />
+
           <TextField
+            value={this.state.message}
             id="message"
             label="Message"
             required
@@ -120,7 +145,10 @@ class ContactForm extends Component {
             multiline={true}
             fullWidth
             rows={4}
+            InputLabelProps={{ required: false }}
             onChange={this.handleChange('message')}
+            error={!!this.state.errors.message}
+            helperText={this.state.errors.message}
           />
           <Button
             type="submit"
