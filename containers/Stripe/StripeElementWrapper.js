@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import StripeInput from './StripeInput';
+import Error from '../../components/Error/Error';
 
 const StripeElementWrapper = ({ component, onChange, label, name, error }) => (
   <div>
-    <FormControl fullWidth margin="normal">
+    <FormControl fullWidth margin="normal" error={!!error}>
       <InputLabel shrink error={!!error}>
         {label}
       </InputLabel>
@@ -20,6 +20,7 @@ const StripeElementWrapper = ({ component, onChange, label, name, error }) => (
         inputProps={{ component }}
         name={name}
       />
+      <Error>{error}</Error>
     </FormControl>
   </div>
 );
