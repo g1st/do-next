@@ -101,11 +101,14 @@ class ContactForm extends Component {
             required
             fullWidth
             margin="normal"
+            InputLabelProps={{ required: false }}
             onChange={this.handleChange('email')}
           />
           <TextField
             id="subject"
             label="Subject"
+            required
+            InputLabelProps={{ required: false }}
             type="text"
             margin="normal"
             fullWidth
@@ -120,6 +123,7 @@ class ContactForm extends Component {
             multiline={true}
             fullWidth
             rows={4}
+            InputLabelProps={{ required: false }}
             onChange={this.handleChange('message')}
           />
           <Button
