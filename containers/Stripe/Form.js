@@ -19,7 +19,7 @@ import StripeElementWrapper from './StripeElementWrapper';
 import { clearCart, clearBuyItNow } from '../../store/actions';
 import { cart } from '../../util/helpers';
 import CartDrawerContent from '../../components/CartDrawer/CartDrawerContent';
-import Error from './Error/Error';
+import Error from '../../components/Error/Error';
 import {
   ElementContainer,
   Input,
