@@ -30,7 +30,7 @@ StripeInput.propTypes = {
   classes: PropTypes.object.isRequired,
   component: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  name: PropTypes.func.isRequired
+  name: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(StripeInput);
