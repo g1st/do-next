@@ -639,7 +639,7 @@ class StripeForm extends Component {
                   component={CardNumberElement}
                   name={'card_number'}
                   onChange={this.handleStripeChange}
-                  stripeError={
+                  error={
                     this.state.card_number.error
                       ? this.state.card_number.error
                       : this.state.stripe_errors
@@ -656,7 +656,7 @@ class StripeForm extends Component {
                   component={CardExpiryElement}
                   name={'card_expiration'}
                   onChange={this.handleStripeChange}
-                  stripeError={
+                  error={
                     this.state.card_expiration.error
                       ? this.state.card_expiration.error
                       : this.state.stripe_errors
@@ -673,7 +673,7 @@ class StripeForm extends Component {
                   component={CardCVCElement}
                   name={'CVC_number'}
                   onChange={this.handleStripeChange}
-                  stripeError={
+                  error={
                     this.state.CVC_number.error
                       ? this.state.CVC_number.error
                       : this.state.stripe_errors
@@ -690,7 +690,7 @@ class StripeForm extends Component {
                   component={PostalCodeElement}
                   name={'zip_code'}
                   onChange={this.handleStripeChange}
-                  stripeError={
+                  error={
                     this.state.zip_code.error
                       ? this.state.zip_code.error
                       : this.state.stripe_errors
