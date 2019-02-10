@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import Error from './Error/Error';
 import ModalLoader from './UI/ModalLoader/ModalLoader';
 
 const styles = theme => ({
@@ -120,11 +119,7 @@ class ContactForm extends Component {
             InputLabelProps={{ required: false }}
             onChange={this.handleChange('email')}
             error={!!this.state.errors.email}
-            helperText={
-              !!this.state.errors.email && (
-                <Error>{this.state.errors.email}</Error>
-              )
-            }
+            helperText={this.state.errors.email}
           />
           <TextField
             value={this.state.subject}
@@ -137,11 +132,7 @@ class ContactForm extends Component {
             fullWidth
             onChange={this.handleChange('subject')}
             error={!!this.state.errors.subject}
-            helperText={
-              !!this.state.errors.subject && (
-                <Error>{this.state.errors.subject}</Error>
-              )
-            }
+            helperText={this.state.errors.subject}
           />
 
           <TextField
@@ -157,11 +148,7 @@ class ContactForm extends Component {
             InputLabelProps={{ required: false }}
             onChange={this.handleChange('message')}
             error={!!this.state.errors.message}
-            helperText={
-              !!this.state.errors.message && (
-                <Error>{this.state.errors.message}</Error>
-              )
-            }
+            helperText={this.state.errors.message}
           />
           <Button
             type="submit"
