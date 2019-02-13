@@ -22,6 +22,7 @@
     "express": "^4.16.3",
     "express-validator": "^5.3.1",
     "instafeed-lite": "^1.0.10",
+    "js-cookie": "^2.2.0",
     "jss": "^9.8.7",
     "mongoose": "^5.3.6",
     "multer": "^1.4.1",
