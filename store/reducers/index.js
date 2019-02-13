@@ -10,13 +10,16 @@ import {
   BUY_IT_NOW_DECREASE_QUANTITY,
   BUY_IT_NOW,
   CLEAR_BUY_IT_NOW,
-  CLEAR_CART
+  CLEAR_CART,
+  AUTHENTICATE,
+  DEAUTHENTICATE
 } from '../constants/action-types';
 
 export const initialState = {
   cart: [],
   buyItNow: {},
-  shippingCost: shippingPrice
+  shippingCost: shippingPrice,
+  authenticate: { token: null }
 };
 
 const cart = (state = initialState.cart, action) => {
@@ -75,10 +78,21 @@ const shippingCost = (state = initialState.shippingCost) => {
   return state;
 };
 
+const authenticate = (state = initialState.authenticate, action) => {
+  if (AUTHENTICATE === action.type) {
+    return { token: action.payload };
+  }
+  if (DEAUTHENTICATE === action.type) {
+    return { token: null };
+  }
+  return state;
+};
+
 const dovile = combineReducers({
   cart,
   buyItNow,
-  shippingCost
+  shippingCost,
+  authenticate
 });
 
 export default dovile;

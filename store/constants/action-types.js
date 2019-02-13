@@ -7,3 +7,5 @@ export const BUY_IT_NOW_INCREASE_QUANTITY = 'BUY_IT_NOW_INCREASE_QUANTITY';
 export const BUY_IT_NOW = 'BUY_IT_NOW';
 export const CLEAR_CART = 'CLEAR_CART';
 export const CLEAR_BUY_IT_NOW = 'CLEAR_BUY_IT_NOW';
+export const AUTHENTICATE = 'authenticate';
+export const DEAUTHENTICATE = 'deauthenticate';

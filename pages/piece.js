@@ -131,10 +131,11 @@ Piece.propTypes = {
   classes: PropTypes.object.isRequired,
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
-  onePieceData: PropTypes.arrayOf(PropTypes.object)
+  onePieceData: PropTypes.arrayOf(PropTypes.object),
+  user: PropTypes.string
 };
 
-Piece.getInitialProps = async ({ pathname, req, query }) => {
+Piece.getInitialProps = async ({ pathname, req, query, user }) => {
   if (req) {
     const { db } = req;
     const id = req.params.id;

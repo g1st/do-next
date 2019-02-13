@@ -35,10 +35,7 @@ co(function*() {
   yield app.prepare();
 
   console.log(`Connecting to ${MONGO_URL}`);
-  mongoose.connect(
-    MONGO_URL,
-    { useNewUrlParser: true }
-  );
+  mongoose.connect(MONGO_URL, { useNewUrlParser: true });
   const db = yield mongoose.connection;
 
   // Configure express to expose a REST API
@@ -69,6 +66,5 @@ co(function*() {
     return handle(req, res);
   });
 
-  server.listen(PORT);
-  console.log(`Listening on ${PORT}`);
+  server.listen(PORT, () => console.log(`Server listening on ${PORT}`));
 }).catch(error => console.error(error.stack));
