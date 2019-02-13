@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import ModalLoader from './UI/ModalLoader/ModalLoader';
+import ModalLoader from '../UI/ModalLoader/ModalLoader';
 
 class AdminForm extends Component {
   state = {
