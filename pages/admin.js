@@ -1,7 +1,9 @@
 import AdminForm from '../components/Admin/AdminForm';
 import SignIn from '../components/Admin/SignIn';
+import { connect } from 'react-redux';
+import { deauthenticate } from '../store/actions/index';
 
-const Admin = ({ user }) => {
+const Admin = ({ user, deauthenticate }) => {
   return (
     <div>
       <p>This is Admin page.</p>
@@ -9,6 +11,7 @@ const Admin = ({ user }) => {
         <div>
           <p>Hello {user}</p>
           <AdminForm />
+          <button onClick={deauthenticate}>Logout</button>
         </div>
       ) : (
         <SignIn />
@@ -21,4 +24,7 @@ Admin.getInitialProps = ({ user }) => {
   return { user };
 };
 
-export default Admin;
+export default connect(
+  null,
+  { deauthenticate }
+)(Admin);
