@@ -8,6 +8,7 @@ import Head from 'next/head';
 import axios from 'axios';
 import withReduxStore from '../lib/with-redux-store';
 import { Provider } from 'react-redux';
+import { authUrl } from '../config';
 
 import '../styles/emptyFileToFixNextjsBug.css';
 
@@ -19,9 +20,25 @@ class MyApp extends App {
 
   static async getInitialProps({ Component, ctx, router }) {
     var pageProps = {};
+    let user = null;
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
+
+    const token = ctx.reduxStore.getState().authenticate.token;
+
+    if (token) {
+      const response = await axios.get(`${authUrl}/user`, {
+        headers: {
+          authorization: token
+        }
+      });
+
+      const isUser = response.data.user;
+
+      user = isUser;
+    }
+
     // credits http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
     if (ctx.req) {
       // If `req` is defined, we're rendering on the server and should use
@@ -43,7 +60,8 @@ class MyApp extends App {
         data: JSON.stringify(data),
         from: 'server',
         collections,
-        router
+        router,
+        user
       };
 
       return { pageProps };
@@ -56,7 +74,8 @@ class MyApp extends App {
         data: localStorage.getItem('data'),
         collections: localStorage.getItem('collections').split(','),
         from: 'rest api',
-        router
+        router,
+        user
       };
 
       return { pageProps };
@@ -77,7 +96,8 @@ class MyApp extends App {
       data: JSON.stringify(works),
       from: 'rest api',
       collections,
-      router
+      router,
+      user
     };
 
     return { pageProps };

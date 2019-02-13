@@ -94,8 +94,8 @@ Index.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string)
 };
 
-Index.getInitialProps = async ({ pathname }) => {
-  return { pathname };
+Index.getInitialProps = async ({ pathname, user }) => {
+  return { pathname, user };
 };
 
 export default Index;
