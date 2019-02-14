@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const Spinner = keyframes`
  0%,
@@ -28,6 +28,10 @@ const Spinner = keyframes`
   }
 `;
 
+const SpinnerAnimation = css`
+  ${Spinner} 1.1s infinite ease;
+`;
+
 export const Loader = styled.div`
   margin: 50px auto;
   font-size: 8px;
@@ -35,8 +39,9 @@ export const Loader = styled.div`
   height: 1em;
   border-radius: 50%;
   position: relative;
+  animation: ${SpinnerAnimation};
   text-indent: -9999em;
-  animation: ${Spinner} 1.1s infinite ease;
+
   transform: translateZ(0);
 
   @media (min-width: 800px) {
