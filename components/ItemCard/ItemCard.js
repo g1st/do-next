@@ -2,13 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
+import LazyLoad from 'react-lazy-load';
+import styled from 'styled-components';
+
+const ImageContainer = styled.div`
+  width: 100%;
+  padding-bottom: 100%;
+  position: relative;
+  background: #fff;
+
+  > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+`;
 
 const styles = theme => ({
   card: {
@@ -38,13 +52,31 @@ const styles = theme => ({
   }
 });
 
+const fallbackImage = '../../static/images/logo.png';
+
+const onCardMediaError = e => {
+  if (e.target.src.indexOf('/static/images/logo.png') === -1) {
+    e.target.src = fallbackImage;
+  }
+};
+
 const ItemCard = props => {
   const { price, name, img, classes, id } = props;
   return (
     <Card className={classes.card}>
       <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
         <a style={{ textDecoration: 'none' }}>
-          <CardMedia className={classes.media} image={img} title={name} />
+          <LazyLoad height={280}>
+            <ImageContainer>
+              <CardMedia
+                className={classes.media}
+                image={img}
+                title={name}
+                component={'img'}
+                onError={e => onCardMediaError(e)}
+              />
+            </ImageContainer>
+          </LazyLoad>
           <CardContent>
             <Typography align="center" gutterBottom variant="h6" component="h2">
               {name}
