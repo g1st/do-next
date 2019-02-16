@@ -40,6 +40,7 @@ co(function*() {
 
   // Configure express to expose a REST API
   const server = express();
+  server.use(cors());
   server.use(body.json());
   server.use((req, res, next) => {
     // Also expose the MongoDB database handle so Next.js can access it.
