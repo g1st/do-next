@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import Router from 'next/router';
+import customItem from '../components/ItemCard/customRenderItem';
+import customThumb from '../components/ItemCard/customRenderThumb';
 
 import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
@@ -65,6 +67,16 @@ class Piece extends React.Component {
     const gallery = images.map(image => ({
       original: `/static/uploads/${image.resized}`,
       thumbnail: `/static/uploads/${image.thumb}`
+      // imageSet: [
+      //   {
+      //     srcSet: `/static/uploads/${image.resized}`,
+      //     media: '(max-width: 1280px)'
+      //   },
+      //   {
+      //     srcSet: `/static/uploads/${image.thumb}`,
+      //     media: '(min-width: 1280px)'
+      //   }
+      // ]
     }));
 
     return (
@@ -78,6 +90,8 @@ class Piece extends React.Component {
               showNav={true}
               showPlayButton={false}
               showFullscreenButton={true}
+              renderItem={customItem}
+              renderThumbInner={customThumb}
             />
           </Images>
           <Info>
