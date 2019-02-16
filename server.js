@@ -9,6 +9,7 @@ const next = require('next');
 const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 const path = require('path');
+const cors = require('cors');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
