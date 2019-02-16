@@ -9,6 +9,7 @@ const next = require('next');
 const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 const path = require('path');
+const cors = require('cors');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -40,6 +41,7 @@ co(function*() {
 
   // Configure express to expose a REST API
   const server = express();
+  server.use(cors());
   server.use(body.json());
   server.use((req, res, next) => {
     // Also expose the MongoDB database handle so Next.js can access it.

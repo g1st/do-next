@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
 
-const ITEMS_PER_PAGE = 6;
+import { ITEMS_PER_PAGE } from '../config.js';
 
 const ButtonContainer = styled.div`
   text-align: center;
