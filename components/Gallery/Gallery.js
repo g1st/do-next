@@ -1,13 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Grid from '@material-ui/core/Grid';
 import ItemCard from '../ItemCard/ItemCard';
 import PropTypes from 'prop-types';
-
-import { ItemsContainer } from '../../styles/Gallery';
 
 const styles = theme => ({
   root: {
@@ -47,23 +43,18 @@ const Gallery = props => {
   };
   return (
     <div className={classes.root}>
-      <GridList
-        cellHeight={'auto'}
-        className={classes.gridList}
-        cols={columns[width] || 3}
-        spacing={spacing[width] || 12}
-      >
+      <Grid container spacing={8}>
         {filtered.map(item => (
-          <GridListTile key={item._id} cols={1}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
             <ItemCard
               id={item._id}
               price={item.price}
               name={item.name}
               img={`/static/uploads/${item.images[0].thumb}`}
             />
-          </GridListTile>
+          </Grid>
         ))}
-      </GridList>
+      </Grid>
     </div>
   );
 };
