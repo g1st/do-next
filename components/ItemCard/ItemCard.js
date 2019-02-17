@@ -6,23 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
-import LazyLoad from 'react-lazy-load';
 import styled from 'styled-components';
-
-const ImageContainer = styled.div`
-  width: 100%;
-  padding-bottom: 100%;
-  position: relative;
-  background: #fff;
-
-  > img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-  }
-`;
 
 const styles = theme => ({
   card: {
@@ -66,17 +50,13 @@ const ItemCard = props => {
     <Card className={classes.card}>
       <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
         <a style={{ textDecoration: 'none' }}>
-          <LazyLoad height={280}>
-            <ImageContainer>
-              <CardMedia
-                className={classes.media}
-                image={img}
-                title={name}
-                component={'img'}
-                onError={e => onCardMediaError(e)}
-              />
-            </ImageContainer>
-          </LazyLoad>
+          <CardMedia
+            className={classes.media}
+            image={img}
+            title={name}
+            component={'img'}
+            onError={e => onCardMediaError(e)}
+          />
           <CardContent>
             <Typography align="center" gutterBottom variant="h6" component="h2">
               {name}
