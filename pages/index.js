@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
 
-import { ITEMS_PER_PAGE } from '../config.js';
 import { increaseLoadedItems } from '../store/actions';
 
 const ButtonContainer = styled.div`
@@ -25,8 +24,8 @@ class Index extends React.Component {
     const data = JSON.parse(props.data);
     this.state = {
       data,
-      itemsLoaded: ITEMS_PER_PAGE,
-      dataForGallery: data.slice(0, ITEMS_PER_PAGE)
+      itemsLoaded: props.reduxLoadedItems,
+      dataForGallery: data.slice(0, props.reduxLoadedItems)
     };
   }
 
