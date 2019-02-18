@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { shippingPrice } from '../../util/globals';
+import { ITEMS_PER_PAGE } from '../../config';
 
 import {
   ADD_TO_CART,
@@ -12,14 +13,16 @@ import {
   CLEAR_BUY_IT_NOW,
   CLEAR_CART,
   AUTHENTICATE,
-  DEAUTHENTICATE
+  DEAUTHENTICATE,
+  INCREASE_LOADED_ITEMS
 } from '../constants/action-types';
 
 export const initialState = {
   cart: [],
   buyItNow: {},
   shippingCost: shippingPrice,
-  authenticate: { token: null }
+  authenticate: { token: null },
+  loadMore: ITEMS_PER_PAGE
 };
 
 const cart = (state = initialState.cart, action) => {
@@ -88,10 +91,18 @@ const authenticate = (state = initialState.authenticate, action) => {
   return state;
 };
 
+const loadMore = (state = initialState.loadMore, action) => {
+  if (INCREASE_LOADED_ITEMS === action.type) {
+    return state + 6;
+  }
+  return state;
+};
+
 const dovile = combineReducers({
   cart,
   buyItNow,
   shippingCost,
+  loadMore,
   authenticate
 });
 
