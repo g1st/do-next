@@ -2,11 +2,13 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
 
 import { ITEMS_PER_PAGE } from '../config.js';
+import { increaseLoadedItems } from '../store/actions';
 
 const ButtonContainer = styled.div`
   text-align: center;
@@ -28,14 +30,13 @@ class Index extends React.Component {
     };
   }
 
-  loadMore() {
-    this.setState(prevState => ({
-      dataForGallery: this.state.data.slice(
-        0,
-        prevState.itemsLoaded + ITEMS_PER_PAGE
-      ),
-      itemsLoaded: prevState.itemsLoaded + ITEMS_PER_PAGE
-    }));
+  componentDidUpdate(prevProps) {
+    if (this.props.reduxLoadedItems !== prevProps.reduxLoadedItems) {
+      this.setState(() => ({
+        dataForGallery: this.state.data.slice(0, this.props.reduxLoadedItems),
+        itemsLoaded: this.props.reduxLoadedItems
+      }));
+    }
   }
 
   render() {
@@ -78,7 +79,7 @@ class Index extends React.Component {
               size="medium"
               variant="contained"
               color="secondary"
-              onClick={() => this.loadMore()}
+              onClick={() => this.props.increaseLoadedItems()}
             >
               Load More
             </Button>
@@ -98,4 +99,17 @@ Index.getInitialProps = async ({ pathname, user }) => {
   return { pathname, user };
 };
 
-export default Index;
+const mapStateToProps = state => ({
+  reduxLoadedItems: state.loadMore
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    increaseLoadedItems: () => dispatch(increaseLoadedItems())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Index);
