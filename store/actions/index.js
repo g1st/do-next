@@ -40,6 +40,10 @@ export const clearBuyItNow = () => {
   return { type: actionTypes.CLEAR_BUY_IT_NOW };
 };
 
+export const increaseLoadedItems = () => {
+  return { type: actionTypes.INCREASE_LOADED_ITEMS };
+};
+
 // gets token from the api and stores it in the redux store and in cookie
 export const authenticate = ({ email, password }, type) => {
   if (type !== 'signin' && type !== 'signup') {
