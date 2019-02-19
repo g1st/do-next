@@ -6,30 +6,19 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
-import styled from 'styled-components';
 
 const styles = theme => ({
   card: {
-    maxWidth: 280,
-    margin: '0 auto 50px auto',
-    '&:hover': {
-      cursor: 'pointer'
-    }
-  },
-  media: {
-    [theme.breakpoints.up('xs')]: {
-      height: 200
-    },
-    [theme.breakpoints.up('sm')]: {
-      height: 220
-    },
+    maxWidth: '300px',
+    margin: '0 auto 16px auto',
     [theme.breakpoints.up('md')]: {
-      height: 220
+      marginBottom: '32px'
     },
-    [theme.breakpoints.up('lg')]: {
-      height: 240
-    },
-    margin: '0 auto'
+    '&:hover': {
+      cursor: 'pointer',
+      boxShadow:
+        '-1px 2px 6px 0px rgba(0,0,0,0.2), 0px 2px 1px 0px rgba(0,0,0,0.14), 2px 2px 2px 0px rgba(0,0,0,0.12)'
+    }
   },
   textColor: {
     color: 'rgba(0, 0, 0, 0.5)'

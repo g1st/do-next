@@ -10,7 +10,11 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    padding: '10px 10px 0 10px',
+    [theme.breakpoints.up('md')]: {
+      padding: '10px 0 0 0'
+    }
   },
   gridList: {
     width: '100%'
@@ -18,7 +22,7 @@ const styles = theme => ({
 });
 
 const Gallery = props => {
-  const { classes, width, data, showCollection } = props;
+  const { classes, data, showCollection } = props;
 
   if (showCollection == 'all') {
     var filtered = data;
@@ -26,21 +30,6 @@ const Gallery = props => {
     filtered = data.filter(item => item.group == showCollection);
   }
 
-  const columns = {
-    xs: 1,
-    sm: 2,
-    md: 3,
-    lg: 4,
-    xl: 4
-  };
-
-  const spacing = {
-    xs: 1,
-    sm: 1,
-    md: 1,
-    lg: 1,
-    xl: 1
-  };
   return (
     <div className={classes.root}>
       <Grid container spacing={8}>
