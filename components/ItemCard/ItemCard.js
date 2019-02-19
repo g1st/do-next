@@ -10,26 +10,11 @@ import styled from 'styled-components';
 
 const styles = theme => ({
   card: {
-    maxWidth: 280,
+    maxWidth: 300,
     margin: '0 auto 50px auto',
     '&:hover': {
       cursor: 'pointer'
     }
-  },
-  media: {
-    [theme.breakpoints.up('xs')]: {
-      height: 200
-    },
-    [theme.breakpoints.up('sm')]: {
-      height: 220
-    },
-    [theme.breakpoints.up('md')]: {
-      height: 220
-    },
-    [theme.breakpoints.up('lg')]: {
-      height: 240
-    },
-    margin: '0 auto'
   },
   textColor: {
     color: 'rgba(0, 0, 0, 0.5)'
