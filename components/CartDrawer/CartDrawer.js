@@ -12,7 +12,8 @@ import CartDrawerContent from './CartDrawerContent';
 
 const styles = {
   list: {
-    width: 320
+    width: 320,
+    marginTop: '8px'
   },
   button: {
     margin: '20px 20px'
@@ -25,6 +26,7 @@ class CartDrawer extends Component {
   handleCheckout = () => {
     this.props.clearBuyItNow();
     Router.push('/checkout');
+    this.context.toggleDrawer('drawerCart', false);
   };
 
   render() {
