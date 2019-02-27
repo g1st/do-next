@@ -2,16 +2,27 @@ import AdminForm from '../components/Admin/AdminForm';
 import SignIn from '../components/Admin/SignIn';
 import { connect } from 'react-redux';
 import { deauthenticate } from '../store/actions/index';
+import Button from '@material-ui/core/Button';
 
-const Admin = ({ user, deauthenticate }) => {
+const styles = {
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: '20px 20px',
+    flexWrap: 'wrap'
+  }
+};
+
+const Admin = ({ user, deauthenticate, collections }) => {
   return (
     <div>
-      <p>This is Admin page.</p>
       {user ? (
         <div>
-          <p>Hello {user}</p>
-          <AdminForm />
-          <button onClick={deauthenticate}>Logout</button>
+          <div style={styles.header}>
+            <p>Hello {user}!</p>
+            <Button onClick={deauthenticate}>Logout</Button>
+          </div>
+          <AdminForm collections={collections} />
         </div>
       ) : (
         <SignIn />
