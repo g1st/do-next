@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
+import Link from 'next/link';
 
 import Error from '../Error/Error';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
@@ -39,7 +40,6 @@ const styles = theme => ({
   },
   imageInput: {
     marginTop: '30px',
-    // width: '500px',
     display: 'flex',
     flexDirection: 'column',
     hideImageInput: {
@@ -50,17 +50,17 @@ const styles = theme => ({
     flexDirection: 'row'
   },
   newCollection: {
-    marginTop: 0
+    margin: theme.spacing.unit
+  },
+  collection: {
+    margin: theme.spacing.unit
+  },
+  added: {
+    margin: '10px',
+    [theme.breakpoints.up('md')]: {
+      margin: '10px 40px'
+    }
   }
-  // collections: {
-  //   display: 'flex',
-  //   first: {
-  //     flexGrow: 2
-  //   },
-  //   second: {
-
-  //   }
-  // },
 });
 
 class AdminForm extends Component {
@@ -73,11 +73,11 @@ class AdminForm extends Component {
     category: 'ring',
     materials: '',
     collection: '',
-    existingCollection: '',
+    existingCollection: this.props.collections[0] || '',
     available: 'available',
     updating: false,
-    updated: false,
-    errors: null
+    errors: null,
+    work: null
   };
 
   handleChange = name => event => {
@@ -88,6 +88,21 @@ class AdminForm extends Component {
 
   handleImages = event => {
     this.setState({ images: event.target.files });
+  };
+
+  resetForm = () => {
+    this.setState({
+      title: '',
+      description: '',
+      images: '',
+      size: '',
+      price: '',
+      category: 'ring',
+      materials: '',
+      collection: '',
+      existingCollection: this.props.collections[0] || '',
+      available: 'available'
+    });
   };
 
   handleSubmit = e => {
@@ -138,243 +153,280 @@ class AdminForm extends Component {
           }
         }
 
-        this.setState(() => ({ errors: err, updating: false }));
-        // updated: true
+        console.log(response.data);
+
+        const { _id: id, name, group } = response.data.work;
+
+        this.setState(
+          () => ({
+            errors: err,
+            updating: false,
+            work: {
+              id,
+              name,
+              collection: group
+            }
+          }),
+          () => this.resetForm()
+        );
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        this.setState({ errors: err, updating: false });
+        console.log(err);
+      });
   };
 
   render() {
     const { classes } = this.props;
+    let workInfo = null;
+
+    if (this.state.work) {
+      const { name, collection, id } = this.state.work;
+      workInfo = (
+        <div className={classes.added}>
+          <Typography variant="body2">
+            Piece{' '}
+            <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
+              <a>{name}</a>
+            </Link>{' '}
+            was added to a collection{' '}
+            <Link
+              href={`/works?collection=${collection}`}
+              as={`/works/${collection}`}
+            >
+              <a>{collection}</a>
+            </Link>{' '}
+            successfuly{' '}
+          </Typography>
+        </div>
+      );
+    }
+    console.log(this.state.errors);
 
     return (
       <div>
-        {this.state.updated ? (
-          <p>Piece added</p>
-        ) : (
-          <form
-            encType="multipart/form-data"
-            onSubmit={e => this.handleSubmit(e)}
-            className={classes.form}
-          >
-            <TextField
-              className={classes.root}
-              id="title"
-              label="Piece title"
-              value={this.state.title}
-              onChange={this.handleChange('title')}
-              margin="normal"
-              required
-              fullWidth
-              InputLabelProps={{ required: false }}
-              error={
-                this.state.errors
-                  ? this.state.errors.name
-                    ? true
-                    : false
+        {workInfo}
+        <form
+          encType="multipart/form-data"
+          onSubmit={e => this.handleSubmit(e)}
+          className={classes.form}
+        >
+          <TextField
+            className={classes.root}
+            id="title"
+            label="Piece title"
+            value={this.state.title}
+            onChange={this.handleChange('title')}
+            margin="normal"
+            required
+            InputLabelProps={{ required: false }}
+            error={
+              this.state.errors
+                ? this.state.errors.name
+                  ? true
                   : false
-              }
-              helperText={this.state.errors && this.state.errors.name}
-            />
-            <TextField
-              className={classes.root}
-              id="description"
-              label="Description"
-              value={this.state.description}
-              onChange={this.handleChange('description')}
-              margin="normal"
-              multiline
-              rows={4}
-              required
-              InputLabelProps={{ required: false }}
-              error={
-                this.state.errors
-                  ? this.state.errors.description
-                    ? true
-                    : false
+                : false
+            }
+            helperText={this.state.errors && this.state.errors.name}
+          />
+          <TextField
+            className={classes.root}
+            id="description"
+            label="Description"
+            value={this.state.description}
+            onChange={this.handleChange('description')}
+            margin="normal"
+            multiline
+            rows={4}
+            required
+            InputLabelProps={{ required: false }}
+            error={
+              this.state.errors
+                ? this.state.errors.description
+                  ? true
                   : false
-              }
-              helperText={this.state.errors && this.state.errors.description}
-            />
-            <div>
-              <FormControl
-                className={classes.collection}
-                disabled={!!this.state.collection}
-              >
-                <InputLabel htmlFor="collection" shrink>
-                  Select Collection
-                </InputLabel>
-                <Select
-                  native
-                  value={this.state.existingCollection}
-                  onChange={this.handleChange('existingCollection')}
-                >
-                  {this.props.collections.map((collection, i) => (
-                    <option value={collection} key={i}>
-                      {collection}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
-
-              <TextField
-                className={classes.newCollection}
-                id="collection"
-                label="Or Add New Collection"
-                value={this.state.collection}
-                onChange={this.handleChange('collection')}
-                margin="normal"
-                InputLabelProps={{ required: false }}
-                error={
-                  this.state.errors
-                    ? this.state.errors.collection
-                      ? true
-                      : false
-                    : false
-                }
-                helperText={this.state.errors && this.state.errors.collection}
-              />
-            </div>
-            <div className={classes.imageInput}>
-              <label htmlFor="images">
-                <Typography variant="body2" gutterBottom>
-                  Select images
-                </Typography>
-              </label>
-              <input
-                type="file"
-                multiple
-                id="images"
-                accept="image/*"
-                name="photos[]"
-                onChange={this.handleImages}
-                required={true}
-              />
-              {this.state.errors ? (
-                this.state.errors.images ? (
-                  <Error>{this.state.errors.images}</Error>
-                ) : null
-              ) : null}
-            </div>
-            <TextField
-              className={classes.root}
-              id="materials"
-              label="Materials (optional)"
-              value={this.state.materials}
-              onChange={this.handleChange('materials')}
-              margin="normal"
-            />
-            <TextField
-              className={classes.root}
-              id="size"
-              label="Size (optional)"
-              value={this.state.size}
-              onChange={this.handleChange('size')}
-              margin="normal"
-            />
-            <TextField
-              className={classes.root}
-              id="price"
-              label="Price"
-              value={this.state.price}
-              onChange={this.handleChange('price')}
-              margin="normal"
-              required
-              InputLabelProps={{ required: false }}
-              error={
-                this.state.errors
-                  ? this.state.errors.price
-                    ? true
-                    : false
-                  : false
-              }
-              helperText={this.state.errors && this.state.errors.price}
-            />
-            <FormControl component="fieldset" className={classes.root}>
-              <FormLabel component="legend" color="primary">
-                Category
-              </FormLabel>
-              <RadioGroup
-                className={classes.formGroup}
-                aria-label="category"
-                name="category"
-                value={this.state.category}
-              >
-                <FormControlLabel
-                  value="ring"
-                  control={<Radio color="secondary" />}
-                  label="Ring"
-                  labelPlacement="end"
-                  checked={this.state.category === 'ring'}
-                  onChange={this.handleChange('category')}
-                />
-                <FormControlLabel
-                  value="brooch"
-                  control={<Radio color="secondary" />}
-                  label="Brooch"
-                  labelPlacement="end"
-                  checked={this.state.category === 'brooch'}
-                  onChange={this.handleChange('category')}
-                />
-                <FormControlLabel
-                  value="earring"
-                  control={<Radio color="secondary" />}
-                  label="Earring"
-                  labelPlacement="end"
-                  checked={this.state.category === 'earring'}
-                  onChange={this.handleChange('category')}
-                />
-                <FormControlLabel
-                  value="necklace"
-                  control={<Radio color="secondary" />}
-                  label="Necklace"
-                  labelPlacement="end"
-                  checked={this.state.category === 'necklace'}
-                  onChange={this.handleChange('category')}
-                />
-                <FormControlLabel
-                  value="bracelet"
-                  control={<Radio color="secondary" />}
-                  label="Bracelet"
-                  labelPlacement="end"
-                  checked={this.state.category === 'bracelet'}
-                  onChange={this.handleChange('category')}
-                />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio color="secondary" />}
-                  label="Other"
-                  labelPlacement="end"
-                  checked={this.state.category === 'other'}
-                  onChange={this.handleChange('category')}
-                />
-              </RadioGroup>
-            </FormControl>
-            <FormGroup className={classes.root}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={this.state.available}
-                    onChange={this.handleChange('available')}
-                    value="available"
-                    color="secondary"
-                  />
-                }
-                label="Available to buy"
-              />
-            </FormGroup>
-            <Button
-              className={classes.button}
-              type="submit"
-              size="medium"
-              variant="contained"
-              color="secondary"
-              className={classes.button}
+                : false
+            }
+            helperText={this.state.errors && this.state.errors.description}
+          />
+          <div>
+            <FormControl
+              className={classes.collection}
+              disabled={!!this.state.collection}
             >
-              Submit
-            </Button>
-          </form>
-        )}
+              <InputLabel htmlFor="collection" shrink>
+                Select Collection
+              </InputLabel>
+              <Select
+                native
+                value={this.state.existingCollection}
+                onChange={this.handleChange('existingCollection')}
+              >
+                {this.props.collections.map((collection, i) => (
+                  <option value={collection} key={i}>
+                    {collection}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+
+            <TextField
+              className={classes.newCollection}
+              id="collection"
+              label="Or Add New Collection"
+              value={this.state.collection}
+              onChange={this.handleChange('collection')}
+              margin="normal"
+              InputLabelProps={{ required: false }}
+              error={
+                this.state.errors
+                  ? this.state.errors.collection
+                    ? true
+                    : false
+                  : false
+              }
+              helperText={this.state.errors && this.state.errors.collection}
+            />
+          </div>
+          <div className={classes.imageInput}>
+            <label htmlFor="images">
+              <Typography variant="body2" gutterBottom>
+                Select images
+              </Typography>
+            </label>
+            <input
+              type="file"
+              multiple
+              id="images"
+              accept="image/*"
+              name="photos[]"
+              onChange={this.handleImages}
+              required={true}
+            />
+            {this.state.errors ? (
+              this.state.errors.images ? (
+                <Error>{this.state.errors.images}</Error>
+              ) : null
+            ) : null}
+          </div>
+          <TextField
+            className={classes.root}
+            id="materials"
+            label="Materials (optional)"
+            value={this.state.materials}
+            onChange={this.handleChange('materials')}
+            margin="normal"
+          />
+          <TextField
+            className={classes.root}
+            id="size"
+            label="Size (optional)"
+            value={this.state.size}
+            onChange={this.handleChange('size')}
+            margin="normal"
+          />
+          <TextField
+            className={classes.root}
+            id="price"
+            label="Price"
+            value={this.state.price}
+            onChange={this.handleChange('price')}
+            margin="normal"
+            required
+            InputLabelProps={{ required: false }}
+            error={
+              this.state.errors
+                ? this.state.errors.price
+                  ? true
+                  : false
+                : false
+            }
+            helperText={this.state.errors && this.state.errors.price}
+          />
+          <FormControl component="fieldset" className={classes.root}>
+            <FormLabel component="legend" color="primary">
+              Category
+            </FormLabel>
+            <RadioGroup
+              className={classes.formGroup}
+              aria-label="category"
+              name="category"
+              value={this.state.category}
+            >
+              <FormControlLabel
+                value="ring"
+                control={<Radio color="secondary" />}
+                label="Ring"
+                labelPlacement="end"
+                checked={this.state.category === 'ring'}
+                onChange={this.handleChange('category')}
+              />
+              <FormControlLabel
+                value="brooch"
+                control={<Radio color="secondary" />}
+                label="Brooch"
+                labelPlacement="end"
+                checked={this.state.category === 'brooch'}
+                onChange={this.handleChange('category')}
+              />
+              <FormControlLabel
+                value="earring"
+                control={<Radio color="secondary" />}
+                label="Earring"
+                labelPlacement="end"
+                checked={this.state.category === 'earring'}
+                onChange={this.handleChange('category')}
+              />
+              <FormControlLabel
+                value="necklace"
+                control={<Radio color="secondary" />}
+                label="Necklace"
+                labelPlacement="end"
+                checked={this.state.category === 'necklace'}
+                onChange={this.handleChange('category')}
+              />
+              <FormControlLabel
+                value="bracelet"
+                control={<Radio color="secondary" />}
+                label="Bracelet"
+                labelPlacement="end"
+                checked={this.state.category === 'bracelet'}
+                onChange={this.handleChange('category')}
+              />
+              <FormControlLabel
+                value="other"
+                control={<Radio color="secondary" />}
+                label="Other"
+                labelPlacement="end"
+                checked={this.state.category === 'other'}
+                onChange={this.handleChange('category')}
+              />
+            </RadioGroup>
+          </FormControl>
+          <FormGroup className={classes.root}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.available}
+                  onChange={this.handleChange('available')}
+                  value="available"
+                  color="secondary"
+                />
+              }
+              label="Available to buy"
+            />
+          </FormGroup>
+          <Button
+            className={classes.button}
+            type="submit"
+            size="medium"
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+          >
+            Add item
+          </Button>
+        </form>
         {this.state.updating ? <ModalLoader /> : null}
       </div>
     );
