@@ -147,6 +147,7 @@ module.exports = (db, upload) => {
 
     res.json({
       msg: 'Work has been added/updated',
+      work,
       error
     });
   });
