@@ -30,7 +30,7 @@ const worksSchema = new mongoose.Schema(
     size: { type: String, trim: true },
     price: { type: Number, required: 'Price is required' },
     available: { type: Boolean, default: true, required: true },
-    updated: { type: Date, default: Date.now }
+    created: { type: Date, default: Date.now }
   },
   { timestamps: true }
 );
