@@ -11,6 +11,7 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 import Router from 'next/router';
 import customItem from '../components/ItemCard/customRenderItem';
 import customThumb from '../components/ItemCard/customRenderThumb';
+import Link from 'next/link';
 
 import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
@@ -39,7 +40,7 @@ class Piece extends React.Component {
   };
 
   render() {
-    const { classes, onePieceData } = this.props;
+    const { classes, onePieceData, user } = this.props;
 
     if (onePieceData.length < 1 || onePieceData[0] === null) {
       return <p>Page doesn't exist</p>;
@@ -79,6 +80,14 @@ class Piece extends React.Component {
       // ]
     }));
 
+    let edit = (
+      <div>
+        <Link href={`/edit?id=${_id}`} as={`/edit/${_id}`}>
+          <a>Edit</a>
+        </Link>
+      </div>
+    );
+
     return (
       // to highlight works tab in navbar under any piece is loaded
       <Layout pathname="/works" collections={this.props.collections}>
@@ -97,6 +106,7 @@ class Piece extends React.Component {
           <Info>
             <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
               {name}
+              {user && edit}
             </Typography>
             <Typography
               variant="body1"
