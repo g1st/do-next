@@ -144,6 +144,7 @@ class AdminForm extends Component {
     this.setState(() => ({ updating: true }));
 
     const {
+      _id,
       name,
       description,
       images,
@@ -152,8 +153,14 @@ class AdminForm extends Component {
       price,
       category,
       available,
-      _id
+      selectedImages
     } = this.state;
+
+    const imagesToRemove = [];
+    for (const key in selectedImages) {
+      // truthy when user selected for removal
+      selectedImages[key] ? imagesToRemove.push(key) : null;
+    }
 
     const collection = this.state.collection
       ? this.state.collection
@@ -170,6 +177,7 @@ class AdminForm extends Component {
     formData.append('price', price);
     formData.append('category', category);
     formData.append('available', available);
+    formData.append('imagesToRemove', imagesToRemove);
 
     for (const photo of images) {
       formData.append('photos[]', photo);

@@ -78,6 +78,26 @@ module.exports = (db, upload) => {
       };
     }
 
+    if (req.body.imagesToRemove.length > 0) {
+      const imagesToRemove = req.body.imagesToRemove.split(',');
+      //  remove image links from DB
+      update.$pull = {
+        images: {
+          thumb: { $in: imagesToRemove }
+        }
+      };
+
+      // remove photos from disk
+      imagesToRemove.forEach(async image => {
+        // thumb image
+        await asyncUnlink(`static/uploads/${image}`);
+        // resized image 900x900, which will not have '300' in its file name
+        await asyncUnlink(
+          `static/uploads/${image.replace(/300(\.\w+)/, '$1')}`
+        );
+      });
+    }
+
     const work = await Works.findOneAndUpdate({ _id: req.body._id }, update, {
       new: true
     });
@@ -86,8 +106,6 @@ module.exports = (db, upload) => {
 
     if (error) {
       // remove already uploaded images (not elegant but rarely will happen irl
-      console.log('nejau cia?', error);
-
       if (req.files.length > 0) {
         images.forEach(async image => {
           await asyncUnlink(`static/uploads/${image}`);
