@@ -1,5 +1,3 @@
-// credits to http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
-
 const mongoose = require('mongoose');
 const api = require('./api/api');
 const body = require('body-parser');
@@ -31,6 +29,7 @@ const handle = app.getRequestHandler();
 const MONGO_URL = 'mongodb://localhost:27017/dovile';
 const PORT = 3000;
 
+// credits to http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
 co(function*() {
   // Initialize the Next.js app
   yield app.prepare();
