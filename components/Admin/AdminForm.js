@@ -23,6 +23,7 @@ import ModalLoader from '../UI/ModalLoader/ModalLoader';
 const styles = theme => ({
   root: {
     display: 'flex',
+    flexWrap: 'wrap',
     margin: theme.spacing.unit
   },
   button: {
@@ -60,12 +61,23 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       margin: '10px 40px'
     }
+  },
+  singleImage: {
+    maxWidth: '146px',
+    maxHeight: '146px',
+    display: 'inline-block'
+  },
+  imagesToEdit: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    margin: theme.spacing.unit
   }
 });
 
 class AdminForm extends Component {
   state = {
-    title: '',
+    name: '',
     description: '',
     images: '',
     size: '',
@@ -80,19 +92,41 @@ class AdminForm extends Component {
     work: null
   };
 
-  handleChange = name => event => {
-    name === 'available'
-      ? this.setState({ [name]: event.target.checked })
-      : this.setState({ [name]: event.target.value });
+  componentDidMount = () => {
+    if (this.props.itemToEdit) {
+      this.setState(state => ({
+        ...state,
+        ...this.props.itemToEdit,
+        selectedImages: Object.assign(
+          {},
+          ...this.props.itemToEdit.images.map(img => ({ [img.thumb]: false }))
+        )
+      }));
+    }
+  };
+
+  handleChange = (name, event, thumb) => {
+    if (name === 'available')
+      return this.setState({ [name]: event.target.checked });
+    if (name === 'selectedImages')
+      return this.setState({
+        selectedImages: {
+          ...this.state.selectedImages,
+          [thumb]: event.target.checked
+        }
+      });
+
+    this.setState({ [name]: event.target.value });
   };
 
   handleImages = event => {
     this.setState({ images: event.target.files });
   };
 
+  // only when creating new item
   resetForm = () => {
     this.setState({
-      title: '',
+      name: '',
       description: '',
       images: '',
       size: '',
@@ -110,14 +144,15 @@ class AdminForm extends Component {
     this.setState(() => ({ updating: true }));
 
     const {
-      title,
+      name,
       description,
       images,
       materials,
       size,
       price,
       category,
-      available
+      available,
+      _id
     } = this.state;
 
     const collection = this.state.collection
@@ -126,7 +161,8 @@ class AdminForm extends Component {
 
     let formData = new FormData();
 
-    formData.append('title', title);
+    formData.append('_id', _id);
+    formData.append('name', name);
     formData.append('description', description);
     formData.append('materials', materials);
     formData.append('size', size);
@@ -139,26 +175,28 @@ class AdminForm extends Component {
       formData.append('photos[]', photo);
     }
 
-    axios
-      // change for deployment
-      .post('http://localhost:3000/api/update', formData)
-      .then(response => {
-        const errors = response.data.errors;
+    if (this.props.itemToEdit) {
+      // axios call for edit
 
-        let err = {};
+      axios
+        // change for deployment
+        .patch('http://localhost:3000/api/update', formData)
+        .then(response => {
+          const errors = response.data.errors;
 
-        for (const prop in errors) {
-          if (errors[prop].hasOwnProperty('message')) {
-            err[prop] = errors[prop].message;
+          let err = {};
+
+          for (const prop in errors) {
+            if (errors[prop].hasOwnProperty('message')) {
+              err[prop] = errors[prop].message;
+            }
           }
-        }
 
-        console.log(response.data);
+          console.log('work in browser', response.data.work);
 
-        const { _id: id, name, group } = response.data.work;
+          const { _id: id, name, group } = response.data.work;
 
-        this.setState(
-          () => ({
+          this.setState({
             errors: err,
             updating: false,
             work: {
@@ -166,14 +204,52 @@ class AdminForm extends Component {
               name,
               collection: group
             }
-          }),
-          () => this.resetForm()
-        );
-      })
-      .catch(err => {
-        this.setState({ errors: err, updating: false });
-        console.log(err);
-      });
+          });
+        })
+        .catch(err => {
+          this.setState({ errors: err, updating: false });
+          console.log(err);
+        });
+    } else {
+      // creating new item
+      console.log('creating new item');
+
+      axios
+        // change for deployment
+        .post('http://localhost:3000/api/update', formData)
+        .then(response => {
+          const errors = response.data.errors;
+
+          let err = {};
+
+          for (const prop in errors) {
+            if (errors[prop].hasOwnProperty('message')) {
+              err[prop] = errors[prop].message;
+            }
+          }
+
+          console.log(response.data);
+
+          const { _id: id, name, group } = response.data.work;
+
+          this.setState(
+            () => ({
+              errors: err,
+              updating: false,
+              work: {
+                id,
+                name,
+                collection: group
+              }
+            }),
+            () => this.resetForm()
+          );
+        })
+        .catch(err => {
+          this.setState({ errors: err, updating: false });
+          console.log(err);
+        });
+    }
   };
 
   render() {
@@ -185,23 +261,22 @@ class AdminForm extends Component {
       workInfo = (
         <div className={classes.added}>
           <Typography variant="body2">
-            Piece{' '}
+            Piece
             <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
               <a>{name}</a>
-            </Link>{' '}
-            was added to a collection{' '}
+            </Link>
+            was {this.props.itemToEdit ? 'updated' : 'added'} to a collection
             <Link
               href={`/works?collection=${collection}`}
               as={`/works/${collection}`}
             >
               <a>{collection}</a>
-            </Link>{' '}
-            successfuly{' '}
+            </Link>
+            successfuly
           </Typography>
         </div>
       );
     }
-    console.log(this.state.errors);
 
     return (
       <div>
@@ -213,10 +288,10 @@ class AdminForm extends Component {
         >
           <TextField
             className={classes.root}
-            id="title"
-            label="Piece title"
-            value={this.state.title}
-            onChange={this.handleChange('title')}
+            id="name"
+            label="Piece name"
+            value={this.state.name}
+            onChange={e => this.handleChange('name', e)}
             margin="normal"
             required
             InputLabelProps={{ required: false }}
@@ -234,7 +309,7 @@ class AdminForm extends Component {
             id="description"
             label="Description"
             value={this.state.description}
-            onChange={this.handleChange('description')}
+            onChange={e => this.handleChange('description', e)}
             margin="normal"
             multiline
             rows={4}
@@ -260,7 +335,7 @@ class AdminForm extends Component {
               <Select
                 native
                 value={this.state.existingCollection}
-                onChange={this.handleChange('existingCollection')}
+                onChange={e => this.handleChange('existingCollection', e)}
               >
                 {this.props.collections.map((collection, i) => (
                   <option value={collection} key={i}>
@@ -275,7 +350,7 @@ class AdminForm extends Component {
               id="collection"
               label="Or Add New Collection"
               value={this.state.collection}
-              onChange={this.handleChange('collection')}
+              onChange={e => this.handleChange('collection', e)}
               margin="normal"
               InputLabelProps={{ required: false }}
               error={
@@ -291,7 +366,7 @@ class AdminForm extends Component {
           <div className={classes.imageInput}>
             <label htmlFor="images">
               <Typography variant="body2" gutterBottom>
-                Select images
+                Add images
               </Typography>
             </label>
             <input
@@ -301,8 +376,45 @@ class AdminForm extends Component {
               accept="image/*"
               name="photos[]"
               onChange={this.handleImages}
-              required={true}
+              required={this.props.itemToEdit ? false : true}
             />
+            {/* for edit view show current photos and let select for deleting */}
+            {this.props.itemToEdit ? (
+              <div>
+                <Typography variant="body2">
+                  Or select images below which you would like to remove
+                </Typography>
+                <FormGroup className={classes.imagesToEdit}>
+                  {this.props.itemToEdit.images.map(item => (
+                    <FormControlLabel
+                      key={item.thumb}
+                      control={
+                        <Checkbox
+                          checked={
+                            this.state.selectedItems &&
+                            this.state.selectedImages[item.thumb]
+                          }
+                          onChange={e =>
+                            this.handleChange('selectedImages', e, item.thumb)
+                          }
+                          value={
+                            this.state.selectedImages &&
+                            `${this.state.selectedImages[item.thumb]}`
+                          }
+                          color="secondary"
+                        />
+                      }
+                      label={
+                        <img
+                          className={classes.singleImage}
+                          src={`/static/uploads/${item.thumb}`}
+                        />
+                      }
+                    />
+                  ))}
+                </FormGroup>
+              </div>
+            ) : null}
             {this.state.errors ? (
               this.state.errors.images ? (
                 <Error>{this.state.errors.images}</Error>
@@ -314,7 +426,7 @@ class AdminForm extends Component {
             id="materials"
             label="Materials (optional)"
             value={this.state.materials}
-            onChange={this.handleChange('materials')}
+            onChange={e => this.handleChange('materials', e)}
             margin="normal"
           />
           <TextField
@@ -322,7 +434,7 @@ class AdminForm extends Component {
             id="size"
             label="Size (optional)"
             value={this.state.size}
-            onChange={this.handleChange('size')}
+            onChange={e => this.handleChange('size', e)}
             margin="normal"
           />
           <TextField
@@ -330,7 +442,7 @@ class AdminForm extends Component {
             id="price"
             label="Price"
             value={this.state.price}
-            onChange={this.handleChange('price')}
+            onChange={e => this.handleChange('price', e)}
             margin="normal"
             required
             InputLabelProps={{ required: false }}
@@ -359,7 +471,7 @@ class AdminForm extends Component {
                 label="Ring"
                 labelPlacement="end"
                 checked={this.state.category === 'ring'}
-                onChange={this.handleChange('category')}
+                onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
                 value="brooch"
@@ -367,7 +479,7 @@ class AdminForm extends Component {
                 label="Brooch"
                 labelPlacement="end"
                 checked={this.state.category === 'brooch'}
-                onChange={this.handleChange('category')}
+                onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
                 value="earring"
@@ -375,7 +487,7 @@ class AdminForm extends Component {
                 label="Earring"
                 labelPlacement="end"
                 checked={this.state.category === 'earring'}
-                onChange={this.handleChange('category')}
+                onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
                 value="necklace"
@@ -383,7 +495,7 @@ class AdminForm extends Component {
                 label="Necklace"
                 labelPlacement="end"
                 checked={this.state.category === 'necklace'}
-                onChange={this.handleChange('category')}
+                onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
                 value="bracelet"
@@ -391,7 +503,7 @@ class AdminForm extends Component {
                 label="Bracelet"
                 labelPlacement="end"
                 checked={this.state.category === 'bracelet'}
-                onChange={this.handleChange('category')}
+                onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
                 value="other"
@@ -399,7 +511,7 @@ class AdminForm extends Component {
                 label="Other"
                 labelPlacement="end"
                 checked={this.state.category === 'other'}
-                onChange={this.handleChange('category')}
+                onChange={e => this.handleChange('category', e)}
               />
             </RadioGroup>
           </FormControl>
@@ -408,7 +520,7 @@ class AdminForm extends Component {
               control={
                 <Checkbox
                   checked={this.state.available}
-                  onChange={this.handleChange('available')}
+                  onChange={e => this.handleChange('available', e)}
                   value="available"
                   color="secondary"
                 />
@@ -422,9 +534,8 @@ class AdminForm extends Component {
             size="medium"
             variant="contained"
             color="secondary"
-            className={classes.button}
           >
-            Add item
+            {this.props.itemToEdit ? 'Edit item' : 'Add item'}
           </Button>
         </form>
         {this.state.updating ? <ModalLoader /> : null}
