@@ -24,11 +24,10 @@ const styles = theme => ({
 const Gallery = props => {
   const { classes, data, showCollection } = props;
 
-  if (showCollection == 'all') {
-    var filtered = data;
-  } else {
-    filtered = data.filter(item => item.group == showCollection);
-  }
+  const filtered =
+    showCollection == 'all'
+      ? data
+      : data.filter(item => item.group == showCollection);
 
   return (
     <div className={classes.root}>
