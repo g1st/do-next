@@ -39,7 +39,7 @@ const Gallery = props => {
               id={item._id}
               price={item.price}
               name={item.name}
-              img={`/static/uploads/${item.images[0].thumb}`}
+              img={`/static/uploads/${item.images[0].medium}`}
             />
           </Grid>
         ))}
