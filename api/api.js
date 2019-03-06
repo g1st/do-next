@@ -4,15 +4,12 @@ const slugify = require('slugify');
 const Works = require('./models/works');
 const Orders = require('./models/orders');
 const sendMail = require('./mail');
-const fs = require('fs');
-const { promisify } = require('util');
-const asyncUnlink = promisify(fs.unlink);
 const { check, oneOf, validationResult } = require('express-validator/check');
 
 require('dotenv').config();
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const { shippingPrice } = require('../util/globals');
-const writeFile = require('../util/serverHelper');
+const serverUtils = require('../util/serverHelper');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 module.exports = (db, upload) => {
@@ -51,7 +48,7 @@ module.exports = (db, upload) => {
   );
 
   router.patch('/update', upload.array('photos[]', 10), async (req, res) => {
-    const imageSizes = { resized: 900, thumb: 300 };
+    const imageSizes = { big: 900, medium: 300, thumb: 92 };
 
     const update = {
       ...req.body,
@@ -65,7 +62,11 @@ module.exports = (db, upload) => {
         const dot = image.filename.indexOf('.');
 
         return {
-          resized: image.filename,
+          big: image.filename,
+          medium:
+            image.filename.substring(0, dot) +
+            imageSizes.medium +
+            image.filename.substring(dot),
           thumb:
             image.filename.substring(0, dot) +
             imageSizes.thumb +
@@ -88,14 +89,7 @@ module.exports = (db, upload) => {
       };
 
       // remove photos from disk
-      imagesToRemove.forEach(async image => {
-        // thumb image
-        await asyncUnlink(`static/uploads/${image}`);
-        // resized image 900x900, which will not have '300' in its file name
-        await asyncUnlink(
-          `static/uploads/${image.replace(/300(\.\w+)/, '$1')}`
-        );
-      });
+      serverUtils.removeImagesFromDisk(imagesToRemove);
     }
 
     const work = await Works.findOneAndUpdate({ _id: req.body._id }, update, {
@@ -105,11 +99,9 @@ module.exports = (db, upload) => {
     const error = work.validateSync();
 
     if (error) {
-      // remove already uploaded images (not elegant but rarely will happen irl
+      // remove already uploaded images (not elegant but rarely will happen irl)
       if (req.files.length > 0) {
-        images.forEach(async image => {
-          await asyncUnlink(`static/uploads/${image}`);
-        });
+        serverUtils.removeImagesFromDisk(images);
       }
 
       return res.json(error);
@@ -118,13 +110,14 @@ module.exports = (db, upload) => {
     if (req.files.length > 0) {
       let sizes = req.files.map(obj => {
         return [
-          { path: obj.path, size: imageSizes.resized },
+          { path: obj.path, size: imageSizes.big },
+          { path: obj.path, size: imageSizes.medium },
           { path: obj.path, size: imageSizes.thumb }
         ];
       });
 
       let files = sizes.map(photo =>
-        photo.map(photo => writeFile(photo.path, photo.size))
+        photo.map(photo => serverUtils.writeFile(photo.path, photo.size))
       );
 
       Promise.all(files)
@@ -141,7 +134,7 @@ module.exports = (db, upload) => {
 
   router.post('/update', upload.array('photos[]', 10), async (req, res) => {
     // squared shape for better gallery experience
-    const imageSizes = { resized: 900, thumb: 300 };
+    const imageSizes = { big: 900, medium: 300, thumb: 92 };
 
     const {
       name,
@@ -158,7 +151,11 @@ module.exports = (db, upload) => {
       const dot = image.filename.indexOf('.');
 
       return {
-        resized: image.filename,
+        big: image.filename,
+        medium:
+          image.filename.substring(0, dot) +
+          imageSizes.medium +
+          image.filename.substring(dot),
         thumb:
           image.filename.substring(0, dot) +
           imageSizes.thumb +
@@ -185,10 +182,7 @@ module.exports = (db, upload) => {
 
     if (error) {
       // remove already uploaded images (not elegant but rarely will happen irl
-
-      images.forEach(async image => {
-        await asyncUnlink(`static/uploads/${image}`);
-      });
+      serverUtils.removeImagesFromDisk(images);
 
       return res.json(error);
     }
@@ -197,13 +191,14 @@ module.exports = (db, upload) => {
 
     let sizes = req.files.map(obj => {
       return [
-        { path: obj.path, size: imageSizes.resized },
+        { path: obj.path, size: imageSizes.big },
+        { path: obj.path, size: imageSizes.medium },
         { path: obj.path, size: imageSizes.thumb }
       ];
     });
 
     let files = sizes.map(photo =>
-      photo.map(photo => writeFile(photo.path, photo.size))
+      photo.map(photo => serverUtils.writeFile(photo.path, photo.size))
     );
 
     Promise.all(files)
