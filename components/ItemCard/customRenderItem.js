@@ -1,11 +1,9 @@
-import LazyLoad from 'react-lazy-load';
 import styled from 'styled-components';
 
 const ImageContainer = styled.div`
   width: 100%;
   padding-bottom: 100%;
   position: relative;
-  background: #fff;
 
   > img {
     position: absolute;
@@ -37,25 +35,21 @@ const renderItem = item => {
               type={source.type}
             />
           ))}
-          <LazyLoad>
-            <ImageContainer>
-              <img alt={item.originalAlt} src={item.original} />
-            </ImageContainer>
-          </LazyLoad>
+          <ImageContainer>
+            <img alt={item.originalAlt} src={item.original} />
+          </ImageContainer>
         </picture>
       ) : (
-        <LazyLoad>
-          <ImageContainer>
-            <img
-              src={item.original}
-              alt={item.originalAlt}
-              srcSet={item.srcSet}
-              sizes={item.sizes}
-              title={item.originalTitle}
-              onError={e => onImageError(e)}
-            />
-          </ImageContainer>
-        </LazyLoad>
+        <ImageContainer>
+          <img
+            src={item.original}
+            alt={item.originalAlt}
+            srcSet={item.srcSet}
+            sizes={item.sizes}
+            title={item.originalTitle}
+            onError={e => onImageError(e)}
+          />
+        </ImageContainer>
       )}
 
       {item.description && (
