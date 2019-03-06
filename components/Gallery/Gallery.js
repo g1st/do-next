@@ -24,11 +24,10 @@ const styles = theme => ({
 const Gallery = props => {
   const { classes, data, showCollection } = props;
 
-  if (showCollection == 'all') {
-    var filtered = data;
-  } else {
-    filtered = data.filter(item => item.group == showCollection);
-  }
+  const filtered =
+    showCollection == 'all'
+      ? data
+      : data.filter(item => item.group == showCollection);
 
   return (
     <div className={classes.root}>
@@ -39,7 +38,7 @@ const Gallery = props => {
               id={item._id}
               price={item.price}
               name={item.name}
-              img={`/static/uploads/${item.images[0].thumb}`}
+              img={`/static/uploads/${item.images[0].medium}`}
             />
           </Grid>
         ))}

@@ -22,6 +22,11 @@ const styles = theme => ({
   },
   textColor: {
     color: 'rgba(0, 0, 0, 0.5)'
+  },
+  imageContainer: {
+    paddingBottom: '100%',
+    height: 0,
+    position: 'relative'
   }
 });
 
@@ -39,13 +44,15 @@ const ItemCard = props => {
     <Card className={classes.card}>
       <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
         <a style={{ textDecoration: 'none' }}>
-          <CardMedia
-            className={classes.media}
-            image={img}
-            title={name}
-            component={'img'}
-            onError={e => onCardMediaError(e)}
-          />
+          <div className={classes.imageContainer}>
+            <CardMedia
+              className={classes.media}
+              image={img}
+              title={name}
+              component={'img'}
+              onError={e => onCardMediaError(e)}
+            />
+          </div>
           <CardContent>
             <Typography align="center" gutterBottom variant="h6" component="h2">
               {name}

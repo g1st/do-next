@@ -56,6 +56,12 @@ co(function*() {
     app.render(req, res, actualPage, queryParams);
   });
 
+  server.get('/edit/:id', (req, res) => {
+    const actualPage = '/edit';
+    const queryParams = { id: req.params.id };
+    app.render(req, res, actualPage, queryParams);
+  });
+
   server.get('/works/:collection', (req, res) => {
     const actualPage = '/works';
     const queryParams = { collection: req.params.collection.toLowerCase() };

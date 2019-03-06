@@ -144,6 +144,7 @@ class AdminForm extends Component {
     this.setState(() => ({ updating: true }));
 
     const {
+      _id,
       name,
       description,
       images,
@@ -152,8 +153,14 @@ class AdminForm extends Component {
       price,
       category,
       available,
-      _id
+      selectedImages
     } = this.state;
+
+    const imagesToRemove = [];
+    for (const key in selectedImages) {
+      // truthy when user selected for removal
+      selectedImages[key] ? imagesToRemove.push(key) : null;
+    }
 
     const collection = this.state.collection
       ? this.state.collection
@@ -170,6 +177,7 @@ class AdminForm extends Component {
     formData.append('price', price);
     formData.append('category', category);
     formData.append('available', available);
+    formData.append('imagesToRemove', imagesToRemove);
 
     for (const photo of images) {
       formData.append('photos[]', photo);
@@ -192,9 +200,7 @@ class AdminForm extends Component {
             }
           }
 
-          console.log('work in browser', response.data.work);
-
-          const { _id: id, name, group } = response.data.work;
+          const { _id: id, name, group, images } = response.data.work;
 
           this.setState({
             errors: err,
@@ -203,7 +209,12 @@ class AdminForm extends Component {
               id,
               name,
               collection: group
-            }
+            },
+            images,
+            selectedImages: Object.assign(
+              {},
+              ...images.map(item => ({ [item.thumb]: false }))
+            )
           });
         })
         .catch(err => {
@@ -212,7 +223,6 @@ class AdminForm extends Component {
         });
     } else {
       // creating new item
-      console.log('creating new item');
 
       axios
         // change for deployment
@@ -227,8 +237,6 @@ class AdminForm extends Component {
               err[prop] = errors[prop].message;
             }
           }
-
-          console.log(response.data);
 
           const { _id: id, name, group } = response.data.work;
 
@@ -254,6 +262,8 @@ class AdminForm extends Component {
 
   render() {
     const { classes } = this.props;
+    const { selectedImages } = this.state;
+
     let workInfo = null;
 
     if (this.state.work) {
@@ -261,18 +271,18 @@ class AdminForm extends Component {
       workInfo = (
         <div className={classes.added}>
           <Typography variant="body2">
-            Piece
+            Piece{' '}
             <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
               <a>{name}</a>
-            </Link>
-            was {this.props.itemToEdit ? 'updated' : 'added'} to a collection
+            </Link>{' '}
+            was {this.props.itemToEdit ? 'updated' : 'added'} to a collection{' '}
             <Link
               href={`/works?collection=${collection}`}
               as={`/works/${collection}`}
             >
               <a>{collection}</a>
-            </Link>
-            successfuly
+            </Link>{' '}
+            successfuly.
           </Typography>
         </div>
       );
@@ -379,27 +389,27 @@ class AdminForm extends Component {
               required={this.props.itemToEdit ? false : true}
             />
             {/* for edit view show current photos and let select for deleting */}
-            {this.props.itemToEdit ? (
+            {selectedImages ? (
               <div>
                 <Typography variant="body2">
                   Or select images below which you would like to remove
                 </Typography>
                 <FormGroup className={classes.imagesToEdit}>
-                  {this.props.itemToEdit.images.map(item => (
+                  {Object.keys(selectedImages).map(item => (
                     <FormControlLabel
-                      key={item.thumb}
+                      key={item}
                       control={
                         <Checkbox
                           checked={
                             this.state.selectedItems &&
-                            this.state.selectedImages[item.thumb]
+                            this.state.selectedImages[item]
                           }
                           onChange={e =>
-                            this.handleChange('selectedImages', e, item.thumb)
+                            this.handleChange('selectedImages', e, item)
                           }
                           value={
                             this.state.selectedImages &&
-                            `${this.state.selectedImages[item.thumb]}`
+                            `${this.state.selectedImages[item]}`
                           }
                           color="secondary"
                         />
@@ -407,7 +417,7 @@ class AdminForm extends Component {
                       label={
                         <img
                           className={classes.singleImage}
-                          src={`/static/uploads/${item.thumb}`}
+                          src={`/static/uploads/${item}`}
                         />
                       }
                     />
