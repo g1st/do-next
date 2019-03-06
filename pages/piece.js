@@ -66,18 +66,12 @@ class Piece extends React.Component {
     };
 
     const gallery = images.map(image => ({
-      original: `/static/uploads/${image.resized}`,
-      thumbnail: `/static/uploads/${image.thumb}`
-      // imageSet: [
-      //   {
-      //     srcSet: `/static/uploads/${image.resized}`,
-      //     media: '(max-width: 1280px)'
-      //   },
-      //   {
-      //     srcSet: `/static/uploads/${image.thumb}`,
-      //     media: '(min-width: 1280px)'
-      //   }
-      // ]
+      original: `/static/uploads/${image.medium}`,
+      thumbnail: `/static/uploads/${image.thumb}`,
+      srcSet: `/static/uploads/${image.medium} 400w, /static/uploads/${
+        image.big
+      } 960w`,
+      sizes: '(min-width: 960px) 30vw, 80vw'
     }));
 
     let edit = (
