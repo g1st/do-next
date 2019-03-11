@@ -17,6 +17,7 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
 
+import DangerZone from './DangerZone';
 import Error from '../Error/Error';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
 
@@ -261,6 +262,8 @@ class AdminForm extends Component {
   };
 
   render() {
+    console.log('this.props.itemToEdit._id', this.props.itemToEdit._id);
+
     const { classes } = this.props;
     const { selectedImages } = this.state;
 
@@ -548,6 +551,12 @@ class AdminForm extends Component {
             {this.props.itemToEdit ? 'Edit item' : 'Add item'}
           </Button>
         </form>
+        {this.props.itemToEdit ? (
+          <DangerZone
+            itemID={this.props.itemToEdit._id.toString()}
+            collection={this.props.itemToEdit.group}
+          />
+        ) : null}
         {this.state.updating ? <ModalLoader /> : null}
       </div>
     );
@@ -555,6 +564,7 @@ class AdminForm extends Component {
 }
 
 AdminForm.propTypes = {
+  classes: PropTypes.object.isRequired,
   collections: PropTypes.arrayOf(PropTypes.string)
 };
 
