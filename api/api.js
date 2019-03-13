@@ -47,6 +47,22 @@ module.exports = (db, upload) => {
     })
   );
 
+  router.delete('/delete', async function(req, res) {
+    try {
+      const id = req.query._id;
+      const works = await Works.findOneAndRemove({ _id: id });
+
+      // removeImagesFromDisk needs thumb as starter
+      const imagesToRemove = works.images.map(img => img.thumb);
+      // remove photos from disk
+      serverUtils.removeImagesFromDisk(imagesToRemove);
+
+      res.json({ deletedItem: works.name });
+    } catch (err) {
+      console.errlogor(err);
+    }
+  });
+
   router.patch('/update', upload.array('photos[]', 10), async (req, res) => {
     const imageSizes = { big: 900, medium: 300, thumb: 92 };
 

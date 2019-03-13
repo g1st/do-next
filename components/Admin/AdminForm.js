@@ -17,6 +17,7 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
 
+import DangerZone from './DangerZone';
 import Error from '../Error/Error';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
 
@@ -89,7 +90,8 @@ class AdminForm extends Component {
     available: 'available',
     updating: false,
     errors: null,
-    work: null
+    work: null,
+    deletedItem: null
   };
 
   componentDidMount = () => {
@@ -103,6 +105,10 @@ class AdminForm extends Component {
         )
       }));
     }
+  };
+
+  removeItem = name => {
+    this.setState({ deletedItem: name });
   };
 
   handleChange = (name, event, thumb) => {
@@ -286,6 +292,10 @@ class AdminForm extends Component {
           </Typography>
         </div>
       );
+    }
+
+    if (this.state.deletedItem) {
+      return <div>Item {this.state.deletedItem} was deleted.</div>;
     }
 
     return (
@@ -548,6 +558,13 @@ class AdminForm extends Component {
             {this.props.itemToEdit ? 'Edit item' : 'Add item'}
           </Button>
         </form>
+        {this.props.itemToEdit ? (
+          <DangerZone
+            itemID={this.props.itemToEdit._id.toString()}
+            collection={this.props.itemToEdit.group}
+            removeItem={this.removeItem}
+          />
+        ) : null}
         {this.state.updating ? <ModalLoader /> : null}
       </div>
     );
@@ -555,6 +572,7 @@ class AdminForm extends Component {
 }
 
 AdminForm.propTypes = {
+  classes: PropTypes.object.isRequired,
   collections: PropTypes.arrayOf(PropTypes.string)
 };
 
