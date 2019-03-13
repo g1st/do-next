@@ -13,7 +13,7 @@ const styles = theme => ({
   }
 });
 
-const DangerZone = ({ classes, itemID, collection }) => {
+const DangerZone = ({ classes, itemID, collection, removeItem }) => {
   console.log(itemID, collection);
 
   const deleteItem = id => {
@@ -21,8 +21,8 @@ const DangerZone = ({ classes, itemID, collection }) => {
     axios
       .delete('http://localhost:3000/api/delete', { params: { _id: id } })
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        console.log(res.data.deletedItem);
+        removeItem(res.data.deletedItem);
       })
       .catch(err => console.log(err));
 
@@ -63,7 +63,8 @@ const DangerZone = ({ classes, itemID, collection }) => {
 DangerZone.propTypes = {
   collection: PropTypes.string.isRequired,
   itemID: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  removeItem: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(DangerZone);

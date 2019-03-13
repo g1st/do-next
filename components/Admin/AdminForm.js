@@ -90,7 +90,8 @@ class AdminForm extends Component {
     available: 'available',
     updating: false,
     errors: null,
-    work: null
+    work: null,
+    deletedItem: null
   };
 
   componentDidMount = () => {
@@ -104,6 +105,10 @@ class AdminForm extends Component {
         )
       }));
     }
+  };
+
+  removeItem = name => {
+    this.setState({ deletedItem: name });
   };
 
   handleChange = (name, event, thumb) => {
@@ -262,8 +267,6 @@ class AdminForm extends Component {
   };
 
   render() {
-    console.log('this.props.itemToEdit._id', this.props.itemToEdit._id);
-
     const { classes } = this.props;
     const { selectedImages } = this.state;
 
@@ -289,6 +292,10 @@ class AdminForm extends Component {
           </Typography>
         </div>
       );
+    }
+
+    if (this.state.deletedItem) {
+      return <div>Item {this.state.deletedItem} was deleted.</div>;
     }
 
     return (
@@ -555,6 +562,7 @@ class AdminForm extends Component {
           <DangerZone
             itemID={this.props.itemToEdit._id.toString()}
             collection={this.props.itemToEdit.group}
+            removeItem={this.removeItem}
           />
         ) : null}
         {this.state.updating ? <ModalLoader /> : null}
