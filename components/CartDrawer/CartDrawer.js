@@ -78,9 +78,9 @@ const mapStateToProps = state => ({
   uniqueCartItems: state.cart.length
 });
 
-const mapDispatchToProps = dispatch => {
-  return { clearBuyItNow: () => dispatch(clearBuyItNow()) };
-};
+const mapDispatchToProps = dispatch => ({
+  clearBuyItNow: () => dispatch(clearBuyItNow())
+});
 
 CartDrawer.propTypes = {
   classes: PropTypes.object.isRequired

@@ -56,7 +56,7 @@ function InstagramGallery(props) {
   return (
     <div className={classes.root}>
       <GridList
-        cellHeight={'auto'}
+        cellHeight="auto"
         className={classes.gridList}
         style={{ '--gridListWidth': `${getGridListWidth()}px` }}
         cols={getGridListCols()}

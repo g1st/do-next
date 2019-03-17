@@ -49,7 +49,7 @@ const ItemCard = props => {
               className={classes.media}
               image={img}
               title={name}
-              component={'img'}
+              component="img"
               onError={e => onCardMediaError(e)}
             />
           </div>

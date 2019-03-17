@@ -53,7 +53,7 @@ const CartItem = props => {
             </Typography>
           </ItemInfo>
           <IconButton
-            disabled={item.quantity > 1 ? false : true}
+            disabled={!(item.quantity > 1)}
             onClick={
               props.buyItNow
                 ? () => props.buyItNowDecreaseQuantity()
@@ -97,16 +97,14 @@ const mapStateToProps = state => ({
   buyItNowItem: state.buyItNow
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    increaseQuantity: id => dispatch(increaseQuantity(id)),
-    decreaseQuantity: id => dispatch(decreaseQuantity(id)),
-    removeFromCart: id => dispatch(removeFromCart(id)),
-    buyItNowIncreaseQuantity: () => dispatch(buyItNowIncreaseQuantity()),
-    buyItNowDecreaseQuantity: () => dispatch(buyItNowDecreaseQuantity()),
-    clearBuyItNow: () => dispatch(clearBuyItNow())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  increaseQuantity: id => dispatch(increaseQuantity(id)),
+  decreaseQuantity: id => dispatch(decreaseQuantity(id)),
+  removeFromCart: id => dispatch(removeFromCart(id)),
+  buyItNowIncreaseQuantity: () => dispatch(buyItNowIncreaseQuantity()),
+  buyItNowDecreaseQuantity: () => dispatch(buyItNowDecreaseQuantity()),
+  clearBuyItNow: () => dispatch(clearBuyItNow())
+});
 
 CartItem.propTypes = {
   buyItNow: PropTypes.bool,

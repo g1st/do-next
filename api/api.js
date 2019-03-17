@@ -38,7 +38,7 @@ module.exports = (db, upload) => {
   router.get(
     '/single',
     wrapAsync(async function(req) {
-      const id = req.query.id;
+      const { id } = req.query;
 
       const works = await Works.findById(id, (err, data) => {
         if (err) return console.error(err);
@@ -48,18 +48,42 @@ module.exports = (db, upload) => {
   );
 
   router.delete('/delete', async function(req, res) {
-    try {
-      const id = req.query._id;
-      const works = await Works.findOneAndRemove({ _id: id });
+    const id = req.query._id;
+    const group = req.query.collection;
+    // deleting single item
+    if (id) {
+      try {
+        const works = await Works.findOneAndRemove({ _id: id });
 
-      // removeImagesFromDisk needs thumb as starter
-      const imagesToRemove = works.images.map(img => img.thumb);
-      // remove photos from disk
-      serverUtils.removeImagesFromDisk(imagesToRemove);
+        // removeImagesFromDisk needs thumb as starter
+        const imagesToRemove = works.images.map(img => img.thumb);
+        // remove photos from disk
+        serverUtils.removeImagesFromDisk(imagesToRemove);
 
-      res.json({ deletedItem: works.name });
-    } catch (err) {
-      console.errlogor(err);
+        res.json({ deletedItem: works.name });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    // deleting collection
+    if (group) {
+      try {
+        const worksToBeDeleted = await Works.find({ group });
+
+        const works = await Works.deleteMany({ group });
+
+        // removeImagesFromDisk needs thumb as starter
+        const imagesToRemove = worksToBeDeleted.reduce((acc, currObj) => {
+          const thumbArray = currObj.images.map(img => img.thumb);
+          return acc.concat(thumbArray);
+        }, []);
+        // remove photos from disk
+        serverUtils.removeImagesFromDisk(imagesToRemove);
+
+        res.json({ deletedCollection: group });
+      } catch (err) {
+        console.log(err);
+      }
     }
   });
 
@@ -124,15 +148,13 @@ module.exports = (db, upload) => {
     }
 
     if (req.files.length > 0) {
-      let sizes = req.files.map(obj => {
-        return [
-          { path: obj.path, size: imageSizes.big },
-          { path: obj.path, size: imageSizes.medium },
-          { path: obj.path, size: imageSizes.thumb }
-        ];
-      });
+      const sizes = req.files.map(obj => [
+        { path: obj.path, size: imageSizes.big },
+        { path: obj.path, size: imageSizes.medium },
+        { path: obj.path, size: imageSizes.thumb }
+      ]);
 
-      let files = sizes.map(photo =>
+      const files = sizes.map(photo =>
         photo.map(photo => serverUtils.writeFile(photo.path, photo.size))
       );
 
@@ -205,15 +227,13 @@ module.exports = (db, upload) => {
 
     await db.collection('works').insertOne(work);
 
-    let sizes = req.files.map(obj => {
-      return [
-        { path: obj.path, size: imageSizes.big },
-        { path: obj.path, size: imageSizes.medium },
-        { path: obj.path, size: imageSizes.thumb }
-      ];
-    });
+    const sizes = req.files.map(obj => [
+      { path: obj.path, size: imageSizes.big },
+      { path: obj.path, size: imageSizes.medium },
+      { path: obj.path, size: imageSizes.thumb }
+    ]);
 
-    let files = sizes.map(photo =>
+    const files = sizes.map(photo =>
       photo.map(photo => serverUtils.writeFile(photo.path, photo.size))
     );
 
@@ -253,11 +273,11 @@ module.exports = (db, upload) => {
       }
 
       sendMail({ email, subject, message })
-        .then(() => {
-          return res.json({
+        .then(() =>
+          res.json({
             msg: 'Email has been sent.'
-          });
-        })
+          })
+        )
         .catch(err => {
           console.log(err);
           return res.json({ msg: err.message });
@@ -371,12 +391,10 @@ module.exports = (db, upload) => {
       } else {
         // bought from cart - might be multiple
         const items = req.body.additional.purchaseDetails.selectedItems.map(
-          item => {
-            return {
-              id: item._id,
-              price: item.price
-            };
-          }
+          item => ({
+            id: item._id,
+            price: item.price
+          })
         );
 
         const pricePromises = items.map(async item => {
@@ -394,9 +412,10 @@ module.exports = (db, upload) => {
         );
 
         // cumulative price from frontend
-        const amountFromFrontEnd = items.reduce((acc, item) => {
-          return acc + item.price;
-        }, 0);
+        const amountFromFrontEnd = items.reduce(
+          (acc, item) => acc + item.price,
+          0
+        );
 
         amount =
           amountFromFrontEnd === amountFromBackend
@@ -410,7 +429,7 @@ module.exports = (db, upload) => {
       }
 
       try {
-        let { status } = await stripe.charges.create({
+        const { status } = await stripe.charges.create({
           amount: amount * 100, // stripe needs cents
           currency: 'gbp',
           description: `Charge for purchase at dovilejewellery.com`,

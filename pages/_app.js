@@ -3,11 +3,11 @@ import App, { Container } from 'next/app';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
-import getPageContext from '../src/getPageContext';
 import Head from 'next/head';
 import axios from 'axios';
-import withReduxStore from '../lib/with-redux-store';
 import { Provider } from 'react-redux';
+import withReduxStore from '../lib/with-redux-store';
+import getPageContext from '../src/getPageContext';
 import { authUrl } from '../config';
 
 import '../styles/emptyFileToFixNextjsBug.css';
@@ -19,13 +19,13 @@ class MyApp extends App {
   }
 
   static async getInitialProps({ Component, ctx, router }) {
-    var pageProps = {};
+    let pageProps = {};
     let user = null;
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
 
-    const token = ctx.reduxStore.getState().authenticate.token;
+    const { token } = ctx.reduxStore.getState().authenticate;
 
     if (token) {
       const response = await axios.get(`${authUrl}/user`, {
@@ -81,9 +81,7 @@ class MyApp extends App {
       return { pageProps };
     }
     // Otherwise, we're rendering on the client and need to use the API
-    const works = await axios.get('/api').then(res => {
-      return res.data;
-    });
+    const works = await axios.get('/api').then(res => res.data);
 
     // To populate menu for user's created collections(works in frontend)
     const collections = works.reduce((acc, next) => {

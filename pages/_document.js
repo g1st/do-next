@@ -2,9 +2,9 @@ import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import JssProvider from 'react-jss/lib/JssProvider';
 import flush from 'styled-jsx/server';
-import getPageContext from '../src/getPageContext';
 import { ServerStyleSheet } from 'styled-components';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import getPageContext from '../src/getPageContext';
 
 class MyDocument extends Document {
   render() {

@@ -3,8 +3,8 @@ const axios = require('axios');
 module.exports = data => {
   const { boughtFrom } = data.additional.purchaseDetails;
 
-  let baseUrl = 'http://localhost:3000/piece/';
-  let purchaseData = [];
+  const baseUrl = 'http://localhost:3000/piece/';
+  const purchaseData = [];
   if (boughtFrom === 'buyItNow') {
     purchaseData.push({
       link: `${baseUrl}${data.additional.purchaseDetails._id}`,
@@ -40,15 +40,15 @@ module.exports = data => {
   const output = `
     <h3>Items purchased</h3>
     ${purchaseData
-      .map(item => {
-        return `
+      .map(
+        item => `
       <p> Name: ${item.name}</p>
       <p> Link: ${item.link}</p>
       <p> Quantity: ${item.quantity}</p>
       <p> Price: £${item.price}</p>
       <br>
-      `;
-      })
+      `
+      )
       .join(' ')}
     <p>Additional order information: ${additional_info || 'Not provided'}</p>
     <p>Amount: £${
@@ -77,7 +77,7 @@ module.exports = data => {
       // change for deployment
       .post('http://localhost:3000/api/send', {
         subject: 'Purchase completed',
-        email: email,
+        email,
         message: output
       })
       .then(res => console.log('email sent'))

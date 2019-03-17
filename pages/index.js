@@ -68,7 +68,7 @@ class Index extends React.Component {
         <div>From: {this.props.from}</div>
         {/* <div>Data: {JSON.stringify(this.state.data)}</div> */}
         {this.state.data.length > 0 ? (
-          <Gallery data={this.state.dataForGallery} showCollection={'all'} />
+          <Gallery data={this.state.dataForGallery} showCollection="all" />
         ) : (
           <p>Gallery empty</p>
         )}
@@ -94,19 +94,15 @@ Index.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string)
 };
 
-Index.getInitialProps = async ({ pathname, user }) => {
-  return { pathname, user };
-};
+Index.getInitialProps = async ({ pathname, user }) => ({ pathname, user });
 
 const mapStateToProps = state => ({
   reduxLoadedItems: state.loadMore
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    increaseLoadedItems: () => dispatch(increaseLoadedItems())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  increaseLoadedItems: () => dispatch(increaseLoadedItems())
+});
 
 export default connect(
   mapStateToProps,

@@ -9,9 +9,9 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import Router from 'next/router';
+import Link from 'next/link';
 import customItem from '../components/ItemCard/customRenderItem';
 import customThumb from '../components/ItemCard/customRenderThumb';
-import Link from 'next/link';
 
 import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
@@ -74,7 +74,7 @@ class Piece extends React.Component {
       sizes: '(min-width: 960px) 30vw, 80vw'
     }));
 
-    let edit = (
+    const edit = (
       <div>
         <Link href={`/edit?id=${_id}`} as={`/edit/${_id}`}>
           <a>Edit</a>
@@ -89,10 +89,10 @@ class Piece extends React.Component {
           <Images>
             <ImageGallery
               items={gallery}
-              lazyLoad={true}
-              showNav={true}
+              lazyLoad
+              showNav
               showPlayButton={false}
-              showFullscreenButton={true}
+              showFullscreenButton
               renderItem={customItem}
               renderThumbInner={customThumb}
             />
@@ -156,7 +156,7 @@ Piece.propTypes = {
 Piece.getInitialProps = async ({ pathname, req, query, user }) => {
   if (req) {
     const { db } = req;
-    const id = req.params.id;
+    const { id } = req.params;
 
     const data = await db
       .collection('works')
@@ -170,18 +170,14 @@ Piece.getInitialProps = async ({ pathname, req, query, user }) => {
 
   const onePieceData = await axios
     .get('/api/single', { params: { id: query.id } })
-    .then(res => {
-      return res.data;
-    });
+    .then(res => res.data);
   return { onePieceData: [onePieceData], pathname };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addToCart: item => dispatch(addToCart(item)),
-    buyItNow: item => dispatch(buyItNow(item))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  addToCart: item => dispatch(addToCart(item)),
+  buyItNow: item => dispatch(buyItNow(item))
+});
 
 export default connect(
   null,

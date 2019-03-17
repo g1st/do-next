@@ -91,7 +91,8 @@ class AdminForm extends Component {
     updating: false,
     errors: null,
     work: null,
-    deletedItem: null
+    deletedItem: null,
+    deletedCollection: null
   };
 
   componentDidMount = () => {
@@ -109,6 +110,10 @@ class AdminForm extends Component {
 
   removeItem = name => {
     this.setState({ deletedItem: name });
+  };
+
+  removeCollection = name => {
+    this.setState({ deletedCollection: name });
   };
 
   handleChange = (name, event, thumb) => {
@@ -172,7 +177,7 @@ class AdminForm extends Component {
       ? this.state.collection
       : this.state.existingCollection;
 
-    let formData = new FormData();
+    const formData = new FormData();
 
     formData.append('_id', _id);
     formData.append('name', name);
@@ -196,9 +201,9 @@ class AdminForm extends Component {
         // change for deployment
         .patch('http://localhost:3000/api/update', formData)
         .then(response => {
-          const errors = response.data.errors;
+          const { errors } = response.data;
 
-          let err = {};
+          const err = {};
 
           for (const prop in errors) {
             if (errors[prop].hasOwnProperty('message')) {
@@ -234,9 +239,9 @@ class AdminForm extends Component {
         // change for deployment
         .post('http://localhost:3000/api/update', formData)
         .then(response => {
-          const errors = response.data.errors;
+          const { errors } = response.data;
 
-          let err = {};
+          const err = {};
 
           for (const prop in errors) {
             if (errors[prop].hasOwnProperty('message')) {
@@ -295,7 +300,33 @@ class AdminForm extends Component {
     }
 
     if (this.state.deletedItem) {
-      return <div>Item {this.state.deletedItem} was deleted.</div>;
+      return (
+        <div>
+          <Typography variant="body2">
+            Item {this.state.deletedItem} was deleted.
+          </Typography>
+          <Typography variant="body2">
+            <Link href="/admin">
+              <a>Add new piece</a>
+            </Link>
+          </Typography>
+        </div>
+      );
+    }
+
+    if (this.state.deletedCollection) {
+      return (
+        <div>
+          <Typography variant="body2">
+            Collection {this.state.deletedCollection} was deleted.
+          </Typography>
+          <Typography variant="body2">
+            <Link href="/admin">
+              <a>Add new piece</a>
+            </Link>
+          </Typography>
+        </div>
+      );
     }
 
     return (
@@ -315,13 +346,7 @@ class AdminForm extends Component {
             margin="normal"
             required
             InputLabelProps={{ required: false }}
-            error={
-              this.state.errors
-                ? this.state.errors.name
-                  ? true
-                  : false
-                : false
-            }
+            error={this.state.errors ? !!this.state.errors.name : false}
             helperText={this.state.errors && this.state.errors.name}
           />
           <TextField
@@ -335,13 +360,7 @@ class AdminForm extends Component {
             rows={4}
             required
             InputLabelProps={{ required: false }}
-            error={
-              this.state.errors
-                ? this.state.errors.description
-                  ? true
-                  : false
-                : false
-            }
+            error={this.state.errors ? !!this.state.errors.description : false}
             helperText={this.state.errors && this.state.errors.description}
           />
           <div>
@@ -373,13 +392,7 @@ class AdminForm extends Component {
               onChange={e => this.handleChange('collection', e)}
               margin="normal"
               InputLabelProps={{ required: false }}
-              error={
-                this.state.errors
-                  ? this.state.errors.collection
-                    ? true
-                    : false
-                  : false
-              }
+              error={this.state.errors ? !!this.state.errors.collection : false}
               helperText={this.state.errors && this.state.errors.collection}
             />
           </div>
@@ -396,7 +409,7 @@ class AdminForm extends Component {
               accept="image/*"
               name="photos[]"
               onChange={this.handleImages}
-              required={this.props.itemToEdit ? false : true}
+              required={!this.props.itemToEdit}
             />
             {/* for edit view show current photos and let select for deleting */}
             {selectedImages ? (
@@ -466,13 +479,7 @@ class AdminForm extends Component {
             margin="normal"
             required
             InputLabelProps={{ required: false }}
-            error={
-              this.state.errors
-                ? this.state.errors.price
-                  ? true
-                  : false
-                : false
-            }
+            error={this.state.errors ? !!this.state.errors.price : false}
             helperText={this.state.errors && this.state.errors.price}
           />
           <FormControl component="fieldset" className={classes.root}>
@@ -563,6 +570,7 @@ class AdminForm extends Component {
             itemID={this.props.itemToEdit._id.toString()}
             collection={this.props.itemToEdit.group}
             removeItem={this.removeItem}
+            removeCollection={this.removeCollection}
           />
         ) : null}
         {this.state.updating ? <ModalLoader /> : null}

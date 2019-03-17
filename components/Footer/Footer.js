@@ -41,7 +41,7 @@ const Footer = props => {
         <FlexItem>
           <BrandLogo>
             <Logo
-              src={'../../static/images/logo.png'}
+              src="../../static/images/logo.png"
               alt="Dovile Jewellery logo"
             />
           </BrandLogo>

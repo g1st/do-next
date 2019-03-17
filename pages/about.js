@@ -152,12 +152,12 @@ class About extends React.Component {
           <ImageGallery
             items={gallery}
             showNav={false}
-            showPlayButton={true}
+            showPlayButton
             showFullscreenButton={false}
             showThumbnails={false}
-            autoPlay={true}
+            autoPlay
             slideInterval={4000}
-            showBullets={true}
+            showBullets
           />
         </ImageGalleryWrapper>
 

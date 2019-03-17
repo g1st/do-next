@@ -23,9 +23,8 @@ class Works extends React.Component {
     const data = JSON.parse(props.data);
     const collections = { all: { data, itemsLoaded: ITEMS_PER_PAGE } };
 
-    const dataForSelectedCollection = (data, collection) => {
-      return data.filter(x => x.group == collection);
-    };
+    const dataForSelectedCollection = (data, collection) =>
+      data.filter(x => x.group == collection);
 
     props.collections.forEach(collection => {
       collections[collection] = {
@@ -53,7 +52,7 @@ class Works extends React.Component {
   render() {
     console.log(this.state);
 
-    var { collection } = this.props.router.query;
+    let { collection } = this.props.router.query;
 
     if (!this.props.collections.includes(collection)) {
       collection = 'all';
@@ -115,8 +114,6 @@ Works.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string)
 };
 
-Works.getInitialProps = async ({ pathname }) => {
-  return { pathname };
-};
+Works.getInitialProps = async ({ pathname }) => ({ pathname });
 
 export default Works;

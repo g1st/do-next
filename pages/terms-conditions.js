@@ -90,8 +90,6 @@ TermsAndConditions.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string)
 };
 
-TermsAndConditions.getInitialProps = async ({ pathname }) => {
-  return { pathname };
-};
+TermsAndConditions.getInitialProps = async ({ pathname }) => ({ pathname });
 
 export default TermsAndConditions;

@@ -1,6 +1,7 @@
 const sharp = require('sharp');
 const fs = require('fs');
 const { promisify } = require('util');
+
 const asyncUnlink = promisify(fs.unlink);
 
 module.exports = {

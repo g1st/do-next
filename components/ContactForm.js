@@ -142,7 +142,7 @@ class ContactForm extends Component {
             required
             margin="normal"
             type="text"
-            multiline={true}
+            multiline
             fullWidth
             rows={4}
             InputLabelProps={{ required: false }}
