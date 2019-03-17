@@ -436,10 +436,8 @@ module.exports = (db, upload) => {
           source: req.body.token
         });
 
-        // send confirmation email to seller
+        // send confirmation email to seller and buyer
         await sendPurchaseEmail(req.body);
-
-        // TODO send confirmation email to buyer
 
         const { payload, additional } = req.body;
         // save order to db
