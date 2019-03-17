@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import withWidth from '@material-ui/core/withWidth';
 import { Elements, injectStripe, StripeProvider } from 'react-stripe-elements';
 
 import StripeForm from '../containers/Stripe/Form';
@@ -43,9 +44,15 @@ class Checkout extends Component {
   }
 
   render() {
+    const { width } = this.props;
     return (
       <Layout pathname={false} collections={this.props.collections}>
-        <Typography variant="h3" gutterBottom>
+        <Typography
+          component="h1"
+          variant={width === 'xs' ? 'h5' : 'h4'}
+          gutterBottom
+          align="center"
+        >
           Checkout
         </Typography>
         <StripeProvider stripe={this.state.stripe}>
@@ -60,4 +67,4 @@ Checkout.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string)
 };
 
-export default Checkout;
+export default withWidth()(Checkout);
