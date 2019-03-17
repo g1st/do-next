@@ -5,6 +5,7 @@ import Drawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import Router from 'next/router';
+import Typography from '@material-ui/core/Typography';
 
 import { clearBuyItNow } from '../../store/actions';
 import { DrawerContext } from '../DrawerContext';
@@ -17,6 +18,9 @@ const styles = {
   },
   button: {
     margin: '20px 20px'
+  },
+  cart: {
+    paddingTop: '10px'
   }
 };
 
@@ -47,6 +51,11 @@ class CartDrawer extends Component {
         onClose={this.context.toggleDrawer('drawerCart', false)}
         onOpen={this.context.toggleDrawer('drawerCart', true)}
       >
+        {this.props.uniqueCartItems > 0 ? (
+          <Typography className={classes.cart} variant="h5" align="center">
+            Your Cart
+          </Typography>
+        ) : null}
         <div
           className={classes.list}
           tabIndex={0}
