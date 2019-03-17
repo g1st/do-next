@@ -91,7 +91,8 @@ class AdminForm extends Component {
     updating: false,
     errors: null,
     work: null,
-    deletedItem: null
+    deletedItem: null,
+    deletedCollection: null
   };
 
   componentDidMount = () => {
@@ -109,6 +110,10 @@ class AdminForm extends Component {
 
   removeItem = name => {
     this.setState({ deletedItem: name });
+  };
+
+  removeCollection = name => {
+    this.setState({ deletedCollection: name });
   };
 
   handleChange = (name, event, thumb) => {
@@ -295,7 +300,33 @@ class AdminForm extends Component {
     }
 
     if (this.state.deletedItem) {
-      return <div>Item {this.state.deletedItem} was deleted.</div>;
+      return (
+        <div>
+          <Typography variant="body2">
+            Item {this.state.deletedItem} was deleted.
+          </Typography>
+          <Typography variant="body2">
+            <Link href="/admin">
+              <a>Add new piece</a>
+            </Link>
+          </Typography>
+        </div>
+      );
+    }
+
+    if (this.state.deletedCollection) {
+      return (
+        <div>
+          <Typography variant="body2">
+            Collection {this.state.deletedCollection} was deleted.
+          </Typography>
+          <Typography variant="body2">
+            <Link href="/admin">
+              <a>Add new piece</a>
+            </Link>
+          </Typography>
+        </div>
+      );
     }
 
     return (
@@ -563,6 +594,7 @@ class AdminForm extends Component {
             itemID={this.props.itemToEdit._id.toString()}
             collection={this.props.itemToEdit.group}
             removeItem={this.removeItem}
+            removeCollection={this.removeCollection}
           />
         ) : null}
         {this.state.updating ? <ModalLoader /> : null}

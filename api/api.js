@@ -48,18 +48,42 @@ module.exports = (db, upload) => {
   );
 
   router.delete('/delete', async function(req, res) {
-    try {
-      const id = req.query._id;
-      const works = await Works.findOneAndRemove({ _id: id });
+    const id = req.query._id;
+    const group = req.query.collection;
+    // deleting single item
+    if (id) {
+      try {
+        const works = await Works.findOneAndRemove({ _id: id });
 
-      // removeImagesFromDisk needs thumb as starter
-      const imagesToRemove = works.images.map(img => img.thumb);
-      // remove photos from disk
-      serverUtils.removeImagesFromDisk(imagesToRemove);
+        // removeImagesFromDisk needs thumb as starter
+        const imagesToRemove = works.images.map(img => img.thumb);
+        // remove photos from disk
+        serverUtils.removeImagesFromDisk(imagesToRemove);
 
-      res.json({ deletedItem: works.name });
-    } catch (err) {
-      console.errlogor(err);
+        res.json({ deletedItem: works.name });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    // deleting collection
+    if (group) {
+      try {
+        const worksToBeDeleted = await Works.find({ group });
+
+        const works = await Works.deleteMany({ group });
+
+        // removeImagesFromDisk needs thumb as starter
+        const imagesToRemove = worksToBeDeleted.reduce((acc, currObj) => {
+          const thumbArray = currObj.images.map(img => img.thumb);
+          return acc.concat(thumbArray);
+        }, []);
+        // remove photos from disk
+        serverUtils.removeImagesFromDisk(imagesToRemove);
+
+        res.json({ deletedCollection: group });
+      } catch (err) {
+        console.log(err);
+      }
     }
   });
 
