@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { deauthenticate } from '../store/actions/index';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
+import Link from 'next/link';
 
 const styles = {
   header: {
@@ -21,7 +22,12 @@ const Edit = ({ user, deauthenticate, collections, onePieceData }) => {
         <div>
           <div style={styles.header}>
             <p>Hello {user}!</p>
-            <Button onClick={deauthenticate}>Logout</Button>
+            <div>
+              <Link href="/">
+                <Button>Home</Button>
+              </Link>
+              <Button onClick={deauthenticate}>Logout</Button>
+            </div>
           </div>
           <AdminForm collections={collections} itemToEdit={onePieceData[0]} />
         </div>

@@ -3,6 +3,7 @@ import SignIn from '../components/Admin/SignIn';
 import { connect } from 'react-redux';
 import { deauthenticate } from '../store/actions/index';
 import Button from '@material-ui/core/Button';
+import Link from 'next/link';
 
 const styles = {
   header: {
@@ -20,7 +21,12 @@ const Admin = ({ user, deauthenticate, collections }) => {
         <div>
           <div style={styles.header}>
             <p>Hello {user}!</p>
-            <Button onClick={deauthenticate}>Logout</Button>
+            <div>
+              <Link href="/">
+                <Button>Home</Button>
+              </Link>
+              <Button onClick={deauthenticate}>Logout</Button>
+            </div>
           </div>
           <AdminForm collections={collections} />
         </div>
