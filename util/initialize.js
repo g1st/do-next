@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import { reauthenticate } from '../store/actions/index';
-import { getCookie } from '../util/cookie';
+import { getCookie } from './cookie';
 
 // checks if the page is being loaded on the server, and if so, get auth token from the cookie:
 export default function(ctx) {
@@ -12,7 +12,7 @@ export default function(ctx) {
   } else {
     console.log(ctx.reduxStore.getState());
 
-    const token = ctx.reduxStore.getState().authenticate.token;
+    const { token } = ctx.reduxStore.getState().authenticate;
 
     if (token && (ctx.pathname === '/signin' || ctx.pathname === '/signup')) {
       setTimeout(function() {

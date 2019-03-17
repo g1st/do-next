@@ -17,9 +17,7 @@ class Contact extends React.Component {
   };
 
   handleEmailSend = state => {
-    this.setState(() => {
-      return { emailSent: state };
-    });
+    this.setState(() => ({ emailSent: state }));
   };
 
   render() {
@@ -56,8 +54,6 @@ Contact.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string)
 };
 
-Contact.getInitialProps = async ({ pathname }) => {
-  return { pathname };
-};
+Contact.getInitialProps = async ({ pathname }) => ({ pathname });
 
 export default Contact;

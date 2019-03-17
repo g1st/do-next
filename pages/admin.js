@@ -1,9 +1,10 @@
-import AdminForm from '../components/Admin/AdminForm';
-import SignIn from '../components/Admin/SignIn';
 import { connect } from 'react-redux';
-import { deauthenticate } from '../store/actions/index';
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
+
+import { deauthenticate } from '../store/actions/index';
+import AdminForm from '../components/Admin/AdminForm';
+import SignIn from '../components/Admin/SignIn';
 
 const styles = {
   header: {
@@ -14,32 +15,28 @@ const styles = {
   }
 };
 
-const Admin = ({ user, deauthenticate, collections }) => {
-  return (
-    <div>
-      {user ? (
-        <div>
-          <div style={styles.header}>
-            <p>Hello {user}!</p>
-            <div>
-              <Link href="/">
-                <Button>Home</Button>
-              </Link>
-              <Button onClick={deauthenticate}>Logout</Button>
-            </div>
+const Admin = ({ user, deauthenticate, collections }) => (
+  <div>
+    {user ? (
+      <div>
+        <div style={styles.header}>
+          <p>Hello {user}!</p>
+          <div>
+            <Link href="/">
+              <Button>Home</Button>
+            </Link>
+            <Button onClick={deauthenticate}>Logout</Button>
           </div>
-          <AdminForm collections={collections} />
         </div>
-      ) : (
-        <SignIn />
-      )}
-    </div>
-  );
-};
+        <AdminForm collections={collections} />
+      </div>
+    ) : (
+      <SignIn />
+    )}
+  </div>
+);
 
-Admin.getInitialProps = ({ user }) => {
-  return { user };
-};
+Admin.getInitialProps = ({ user }) => ({ user });
 
 export default connect(
   null,

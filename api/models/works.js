@@ -13,7 +13,7 @@ const worksSchema = new mongoose.Schema(
       type: Array,
       required: true,
       validate: {
-        validator: function(array) {
+        validator(array) {
           return array.length > 0;
         },
         message: 'Piece has to have at least one image'

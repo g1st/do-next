@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 // send mail with defined transport object
 const sendMail = ({ email, subject, message }) => {
   // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     host: process.env.MAIL_HOST,
     port: process.env.MAIL_PORT,
     secure: false, // true for 465, false for other ports
@@ -16,7 +16,7 @@ const sendMail = ({ email, subject, message }) => {
     }
   });
 
-  let output = `
+  const output = `
     <p>You have a new message</p>
     <h3>Message Details</h3>
     <ul>
@@ -28,7 +28,7 @@ const sendMail = ({ email, subject, message }) => {
   `;
 
   // setup email data with unicode symbols
-  let mailOptions = {
+  const mailOptions = {
     from: '"Dovile Jewellery" <hello@dovilejewellery.com>', // sender address
     to: 'gintstan@gmail.com', // list of receivers
     subject: `Dovile Jewellery, Subject: ${subject}`, // Subject line

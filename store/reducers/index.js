@@ -77,9 +77,7 @@ const buyItNow = (state = initialState.buyItNow, action) => {
   return state;
 };
 
-const shippingCost = (state = initialState.shippingCost) => {
-  return state;
-};
+const shippingCost = (state = initialState.shippingCost) => state;
 
 const authenticate = (state = initialState.authenticate, action) => {
   if (AUTHENTICATE === action.type) {

@@ -115,7 +115,7 @@ class NavBar extends React.Component {
   render() {
     const { classes } = this.props;
     const { value, anchorEl } = this.state;
-    let navigation = (
+    const navigation = (
       <Tabs
         value={value}
         onChange={this.handleChange}
@@ -147,7 +147,7 @@ class NavBar extends React.Component {
       </Tabs>
     );
 
-    let smallMenu = (
+    const smallMenu = (
       <IconButton
         className={[classes.menuButton, classes.toggleNavMenu].join(' ')}
         color="inherit"
@@ -187,22 +187,20 @@ class NavBar extends React.Component {
                   <MenuItem onClick={e => this.handleClose(e, '/works')}>
                     SHOW ALL
                   </MenuItem>
-                  {this.props.collections.map(collection => {
-                    return (
-                      <MenuItem
-                        key={collection}
-                        onClick={e =>
-                          this.handleClose(
-                            e,
-                            `/works?collection=${collection}`,
-                            `/works/${collection}`
-                          )
-                        }
-                      >
-                        {collection.toUpperCase()}
-                      </MenuItem>
-                    );
-                  })}
+                  {this.props.collections.map(collection => (
+                    <MenuItem
+                      key={collection}
+                      onClick={e =>
+                        this.handleClose(
+                          e,
+                          `/works?collection=${collection}`,
+                          `/works/${collection}`
+                        )
+                      }
+                    >
+                      {collection.toUpperCase()}
+                    </MenuItem>
+                  ))}
                 </Menu>
                 <IconButton
                   className={classes.iconButton}
@@ -213,7 +211,9 @@ class NavBar extends React.Component {
                   {this.props.uniqueCartItems ? (
                     <Badge
                       badgeContent={this.props.uniqueCartItems}
-                      classes={{ badge: classes.badge }}
+                      classes={{
+                        badge: classes.badge
+                      }}
                     >
                       <ShoppingBasketIcon />
                     </Badge>

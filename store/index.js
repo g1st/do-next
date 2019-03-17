@@ -5,10 +5,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { initialState } from './reducers';
 import dovile from './reducers';
 
-export const initializeStore = (state = initialState) => {
-  return createStore(
+export const initializeStore = (state = initialState) =>
+  createStore(
     dovile,
     state,
     composeWithDevTools(applyMiddleware(thunkMiddleware))
   );
-};

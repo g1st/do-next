@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const api = require('./api/api');
 const body = require('body-parser');
 const co = require('co');
 const express = require('express');
@@ -8,12 +7,13 @@ const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 const path = require('path');
 const cors = require('cors');
+const api = require('./api/api');
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination(req, file, cb) {
     cb(null, 'static/uploads');
   },
-  filename: function(req, file, cb) {
+  filename(req, file, cb) {
     const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
 
     cb(null, newFilename);
@@ -69,9 +69,7 @@ co(function*() {
   });
 
   // Everything that isn't '/api' gets passed along to Next.js
-  server.get('*', (req, res) => {
-    return handle(req, res);
-  });
+  server.get('*', (req, res) => handle(req, res));
 
   server.listen(PORT, () => console.log(`Server listening on ${PORT}`));
 }).catch(error => console.error(error.stack));

@@ -80,9 +80,11 @@ class StripeForm extends Component {
       }
     });
   };
+
   handleFocus = () => {
     console.log('[focus]');
   };
+
   handleReady = () => {
     console.log('[ready]');
   };
@@ -103,16 +105,12 @@ class StripeForm extends Component {
       this.state.CVC_number.complete &&
       this.state.zip_code.complete
     ) {
-      this.setState(() => {
-        return { stripe_errors: false };
-      });
+      this.setState(() => ({ stripe_errors: false }));
       return true;
     }
 
     // that means fields are left blank
-    this.setState(() => {
-      return { stripe_errors: true };
-    });
+    this.setState(() => ({ stripe_errors: true }));
 
     return false;
   };
@@ -223,9 +221,7 @@ class StripeForm extends Component {
     const output = this.state.backend_validation_errors
       ? this.state.backend_validation_errors
           .filter(error => error.param === element)
-          .map((error, i) => {
-            return error.msg;
-          })
+          .map((error, i) => error.msg)
       : null;
     return output;
   };
@@ -241,9 +237,7 @@ class StripeForm extends Component {
             {this.state.backend_validation_errors
               ? this.state.backend_validation_errors
                   .filter(error => error.param == '_error')
-                  .map((error, i) => {
-                    return <Error key={i}>{error.msg}</Error>;
-                  })
+                  .map((error, i) => <Error key={i}>{error.msg}</Error>)
               : null}
             <Grid container spacing={16}>
               <Grid item xs={12} sm={6}>
@@ -637,7 +631,7 @@ class StripeForm extends Component {
                   label="Card Number"
                   placeholder="1234 1234 1234 1234"
                   component={CardNumberElement}
-                  name={'card_number'}
+                  name="card_number"
                   onChange={this.handleStripeChange}
                   error={
                     this.state.card_number.error
@@ -654,7 +648,7 @@ class StripeForm extends Component {
                 <StripeElementWrapper
                   label="Expiry (MM / YY)"
                   component={CardExpiryElement}
-                  name={'card_expiration'}
+                  name="card_expiration"
                   onChange={this.handleStripeChange}
                   error={
                     this.state.card_expiration.error
@@ -671,7 +665,7 @@ class StripeForm extends Component {
                 <StripeElementWrapper
                   label="CVC"
                   component={CardCVCElement}
-                  name={'CVC_number'}
+                  name="CVC_number"
                   onChange={this.handleStripeChange}
                   error={
                     this.state.CVC_number.error
@@ -688,7 +682,7 @@ class StripeForm extends Component {
                 <StripeElementWrapper
                   label="Postal / ZIP code"
                   component={PostalCodeElement}
-                  name={'zip_code'}
+                  name="zip_code"
                   onChange={this.handleStripeChange}
                   error={
                     this.state.zip_code.error
@@ -705,7 +699,7 @@ class StripeForm extends Component {
                 <TextField
                   id="additional_info"
                   label="Additional information (optional)"
-                  multiline={true}
+                  multiline
                   fullWidth
                   rows={4}
                   type="text"
@@ -772,12 +766,10 @@ const mapStateToProps = state => ({
   shippingCost: state.shippingCost
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    clearCart: () => dispatch(clearCart()),
-    clearBuyItNow: () => dispatch(clearBuyItNow())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  clearCart: () => dispatch(clearCart()),
+  clearBuyItNow: () => dispatch(clearBuyItNow())
+});
 
 export default connect(
   mapStateToProps,
