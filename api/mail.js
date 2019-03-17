@@ -16,24 +16,13 @@ const sendMail = ({ email, subject, message }) => {
     }
   });
 
-  const output = `
-    <p>You have a new message</p>
-    <h3>Message Details</h3>
-    <ul>
-      <li>From email: ${email}</li>
-      <li>Subject: ${subject}</li>
-    </ul>
-    <h3>Message</h3>
-    <p>${message}</p>
-  `;
-
   // setup email data with unicode symbols
   const mailOptions = {
     from: '"Dovile Jewellery" <hello@dovilejewellery.com>', // sender address
-    to: 'gintstan@gmail.com', // list of receivers
-    subject: `Dovile Jewellery, Subject: ${subject}`, // Subject line
+    to: email, // list of receivers
+    subject: subject, // Subject line
     text: `${message} From: ${email}`, // plain text body
-    html: output // html body
+    html: message // html body
   };
 
   return new Promise((resolve, reject) => {

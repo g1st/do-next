@@ -105,14 +105,7 @@ const CartDrawerContent = props => {
       </>
     );
   }
-  return (
-    <>
-      <Typography variant="h5" align="center" gutterBottom>
-        Your Cart
-      </Typography>
-      {content}
-    </>
-  );
+  return content;
 };
 
 const mapStateToProps = state => ({

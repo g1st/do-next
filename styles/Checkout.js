@@ -15,6 +15,20 @@ export const ElementContainer = styled.div`
 `;
 ElementContainer.displayName = 'ElementContainer';
 
+export const CheckoutForm = styled.div`
+  @media screen and (min-width: 960px) {
+    margin-right: 20px;
+  }
+`;
+CheckoutForm.displayName = 'CheckoutForm';
+
+export const CenterButton = styled.div`
+  @media screen and (min-width: 600px) {
+    text-align: center;
+  }
+`;
+CenterButton.displayName = 'CenterButton';
+
 export const Input = styled.input`
   padding: 10px 14px;
   box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px,
@@ -80,6 +94,9 @@ ShippmentForm.displayName = 'ShippmentForm';
 export const Cart = styled.div`
   flex: 1;
   order: 2;
+  @media screen and (min-width: 960px) {
+    margin-top: 30px;
+  }
 `;
 Cart.displayName = 'Cart';
 
