@@ -86,7 +86,6 @@ class AdminForm extends Component {
     category: 'ring',
     materials: '',
     collection: '',
-    existingCollection: this.props.collections[0] || '',
     available: 'available',
     updating: false,
     errors: null,
@@ -100,11 +99,15 @@ class AdminForm extends Component {
       this.setState(state => ({
         ...state,
         ...this.props.itemToEdit,
+        existingCollection: this.props.itemToEdit.group,
         selectedImages: Object.assign(
           {},
           ...this.props.itemToEdit.images.map(img => ({ [img.thumb]: false }))
         )
       }));
+      if (!this.props.collections.includes(this.props.itemToEdit.group)) {
+        this.props.collections.push(this.props.itemToEdit.group);
+      }
     }
   };
 
@@ -203,6 +206,10 @@ class AdminForm extends Component {
         .then(response => {
           const { errors } = response.data;
 
+          if (errors && errors.hasOwnProperty('images')) {
+            return this.setState({ errors, updating: false });
+          }
+
           const err = {};
 
           for (const prop in errors) {
@@ -234,7 +241,6 @@ class AdminForm extends Component {
         });
     } else {
       // creating new item
-
       axios
         // change for deployment
         .post('http://localhost:3000/api/update', formData)
@@ -367,8 +373,9 @@ class AdminForm extends Component {
             <FormControl
               className={classes.collection}
               disabled={!!this.state.collection}
+              required={!this.state.collection}
             >
-              <InputLabel htmlFor="collection" shrink>
+              <InputLabel htmlFor="collection" shrink required={false}>
                 Select Collection
               </InputLabel>
               <Select
@@ -472,6 +479,7 @@ class AdminForm extends Component {
           />
           <TextField
             className={classes.root}
+            type="number"
             id="price"
             label="Price"
             value={this.state.price}
