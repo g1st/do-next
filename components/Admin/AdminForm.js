@@ -472,6 +472,7 @@ class AdminForm extends Component {
           />
           <TextField
             className={classes.root}
+            type="number"
             id="price"
             label="Price"
             value={this.state.price}
