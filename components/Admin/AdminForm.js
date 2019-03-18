@@ -203,6 +203,10 @@ class AdminForm extends Component {
         .then(response => {
           const { errors } = response.data;
 
+          if (errors && errors.hasOwnProperty('images')) {
+            return this.setState({ errors, updating: false });
+          }
+
           const err = {};
 
           for (const prop in errors) {
