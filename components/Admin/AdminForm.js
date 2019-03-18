@@ -368,7 +368,7 @@ class AdminForm extends Component {
               className={classes.collection}
               disabled={!!this.state.collection}
             >
-              <InputLabel htmlFor="collection" shrink>
+              <InputLabel htmlFor="collection" shrink required={false}>
                 Select Collection
               </InputLabel>
               <Select
