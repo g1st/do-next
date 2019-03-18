@@ -86,7 +86,6 @@ class AdminForm extends Component {
     category: 'ring',
     materials: '',
     collection: '',
-    existingCollection: this.props.collections[0] || '',
     available: 'available',
     updating: false,
     errors: null,
@@ -100,11 +99,15 @@ class AdminForm extends Component {
       this.setState(state => ({
         ...state,
         ...this.props.itemToEdit,
+        existingCollection: this.props.itemToEdit.group,
         selectedImages: Object.assign(
           {},
           ...this.props.itemToEdit.images.map(img => ({ [img.thumb]: false }))
         )
       }));
+      if (!this.props.collections.includes(this.props.itemToEdit.group)) {
+        this.props.collections.push(this.props.itemToEdit.group);
+      }
     }
   };
 
@@ -238,7 +241,6 @@ class AdminForm extends Component {
         });
     } else {
       // creating new item
-
       axios
         // change for deployment
         .post('http://localhost:3000/api/update', formData)
