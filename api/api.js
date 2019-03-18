@@ -1,16 +1,15 @@
-// require('dotenv').config({ path: '../.env' });
+require('dotenv').config();
 const express = require('express');
 const slugify = require('slugify');
+const { check, oneOf, validationResult } = require('express-validator/check');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
 const Works = require('./models/works');
 const Orders = require('./models/orders');
 const sendMail = require('./mail');
-const { check, oneOf, validationResult } = require('express-validator/check');
-
-require('dotenv').config();
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const { shippingPrice } = require('../util/globals');
 const serverUtils = require('../util/serverHelper');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 module.exports = (db, upload) => {
   const router = express.Router();
@@ -27,11 +26,7 @@ module.exports = (db, upload) => {
   router.get(
     '/',
     wrapAsync(async function(req) {
-      const works = await Works.find((err, data) => {
-        if (err) return console.error(err);
-      });
-
-      return works;
+      return Works.find();
     })
   );
 
@@ -40,19 +35,17 @@ module.exports = (db, upload) => {
     wrapAsync(async function(req) {
       const { id } = req.query;
 
-      const works = await Works.findById(id, (err, data) => {
-        if (err) return console.error(err);
-      });
-      return works;
+      return Works.findById(id);
     })
   );
 
-  router.delete('/delete', async function(req, res) {
-    const id = req.query._id;
-    const group = req.query.collection;
-    // deleting single item
-    if (id) {
-      try {
+  router.delete(
+    '/delete',
+    wrapAsync(async function(req, res) {
+      const id = req.query._id;
+      const group = req.query.collection;
+      // deleting single item
+      if (id) {
         const works = await Works.findOneAndRemove({ _id: id });
 
         // removeImagesFromDisk needs thumb as starter
@@ -60,44 +53,147 @@ module.exports = (db, upload) => {
         // remove photos from disk
         serverUtils.removeImagesFromDisk(imagesToRemove);
 
-        res.json({ deletedItem: works.name });
-      } catch (err) {
-        console.log(err);
+        return { deletedItem: works.name };
       }
-    }
-    // deleting collection
-    if (group) {
-      try {
+      // deleting collection
+      if (group) {
         const worksToBeDeleted = await Works.find({ group });
 
-        const works = await Works.deleteMany({ group });
+        // delete in db
+        await Works.deleteMany({ group });
 
         // removeImagesFromDisk needs thumb as starter
         const imagesToRemove = worksToBeDeleted.reduce((acc, currObj) => {
           const thumbArray = currObj.images.map(img => img.thumb);
           return acc.concat(thumbArray);
         }, []);
+
         // remove photos from disk
         serverUtils.removeImagesFromDisk(imagesToRemove);
 
-        res.json({ deletedCollection: group });
-      } catch (err) {
-        console.log(err);
+        return { deletedCollection: group };
       }
-    }
-  });
+    })
+  );
 
-  router.patch('/update', upload.array('photos[]', 10), async (req, res) => {
-    const imageSizes = { big: 900, medium: 300, thumb: 92 };
+  // editing existing item
+  router.patch(
+    '/update',
+    upload.array('photos[]', 10),
+    wrapAsync(async (req, res) => {
+      const imageSizes = { big: 900, medium: 300, thumb: 92 };
 
-    const update = {
-      ...req.body,
-      slug: slugify(req.body.name),
-      group: req.body.collection
-    };
+      const update = {
+        ...req.body,
+        slug: slugify(req.body.name),
+        group: req.body.collection
+      };
 
-    // user adds new images
-    if (req.files.length > 0) {
+      let imagesToRemoveOnError;
+
+      // user adds new images
+      if (req.files.length > 0) {
+        const images = req.files.map(image => {
+          const dot = image.filename.indexOf('.');
+
+          return {
+            big: image.filename,
+            medium:
+              image.filename.substring(0, dot) +
+              imageSizes.medium +
+              image.filename.substring(dot),
+            thumb:
+              image.filename.substring(0, dot) +
+              imageSizes.thumb +
+              image.filename.substring(dot)
+          };
+        });
+
+        update.$push = {
+          images: { $each: images }
+        };
+
+        imagesToRemoveOnError = images.map(image => image.thumb);
+      }
+
+      if (req.body.imagesToRemove.length > 0) {
+        const imagesToRemove = req.body.imagesToRemove.split(',');
+
+        if (req.body.photos.length - imagesToRemove.length < 1) {
+          return {
+            errors: { images: 'Piece must have at least one image.' }
+          };
+        }
+
+        //  remove image paths from DB document
+        update.$pull = {
+          images: {
+            thumb: { $in: imagesToRemove }
+          }
+        };
+
+        // remove images from disk
+        serverUtils.removeImagesFromDisk(imagesToRemove);
+      }
+
+      const work = await Works.findOneAndUpdate({ _id: req.body._id }, update, {
+        new: true
+      });
+
+      const error = work.validateSync();
+
+      if (error) {
+        // remove already uploaded images (not elegant but rarely will happen irl)
+        if (req.files.length > 0) {
+          serverUtils.removeImagesFromDisk(imagesToRemoveOnError);
+        }
+
+        return error;
+      }
+
+      if (req.files.length > 0) {
+        const sizes = req.files.map(obj => [
+          { path: obj.path, size: imageSizes.big },
+          { path: obj.path, size: imageSizes.medium },
+          { path: obj.path, size: imageSizes.thumb }
+        ]);
+
+        const files = sizes.map(photos =>
+          photos.map(photo => serverUtils.writeFile(photo.path, photo.size))
+        );
+
+        Promise.all(files)
+          .then(val => console.log(val))
+          .catch(err => console.log(err));
+      }
+
+      return {
+        msg: 'Work has been updated',
+        work,
+        error
+      };
+    })
+  );
+
+  // creating new item
+  router.post(
+    '/update',
+    upload.array('photos[]', 10),
+    wrapAsync(async (req, res) => {
+      // squared shape for better gallery experience
+      const imageSizes = { big: 900, medium: 300, thumb: 92 };
+
+      const {
+        name,
+        description,
+        collection,
+        materials,
+        size,
+        price,
+        category,
+        available
+      } = req.body;
+
       const images = req.files.map(image => {
         const dot = image.filename.indexOf('.');
 
@@ -114,139 +210,56 @@ module.exports = (db, upload) => {
         };
       });
 
-      update.$push = {
-        images: { $each: images }
+      const piece = {
+        name,
+        slug: slugify(name),
+        description,
+        materials,
+        group: collection,
+        category,
+        images,
+        size,
+        price,
+        available: available === 'available'
       };
-    }
 
-    if (req.body.imagesToRemove.length > 0) {
-      const imagesToRemove = req.body.imagesToRemove.split(',');
-      //  remove image links from DB
-      update.$pull = {
-        images: {
-          thumb: { $in: imagesToRemove }
-        }
-      };
+      const work = new Works(piece);
 
-      // remove photos from disk
-      serverUtils.removeImagesFromDisk(imagesToRemove);
-    }
+      const error = work.validateSync();
 
-    const work = await Works.findOneAndUpdate({ _id: req.body._id }, update, {
-      new: true
-    });
+      if (error) {
+        // pass just thumb of every photo
+        const imagesToRemoveOnError = images.map(image => image.thumb);
 
-    const error = work.validateSync();
+        // remove already uploaded images (not elegant but rarely will happen irl
+        serverUtils.removeImagesFromDisk(imagesToRemoveOnError);
 
-    if (error) {
-      // remove already uploaded images (not elegant but rarely will happen irl)
-      if (req.files.length > 0) {
-        serverUtils.removeImagesFromDisk(images);
+        return res.json(error);
       }
 
-      return res.json(error);
-    }
+      await db.collection('works').insertOne(work);
 
-    if (req.files.length > 0) {
       const sizes = req.files.map(obj => [
         { path: obj.path, size: imageSizes.big },
         { path: obj.path, size: imageSizes.medium },
         { path: obj.path, size: imageSizes.thumb }
       ]);
 
-      const files = sizes.map(photo =>
-        photo.map(photo => serverUtils.writeFile(photo.path, photo.size))
+      const files = sizes.map(photos =>
+        photos.map(photo => serverUtils.writeFile(photo.path, photo.size))
       );
 
       Promise.all(files)
         .then(val => console.log(val))
         .catch(err => console.log(err));
-    }
-
-    res.json({
-      msg: 'Work has been updated',
-      work,
-      error
-    });
-  });
-
-  router.post('/update', upload.array('photos[]', 10), async (req, res) => {
-    // squared shape for better gallery experience
-    const imageSizes = { big: 900, medium: 300, thumb: 92 };
-
-    const {
-      name,
-      description,
-      collection,
-      materials,
-      size,
-      price,
-      category,
-      available
-    } = req.body;
-
-    const images = req.files.map(image => {
-      const dot = image.filename.indexOf('.');
 
       return {
-        big: image.filename,
-        medium:
-          image.filename.substring(0, dot) +
-          imageSizes.medium +
-          image.filename.substring(dot),
-        thumb:
-          image.filename.substring(0, dot) +
-          imageSizes.thumb +
-          image.filename.substring(dot)
+        msg: 'Work has been added',
+        work,
+        error
       };
-    });
-
-    const piece = {
-      name,
-      slug: slugify(name),
-      description,
-      materials,
-      group: collection,
-      category,
-      images,
-      size,
-      price,
-      available: available == 'available'
-    };
-
-    const work = new Works(piece);
-
-    const error = work.validateSync();
-
-    if (error) {
-      // remove already uploaded images (not elegant but rarely will happen irl
-      serverUtils.removeImagesFromDisk(images);
-
-      return res.json(error);
-    }
-
-    await db.collection('works').insertOne(work);
-
-    const sizes = req.files.map(obj => [
-      { path: obj.path, size: imageSizes.big },
-      { path: obj.path, size: imageSizes.medium },
-      { path: obj.path, size: imageSizes.thumb }
-    ]);
-
-    const files = sizes.map(photo =>
-      photo.map(photo => serverUtils.writeFile(photo.path, photo.size))
-    );
-
-    Promise.all(files)
-      .then(val => console.log(val))
-      .catch(err => console.log(err));
-
-    res.json({
-      msg: 'Work has been added',
-      work,
-      error
-    });
-  });
+    })
+  );
 
   router.post(
     '/send',
@@ -268,7 +281,7 @@ module.exports = (db, upload) => {
 
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        console.log(errors.array());
+        // console.log(errors.array());
         return res.status(422).json({ errors: errors.array() });
       }
 
@@ -358,10 +371,9 @@ module.exports = (db, upload) => {
     ],
     wrapAsync(async (req, res) => {
       const errors = validationResult(req);
-      console.log(req.body);
+
       if (!errors.isEmpty()) {
-        console.log(errors.array());
-        // return res.status(422).json({ errors: errors.array() });
+        // console.log(errors.array());
         return { errors: errors.array() };
       }
 
@@ -375,14 +387,8 @@ module.exports = (db, upload) => {
 
       let amount;
 
-      if (boughtFrom == 'buyItNow') {
-        const amountFromBackend = await Works.findById(
-          _id,
-          'price',
-          (err, data) => {
-            if (err) return console.error(err);
-          }
-        );
+      if (boughtFrom === 'buyItNow') {
+        const amountFromBackend = await Works.findById(_id, 'price');
 
         amount =
           price === amountFromBackend.price
@@ -397,12 +403,9 @@ module.exports = (db, upload) => {
           })
         );
 
-        const pricePromises = items.map(async item => {
-          const price = await Works.findById(item.id, 'price', (err, data) => {
-            if (err) return console.error(err);
-          });
-          return price;
-        });
+        const pricePromises = items.map(async item =>
+          Works.findById(item.id, 'price')
+        );
 
         const backendPrices = await Promise.all(pricePromises);
 
@@ -428,45 +431,30 @@ module.exports = (db, upload) => {
         return { errors: [{ param: '_error', msg: 'Invalid amount.' }] };
       }
 
-      try {
-        const { status } = await stripe.charges.create({
-          amount: amount * 100, // stripe needs cents
-          currency: 'gbp',
-          description: `Charge for purchase at dovilejewellery.com`,
-          source: req.body.token
-        });
+      // try {
+      const { status } = await stripe.charges.create({
+        amount: amount * 100, // stripe needs cents
+        currency: 'gbp',
+        description: `Charge for purchase at dovilejewellery.com`,
+        source: req.body.token
+      });
 
-        // send confirmation email to seller and buyer
-        await sendPurchaseEmail(req.body);
+      // send confirmation email to seller and buyer
+      await sendPurchaseEmail(req.body);
 
-        const { payload, additional } = req.body;
-        // save order to db
-        const order = new Orders({
-          payload,
-          additional
-        });
+      const { payload, additional } = req.body;
 
-        await db.collection('orders').insertOne(order);
+      // save order to db
+      const order = new Orders({
+        payload,
+        additional
+      });
 
-        return status;
-      } catch (err) {
-        res.json({ err });
-      }
+      await db.collection('orders').insertOne(order);
+
+      return status;
     })
   );
-
-  // router.post('/', wrapAsync(async function (req) {
-  //   const book = new BookType(req.body)
-  //   await db.collection('Book').insertOne(book)
-  //   return { book }
-  // }))
-
-  // router.delete('/:id', wrapAsync(async function (req) {
-  //   const { result } = await db.collection('Book').deleteOne({
-  //     _id: Archetype.to(req.params.id, ObjectId)
-  //   })
-  //   return { result }
-  // }))
 
   return router;
 };
