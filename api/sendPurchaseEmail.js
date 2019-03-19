@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+/* eslint-disable camelcase */
+
 module.exports = data => {
   const { boughtFrom } = data.additional.purchaseDetails;
 
@@ -53,7 +55,7 @@ module.exports = data => {
       <p>Amount: £${
         boughtFrom === 'buyItNow' ? totalPriceBuyItNow : totalPrice
       }</p>
-      <p>Shipping cost: ${shippingCost == 0 ? 'Free' : `£${shippingCost}`}</p>
+      <p>Shipping cost: ${shippingCost === 0 ? 'Free' : `£${shippingCost}`}</p>
       <p>Total amount: £${
         boughtFrom === 'buyItNow'
           ? totalPriceBuyItNow + shippingCost
@@ -89,7 +91,7 @@ module.exports = data => {
       <p>Amount: £${
         boughtFrom === 'buyItNow' ? totalPriceBuyItNow : totalPrice
       }</p>
-      <p>Shipping cost: ${shippingCost == 0 ? 'Free' : `£${shippingCost}`}</p>
+      <p>Shipping cost: ${shippingCost === 0 ? 'Free' : `£${shippingCost}`}</p>
       <p>Total amount: £${
         boughtFrom === 'buyItNow'
           ? totalPriceBuyItNow + shippingCost
@@ -119,3 +121,5 @@ module.exports = data => {
     })
     .catch(err => console.log(err));
 };
+
+/* eslint-enable camelcase */

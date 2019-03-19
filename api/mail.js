@@ -20,7 +20,7 @@ const sendMail = ({ email, subject, message }) => {
   const mailOptions = {
     from: '"Dovile Jewellery" <hello@dovilejewellery.com>', // sender address
     to: email, // list of receivers
-    subject: subject, // Subject line
+    subject, // Subject line
     text: `${message} From: ${email}`, // plain text body
     html: message // html body
   };
