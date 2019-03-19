@@ -18,20 +18,18 @@ import {
 } from '../../store/actions';
 import { CartItems, Thumb, ItemInfo } from '../../styles/CartDrawer';
 
-const CartItem = props => {
-  const handleRemove = id => {
-    props.buyItNow ? props.clearBuyItNow() : props.removeFromCart(id);
-  };
+const CartItem = ({ buyItNow, data, closeDrawer }) => {
+  const handleRemove = id => (buyItNow ? clearBuyItNow() : removeFromCart(id));
 
   return (
     <CartItems>
-      {props.data.map(item => (
+      {data.map(item => (
         <li key={item._id}>
           <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
             <a
               style={{ textDecoration: 'none', height: '48px' }}
               target="_self"
-              onClick={props.closeDrawer}
+              onClick={closeDrawer}
             >
               <Thumb src={`/static/uploads/${item.images[0].thumb}`} />
             </a>
@@ -55,9 +53,9 @@ const CartItem = props => {
           <IconButton
             disabled={!(item.quantity > 1)}
             onClick={
-              props.buyItNow
-                ? () => props.buyItNowDecreaseQuantity()
-                : () => props.decreaseQuantity(item._id)
+              buyItNow
+                ? () => buyItNowDecreaseQuantity()
+                : () => decreaseQuantity(item._id)
             }
             color="secondary"
             aria-label="Decrease quantity"
@@ -67,9 +65,9 @@ const CartItem = props => {
           <Typography variant="body2">{item.quantity}</Typography>
           <IconButton
             onClick={
-              props.buyItNow
-                ? () => props.buyItNowIncreaseQuantity()
-                : () => props.increaseQuantity(item._id)
+              buyItNow
+                ? () => buyItNowIncreaseQuantity()
+                : () => increaseQuantity(item._id)
             }
             color="secondary"
             aria-label="Increase quantity"
@@ -107,8 +105,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 CartItem.propTypes = {
+  data: PropTypes.object,
   buyItNow: PropTypes.bool,
-  data: PropTypes.arrayOf(PropTypes.object)
+  closeDrawer: PropTypes.func
 };
 
 export default connect(

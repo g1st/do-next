@@ -59,19 +59,21 @@ class ContactForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.setState({ isSendingMail: true });
+    const { onEmailSend } = this.props;
+    const { email, message, subject } = this.state;
     axios
       // change for deployment
       .post('http://localhost:3000/api/send', {
-        subject: this.state.subject,
-        email: this.state.email,
-        message: this.state.message
+        email,
+        message,
+        subject
       })
       .then(res => {
         console.log('hillowwwwwww');
 
         console.log(res);
 
-        this.props.onEmailSend(true);
+        onEmailSend(true);
         this.setState(() => ({
           isSendingMail: false,
           emailSent: true
@@ -95,20 +97,32 @@ class ContactForm extends Component {
 
   render() {
     const { classes } = this.props;
+    const {
+      email,
+      emailSent,
+      errors,
+      isSendingMail,
+      message,
+      subject
+    } = this.state;
 
-    return this.state.isSendingMail ? (
-      <ModalLoader />
-    ) : this.state.emailSent ? (
-      <Paper className={classes.paper} elevation={3}>
-        <Typography variant="body2">
-          Thank you, your message has been sent.
-        </Typography>
-      </Paper>
-    ) : (
+    if (isSendingMail) {
+      return <ModalLoader />;
+    }
+    if (emailSent) {
+      return (
+        <Paper className={classes.paper} elevation={3}>
+          <Typography variant="body2">
+            Thank you, your message has been sent.
+          </Typography>
+        </Paper>
+      );
+    }
+    return (
       <div className={classes.wrapper}>
         <form onSubmit={e => this.handleSubmit(e)}>
           <TextField
-            value={this.state.email}
+            value={email}
             id="email"
             label="Email"
             placeholder="Your Email"
@@ -118,11 +132,11 @@ class ContactForm extends Component {
             margin="normal"
             InputLabelProps={{ required: false }}
             onChange={this.handleChange('email')}
-            error={!!this.state.errors.email}
-            helperText={this.state.errors.email}
+            error={!!errors.email}
+            helperText={errors.email}
           />
           <TextField
-            value={this.state.subject}
+            value={subject}
             id="subject"
             label="Subject"
             required
@@ -131,12 +145,12 @@ class ContactForm extends Component {
             margin="normal"
             fullWidth
             onChange={this.handleChange('subject')}
-            error={!!this.state.errors.subject}
-            helperText={this.state.errors.subject}
+            error={!!errors.subject}
+            helperText={errors.subject}
           />
 
           <TextField
-            value={this.state.message}
+            value={message}
             id="message"
             label="Message"
             required
@@ -147,8 +161,8 @@ class ContactForm extends Component {
             rows={4}
             InputLabelProps={{ required: false }}
             onChange={this.handleChange('message')}
-            error={!!this.state.errors.message}
-            helperText={this.state.errors.message}
+            error={!!errors.message}
+            helperText={errors.message}
           />
           <Button
             type="submit"
@@ -166,7 +180,8 @@ class ContactForm extends Component {
 }
 
 ContactForm.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  onEmailSend: PropTypes.func
 };
 
 export default withStyles(styles)(ContactForm);

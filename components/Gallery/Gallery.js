@@ -25,9 +25,9 @@ const Gallery = props => {
   const { classes, data, showCollection } = props;
 
   const filtered =
-    showCollection == 'all'
+    showCollection === 'all'
       ? data
-      : data.filter(item => item.group == showCollection);
+      : data.filter(item => item.group === showCollection);
 
   return (
     <div className={classes.root}>
@@ -49,7 +49,8 @@ const Gallery = props => {
 
 Gallery.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
-  showCollection: PropTypes.string
+  showCollection: PropTypes.string,
+  classes: PropTypes.object
 };
 
 export default withWidth()(withStyles(styles)(Gallery));

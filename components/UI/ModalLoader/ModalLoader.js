@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Modal, Loader, Center } from '../../../styles/ModalLoader';
 
-const ModalLoader = props => (
+const ModalLoader = () => (
   <Modal>
     <Center>
       <Loader />

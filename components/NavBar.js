@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,8 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Badge from '@material-ui/core/Badge';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
-import { withRouter } from 'next/router';
-import Router from 'next/router';
+import Router, { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 
 import NavDrawer from './NavDrawer/NavDrawer';
@@ -73,28 +73,25 @@ class NavBar extends React.Component {
         [type]: open
       }));
     };
-
+    const { pathname } = this.props;
     this.state = {
-      value: this.props.pathname,
-      anchorEl: null,
-      drawerNav: false,
-      drawerCart: false,
-      toggleDrawer: this.toggleDrawer
+      value: pathname,
+      anchorEl: null
     };
   }
 
   handleChange = (event, value) => {
     this.setState({ value });
-    if (value == '/') {
+    if (value === '/') {
       Router.push('/');
     }
     // if (value == '/works') {
     //   Router.push('/works');
     // }
-    if (value == '/about') {
+    if (value === '/about') {
       Router.push('/about');
     }
-    if (value == '/contact') {
+    if (value === '/contact') {
       Router.push('/contact');
     }
   };
@@ -105,7 +102,7 @@ class NavBar extends React.Component {
 
   handleClose = (e, href, as) => {
     // just actually closing panel
-    if (href != 'backdropClick') {
+    if (href !== 'backdropClick') {
       Router.push(href, as);
     }
 
@@ -113,7 +110,7 @@ class NavBar extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, collections, pathname, uniqueCartItems } = this.props;
     const { value, anchorEl } = this.state;
     const navigation = (
       <Tabs
@@ -130,7 +127,7 @@ class NavBar extends React.Component {
           label={
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <span style={{ paddingRight: 6 }}>Works</span>
-              {this.state.anchorEl ? (
+              {anchorEl ? (
                 <ExpandLess fontSize="small" />
               ) : (
                 <ExpandMore fontSize="small" />
@@ -138,7 +135,7 @@ class NavBar extends React.Component {
             </div>
           }
           value="/works"
-          aria-owns={anchorEl ? this.props.pathname : null}
+          aria-owns={anchorEl ? pathname : null}
           aria-haspopup="true"
           onClick={this.handleClick}
         />
@@ -163,7 +160,7 @@ class NavBar extends React.Component {
         <div>
           <div className={classes.root}>
             <DrawerContext.Provider value={this.state}>
-              <NavDrawer collections={this.props.collections} />
+              <NavDrawer collections={collections} />
               <CartDrawer />
             </DrawerContext.Provider>
             <AppBar>
@@ -187,7 +184,7 @@ class NavBar extends React.Component {
                   <MenuItem onClick={e => this.handleClose(e, '/works')}>
                     SHOW ALL
                   </MenuItem>
-                  {this.props.collections.map(collection => (
+                  {collections.map(collection => (
                     <MenuItem
                       key={collection}
                       onClick={e =>
@@ -208,9 +205,9 @@ class NavBar extends React.Component {
                   aria-label="Shopping Basket"
                   onClick={this.toggleDrawer('drawerCart', true)}
                 >
-                  {this.props.uniqueCartItems ? (
+                  {uniqueCartItems ? (
                     <Badge
-                      badgeContent={this.props.uniqueCartItems}
+                      badgeContent={uniqueCartItems}
                       classes={{
                         badge: classes.badge
                       }}
@@ -237,7 +234,8 @@ const mapStateToProps = state => ({
 NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
   collections: PropTypes.arrayOf(PropTypes.string),
-  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  uniqueCartItems: PropTypes.object
 };
 
 export default connect(mapStateToProps)(

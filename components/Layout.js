@@ -5,19 +5,20 @@ import Footer from './Footer/Footer';
 import { Main } from '../styles/Main';
 import { LayoutWrapper } from '../styles/LayoutWrapper';
 
-const Layout = props => (
+const Layout = ({ children, collections, pathname }) => (
   <LayoutWrapper>
     <div>
-      <NavBar pathname={props.pathname} collections={props.collections} />
+      <NavBar pathname={pathname} collections={collections} />
     </div>
-    <Main>{props.children}</Main>
+    <Main>{children}</Main>
     <Footer />
   </LayoutWrapper>
 );
 
 Layout.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  children: PropTypes.object
 };
 
 export default Layout;

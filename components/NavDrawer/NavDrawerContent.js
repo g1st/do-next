@@ -15,15 +15,18 @@ class NavDrawerContent extends React.Component {
   };
 
   handleToggle = () => {
-    this.setState(state => ({ open: !state.open }));
+    this.setState(({ open }) => ({ open: !open }));
   };
 
   handleClick = (href, as) => {
+    const { closingDrawer } = this.props;
     Router.push(href, as);
-    this.props.closingDrawer();
+    closingDrawer();
   };
 
   render() {
+    const { open } = this.state;
+    const { collections } = this.props;
     return (
       <List>
         <ListItem button>
@@ -33,11 +36,11 @@ class NavDrawerContent extends React.Component {
         </ListItem>
         <ListItem button onClick={this.handleToggle}>
           <ListItemText primary="Works" />
-          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+          {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+        <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div">
-            {this.props.collections.map(collection => (
+            {collections.map(collection => (
               <ListItem button key={collection}>
                 <ListItemText
                   inset

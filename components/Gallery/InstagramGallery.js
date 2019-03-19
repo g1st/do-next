@@ -33,7 +33,7 @@ const styles = theme => ({
 });
 
 function InstagramGallery(props) {
-  const { classes } = props;
+  const { classes, data } = props;
 
   const getGridListCols = () => {
     if (isWidthUp('lg', props.width)) {
@@ -62,12 +62,12 @@ function InstagramGallery(props) {
         cols={getGridListCols()}
         spacing={8}
       >
-        {props.data.map(tile => {
+        {data.map(tile => {
           const image = tile.images[props.imageSize];
           return (
             <GridListTile key={tile.id} cols={1}>
               <a href={tile.link} target="_blank" rel="noopener noreferrer">
-                <img src={image.url} className={classes.imgFullHeight} />
+                <img alt="" src={image.url} className={classes.imgFullHeight} />
               </a>
               <GridListTileBar
                 actionIcon={
@@ -97,7 +97,8 @@ function InstagramGallery(props) {
 InstagramGallery.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
-  imageSize: PropTypes.string
+  imageSize: PropTypes.string,
+  width: PropTypes.number
 };
 
 export default withStyles(styles)(withWidth()(InstagramGallery));
