@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 function toLowerCase(val) {
-  const v = typeof val !== 'string' ? val : '';
+  const v = typeof val === 'string' ? val : '';
   return v.toLowerCase();
 }
 
