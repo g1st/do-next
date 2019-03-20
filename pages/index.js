@@ -21,7 +21,7 @@ const ButtonContainer = styled.div`
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    const data = JSON.parse(props.data);
+    const { data } = props;
     this.state = {
       data,
       itemsLoaded: props.reduxLoadedItems,
