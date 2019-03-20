@@ -30,6 +30,9 @@ const CartItem = ({ buyItNow, data, closeDrawer }) => {
               style={{ textDecoration: 'none', height: '48px' }}
               target="_self"
               onClick={closeDrawer}
+              onKeyDown={closeDrawer}
+              role="link"
+              tabIndex={0}
             >
               <Thumb src={`/static/uploads/${item.images[0].thumb}`} />
             </a>
