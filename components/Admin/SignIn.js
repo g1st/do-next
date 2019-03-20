@@ -10,13 +10,12 @@ class Signin extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.authenticate(
-      { email: this.state.email, password: this.state.password },
-      'signin'
-    );
+    const { email, password } = this.state;
+    authenticate({ email, password }, 'signin');
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <div>
         <h3>Sign In</h3>
@@ -25,14 +24,14 @@ class Signin extends Component {
             type="email"
             placeholder="Email"
             required
-            value={this.state.email}
+            value={email}
             onChange={e => this.setState({ email: e.target.value })}
           />
           <input
             type="password"
             placeholder="Password"
             required
-            value={this.state.password}
+            value={password}
             onChange={e => this.setState({ password: e.target.value })}
           />
           <button type="submit" className="button is-success">

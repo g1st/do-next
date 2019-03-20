@@ -95,18 +95,19 @@ class AdminForm extends Component {
   };
 
   componentDidMount = () => {
-    if (this.props.itemToEdit) {
+    const { collections, itemToEdit } = this.props;
+    if (itemToEdit) {
       this.setState(state => ({
         ...state,
-        ...this.props.itemToEdit,
-        existingCollection: this.props.itemToEdit.group,
+        ...itemToEdit,
+        existingCollection: itemToEdit.group,
         selectedImages: Object.assign(
           {},
-          ...this.props.itemToEdit.images.map(img => ({ [img.thumb]: false }))
+          ...itemToEdit.images.map(img => ({ [img.thumb]: false }))
         )
       }));
-      if (!this.props.collections.includes(this.props.itemToEdit.group)) {
-        this.props.collections.push(this.props.itemToEdit.group);
+      if (!collections.includes(itemToEdit.group)) {
+        collections.push(itemToEdit.group);
       }
     }
   };
@@ -123,12 +124,12 @@ class AdminForm extends Component {
     if (name === 'available')
       return this.setState({ [name]: event.target.checked });
     if (name === 'selectedImages')
-      return this.setState({
+      return this.setState(({ selectedImages }) => ({
         selectedImages: {
-          ...this.state.selectedImages,
+          ...selectedImages,
           [thumb]: event.target.checked
         }
-      });
+      }));
 
     this.setState({ [name]: event.target.value });
   };
@@ -139,6 +140,7 @@ class AdminForm extends Component {
 
   // only when creating new item
   resetForm = () => {
+    const { collections } = this.props;
     this.setState({
       name: '',
       description: '',
@@ -148,7 +150,7 @@ class AdminForm extends Component {
       category: 'ring',
       materials: '',
       collection: '',
-      existingCollection: this.props.collections[0] || '',
+      existingCollection: collections[0] || '',
       available: 'available'
     });
   };
@@ -170,15 +172,13 @@ class AdminForm extends Component {
       selectedImages
     } = this.state;
 
-    const imagesToRemove = [];
-    for (const key in selectedImages) {
-      // truthy when user selected for removal
-      selectedImages[key] ? imagesToRemove.push(key) : null;
-    }
+    const imagesToRemove = selectedImages.filter(i => i);
 
+    /* eslint-disable react/destructuring-assignment */
     const collection = this.state.collection
       ? this.state.collection
       : this.state.existingCollection;
+    /* eslint-enable react/destructuring-assignment */
 
     const formData = new FormData();
 
@@ -196,8 +196,8 @@ class AdminForm extends Component {
     for (const photo of images) {
       formData.append('photos[]', photo);
     }
-
-    if (this.props.itemToEdit) {
+    const { itemToEdit } = this.props;
+    if (itemToEdit) {
       // axios call for edit
 
       axios
@@ -206,19 +206,22 @@ class AdminForm extends Component {
         .then(response => {
           const { errors } = response.data;
 
-          if (errors && errors.hasOwnProperty('images')) {
+          if (
+            errors &&
+            Object.prototype.hasOwnProperty.call(errors, 'images')
+          ) {
             return this.setState({ errors, updating: false });
           }
-
-          const err = {};
-
-          for (const prop in errors) {
-            if (errors[prop].hasOwnProperty('message')) {
-              err[prop] = errors[prop].message;
+          const keys = Object.keys(errors);
+          const err = keys.reduce((acc, k) => {
+            if (Object.prototype.hasOwnProperty.call(errors[k], 'message')) {
+              acc[k] = errors[k].message;
+              return acc;
             }
-          }
+            return acc;
+          }, {});
 
-          const { _id: id, name, group, images } = response.data.work;
+          const { _id: id, group } = response.data.work;
 
           this.setState({
             errors: err,
@@ -247,15 +250,16 @@ class AdminForm extends Component {
         .then(response => {
           const { errors } = response.data;
 
-          const err = {};
-
-          for (const prop in errors) {
-            if (errors[prop].hasOwnProperty('message')) {
-              err[prop] = errors[prop].message;
+          const keys = Object.keys(errors);
+          const err = keys.reduce((acc, k) => {
+            if (Object.prototype.hasOwnProperty.call(errors[k], 'message')) {
+              acc[k] = errors[k].message;
+              return acc;
             }
-          }
+            return acc;
+          }, {});
 
-          const { _id: id, name, group } = response.data.work;
+          const { _id: id, group } = response.data.work;
 
           this.setState(
             () => ({
@@ -278,13 +282,30 @@ class AdminForm extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const { selectedImages } = this.state;
+    const { classes, collections } = this.props;
+    const {
+      available,
+      category,
+      collection,
+      description,
+      errors,
+      existingCollection,
+      itemToEdit,
+      materials,
+      name,
+      price,
+      selectedImages,
+      selectedItems,
+      size,
+      updating,
+      work
+    } = this.state;
 
     let workInfo = null;
 
-    if (this.state.work) {
-      const { name, collection, id } = this.state.work;
+    if (work) {
+      // TODO: check name, collection in state === work.name work.collection
+      const { id } = work;
       workInfo = (
         <div className={classes.added}>
           <Typography variant="body2">
@@ -292,7 +313,7 @@ class AdminForm extends Component {
             <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
               <a>{name}</a>
             </Link>{' '}
-            was {this.props.itemToEdit ? 'updated' : 'added'} to a collection{' '}
+            was {itemToEdit ? 'updated' : 'added'} to a collection{' '}
             <Link
               href={`/works?collection=${collection}`}
               as={`/works/${collection}`}
@@ -304,12 +325,12 @@ class AdminForm extends Component {
         </div>
       );
     }
-
-    if (this.state.deletedItem) {
+    const { deletedItem } = this.state;
+    if (deletedItem) {
       return (
         <div>
           <Typography variant="body2">
-            Item {this.state.deletedItem} was deleted.
+            Item {deletedItem} was deleted.
           </Typography>
           <Typography variant="body2">
             <Link href="/admin">
@@ -319,12 +340,12 @@ class AdminForm extends Component {
         </div>
       );
     }
-
-    if (this.state.deletedCollection) {
+    const { deletedCollection } = this.state;
+    if (deletedCollection) {
       return (
         <div>
           <Typography variant="body2">
-            Collection {this.state.deletedCollection} was deleted.
+            Collection {deletedCollection} was deleted.
           </Typography>
           <Typography variant="body2">
             <Link href="/admin">
@@ -334,7 +355,6 @@ class AdminForm extends Component {
         </div>
       );
     }
-
     return (
       <div>
         {workInfo}
@@ -347,45 +367,45 @@ class AdminForm extends Component {
             className={classes.root}
             id="name"
             label="Piece name"
-            value={this.state.name}
+            value={name}
             onChange={e => this.handleChange('name', e)}
             margin="normal"
             required
             InputLabelProps={{ required: false }}
-            error={this.state.errors ? !!this.state.errors.name : false}
-            helperText={this.state.errors && this.state.errors.name}
+            error={errors ? !!errors.name : false}
+            helperText={errors && errors.name}
           />
           <TextField
             className={classes.root}
             id="description"
             label="Description"
-            value={this.state.description}
+            value={description}
             onChange={e => this.handleChange('description', e)}
             margin="normal"
             multiline
             rows={4}
             required
             InputLabelProps={{ required: false }}
-            error={this.state.errors ? !!this.state.errors.description : false}
-            helperText={this.state.errors && this.state.errors.description}
+            error={errors ? !!errors.description : false}
+            helperText={errors && errors.description}
           />
           <div>
             <FormControl
               className={classes.collection}
-              disabled={!!this.state.collection}
-              required={!this.state.collection}
+              disabled={!!collection}
+              required={!collection}
             >
               <InputLabel htmlFor="collection" shrink required={false}>
                 Select Collection
               </InputLabel>
               <Select
                 native
-                value={this.state.existingCollection}
+                value={existingCollection}
                 onChange={e => this.handleChange('existingCollection', e)}
               >
-                {this.props.collections.map((collection, i) => (
-                  <option value={collection} key={i}>
-                    {collection}
+                {collections.map((c, i) => (
+                  <option value={c} key={i}>
+                    {c}
                   </option>
                 ))}
               </Select>
@@ -395,16 +415,16 @@ class AdminForm extends Component {
               className={classes.newCollection}
               id="collection"
               label="Or Add New Collection"
-              value={this.state.collection}
+              value={collection}
               onChange={e => this.handleChange('collection', e)}
               margin="normal"
               InputLabelProps={{ required: false }}
-              error={this.state.errors ? !!this.state.errors.collection : false}
-              helperText={this.state.errors && this.state.errors.collection}
+              error={errors ? !!errors.collection : false}
+              helperText={errors && errors.collection}
             />
           </div>
           <div className={classes.imageInput}>
-            <label htmlFor="images">
+            <label id="linting" htmlFor="images">
               <Typography variant="body2" gutterBottom>
                 Add images
               </Typography>
@@ -416,7 +436,7 @@ class AdminForm extends Component {
               accept="image/*"
               name="photos[]"
               onChange={this.handleImages}
-              required={!this.props.itemToEdit}
+              required={!itemToEdit}
             />
             {/* for edit view show current photos and let select for deleting */}
             {selectedImages ? (
@@ -430,22 +450,17 @@ class AdminForm extends Component {
                       key={item}
                       control={
                         <Checkbox
-                          checked={
-                            this.state.selectedItems &&
-                            this.state.selectedImages[item]
-                          }
+                          checked={selectedItems && selectedImages[item]}
                           onChange={e =>
                             this.handleChange('selectedImages', e, item)
                           }
-                          value={
-                            this.state.selectedImages &&
-                            `${this.state.selectedImages[item]}`
-                          }
+                          value={selectedImages && `${selectedImages[item]}`}
                           color="secondary"
                         />
                       }
                       label={
                         <img
+                          alt=""
                           className={classes.singleImage}
                           src={`/static/uploads/${item}`}
                         />
@@ -455,17 +470,13 @@ class AdminForm extends Component {
                 </FormGroup>
               </div>
             ) : null}
-            {this.state.errors ? (
-              this.state.errors.images ? (
-                <Error>{this.state.errors.images}</Error>
-              ) : null
-            ) : null}
+            {errors && errors.images ? <Error>{errors.images}</Error> : null}
           </div>
           <TextField
             className={classes.root}
             id="materials"
             label="Materials (optional)"
-            value={this.state.materials}
+            value={materials}
             onChange={e => this.handleChange('materials', e)}
             margin="normal"
           />
@@ -473,7 +484,7 @@ class AdminForm extends Component {
             className={classes.root}
             id="size"
             label="Size (optional)"
-            value={this.state.size}
+            value={size}
             onChange={e => this.handleChange('size', e)}
             margin="normal"
           />
@@ -482,13 +493,13 @@ class AdminForm extends Component {
             type="number"
             id="price"
             label="Price"
-            value={this.state.price}
+            value={price}
             onChange={e => this.handleChange('price', e)}
             margin="normal"
             required
             InputLabelProps={{ required: false }}
-            error={this.state.errors ? !!this.state.errors.price : false}
-            helperText={this.state.errors && this.state.errors.price}
+            error={errors ? !!errors.price : false}
+            helperText={errors && errors.price}
           />
           <FormControl component="fieldset" className={classes.root}>
             <FormLabel component="legend" color="primary">
@@ -498,14 +509,14 @@ class AdminForm extends Component {
               className={classes.formGroup}
               aria-label="category"
               name="category"
-              value={this.state.category}
+              value={category}
             >
               <FormControlLabel
                 value="ring"
                 control={<Radio color="secondary" />}
                 label="Ring"
                 labelPlacement="end"
-                checked={this.state.category === 'ring'}
+                checked={category === 'ring'}
                 onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
@@ -513,7 +524,7 @@ class AdminForm extends Component {
                 control={<Radio color="secondary" />}
                 label="Brooch"
                 labelPlacement="end"
-                checked={this.state.category === 'brooch'}
+                checked={category === 'brooch'}
                 onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
@@ -521,7 +532,7 @@ class AdminForm extends Component {
                 control={<Radio color="secondary" />}
                 label="Earring"
                 labelPlacement="end"
-                checked={this.state.category === 'earring'}
+                checked={category === 'earring'}
                 onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
@@ -529,7 +540,7 @@ class AdminForm extends Component {
                 control={<Radio color="secondary" />}
                 label="Necklace"
                 labelPlacement="end"
-                checked={this.state.category === 'necklace'}
+                checked={category === 'necklace'}
                 onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
@@ -537,7 +548,7 @@ class AdminForm extends Component {
                 control={<Radio color="secondary" />}
                 label="Bracelet"
                 labelPlacement="end"
-                checked={this.state.category === 'bracelet'}
+                checked={category === 'bracelet'}
                 onChange={e => this.handleChange('category', e)}
               />
               <FormControlLabel
@@ -545,7 +556,7 @@ class AdminForm extends Component {
                 control={<Radio color="secondary" />}
                 label="Other"
                 labelPlacement="end"
-                checked={this.state.category === 'other'}
+                checked={category === 'other'}
                 onChange={e => this.handleChange('category', e)}
               />
             </RadioGroup>
@@ -554,7 +565,7 @@ class AdminForm extends Component {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={this.state.available}
+                  checked={available}
                   onChange={e => this.handleChange('available', e)}
                   value="available"
                   color="secondary"
@@ -570,18 +581,18 @@ class AdminForm extends Component {
             variant="contained"
             color="secondary"
           >
-            {this.props.itemToEdit ? 'Edit item' : 'Add item'}
+            {itemToEdit ? 'Edit item' : 'Add item'}
           </Button>
         </form>
-        {this.props.itemToEdit ? (
+        {itemToEdit ? (
           <DangerZone
-            itemID={this.props.itemToEdit._id.toString()}
-            collection={this.props.itemToEdit.group}
+            itemID={itemToEdit._id.toString()}
+            collection={itemToEdit.group}
             removeItem={this.removeItem}
             removeCollection={this.removeCollection}
           />
         ) : null}
-        {this.state.updating ? <ModalLoader /> : null}
+        {updating ? <ModalLoader /> : null}
       </div>
     );
   }
@@ -589,7 +600,8 @@ class AdminForm extends Component {
 
 AdminForm.propTypes = {
   classes: PropTypes.object.isRequired,
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  itemToEdit: PropTypes.object
 };
 
 export default withWidth()(withStyles(styles)(AdminForm));
