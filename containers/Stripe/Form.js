@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { Component } from 'react';
 import axios from 'axios';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -25,12 +26,6 @@ import { cart } from '../../util/helpers';
 import CartDrawerContent from '../../components/CartDrawer/CartDrawerContent';
 import Error from '../../components/Error/Error';
 import {
-  ElementContainer,
-  Input,
-  Label,
-  GroupInput,
-  TextArea,
-  // Select,
   Wrapper,
   ShippmentForm,
   Cart,
@@ -109,20 +104,21 @@ class StripeForm extends Component {
   };
 
   isStripesInputsOk = () => {
+    const { card_number, card_expiration, CVC_number, zip_code } = this.state;
     if (
-      this.state.card_number.error ||
-      this.state.card_expiration.error ||
-      this.state.CVC_number.error ||
-      this.state.zip_code.error
+      card_number.error ||
+      card_expiration.error ||
+      CVC_number.error ||
+      zip_code.error
     ) {
       this.setState({ stripe_errors: true });
       return false;
     }
     if (
-      this.state.card_number.complete &&
-      this.state.card_expiration.complete &&
-      this.state.CVC_number.complete &&
-      this.state.zip_code.complete
+      card_number.complete &&
+      card_expiration.complete &&
+      CVC_number.complete &&
+      zip_code.complete
     ) {
       this.setState(() => ({ stripe_errors: false }));
       return true;
@@ -136,54 +132,53 @@ class StripeForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault();
+    const { stripe } = this.props;
     if (!this.isStripesInputsOk() || this.stripe_errors) return;
     this.setState(() => ({ disable: true }));
-    if (this.props.stripe) {
-      this.props.stripe
+    if (stripe) {
+      const {
+        first_name,
+        last_name,
+        address1,
+        address2,
+        city,
+        country
+      } = this.state;
+      stripe
         .createToken({
-          name: `${this.state.first_name} ${this.state.last_name}`,
-          address_line1: this.state.address1,
-          address_line2: this.state.address2,
-          address_city: this.state.city,
-          address_country: this.state.country
+          name: `${first_name} ${last_name}`,
+          address_line1: address1,
+          address_line2: address2,
+          address_city: city,
+          address_country: country
         })
         .then(payload => {
-          const {
-            email,
-            first_name,
-            last_name,
-            phone,
-            address1,
-            address2,
-            city,
-            additional_info,
-            country
-          } = this.state;
+          const { email, phone, additional_info } = this.state;
+          const { buyItNowItem, shippingCost } = this.props;
 
           let purchaseDetails;
-          if (this.props.buyItNowItem.hasOwnProperty('name')) {
+          if (Object.prototype.hasOwnProperty.call(buyItNowItem, 'name')) {
             console.log('is buyitnow pirko');
             purchaseDetails = {
-              ...this.props.buyItNowItem,
-              shippingCost: this.props.shippingCost,
+              ...buyItNowItem,
+              shippingCost,
               boughtFrom: 'buyItNow'
             };
           } else {
             console.log('is cart pirko');
-            const count = this.props.cart.length;
-            const selectedItems = this.props.cart;
-            const totalItems = cart.totalItems(this.props.cart);
-            const totalPrice = cart.totalPrice(this.props.cart);
+            const count = cart.length;
+            const selectedItems = cart;
+            const totalItems = cart.totalItems(cart);
+            const totalPrice = cart.totalPrice(cart);
             purchaseDetails = {
               count,
               selectedItems,
               totalItems,
               totalPrice,
               boughtFrom: 'cart',
-              shippingCost: this.props.shippingCost
+              shippingCost
             };
           }
-
           axios
             .post('http://localhost:3000/api/charge', {
               token: payload.token.id,
@@ -214,12 +209,12 @@ class StripeForm extends Component {
 
                 return;
               }
-              if (res.status == 200) {
+              if (res.status === 200) {
                 console.log('Purchase completed successfully');
                 this.setState(() => ({ orderComplete: true }));
                 // empty redux state
-                this.props.clearCart();
-                this.props.clearBuyItNow();
+                clearCart();
+                clearBuyItNow();
                 console.log('its ok ', res);
               }
             })
@@ -237,18 +232,63 @@ class StripeForm extends Component {
   };
 
   isNotValid = element => {
-    const output = this.state.backend_validation_errors
-      ? this.state.backend_validation_errors
+    const { backend_validation_errors } = this.state;
+    const output = backend_validation_errors
+      ? backend_validation_errors
           .filter(error => error.param === element)
-          .map((error, i) => error.msg)
+          .map(error => error.msg)
       : null;
     return output;
   };
 
   render() {
-    const { classes, width } = this.props;
+    const {
+      card_expiration,
+      card_number,
+      country,
+      CVC_number,
+      disable,
+      first_name,
+      orderComplete,
+      stripe_errors,
+      zip_code,
+      backend_validation_errors
+    } = this.state;
+    const { classes, stripe, width } = this.props;
+    let cardNumberError = null;
+    if (card_number.error) {
+      cardNumberError = card_number.error;
+    } else if (stripe_errors) {
+      if (card_number.empty) {
+        cardNumberError = `Your card's number is blank`;
+      }
+    }
+    let postCodeError = null;
+    if (zip_code.error) {
+      postCodeError = zip_code.error;
+    } else if (stripe_errors) {
+      if (zip_code.empty) {
+        postCodeError = `Your card's postal code is blank.`;
+      }
+    }
+    let cvcError = null;
+    if (CVC_number.error) {
+      cvcError = CVC_number.error;
+    } else if (stripe_errors) {
+      if (CVC_number.empty) {
+        cvcError = `Your card's security number is blank.`;
+      }
+    }
+    let cardExpiryError = null;
+    if (card_expiration.error) {
+      cardExpiryError = card_expiration.error;
+    } else if (stripe_errors) {
+      if (card_expiration.empty) {
+        cardExpiryError = `Your card's expiration day is blank.`;
+      }
+    }
 
-    const purchase = this.state.orderComplete ? (
+    const purchase = orderComplete ? (
       <p>Purchase Complete.</p>
     ) : (
       <CheckoutForm>
@@ -256,9 +296,9 @@ class StripeForm extends Component {
           <FormWrapper>
             <form onSubmit={e => this.handleSubmit(e)}>
               {/* invalid quantity, price or similar errors from backend */}
-              {this.state.backend_validation_errors
-                ? this.state.backend_validation_errors
-                    .filter(error => error.param == '_error')
+              {backend_validation_errors
+                ? backend_validation_errors
+                    .filter(error => error.param === '_error')
                     .map((error, i) => <Error key={i}>{error.msg}</Error>)
                 : null}
               <Grid container spacing={16}>
@@ -268,13 +308,13 @@ class StripeForm extends Component {
                     label="First name"
                     type="text"
                     onChange={this.handleChange('first_name')}
-                    value={this.state.first_name}
+                    value={first_name}
                     margin="dense"
                     required
                     fullWidth
                     InputLabelProps={{ required: false }} // to get rid of asterisk
-                    error={this.state.backend_validation_errors.some(
-                      err => err.param == 'additional.first_name'
+                    error={backend_validation_errors.some(
+                      err => err.param === 'additional.first_name'
                     )}
                     helperText={this.isNotValid('additional.first_name')}
                   />
@@ -288,8 +328,8 @@ class StripeForm extends Component {
                     margin="dense"
                     fullWidth
                     required
-                    error={this.state.backend_validation_errors.some(
-                      err => err.param == 'additional.last_name'
+                    error={backend_validation_errors.some(
+                      err => err.param === 'additional.last_name'
                     )}
                     InputLabelProps={{ required: false }}
                     helperText={this.isNotValid('additional.last_name')}
@@ -304,8 +344,8 @@ class StripeForm extends Component {
                     margin="dense"
                     fullWidth
                     required
-                    error={this.state.backend_validation_errors.some(
-                      err => err.param == 'additional.email'
+                    error={backend_validation_errors.some(
+                      err => err.param === 'additional.email'
                     )}
                     InputLabelProps={{ required: false }}
                     helperText={this.isNotValid('additional.email')}
@@ -331,8 +371,8 @@ class StripeForm extends Component {
                     fullWidth
                     required
                     InputLabelProps={{ required: false }}
-                    error={this.state.backend_validation_errors.some(
-                      err => err.param == 'additional.address1'
+                    error={backend_validation_errors.some(
+                      err => err.param === 'additional.address1'
                     )}
                     helperText={this.isNotValid('additional.address1')}
                   />
@@ -351,13 +391,13 @@ class StripeForm extends Component {
                 <Grid item xs={6}>
                   <FormControl
                     style={{ margin: '16px 0 8px 0' }}
-                    error={this.state.backend_validation_errors.some(
-                      err => err.param == 'additional.country'
+                    error={backend_validation_errors.some(
+                      err => err.param === 'additional.country'
                     )}
                   >
                     <InputLabel htmlFor="country">Country</InputLabel>
                     <Select
-                      value={this.state.country}
+                      value={country}
                       onChange={this.handleChange('country')}
                     >
                       <option value="AF">Afghanistan</option>
@@ -653,8 +693,8 @@ class StripeForm extends Component {
                     fullWidth
                     required
                     InputLabelProps={{ required: false }}
-                    error={this.state.backend_validation_errors.some(
-                      err => err.param == 'additional.city'
+                    error={backend_validation_errors.some(
+                      err => err.param === 'additional.city'
                     )}
                     helperText={this.isNotValid('additional.city')}
                   />
@@ -667,15 +707,7 @@ class StripeForm extends Component {
                     component={CardNumberElement}
                     name="card_number"
                     onChange={this.handleStripeChange}
-                    error={
-                      this.state.card_number.error
-                        ? this.state.card_number.error
-                        : this.state.stripe_errors
-                        ? this.state.card_number.empty
-                          ? `Your card's number is blank`
-                          : null
-                        : null
-                    }
+                    error={cardNumberError}
                   />
                 </Grid>
                 <Grid item xs={5} sm={6}>
@@ -684,15 +716,7 @@ class StripeForm extends Component {
                     component={CardExpiryElement}
                     name="card_expiration"
                     onChange={this.handleStripeChange}
-                    error={
-                      this.state.card_expiration.error
-                        ? this.state.card_expiration.error
-                        : this.state.stripe_errors
-                        ? this.state.card_expiration.empty
-                          ? `Your card's expiration day is blank.`
-                          : null
-                        : null
-                    }
+                    error={cardExpiryError}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -701,59 +725,42 @@ class StripeForm extends Component {
                     component={CardCVCElement}
                     name="CVC_number"
                     onChange={this.handleStripeChange}
-                    error={
-                      this.state.CVC_number.error
-                        ? this.state.CVC_number.error
-                        : this.state.stripe_errors
-                        ? this.state.CVC_number.empty
-                          ? `Your card's security number is blank.`
-                          : null
-                        : null
-                    }
+                    error={cvcError}
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <StripeElementWrapper
-                    label="Postal / ZIP code"
                     component={PostalCodeElement}
+                    error={postCodeError}
+                    label="Postal / ZIP code"
                     name="zip_code"
                     onChange={this.handleStripeChange}
-                    error={
-                      this.state.zip_code.error
-                        ? this.state.zip_code.error
-                        : this.state.stripe_errors
-                        ? this.state.zip_code.empty
-                          ? `Your card's postal code is blank.`
-                          : null
-                        : null
-                    }
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    id="additional_info"
-                    label="Additional information (optional)"
-                    multiline
                     fullWidth
+                    id="additional_info"
+                    InputLabelProps={{ required: false }}
+                    label="Additional information (optional)"
+                    margin="normal"
+                    multiline
+                    onChange={this.handleChange('additional_info')}
+                    placeholder="Anything else you would like to add"
                     rows={4}
                     type="text"
-                    placeholder="Anything else you would like to add"
-                    onChange={this.handleChange('additional_info')}
-                    margin="normal"
-                    fullWidth
-                    InputLabelProps={{ required: false }}
                   />
                 </Grid>
               </Grid>
               <br />
               <CenterButton>
                 <Button
+                  color="secondary"
+                  disabled={!stripe || disable}
+                  fullWidth={width === 'xs'}
+                  size="large"
                   type="submit"
                   variant="contained"
-                  color="secondary"
-                  disabled={!this.props.stripe || this.state.disable}
-                  fullWidth={width === 'xs' ? true : false}
-                  size="large"
                 >
                   Buy
                 </Button>
@@ -764,36 +771,37 @@ class StripeForm extends Component {
       </CheckoutForm>
     );
 
-    let buyItNow = false;
-
-    if (this.props.buyItNowItem.hasOwnProperty('name')) {
-      buyItNow = true;
-    }
-
-    let checkoutPossible = false;
-    if (buyItNow || this.props.cart.length > 0) {
-      checkoutPossible = true;
-    }
-
-    return (
-      <div>
-        {this.state.error ? (
+    const { error } = this.state;
+    if (error) {
+      return (
+        <div>
           <div>
             We cannot process your payment. Please check your payment details
             and try again.
           </div>
-        ) : checkoutPossible ? (
-          <Wrapper>
-            <Cart>
-              <CartDrawerContent buyItNow={buyItNow} />
-            </Cart>
-            <ShippmentForm>{purchase}</ShippmentForm>
-          </Wrapper>
-        ) : this.state.orderComplete ? (
-          <div>order complete, clear cart</div>
-        ) : (
-          <Typography variant="body1">Your Cart is empty.</Typography>
-        )}
+        </div>
+      );
+    }
+    const { buyItNowItem } = this.props;
+    const buyItNow = Object.prototype.hasOwnProperty.call(buyItNowItem, 'name');
+
+    const checkoutPossible = buyItNow || cart.length > 0;
+    if (checkoutPossible) {
+      return (
+        <Wrapper>
+          <Cart>
+            <CartDrawerContent buyItNow={buyItNow} />
+          </Cart>
+          <ShippmentForm>{purchase}</ShippmentForm>
+        </Wrapper>
+      );
+    }
+    if (orderComplete) {
+      return <div>order complete, clear cart</div>;
+    }
+    return (
+      <div>
+        <Typography variant="body1">Your Cart is empty.</Typography>
       </div>
     );
   }
@@ -811,7 +819,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 StripeForm.propTypes = {
-  classes: PropTypes.object.isRequired
+  buyItNowItem: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
+  shippingCost: PropTypes.number,
+  stripe: PropTypes.object,
+  width: PropTypes.number
 };
 
 export default withWidth()(
