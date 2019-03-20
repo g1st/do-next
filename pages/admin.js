@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import { deauthenticate } from '../store/actions/index';
 import AdminForm from '../components/Admin/AdminForm';
@@ -15,7 +16,11 @@ const styles = {
   }
 };
 
-const Admin = ({ user, deauthenticate, collections }) => (
+const Admin = ({
+  user,
+  deauthenticate: reduxPropDeauthenticate,
+  collections
+}) => (
   <div>
     {user ? (
       <div>
@@ -25,7 +30,7 @@ const Admin = ({ user, deauthenticate, collections }) => (
             <Link href="/">
               <Button>Home</Button>
             </Link>
-            <Button onClick={deauthenticate}>Logout</Button>
+            <Button onClick={reduxPropDeauthenticate}>Logout</Button>
           </div>
         </div>
         <AdminForm collections={collections} />
@@ -35,6 +40,12 @@ const Admin = ({ user, deauthenticate, collections }) => (
     )}
   </div>
 );
+
+Admin.propTypes = {
+  user: PropTypes.string,
+  collections: PropTypes.array,
+  deauthenticate: PropTypes.func
+};
 
 Admin.getInitialProps = ({ user }) => ({ user });
 
