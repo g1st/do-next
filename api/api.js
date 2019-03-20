@@ -25,7 +25,7 @@ module.exports = (db, upload) => {
 
   router.get(
     '/',
-    wrapAsync(async function(req) {
+    wrapAsync(async function() {
       return Works.find();
     })
   );
