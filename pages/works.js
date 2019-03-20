@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
@@ -20,13 +21,13 @@ const ButtonContainer = styled.div`
 class Works extends React.Component {
   constructor(props) {
     super(props);
-    const data = JSON.parse(props.data);
+    const { data, collections: collectionsNames } = props;
     const collections = { all: { data, itemsLoaded: ITEMS_PER_PAGE } };
 
-    const dataForSelectedCollection = (data, collection) =>
-      data.filter(x => x.group == collection);
+    const dataForSelectedCollection = (allItemsData, collection) =>
+      allItemsData.filter(x => x.group === collection);
 
-    props.collections.forEach(collection => {
+    collectionsNames.forEach(collection => {
       collections[collection] = {
         data: dataForSelectedCollection(data, collection),
         itemsLoaded: ITEMS_PER_PAGE
@@ -35,16 +36,18 @@ class Works extends React.Component {
 
     this.state = {
       data,
-      ...collections
+      collections: { ...collections }
     };
   }
 
   loadMore(collection) {
     this.setState(prevState => ({
       // ...prevState,
-      [collection]: {
-        ...prevState[collection],
-        itemsLoaded: prevState[collection].itemsLoaded + ITEMS_PER_PAGE
+      collections: {
+        [collection]: {
+          ...prevState[collection],
+          itemsLoaded: prevState[collection].itemsLoaded + ITEMS_PER_PAGE
+        }
       }
     }));
   }
@@ -52,27 +55,40 @@ class Works extends React.Component {
   render() {
     console.log(this.state);
 
-    let { collection } = this.props.router.query;
+    const {
+      router,
+      pathname,
+      from,
+      collections: collectionsNames
+    } = this.props;
+    const { collections } = this.state;
 
-    if (!this.props.collections.includes(collection)) {
-      collection = 'all';
+    let { collection: collectionToDisplay } = router.query;
+
+    if (!collectionsNames.includes(collectionToDisplay)) {
+      collectionToDisplay = 'all';
     }
 
     let gallery = <p>Gallery empty</p>;
     let loadMoreButton = null;
-    if (this.state[collection] && this.state[collection].data.length > 0) {
+
+    if (
+      collections[collectionToDisplay] &&
+      collections[collectionToDisplay].data.length > 0
+    ) {
       gallery = (
         <Gallery
-          data={this.state[collection].data.slice(
+          data={collections[collectionToDisplay].data.slice(
             0,
-            this.state[collection].itemsLoaded
+            collections[collectionToDisplay].itemsLoaded
           )}
-          showCollection={collection}
+          showCollection={collectionToDisplay}
         />
       );
 
       if (
-        this.state[collection].data.length > this.state[collection].itemsLoaded
+        collections[collectionToDisplay].data.length >
+        collections[collectionToDisplay].itemsLoaded
       ) {
         loadMoreButton = (
           <ButtonContainer>
@@ -80,7 +96,7 @@ class Works extends React.Component {
               size="medium"
               variant="contained"
               color="secondary"
-              onClick={() => this.loadMore(collection)}
+              onClick={() => this.loadMore(collectionToDisplay)}
             >
               Load More
             </Button>
@@ -90,14 +106,11 @@ class Works extends React.Component {
     }
 
     return (
-      <Layout
-        pathname={this.props.pathname}
-        collections={this.props.collections}
-      >
+      <Layout pathname={pathname} collections={collectionsNames}>
         <div>
           <p>This is Works page.</p>
-          <p>path: {this.props.pathname}</p>
-          <p>from: {this.props.from}</p>
+          <p>path: {pathname}</p>
+          <p>from: {from}</p>
           <Link href="/piece">
             <a>Dedicated item page</a>
           </Link>
@@ -111,7 +124,10 @@ class Works extends React.Component {
 
 Works.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  data: PropTypes.array,
+  router: PropTypes.object,
+  from: PropTypes.string
 };
 
 Works.getInitialProps = async ({ pathname }) => ({ pathname });
