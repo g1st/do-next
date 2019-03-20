@@ -57,7 +57,7 @@ class MyApp extends App {
 
       pageProps = {
         ...pageProps,
-        data: JSON.stringify(data),
+        data,
         from: 'server',
         collections,
         router,
@@ -71,7 +71,7 @@ class MyApp extends App {
     if (localStorage.getItem('data')) {
       pageProps = {
         ...pageProps,
-        data: localStorage.getItem('data'),
+        data: JSON.parse(localStorage.getItem('data')),
         collections: localStorage.getItem('collections').split(','),
         from: 'rest api',
         router,
@@ -91,7 +91,7 @@ class MyApp extends App {
 
     pageProps = {
       ...pageProps,
-      data: JSON.stringify(works),
+      data: works,
       from: 'rest api',
       collections,
       router,
@@ -114,7 +114,7 @@ class MyApp extends App {
       !localStorage.getItem('data') ||
       localStorage.getItem('data') != JSON.stringify(this.props.pageProps.data)
     ) {
-      localStorage.setItem('data', this.props.pageProps.data);
+      localStorage.setItem('data', JSON.stringify(this.props.pageProps.data));
       localStorage.setItem('collections', this.props.pageProps.collections);
     }
   }
