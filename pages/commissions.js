@@ -12,8 +12,8 @@ import {
   Mail
 } from '../styles/Commissions';
 
-const Commissions = props => (
-  <Layout pathname={false} collections={props.collections}>
+const Commissions = ({ collections }) => (
+  <Layout pathname={false} collections={collections}>
     <Wrapper>
       <Figure>
         <Image src="../static/images/cufflinks.jpg" alt="Cufflinks" />

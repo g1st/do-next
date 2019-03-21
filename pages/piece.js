@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'next/router';
+import Router, { withRouter } from 'next/router';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
@@ -8,7 +8,6 @@ import ImageGallery from 'react-image-gallery';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import 'react-image-gallery/styles/css/image-gallery.css';
-import Router from 'next/router';
 import Link from 'next/link';
 import customItem from '../components/ItemCard/customRenderItem';
 import customThumb from '../components/ItemCard/customRenderThumb';
@@ -35,12 +34,20 @@ const styles = {
 
 class Piece extends React.Component {
   handleBuyItNow = item => {
-    this.props.buyItNow(item);
+    const { buyItNow: buyItNowRedux } = this.props;
+
+    buyItNowRedux(item);
     Router.push('/checkout');
   };
 
   render() {
-    const { classes, onePieceData, user } = this.props;
+    const {
+      classes,
+      onePieceData,
+      user,
+      addToCart: addToCartRedux,
+      collections
+    } = this.props;
 
     if (onePieceData.length < 1 || onePieceData[0] === null) {
       return <p>Page doesn't exist</p>;
@@ -54,7 +61,7 @@ class Piece extends React.Component {
       _id,
       images,
       available
-    } = this.props.onePieceData[0];
+    } = onePieceData[0];
 
     const dataForCart = {
       name,
@@ -84,7 +91,7 @@ class Piece extends React.Component {
 
     return (
       // to highlight works tab in navbar under any piece is loaded
-      <Layout pathname="/works" collections={this.props.collections}>
+      <Layout pathname="/works" collections={collections}>
         <Wrapper>
           <Images>
             <ImageGallery
@@ -133,7 +140,7 @@ class Piece extends React.Component {
                 size="medium"
                 variant="contained"
                 color="secondary"
-                onClick={() => this.props.addToCart(dataForCart)}
+                onClick={() => addToCartRedux(dataForCart)}
               >
                 Add To Cart
               </Button>
@@ -147,13 +154,14 @@ class Piece extends React.Component {
 
 Piece.propTypes = {
   classes: PropTypes.object.isRequired,
-  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
   onePieceData: PropTypes.arrayOf(PropTypes.object),
-  user: PropTypes.string
+  user: PropTypes.string,
+  buyItNow: PropTypes.func,
+  addToCart: PropTypes.func
 };
 
-Piece.getInitialProps = async ({ pathname, req, query, user }) => {
+Piece.getInitialProps = async ({ pathname, req, query }) => {
   if (req) {
     const { db } = req;
     const { id } = req.params;
@@ -163,15 +171,17 @@ Piece.getInitialProps = async ({ pathname, req, query, user }) => {
       .find()
       .toArray();
 
-    const onePieceData = data.filter(obj => obj._id == id);
+    const onePieceDataFromServer = data.filter(
+      obj => obj._id.toString() === id
+    );
 
-    return { onePieceData, pathname };
+    return { onePieceData: onePieceDataFromServer, pathname };
   }
 
-  const onePieceData = await axios
+  const onePieceDataFromAPI = await axios
     .get('/api/single', { params: { id: query.id } })
     .then(res => res.data);
-  return { onePieceData: [onePieceData], pathname };
+  return { onePieceData: [onePieceDataFromAPI], pathname };
 };
 
 const mapDispatchToProps = dispatch => ({

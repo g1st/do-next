@@ -1,3 +1,4 @@
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 
@@ -21,17 +22,17 @@ class Contact extends React.Component {
   };
 
   render() {
+    const { pathname, collections } = this.props;
+    const { emailSent } = this.state;
+
     return (
-      <Layout
-        pathname={this.props.pathname}
-        collections={this.props.collections}
-      >
+      <Layout pathname={pathname} collections={collections}>
         <Wrapper>
           <ContactAbout>
             <ImageWrapper>
               <Image src="../static/images/message.svg" alt="Send a message" />
             </ImageWrapper>
-            {this.state.emailSent ? null : (
+            {emailSent ? null : (
               <Text>
                 <Typography align="left" paragraph color="secondary">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil

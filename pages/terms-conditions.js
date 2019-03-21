@@ -4,9 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import Layout from '../components/Layout';
 import { Wrapper, Image, Text, Figure } from '../styles/TermsAndConditions';
 
-const TermsAndConditions = props => (
+const TermsAndConditions = ({ collections }) => (
   // For Material UI Tabs to know this endpoint not needed
-  <Layout pathname={false} collections={props.collections}>
+  <Layout pathname={false} collections={collections}>
     <Wrapper>
       <Figure>
         <Image

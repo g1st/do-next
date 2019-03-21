@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
@@ -21,7 +22,7 @@ const ButtonContainer = styled.div`
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    const data = JSON.parse(props.data);
+    const { data } = props;
     this.state = {
       data,
       itemsLoaded: props.reduxLoadedItems,
@@ -30,20 +31,29 @@ class Index extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.reduxLoadedItems !== prevProps.reduxLoadedItems) {
-      this.setState(() => ({
-        dataForGallery: this.state.data.slice(0, this.props.reduxLoadedItems),
-        itemsLoaded: this.props.reduxLoadedItems
+    const { reduxLoadedItems } = this.props;
+
+    /* eslint-disable react/no-did-update-set-state */
+    if (reduxLoadedItems !== prevProps.reduxLoadedItems) {
+      this.setState(prevState => ({
+        dataForGallery: prevState.data.slice(0, reduxLoadedItems),
+        itemsLoaded: reduxLoadedItems
       }));
     }
+    /* eslint-enable react/no-did-update-set-state */
   }
 
   render() {
+    const {
+      pathname,
+      collections,
+      from,
+      increaseLoadedItems: increaseLoadedItemsRedux
+    } = this.props;
+    const { data, dataForGallery, itemsLoaded } = this.state;
+
     return (
-      <Layout
-        pathname={this.props.pathname}
-        collections={this.props.collections}
-      >
+      <Layout pathname={pathname} collections={collections}>
         <div>alohha</div>
         <Link href="/works">
           <a>Works</a>
@@ -64,21 +74,21 @@ class Index extends React.Component {
         <Link href="/">
           <a>Home</a>
         </Link>
-        <div>Path: {this.props.pathname}</div>
-        <div>From: {this.props.from}</div>
+        <div>Path: {pathname}</div>
+        <div>From: {from}</div>
         {/* <div>Data: {JSON.stringify(this.state.data)}</div> */}
-        {this.state.data.length > 0 ? (
-          <Gallery data={this.state.dataForGallery} showCollection="all" />
+        {data.length > 0 ? (
+          <Gallery data={dataForGallery} showCollection="all" />
         ) : (
           <p>Gallery empty</p>
         )}
-        {this.state.data.length > this.state.itemsLoaded ? (
+        {data.length > itemsLoaded ? (
           <ButtonContainer>
             <Button
               size="medium"
               variant="contained"
               color="secondary"
-              onClick={() => this.props.increaseLoadedItems()}
+              onClick={() => increaseLoadedItemsRedux()}
             >
               Load More
             </Button>
@@ -91,7 +101,11 @@ class Index extends React.Component {
 
 Index.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  data: PropTypes.array,
+  reduxLoadedItems: PropTypes.number,
+  from: PropTypes.string,
+  increaseLoadedItems: PropTypes.func
 };
 
 Index.getInitialProps = async ({ pathname, user }) => ({ pathname, user });
