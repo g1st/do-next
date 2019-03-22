@@ -26,8 +26,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const MONGODB_PASS = process.env.MONGODB_PASS;
-const MONGO_URL = `mongodb+srv://jewellery:${MONGODB_PASS}@cluster0-kvzie.mongodb.net/dovile?retryWrites=true`;
+const MONGODB_URL = process.env.MONGODB_URL;
 const PORT = 3000;
 
 // credits to http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
@@ -35,8 +34,8 @@ co(function*() {
   // Initialize the Next.js app
   yield app.prepare();
 
-  console.log(`Connecting to ${MONGO_URL}`);
-  mongoose.connect(MONGO_URL, { useNewUrlParser: true });
+  console.log(`Connecting to ${MONGODB_URL}`);
+  mongoose.connect(MONGODB_URL, { useNewUrlParser: true });
   const db = yield mongoose.connection;
 
   // Configure express to expose a REST API

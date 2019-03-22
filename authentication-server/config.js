@@ -1,9 +1,9 @@
 require('dotenv').config();
 
-const { MONGODB_PASS, PORT, SECRET } = process.env;
+const { MONGODB_URL, PORT, SECRET } = process.env;
 
 module.exports = {
-  db: `mongodb+srv://jewellery:${MONGODB_PASS}@cluster0-kvzie.mongodb.net/dovile?retryWrites=true`,
+  db: MONGODB_URL,
   port: PORT,
   secret: SECRET
 };
