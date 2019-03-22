@@ -20,6 +20,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "co": "^4.6.0",
+    "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
