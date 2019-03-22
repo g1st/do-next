@@ -1,47 +1,58 @@
-// uncomment and import it to admin page to allow new signups
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-// import { Component } from 'react';
+import { authenticate } from '../../store/actions/index';
 
-// class Signup extends Component {
-//   state = {
-//     email: '',
-//     password: ''
-//   };
+class Signup extends Component {
+  state = {
+    email: '',
+    password: ''
+  };
 
-//   handleSubmit = e => {
-//     e.preventDefault();
-//     this.props.authenticate(
-//       { email: this.state.email, password: this.state.password },
-//       'signup'
-//     );
-//   };
+  handleSubmit = e => {
+    e.preventDefault();
+    const { authenticate: authenticateRedux } = this.props;
+    const { email, password } = this.state;
 
-//   render() {
-//     return (
-//       <div>
-//         <h3>Sign Up</h3>
-//         <form onSubmit={e => this.handleSubmit(e)}>
-//           <input
-//             type="email"
-//             placeholder="Email"
-//             required
-//             value={this.state.email}
-//             onChange={e => this.setState({ email: e.target.value })}
-//           />
-//           <input
-//             type="password"
-//             placeholder="Password"
-//             required
-//             value={this.state.password}
-//             onChange={e => this.setState({ password: e.target.value })}
-//           />
-//           <button type="submit" className="button is-success">
-//             Sign In
-//           </button>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
+    authenticateRedux({ email, password }, 'signup');
+  };
 
-// export default Signup;
+  render() {
+    const { email, password } = this.state;
+
+    return (
+      <div>
+        <h3>Sign Up</h3>
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            value={email}
+            onChange={e => this.setState({ email: e.target.value })}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={e => this.setState({ password: e.target.value })}
+          />
+          <button type="submit" className="button is-success">
+            Sign Up
+          </button>
+        </form>
+      </div>
+    );
+  }
+}
+
+Signup.propTypes = {
+  authenticate: PropTypes.func
+};
+
+export default connect(
+  null,
+  { authenticate }
+)(Signup);
