@@ -26,7 +26,8 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const MONGO_URL = 'mongodb://localhost:27017/dovile';
+const MONGODB_PASS = process.env.MONGODB_PASS;
+const MONGO_URL = `mongodb+srv://jewellery:${MONGODB_PASS}@cluster0-kvzie.mongodb.net/dovile?retryWrites=true`;
 const PORT = 3000;
 
 // credits to http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
