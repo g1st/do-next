@@ -431,8 +431,14 @@ module.exports = (db, upload) => {
         return { errors: [{ param: '_error', msg: 'Invalid amount.' }] };
       }
 
-      // try {
-      const { status } = await stripe.charges.create({
+      /* eslint-disable camelcase */
+      const {
+        status,
+        id,
+        amount: amount_paid,
+        source,
+        receipt_url
+      } = await stripe.charges.create({
         amount: amount * 100, // stripe needs cents
         currency: 'gbp',
         description: `Charge for purchase at dovilejewellery.com`,
@@ -442,12 +448,38 @@ module.exports = (db, upload) => {
       // send confirmation email to seller and buyer
       await sendPurchaseEmail(req.body);
 
-      const { payload, additional } = req.body;
+      const { client_ip } = req.body.payload.token;
+      const {
+        email,
+        first_name,
+        last_name,
+        phone,
+        address1,
+        address2,
+        city,
+        additional_info,
+        country,
+        purchaseDetails
+      } = req.body.additional;
+      /* eslint-enable camelcase */
 
       // save order to db
       const order = new Orders({
-        payload,
-        additional
+        first_name,
+        last_name,
+        email,
+        phone,
+        address1,
+        address2,
+        city,
+        country,
+        client_ip,
+        transaction_id: id,
+        receipt_url,
+        amount_paid,
+        source,
+        purchaseDetails,
+        additional_info
       });
 
       await db.collection('orders').insertOne(order);
