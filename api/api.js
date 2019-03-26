@@ -5,6 +5,8 @@ const { check, oneOf, validationResult } = require('express-validator/check');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const mongoose = require('mongoose');
 
+const Work = require('./models/works');
+const Order = require('./models/orders');
 const Client = require('./models/clients');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
@@ -26,7 +28,7 @@ module.exports = (db, upload) => {
   router.get(
     '/',
     wrapAsync(async function() {
-      return Works.find();
+      return Work.find();
     })
   );
 
@@ -35,7 +37,7 @@ module.exports = (db, upload) => {
     wrapAsync(async function(req) {
       const { id } = req.query;
 
-      return Works.findById(id);
+      return Work.findById(id);
     })
   );
 
@@ -46,7 +48,7 @@ module.exports = (db, upload) => {
       const group = req.query.collection;
       // deleting single item
       if (id) {
-        const works = await Works.findOneAndRemove({ _id: id });
+        const works = await Work.findOneAndRemove({ _id: id });
 
         // removeImagesFromDisk needs thumb as starter
         const imagesToRemove = works.images.map(img => img.thumb);
@@ -57,10 +59,10 @@ module.exports = (db, upload) => {
       }
       // deleting collection
       if (group) {
-        const worksToBeDeleted = await Works.find({ group });
+        const worksToBeDeleted = await Work.find({ group });
 
         // delete in db
-        await Works.deleteMany({ group });
+        await Work.deleteMany({ group });
 
         // removeImagesFromDisk needs thumb as starter
         const imagesToRemove = worksToBeDeleted.reduce((acc, currObj) => {
@@ -136,7 +138,7 @@ module.exports = (db, upload) => {
         serverUtils.removeImagesFromDisk(imagesToRemove);
       }
 
-      const work = await Works.findOneAndUpdate({ _id: req.body._id }, update, {
+      const work = await Work.findOneAndUpdate({ _id: req.body._id }, update, {
         new: true
       });
 
@@ -223,7 +225,7 @@ module.exports = (db, upload) => {
         available: available === 'available'
       };
 
-      const work = new Works(piece);
+      const work = new Work(piece);
 
       const error = work.validateSync();
 
@@ -388,7 +390,7 @@ module.exports = (db, upload) => {
       let amount;
 
       if (boughtFrom === 'buyItNow') {
-        const amountFromBackend = await Works.findById(_id, 'price');
+        const amountFromBackend = await Work.findById(_id, 'price');
 
         amount =
           price === amountFromBackend.price
@@ -404,7 +406,7 @@ module.exports = (db, upload) => {
         );
 
         const pricePromises = items.map(async item =>
-          Works.findById(item.id, 'price')
+          Work.findById(item.id, 'price')
         );
 
         const backendPrices = await Promise.all(pricePromises);
@@ -495,15 +497,15 @@ module.exports = (db, upload) => {
 
         client = new Client({
           _id: mongoose.Types.ObjectId(),
-        first_name,
-        last_name,
-        email,
-        phone,
+          first_name,
+          last_name,
+          email,
+          phone,
           address: {
-        address1,
-        address2,
-        city,
-        country,
+            address1,
+            address2,
+            city,
+            country,
             client_ip
           },
           orders: [orderId]
@@ -511,16 +513,16 @@ module.exports = (db, upload) => {
 
         const order = new Order({
           _id: orderId,
-        transaction_id: id,
-        receipt_url,
-        amount_paid,
-        source,
-        purchaseDetails,
+          transaction_id: id,
+          receipt_url,
+          amount_paid,
+          source,
+          purchaseDetails,
           additional_info,
           client: client._id
-      });
+        });
 
-      await db.collection('orders').insertOne(order);
+        await db.collection('orders').insertOne(order);
         await db.collection('clients').insertOne(client);
       }
 
