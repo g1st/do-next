@@ -3,9 +3,9 @@ const express = require('express');
 const slugify = require('slugify');
 const { check, oneOf, validationResult } = require('express-validator/check');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const mongoose = require('mongoose');
 
-const Works = require('./models/works');
-const Orders = require('./models/orders');
+const Client = require('./models/clients');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const { shippingPrice } = require('../util/globals');
@@ -463,26 +463,66 @@ module.exports = (db, upload) => {
       } = req.body.additional;
       /* eslint-enable camelcase */
 
-      // save order to db
-      const order = new Orders({
+      let client;
+
+      // check if client already exists
+      client = await db
+        .collection('clients')
+        .findOne({ email: email.toLowerCase().trim() });
+
+      // client exists
+      if (client) {
+        const order = new Order({
+          _id: mongoose.Types.ObjectId(),
+          transaction_id: id,
+          receipt_url,
+          amount_paid,
+          source,
+          purchaseDetails,
+          additional_info,
+          client: client._id
+        });
+
+        await db.collection('orders').insertOne(order);
+
+        await Client.findOneAndUpdate(
+          { _id: client._id },
+          { $push: { orders: order._id } }
+        );
+      } else {
+        // new client
+        const orderId = mongoose.Types.ObjectId();
+
+        client = new Client({
+          _id: mongoose.Types.ObjectId(),
         first_name,
         last_name,
         email,
         phone,
+          address: {
         address1,
         address2,
         city,
         country,
-        client_ip,
+            client_ip
+          },
+          orders: [orderId]
+        });
+
+        const order = new Order({
+          _id: orderId,
         transaction_id: id,
         receipt_url,
         amount_paid,
         source,
         purchaseDetails,
-        additional_info
+          additional_info,
+          client: client._id
       });
 
       await db.collection('orders').insertOne(order);
+        await db.collection('clients').insertOne(client);
+      }
 
       return status;
     })
