@@ -12,7 +12,8 @@ const ordersSchema = new mongoose.Schema(
     amount_paid: { type: Number },
     source: { type: Object },
     purchaseDetails: { type: Object },
-    additional_info: { type: String, trim: true }
+    additional_info: { type: String, trim: true },
+    created: { type: Date, default: Date.now }
   },
   { timestamps: true }
 );
