@@ -43,7 +43,7 @@ const TermsAndConditions = props => (
           responsible for any duties and customs charges that may be incurred.
         </Typography>
         <Typography align="left" paragraph color="secondary">
-          Please be sure you've entered the correct shipping address at
+          Please be sure you have entered the correct shipping address at
           checkout. If your purchase is a gift, please make a note of that.
         </Typography>
         <Typography
