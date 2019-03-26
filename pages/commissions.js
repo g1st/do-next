@@ -40,20 +40,20 @@ const Commissions = props => (
           <Mail href="mailto:hello@dovilejewellery.com" target="_top">
             e-mail me
           </Mail>{' '}
-          with the piece you interested chosen from my designs. I am accepting
-          idea for the customised item only fitting my vision and my aesthetics,
-          work principles. The design, price, timing and delivery are discussed
-          by e-mail or in person.
+          stating the item you are interested in, from my designs. I am accepting
+          ideas for customisations that fit my vision, aesthetics and work
+          principles. The design, price, time frame and delivery will be
+          discussed by email or in person.
         </Typography>
 
         <Typography align="left" paragraph color="secondary">
           Most of my designs could be re-created in new different ways as in
           different materials, gold-plating, different gemstones etc. Feel free
-          to ask. I am making one of a kind piece to make each unique and
+          to ask. I am making one of a kind pieces so each is unique and
           special.
         </Typography>
         <Typography align="left" paragraph color="secondary">
-          Please note, I do not make any other designs taken from other makers.
+          Please note, I do not make copies of designs by other makers.
         </Typography>
       </Text>
     </Wrapper>
