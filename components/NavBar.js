@@ -74,9 +74,13 @@ class NavBar extends React.Component {
       }));
     };
     const { pathname } = this.props;
+
     this.state = {
       value: pathname,
-      anchorEl: null
+      anchorEl: null,
+      drawerNav: false,
+      drawerCart: false,
+      toggleDrawer: this.toggleDrawer
     };
   }
 
