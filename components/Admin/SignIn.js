@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { authenticate } from '../../store/actions/index';
 
 class Signin extends Component {
@@ -44,6 +46,10 @@ class Signin extends Component {
     );
   }
 }
+
+Signin.propTypes = {
+  authenticate: PropTypes.func
+};
 
 export default connect(
   null,
