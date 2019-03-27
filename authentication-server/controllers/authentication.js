@@ -6,7 +6,7 @@ const { SECRET } = process.env;
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp }, secret);
+  return jwt.encode({ sub: user.id, iat: timestamp }, SECRET);
 }
 
 exports.signin = function(req, res) {
@@ -14,8 +14,7 @@ exports.signin = function(req, res) {
 };
 
 exports.signup = function(req, res, next) {
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password } = req.body;
 
   if (!email || !password) {
     return res
@@ -23,7 +22,7 @@ exports.signup = function(req, res, next) {
       .send({ error: 'Email and password must be provided' });
   }
 
-  User.findOne({ email: email }, function(err, existingUser) {
+  User.findOne({ email }, function(err, existingUser) {
     if (err) {
       return next(err);
     }
@@ -33,8 +32,8 @@ exports.signup = function(req, res, next) {
     }
 
     const user = new User({
-      email: email,
-      password: password
+      email,
+      password
     });
 
     user.save(function(err) {

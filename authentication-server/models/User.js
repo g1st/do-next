@@ -3,26 +3,26 @@ const bcrypt = require('bcrypt-nodejs');
 
 const { Schema } = mongoose;
 
-
 // creating user schema
 const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    lowercase: true
+    lowercase: true,
+    required: true
   },
-  password: String
+  password: { type: String, required: true }
 });
 
 // encrypt password before saving a model
-userSchema.pre('save', function (next) {
+userSchema.pre('save', function(next) {
   const user = this;
   // generating hashed password
-  bcrypt.genSalt(10, function (err, salt) {
+  bcrypt.genSalt(10, function(err, salt) {
     if (err) {
       return next(err);
     }
-    bcrypt.hash(user.password, salt, null, function (err, hash) {
+    bcrypt.hash(user.password, salt, null, function(err, hash) {
       if (err) {
         return next(err);
       }
@@ -36,8 +36,8 @@ userSchema.pre('save', function (next) {
 });
 
 // comparing saved hashed password and provided password during signing in
-userSchema.methods.comparePasswords = function (password, callback) {
-  bcrypt.compare(password, this.password, function (err, isMatch) {
+userSchema.methods.comparePasswords = function(password, callback) {
+  bcrypt.compare(password, this.password, function(err, isMatch) {
     if (err) {
       return callback(err);
     }
