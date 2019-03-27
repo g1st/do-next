@@ -8,7 +8,8 @@
     "build": "next build",
     "dev": "node server.js",
     "lint": "./node_modules/.bin/eslint .",
-    "lint:fix": "./node_modules/.bin/eslint . --fix"
+    "lint:fix": "./node_modules/.bin/eslint . --fix",
+    "dev:auth": "concurrently \"cd authentication-server && npm start\" \"node server.js\""
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "co": "^4.6.0",
+    "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",

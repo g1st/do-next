@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { deauthenticate } from '../store/actions/index';
 import AdminForm from '../components/Admin/AdminForm';
 import SignIn from '../components/Admin/SignIn';
+import SignUp from '../components/Admin/SignUp';
 
 const styles = {
   header: {
@@ -36,7 +37,10 @@ const Admin = ({
         <AdminForm collections={collections} />
       </div>
     ) : (
-      <SignIn />
+      <>
+        <SignIn />
+        <SignUp />
+      </>
     )}
   </div>
 );
