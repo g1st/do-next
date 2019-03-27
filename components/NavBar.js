@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -74,9 +75,13 @@ class NavBar extends React.Component {
       }));
     };
     const { pathname } = this.props;
+
     this.state = {
       value: pathname,
-      anchorEl: null
+      anchorEl: null,
+      drawerNav: false,
+      drawerCart: false,
+      toggleDrawer: this.toggleDrawer
     };
   }
 

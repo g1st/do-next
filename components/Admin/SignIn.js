@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { authenticate } from '../../store/actions/index';
 
 class Signin extends Component {
@@ -11,7 +13,9 @@ class Signin extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
-    authenticate({ email, password }, 'signin');
+    const { authenticate: authenticateRedux } = this.props;
+
+    authenticateRedux({ email, password }, 'signin');
   };
 
   render() {
@@ -42,6 +46,10 @@ class Signin extends Component {
     );
   }
 }
+
+Signin.propTypes = {
+  authenticate: PropTypes.func
+};
 
 export default connect(
   null,
