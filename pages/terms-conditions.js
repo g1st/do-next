@@ -43,8 +43,8 @@ const TermsAndConditions = ({ collections }) => (
           responsible for any duties and customs charges that may be incurred.
         </Typography>
         <Typography align="left" paragraph color="secondary">
-          Please be sure you've entered the correct shipping address at
-          checkout. If your purchase is a gift, please make note of that.
+          Please be sure you have entered the correct shipping address at
+          checkout. If your purchase is a gift, please make a note of that.
         </Typography>
         <Typography
           align="left"
@@ -67,7 +67,7 @@ const TermsAndConditions = ({ collections }) => (
           I accept returns provided the request is made within 14 days after
           receiving the item. Refund will be made once I receive the item unused
           to its original condition and in its original packaging. If you do not
-          have the original packaging item should be packaged carefully to
+          have the original packaging, the item(s) should be packaged carefully to
           ensure safe arrival as it was shipped to you. I will refund the total
           amount of purchase.
         </Typography>
