@@ -11,7 +11,9 @@ class Signin extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
-    authenticate({ email, password }, 'signin');
+    const { authenticate: authenticateRedux } = this.props;
+
+    authenticateRedux({ email, password }, 'signin');
   };
 
   render() {
