@@ -85,10 +85,27 @@ module.exports = (db, upload) => {
     wrapAsync(async (req, res) => {
       const imageSizes = { big: 900, medium: 300, thumb: 92 };
 
+      const {
+        name,
+        description,
+        materials,
+        size,
+        collection,
+        price,
+        category,
+        available
+      } = req.body;
+
       const update = {
-        ...req.body,
-        slug: slugify(req.body.name),
-        group: req.body.collection
+        name,
+        description,
+        materials,
+        size,
+        price,
+        category,
+        available,
+        slug: slugify(name),
+        group: collection
       };
 
       let imagesToRemoveOnError;
@@ -121,7 +138,7 @@ module.exports = (db, upload) => {
       if (req.body.imagesToRemove.length > 0) {
         const imagesToRemove = req.body.imagesToRemove.split(',');
 
-        if (req.body.photos.length - imagesToRemove.length < 1) {
+        if (Number(req.body.imageCount) - imagesToRemove.length < 1) {
           return {
             errors: { images: 'Piece must have at least one image.' }
           };
