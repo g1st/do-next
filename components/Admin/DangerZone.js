@@ -40,7 +40,7 @@ const DangerZone = ({
 
   const deleteCollection = pcollection => {
     axios
-      .delete('http://localhost:3000/api/delete', { params: { pcollection } })
+      .delete('http://localhost:3000/api/delete', { params: { collection } })
       .then(res => {
         removeCollection(res.data.deletedCollection);
       })
