@@ -77,7 +77,7 @@ const CartDrawerContent = props => {
               </TableHead>
               <TableCell>
                 <Typography variant="body1">
-                  {props.shippingCost != 0
+                  {props.shippingCost !== 0
                     ? `£${props.shippingCost.toFixed(2)}`
                     : 'Free'}
                 </Typography>

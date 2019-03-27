@@ -16,12 +16,13 @@ class NavDrawer extends Component {
   static contextType = DrawerContext;
 
   render() {
-    const { classes } = this.props;
+    const { classes, collections } = this.props;
+    const { drawerNav, toggleDrawer } = this.context;
     const sideNavList = (
       <Fragment>
         <NavDrawerContent
-          collections={this.props.collections}
-          closingDrawer={this.context.toggleDrawer('drawerNav', false)}
+          collections={collections}
+          closingDrawer={toggleDrawer('drawerNav', false)}
         />
       </Fragment>
     );
@@ -29,15 +30,15 @@ class NavDrawer extends Component {
     return (
       <div>
         <Drawer
-          open={this.context.drawerNav}
-          onClose={this.context.toggleDrawer('drawerNav', false)}
-          onOpen={this.context.toggleDrawer('drawerNav', true)}
+          open={drawerNav}
+          onClose={toggleDrawer('drawerNav', false)}
+          onOpen={toggleDrawer('drawerNav', true)}
         >
           <div
             className={classes.list}
             tabIndex={0}
             role="button"
-            onKeyDown={this.context.toggleDrawer('drawerNav', false)}
+            onKeyDown={toggleDrawer('drawerNav', false)}
           >
             {sideNavList}
           </div>
