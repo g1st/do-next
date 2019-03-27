@@ -50,7 +50,7 @@ class MyApp extends App {
         .collection('works')
         .find()
         .toArray();
-      const collections = data.reduce((acc, next) => {
+      const collectionsFromServer = data.reduce((acc, next) => {
         if (!acc.includes(next.group)) acc.push(next.group.toLowerCase());
         return acc;
       }, []);
@@ -59,7 +59,7 @@ class MyApp extends App {
         ...pageProps,
         data,
         from: 'server',
-        collections,
+        collections: collectionsFromServer,
         router,
         user
       };
@@ -112,7 +112,7 @@ class MyApp extends App {
     // Save data to localStorage
     if (
       !localStorage.getItem('data') ||
-      localStorage.getItem('data') != JSON.stringify(this.props.pageProps.data)
+      localStorage.getItem('data') !== JSON.stringify(this.props.pageProps.data)
     ) {
       localStorage.setItem('data', JSON.stringify(this.props.pageProps.data));
       localStorage.setItem('collections', this.props.pageProps.collections);

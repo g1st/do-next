@@ -48,12 +48,14 @@ const styles = theme => ({
 
 class About extends React.Component {
   _renderItem = item => {
-    const onImageError = this.props.onImageError || this._handleImageError;
+    const { onImageError: imageError, onImageLoad, width } = this.props;
+
+    const onImageError = imageError || this._handleImageError;
 
     return (
       <div className="image-gallery-image">
         {item.imageSet ? (
-          <picture onLoad={this.props.onImageLoad} onError={onImageError}>
+          <picture onLoad={onImageLoad} onError={onImageError}>
             {item.imageSet.map((source, index) => (
               <source
                 key={index}
@@ -71,7 +73,7 @@ class About extends React.Component {
             srcSet={item.srcSet}
             sizes={item.sizes}
             title={item.originalTitle}
-            onLoad={this.props.onImageLoad}
+            onLoad={onImageLoad}
             onError={onImageError}
           />
         )}
@@ -81,7 +83,7 @@ class About extends React.Component {
             className="image-gallery-description"
             style={{ right: '0', left: 'initial' }}
           >
-            {this.props.width == 'xs' ? (
+            {width === 'xs' ? (
               <div>
                 <Typography variant="h6" color="primary" align="right">
                   {item.description.split('|')[0]}
@@ -141,13 +143,10 @@ class About extends React.Component {
       }
     ];
 
-    const { classes, instagram } = this.props;
+    const { classes, instagram, pathname, collections } = this.props;
 
     return (
-      <Layout
-        pathname={this.props.pathname}
-        collections={this.props.collections}
-      >
+      <Layout pathname={pathname} collections={collections}>
         <ImageGalleryWrapper>
           <ImageGallery
             items={gallery}
@@ -500,7 +499,7 @@ class About extends React.Component {
 
           <WhereToFind>
             <Typography variant="subtitle1">
-              WHERE TO FIND DOVILE JEWELLERY ​
+              WHERE TO FIND DOVILE JEWELLERY
             </Typography>
             <Typography variant="body2">
               <AnchorLink
@@ -570,7 +569,11 @@ class About extends React.Component {
 About.propTypes = {
   classes: PropTypes.object.isRequired,
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  width: PropTypes.string,
+  instagram: PropTypes.object,
+  onImageError: PropTypes.func,
+  onImageLoad: PropTypes.func
 };
 
 About.getInitialProps = async ({ pathname }) => {

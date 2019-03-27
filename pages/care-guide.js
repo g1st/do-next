@@ -10,9 +10,9 @@ const style = {
   }
 };
 
-const CareGuide = props => (
+const CareGuide = ({ collections }) => (
   // false for Material UI Tabs to know this endpoint not needed
-  <Layout pathname={false} collections={props.collections}>
+  <Layout pathname={false} collections={collections}>
     <Wrapper>
       <Figure>
         <Image src="../static/images/supa.jpg" alt="Crafts market" />
