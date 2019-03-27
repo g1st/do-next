@@ -53,7 +53,9 @@ Edit.getInitialProps = async ({ user, req, query }) => {
       .find()
       .toArray();
 
-    const onePieceDataFromServer = data.filter(obj => obj._id === id);
+    const onePieceDataFromServer = data.filter(
+      obj => obj._id.toString() === id
+    );
 
     return { onePieceData: onePieceDataFromServer };
   }
