@@ -824,11 +824,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 StripeForm.propTypes = {
-  buyItNowItem: PropTypes.bool,
+  buyItNowItem: PropTypes.object,
   classes: PropTypes.object.isRequired,
   shippingCost: PropTypes.number,
   stripe: PropTypes.object,
-  width: PropTypes.number
+  width: PropTypes.string
 };
 
 export default withWidth()(
