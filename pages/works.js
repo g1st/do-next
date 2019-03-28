@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
-
-import { ITEMS_PER_PAGE } from '../config.js';
+import { increaseLoadedItems } from '../store/actions';
 
 const ButtonContainer = styled.div`
   text-align: center;
@@ -21,8 +21,10 @@ const ButtonContainer = styled.div`
 class Works extends React.Component {
   constructor(props) {
     super(props);
-    const { data, collections: collectionsNames } = props;
-    const collections = { all: { data, itemsLoaded: ITEMS_PER_PAGE } };
+    const { data, collections: collectionsNames, reduxLoadedItems } = props;
+    const collections = {
+      all: { data, itemsLoaded: reduxLoadedItems }
+    };
 
     const dataForSelectedCollection = (allItemsData, collection) =>
       allItemsData.filter(x => x.group === collection);
@@ -30,7 +32,7 @@ class Works extends React.Component {
     collectionsNames.forEach(collection => {
       collections[collection] = {
         data: dataForSelectedCollection(data, collection),
-        itemsLoaded: ITEMS_PER_PAGE
+        itemsLoaded: reduxLoadedItems
       };
     });
 
@@ -41,12 +43,20 @@ class Works extends React.Component {
   }
 
   loadMore(collection) {
+    const {
+      reduxLoadedItems,
+      increaseLoadedItems: increaseLoadedItemsRedux
+    } = this.props;
+
+    increaseLoadedItemsRedux();
+
     this.setState(prevState => ({
-      // ...prevState,
       collections: {
+        ...prevState.collections,
         [collection]: {
-          ...prevState[collection],
-          itemsLoaded: prevState[collection].itemsLoaded + ITEMS_PER_PAGE
+          data: prevState.collections[collection].data,
+          itemsLoaded:
+            prevState.collections[collection].itemsLoaded + reduxLoadedItems
         }
       }
     }));
@@ -127,9 +137,21 @@ Works.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.array,
   router: PropTypes.object,
-  from: PropTypes.string
+  from: PropTypes.string,
+  increaseLoadedItems: PropTypes.func
 };
 
 Works.getInitialProps = async ({ pathname }) => ({ pathname });
 
-export default Works;
+const mapStateToProps = state => ({
+  reduxLoadedItems: state.loadMore
+});
+
+const mapDispatchToProps = dispatch => ({
+  increaseLoadedItems: () => dispatch(increaseLoadedItems())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Works);
