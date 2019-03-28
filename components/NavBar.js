@@ -240,7 +240,7 @@ NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
   collections: PropTypes.arrayOf(PropTypes.string),
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  uniqueCartItems: PropTypes.object
+  uniqueCartItems: PropTypes.number
 };
 
 export default connect(mapStateToProps)(

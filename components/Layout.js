@@ -18,7 +18,7 @@ const Layout = ({ children, collections, pathname }) => (
 Layout.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
-  children: PropTypes.object
+  children: PropTypes.node
 };
 
 export default Layout;
