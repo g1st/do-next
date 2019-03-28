@@ -28,9 +28,9 @@ const DangerZone = ({
   removeItem,
   removeCollection
 }) => {
-  const deleteItem = id => {
+  const deleteItem = () => {
     axios
-      .delete('http://localhost:3000/api/delete', { params: { _id: id } })
+      .delete('http://localhost:3000/api/delete', { params: { _id: itemID } })
       .then(res => {
         console.log(res.data.deletedItem);
         removeItem(res.data.deletedItem);
@@ -38,7 +38,7 @@ const DangerZone = ({
       .catch(err => console.log(err));
   };
 
-  const deleteCollection = pcollection => {
+  const deleteCollection = () => {
     axios
       .delete('http://localhost:3000/api/delete', { params: { collection } })
       .then(res => {
@@ -61,7 +61,7 @@ const DangerZone = ({
           color="secondary"
           onClick={() =>
             window.confirm('Are you sure you want to delete this item?') &&
-            deleteItem(itemID)
+            deleteItem()
           }
         >
           Delete item
@@ -75,7 +75,7 @@ const DangerZone = ({
           onClick={() =>
             window.confirm(
               'Are you sure you want to delete the whole collection?'
-            ) && deleteCollection(collection)
+            ) && deleteCollection()
           }
         >
           Delete whole collection
