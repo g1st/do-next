@@ -122,7 +122,13 @@ const mapDispatchToProps = dispatch => ({
 CartItem.propTypes = {
   data: PropTypes.array,
   buyItNow: PropTypes.bool,
-  closeDrawer: PropTypes.func
+  closeDrawer: PropTypes.func,
+  increaseQuantity: PropTypes.func,
+  decreaseQuantity: PropTypes.func,
+  removeFromCart: PropTypes.func,
+  buyItNowIncreaseQuantity: PropTypes.func,
+  buyItNowDecreaseQuantity: PropTypes.func,
+  clearBuyItNow: PropTypes.func
 };
 
 export default connect(

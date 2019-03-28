@@ -830,7 +830,10 @@ StripeForm.propTypes = {
   classes: PropTypes.object.isRequired,
   shippingCost: PropTypes.number,
   stripe: PropTypes.object,
-  width: PropTypes.string
+  width: PropTypes.string,
+  clearCart: PropTypes.func,
+  clearBuyItNow: PropTypes.func,
+  cart: PropTypes.array
 };
 
 export default withWidth()(
