@@ -43,9 +43,9 @@ const CareGuide = ({ collections }) => (
         </Typography>
         <Typography align="left" paragraph color="secondary">
           I encourage customers to remove the jewellery prior to cleaning,
-          bathing and swimming and ensure that the jewellery is not exposed to UV
-          light, hairspray, perfume and cosmetics. I also recommend that you do
-          not wear your jewellery whilst bathing, whilst in bed or during
+          bathing and swimming and ensure that the jewellery is not exposed to
+          UV light, hairspray, perfume and cosmetics. I also recommend that you
+          do not wear your jewellery whilst bathing, whilst in bed or during
           sporting activities.
         </Typography>
         <Typography
@@ -62,10 +62,10 @@ const CareGuide = ({ collections }) => (
           cloth regularly to prevent the natural process of tarnishing.
         </Typography>
         <Typography align="left" paragraph color="secondary">
-          Clean your jewellery using lukewarm soapy water and a soft brush.
-          It is especially recommended for cleaning gemstones. I do not
-          recommend the use of silver polish and silver dip as they may destroy
-          the delicate oxidised details of your jewellery.
+          Clean your jewellery using lukewarm soapy water and a soft brush. It
+          is especially recommended for cleaning gemstones. I do not recommend
+          the use of silver polish and silver dip as they may destroy the
+          delicate oxidised details of your jewellery.
         </Typography>
         <Typography
           align="left"

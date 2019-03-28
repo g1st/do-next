@@ -449,16 +449,16 @@ class AdminForm extends Component {
               <Typography variant="body2" gutterBottom>
                 Add images
               </Typography>
+              <input
+                type="file"
+                multiple
+                id="images"
+                accept="image/*"
+                name="photos[]"
+                onChange={this.handleImages}
+                required={!itemToEdit}
+              />
             </label>
-            <input
-              type="file"
-              multiple
-              id="images"
-              accept="image/*"
-              name="photos[]"
-              onChange={this.handleImages}
-              required={!itemToEdit}
-            />
             {/* for edit view show current photos and let select for deleting */}
             {selectedImages ? (
               <div>
