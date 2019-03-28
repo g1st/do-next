@@ -132,7 +132,12 @@ class StripeForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault();
-    const { stripe } = this.props;
+    const {
+      stripe,
+      clearCart: clearCartRedux,
+      clearBuyItNow: clearBuyItNowRedux
+    } = this.props;
+
     if (!this.isStripesInputsOk() || this.stripe_errors) return;
     this.setState(() => ({ disable: true }));
     if (stripe) {
@@ -213,8 +218,8 @@ class StripeForm extends Component {
                 console.log('Purchase completed successfully');
                 this.setState(() => ({ orderComplete: true }));
                 // empty redux state
-                clearCart();
-                clearBuyItNow();
+                clearCartRedux();
+                clearBuyItNowRedux();
                 console.log('its ok ', res);
               }
             })

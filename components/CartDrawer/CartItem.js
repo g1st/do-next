@@ -18,8 +18,20 @@ import {
 } from '../../store/actions';
 import { CartItems, Thumb, ItemInfo } from '../../styles/CartDrawer';
 
-const CartItem = ({ buyItNow, data, closeDrawer }) => {
-  const handleRemove = id => (buyItNow ? clearBuyItNow() : removeFromCart(id));
+const CartItem = ({
+  buyItNow,
+  data,
+  closeDrawer,
+  clearBuyItNow: clearBytItNowRedux,
+  removeFromCart: removeFromCartRedux,
+  buyItNowDecreaseQuantity: buyItNowDecreaseQuantityRedux,
+  decreaseQuantity: decreaseQuantityRedux,
+  buyItNowIncreaseQuantity: buyItNowIncreaseQuantityRedux,
+  increaseQuantity: increaseQuantityRedux,
+  handleRemove: handleRemoveRedux
+}) => {
+  const handleRemove = id =>
+    buyItNow ? clearBytItNowRedux() : removeFromCartRedux(id);
 
   return (
     <CartItems>
@@ -57,8 +69,8 @@ const CartItem = ({ buyItNow, data, closeDrawer }) => {
             disabled={!(item.quantity > 1)}
             onClick={
               buyItNow
-                ? () => buyItNowDecreaseQuantity()
-                : () => decreaseQuantity(item._id)
+                ? () => buyItNowDecreaseQuantityRedux()
+                : () => decreaseQuantityRedux(item._id)
             }
             color="secondary"
             aria-label="Decrease quantity"
@@ -69,8 +81,8 @@ const CartItem = ({ buyItNow, data, closeDrawer }) => {
           <IconButton
             onClick={
               buyItNow
-                ? () => buyItNowIncreaseQuantity()
-                : () => increaseQuantity(item._id)
+                ? () => buyItNowIncreaseQuantityRedux()
+                : () => increaseQuantityRedux(item._id)
             }
             color="secondary"
             aria-label="Increase quantity"
@@ -82,7 +94,7 @@ const CartItem = ({ buyItNow, data, closeDrawer }) => {
             aria-label="Remove item"
             onClick={() =>
               window.confirm('Are you sure you want to remove this item?') &&
-              handleRemove(item._id)
+              removeFromCartRedux(item._id)
             }
           >
             <ClearIcon fontSize="small" />
@@ -108,7 +120,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 CartItem.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
   buyItNow: PropTypes.bool,
   closeDrawer: PropTypes.func
 };
