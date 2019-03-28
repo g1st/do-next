@@ -159,7 +159,7 @@ class StripeForm extends Component {
         })
         .then(payload => {
           const { email, phone, additional_info } = this.state;
-          const { buyItNowItem, shippingCost } = this.props;
+          const { buyItNowItem, shippingCost, cart } = this.props;
 
           let purchaseDetails;
           if (Object.prototype.hasOwnProperty.call(buyItNowItem, 'name')) {
@@ -259,7 +259,9 @@ class StripeForm extends Component {
       zip_code,
       backend_validation_errors
     } = this.state;
-    const { classes, stripe, width } = this.props;
+
+    const { classes, stripe, width, cart } = this.props;
+
     let cardNumberError = null;
     if (card_number.error) {
       cardNumberError = card_number.error;
