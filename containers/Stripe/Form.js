@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 
 import StripeElementWrapper from './StripeElementWrapper';
 import { clearCart, clearBuyItNow } from '../../store/actions';
-import { cart } from '../../util/helpers';
+import { cartHelper } from '../../util/helpers';
 import CartDrawerContent from '../../components/CartDrawer/CartDrawerContent';
 import Error from '../../components/Error/Error';
 import {
@@ -168,8 +168,8 @@ class StripeForm extends Component {
             console.log('is cart pirko');
             const count = cart.length;
             const selectedItems = cart;
-            const totalItems = cart.totalItems(cart);
-            const totalPrice = cart.totalPrice(cart);
+            const totalItems = cartHelper.totalItems(cart);
+            const totalPrice = cartHelper.totalPrice(cart);
             purchaseDetails = {
               count,
               selectedItems,

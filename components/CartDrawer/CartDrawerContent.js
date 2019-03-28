@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Router from 'next/router';
 
 import CartItem from './CartItem';
-import { cart } from '../../util/helpers';
+import { cartHelper } from '../../util/helpers';
 import {
   Totals,
   Table,
@@ -67,7 +67,7 @@ const CartDrawerContent = props => {
                 <Typography variant="body1">
                   {props.buyItNow
                     ? props.buyItNowItem.quantity
-                    : cart.totalItems(props.cart)}
+                    : cartHelper.totalItems(props.cart)}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -91,10 +91,10 @@ const CartDrawerContent = props => {
                 <Typography variant="body1">
                   £
                   {props.buyItNow
-                    ? cart
+                    ? cartHelper
                         .totalPrice([props.buyItNowItem], props.shippingCost)
                         .toFixed(2)
-                    : cart
+                    : cartHelper
                         .totalPrice(props.cart, props.shippingCost)
                         .toFixed(2)}
                 </Typography>

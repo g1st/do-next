@@ -1,4 +1,4 @@
-export const cart = {
+export const cartHelper = {
   totalItems: cart =>
     cart.reduce((acc, item) => {
       acc += item.quantity;
