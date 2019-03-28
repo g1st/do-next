@@ -27,8 +27,7 @@ const CartItem = ({
   buyItNowDecreaseQuantity: buyItNowDecreaseQuantityRedux,
   decreaseQuantity: decreaseQuantityRedux,
   buyItNowIncreaseQuantity: buyItNowIncreaseQuantityRedux,
-  increaseQuantity: increaseQuantityRedux,
-  handleRemove: handleRemoveRedux
+  increaseQuantity: increaseQuantityRedux
 }) => {
   const handleRemove = id =>
     buyItNow ? clearBytItNowRedux() : removeFromCartRedux(id);
@@ -94,7 +93,7 @@ const CartItem = ({
             aria-label="Remove item"
             onClick={() =>
               window.confirm('Are you sure you want to remove this item?') &&
-              removeFromCartRedux(item._id)
+              handleRemove(item._id)
             }
           >
             <ClearIcon fontSize="small" />
