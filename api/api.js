@@ -85,17 +85,39 @@ module.exports = (db, upload) => {
     wrapAsync(async (req, res) => {
       const imageSizes = { big: 900, medium: 300, thumb: 92 };
 
+      const {
+        _id,
+        name,
+        description,
+        materials,
+        size,
+        collection,
+        price,
+        category,
+        available,
+        imageCount,
+        imagesToRemove
+      } = req.body;
+
+      const { files } = req;
+
       const update = {
-        ...req.body,
-        slug: slugify(req.body.name),
-        group: req.body.collection
+        name,
+        description,
+        materials,
+        size,
+        price,
+        category,
+        available,
+        slug: slugify(name),
+        group: collection
       };
 
       let imagesToRemoveOnError;
 
       // user adds new images
-      if (req.files.length > 0) {
-        const images = req.files.map(image => {
+      if (files.length > 0) {
+        const images = files.map(image => {
           const dot = image.filename.indexOf('.');
 
           return {
@@ -111,17 +133,24 @@ module.exports = (db, upload) => {
           };
         });
 
-        update.$push = {
-          images: { $each: images }
+        const newImages = {
+          $push: {
+            images: { $each: images }
+          }
         };
+
+        await Work.findOneAndUpdate({ _id }, newImages, {
+          new: true
+        });
 
         imagesToRemoveOnError = images.map(image => image.thumb);
       }
 
-      if (req.body.imagesToRemove.length > 0) {
-        const imagesToRemove = req.body.imagesToRemove.split(',');
+      if (imagesToRemove.length > 0) {
+        const imagesForRemoval = imagesToRemove.split(',');
 
-        if (req.body.photos.length - imagesToRemove.length < 1) {
+        // current images + how many adding - how many deleting
+        if (Number(imageCount) + files.length - imagesForRemoval.length < 1) {
           return {
             errors: { images: 'Piece must have at least one image.' }
           };
@@ -130,15 +159,15 @@ module.exports = (db, upload) => {
         //  remove image paths from DB document
         update.$pull = {
           images: {
-            thumb: { $in: imagesToRemove }
+            thumb: { $in: imagesForRemoval }
           }
         };
 
         // remove images from disk
-        serverUtils.removeImagesFromDisk(imagesToRemove);
+        serverUtils.removeImagesFromDisk(imagesForRemoval);
       }
 
-      const work = await Work.findOneAndUpdate({ _id: req.body._id }, update, {
+      const work = await Work.findOneAndUpdate({ _id }, update, {
         new: true
       });
 
@@ -146,25 +175,25 @@ module.exports = (db, upload) => {
 
       if (error) {
         // remove already uploaded images (not elegant but rarely will happen irl)
-        if (req.files.length > 0) {
+        if (files.length > 0) {
           serverUtils.removeImagesFromDisk(imagesToRemoveOnError);
         }
 
         return error;
       }
 
-      if (req.files.length > 0) {
-        const sizes = req.files.map(obj => [
+      if (files.length > 0) {
+        const sizes = files.map(obj => [
           { path: obj.path, size: imageSizes.big },
           { path: obj.path, size: imageSizes.medium },
           { path: obj.path, size: imageSizes.thumb }
         ]);
 
-        const files = sizes.map(photos =>
+        const filesToSave = sizes.map(photos =>
           photos.map(photo => serverUtils.writeFile(photo.path, photo.size))
         );
 
-        Promise.all(files)
+        Promise.all(filesToSave)
           .then(val => console.log(val))
           .catch(err => console.log(err));
       }
@@ -196,7 +225,9 @@ module.exports = (db, upload) => {
         available
       } = req.body;
 
-      const images = req.files.map(image => {
+      const { files } = req;
+
+      const images = files.map(image => {
         const dot = image.filename.indexOf('.');
 
         return {
@@ -241,17 +272,17 @@ module.exports = (db, upload) => {
 
       await db.collection('works').insertOne(work);
 
-      const sizes = req.files.map(obj => [
+      const sizes = files.map(obj => [
         { path: obj.path, size: imageSizes.big },
         { path: obj.path, size: imageSizes.medium },
         { path: obj.path, size: imageSizes.thumb }
       ]);
 
-      const files = sizes.map(photos =>
+      const filesToSave = sizes.map(photos =>
         photos.map(photo => serverUtils.writeFile(photo.path, photo.size))
       );
 
-      Promise.all(files)
+      Promise.all(filesToSave)
         .then(val => console.log(val))
         .catch(err => console.log(err));
 

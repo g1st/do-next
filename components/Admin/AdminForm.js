@@ -91,11 +91,13 @@ class AdminForm extends Component {
     errors: null,
     work: null,
     deletedItem: null,
-    deletedCollection: null
+    deletedCollection: null,
+    imageFiles: []
   };
 
   componentDidMount = () => {
     const { collections, itemToEdit } = this.props;
+
     if (itemToEdit) {
       this.setState(state => ({
         ...state,
@@ -121,13 +123,13 @@ class AdminForm extends Component {
   };
 
   handleChange = (name, event, thumb) => {
-    if (name === 'available')
-      return this.setState({ [name]: event.target.checked });
+    const { checked } = event.target;
+    if (name === 'available') return this.setState({ [name]: checked });
     if (name === 'selectedImages')
       return this.setState(({ selectedImages }) => ({
         selectedImages: {
           ...selectedImages,
-          [thumb]: event.target.checked
+          [thumb]: checked
         }
       }));
 
@@ -135,7 +137,7 @@ class AdminForm extends Component {
   };
 
   handleImages = event => {
-    this.setState({ images: event.target.files });
+    this.setState({ imageFiles: event.target.files });
   };
 
   // only when creating new item
@@ -169,16 +171,24 @@ class AdminForm extends Component {
       price,
       category,
       available,
-      selectedImages
+      selectedImages,
+      imageFiles,
+      collection,
+      existingCollection
     } = this.state;
 
-    const imagesToRemove = selectedImages.filter(i => i);
+    const imagesToRemove = [];
 
-    /* eslint-disable react/destructuring-assignment */
-    const collection = this.state.collection
-      ? this.state.collection
-      : this.state.existingCollection;
-    /* eslint-enable react/destructuring-assignment */
+    if (selectedImages) {
+      Object.entries(selectedImages).forEach(([key, value]) => {
+        // truthy when user selected for removal
+        if (value) {
+          imagesToRemove.push(key);
+        }
+      });
+    }
+
+    const currentCollection = collection || existingCollection;
 
     const formData = new FormData();
 
@@ -187,13 +197,14 @@ class AdminForm extends Component {
     formData.append('description', description);
     formData.append('materials', materials);
     formData.append('size', size);
-    formData.append('collection', collection);
+    formData.append('collection', currentCollection);
     formData.append('price', price);
     formData.append('category', category);
     formData.append('available', available);
     formData.append('imagesToRemove', imagesToRemove);
+    formData.append('imageCount', images.length);
 
-    for (const photo of images) {
+    for (const photo of imageFiles) {
       formData.append('photos[]', photo);
     }
     const { itemToEdit } = this.props;
@@ -212,7 +223,7 @@ class AdminForm extends Component {
           ) {
             return this.setState({ errors, updating: false });
           }
-          const keys = Object.keys(errors);
+          const keys = errors ? Object.keys(errors) : [];
           const err = keys.reduce((acc, k) => {
             if (Object.prototype.hasOwnProperty.call(errors[k], 'message')) {
               acc[k] = errors[k].message;
@@ -221,7 +232,11 @@ class AdminForm extends Component {
             return acc;
           }, {});
 
-          const { _id: id, group } = response.data.work;
+          const {
+            _id: id,
+            group,
+            images: justUpdatedImages
+          } = response.data.work;
 
           this.setState({
             errors: err,
@@ -231,10 +246,10 @@ class AdminForm extends Component {
               name,
               collection: group
             },
-            images,
+            images: justUpdatedImages,
             selectedImages: Object.assign(
               {},
-              ...images.map(item => ({ [item.thumb]: false }))
+              ...justUpdatedImages.map(item => ({ [item.thumb]: false }))
             )
           });
         })
@@ -250,7 +265,7 @@ class AdminForm extends Component {
         .then(response => {
           const { errors } = response.data;
 
-          const keys = Object.keys(errors);
+          const keys = errors ? Object.keys(errors) : [];
           const err = keys.reduce((acc, k) => {
             if (Object.prototype.hasOwnProperty.call(errors[k], 'message')) {
               acc[k] = errors[k].message;
@@ -282,7 +297,7 @@ class AdminForm extends Component {
   };
 
   render() {
-    const { classes, collections } = this.props;
+    const { classes, collections, itemToEdit } = this.props;
     const {
       available,
       category,
@@ -290,7 +305,6 @@ class AdminForm extends Component {
       description,
       errors,
       existingCollection,
-      itemToEdit,
       materials,
       name,
       price,
@@ -305,20 +319,27 @@ class AdminForm extends Component {
 
     if (work) {
       // TODO: check name, collection in state === work.name work.collection
-      const { id } = work;
+      // ! Answer: it is not (all the time). work = justUpdatedItem,
+      // ! state could be reseted (when creating new items) and work
+      // !will still have data of previously created one
+      const {
+        id,
+        name: justCreatedName,
+        collection: justCreatedCollection
+      } = work;
       workInfo = (
         <div className={classes.added}>
           <Typography variant="body2">
             Piece{' '}
             <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
-              <a>{name}</a>
+              <a>{justCreatedName}</a>
             </Link>{' '}
             was {itemToEdit ? 'updated' : 'added'} to a collection{' '}
             <Link
-              href={`/works?collection=${collection}`}
-              as={`/works/${collection}`}
+              href={`/works?collection=${justCreatedCollection}`}
+              as={`/works/${justCreatedCollection}`}
             >
-              <a>{collection}</a>
+              <a>{justCreatedCollection}</a>
             </Link>{' '}
             successfuly.
           </Typography>
@@ -428,16 +449,16 @@ class AdminForm extends Component {
               <Typography variant="body2" gutterBottom>
                 Add images
               </Typography>
+              <input
+                type="file"
+                multiple
+                id="images"
+                accept="image/*"
+                name="photos[]"
+                onChange={this.handleImages}
+                required={!itemToEdit}
+              />
             </label>
-            <input
-              type="file"
-              multiple
-              id="images"
-              accept="image/*"
-              name="photos[]"
-              onChange={this.handleImages}
-              required={!itemToEdit}
-            />
             {/* for edit view show current photos and let select for deleting */}
             {selectedImages ? (
               <div>

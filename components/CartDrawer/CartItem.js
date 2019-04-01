@@ -18,8 +18,19 @@ import {
 } from '../../store/actions';
 import { CartItems, Thumb, ItemInfo } from '../../styles/CartDrawer';
 
-const CartItem = ({ buyItNow, data, closeDrawer }) => {
-  const handleRemove = id => (buyItNow ? clearBuyItNow() : removeFromCart(id));
+const CartItem = ({
+  buyItNow,
+  data,
+  closeDrawer,
+  clearBuyItNow: clearBytItNowRedux,
+  removeFromCart: removeFromCartRedux,
+  buyItNowDecreaseQuantity: buyItNowDecreaseQuantityRedux,
+  decreaseQuantity: decreaseQuantityRedux,
+  buyItNowIncreaseQuantity: buyItNowIncreaseQuantityRedux,
+  increaseQuantity: increaseQuantityRedux
+}) => {
+  const handleRemove = id =>
+    buyItNow ? clearBytItNowRedux() : removeFromCartRedux(id);
 
   return (
     <CartItems>
@@ -57,8 +68,8 @@ const CartItem = ({ buyItNow, data, closeDrawer }) => {
             disabled={!(item.quantity > 1)}
             onClick={
               buyItNow
-                ? () => buyItNowDecreaseQuantity()
-                : () => decreaseQuantity(item._id)
+                ? () => buyItNowDecreaseQuantityRedux()
+                : () => decreaseQuantityRedux(item._id)
             }
             color="secondary"
             aria-label="Decrease quantity"
@@ -69,8 +80,8 @@ const CartItem = ({ buyItNow, data, closeDrawer }) => {
           <IconButton
             onClick={
               buyItNow
-                ? () => buyItNowIncreaseQuantity()
-                : () => increaseQuantity(item._id)
+                ? () => buyItNowIncreaseQuantityRedux()
+                : () => increaseQuantityRedux(item._id)
             }
             color="secondary"
             aria-label="Increase quantity"
@@ -108,9 +119,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 CartItem.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
   buyItNow: PropTypes.bool,
-  closeDrawer: PropTypes.func
+  closeDrawer: PropTypes.func,
+  increaseQuantity: PropTypes.func,
+  decreaseQuantity: PropTypes.func,
+  removeFromCart: PropTypes.func,
+  buyItNowIncreaseQuantity: PropTypes.func,
+  buyItNowDecreaseQuantity: PropTypes.func,
+  clearBuyItNow: PropTypes.func
 };
 
 export default connect(

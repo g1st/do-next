@@ -35,7 +35,7 @@ const Gallery = props => {
         {filtered.map(item => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
             <ItemCard
-              id={item._id}
+              id={item._id.toString()}
               price={item.price}
               name={item.name}
               img={`/static/uploads/${item.images[0].medium}`}

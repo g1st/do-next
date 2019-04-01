@@ -1,15 +1,16 @@
-export const cart = {
+export const cartHelper = {
   totalItems: cart =>
     cart.reduce((acc, item) => {
-      acc += item.quantity;
-      return acc;
+      const items = acc + item.quantity;
+      return items;
     }, 0),
 
   totalPrice: (cart, shippingCost = 0) => {
-    const foo = cart.reduce((acc, item) => {
-      acc += item.price * item.quantity;
-      return acc;
+    const basePrice = cart.reduce((acc, item) => {
+      const price = acc + item.price * item.quantity;
+      return price;
     }, 0);
-    return foo + shippingCost;
+    const totalPrice = basePrice + shippingCost;
+    return totalPrice;
   }
 };

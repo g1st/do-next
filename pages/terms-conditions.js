@@ -67,9 +67,9 @@ const TermsAndConditions = ({ collections }) => (
           I accept returns provided the request is made within 14 days after
           receiving the item. Refund will be made once I receive the item unused
           to its original condition and in its original packaging. If you do not
-          have the original packaging, the item(s) should be packaged carefully to
-          ensure safe arrival as it was shipped to you. I will refund the total
-          amount of purchase.
+          have the original packaging, the item(s) should be packaged carefully
+          to ensure safe arrival as it was shipped to you. I will refund the
+          total amount of purchase.
         </Typography>
         <Typography align="left" paragraph color="secondary">
           Return shipping costs are the responsibility of the buyer.

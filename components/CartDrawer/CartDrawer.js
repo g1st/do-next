@@ -28,7 +28,8 @@ class CartDrawer extends Component {
   static contextType = DrawerContext;
 
   handleCheckout = () => {
-    clearBuyItNow();
+    const { clearBuyItNow: clearBuyItNowRedux } = this.props;
+    clearBuyItNowRedux();
     Router.push('/checkout');
     const { toggleDrawer } = this.context;
     toggleDrawer('drawerCart', false);
@@ -95,7 +96,8 @@ const mapDispatchToProps = dispatch => ({
 
 CartDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
-  uniqueCartItems: PropTypes.number
+  uniqueCartItems: PropTypes.number,
+  clearBuyItNow: PropTypes.func
 };
 
 export default connect(
