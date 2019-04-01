@@ -26,7 +26,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const MONGODB_URL = process.env.MONGODB_URL;
+const { MONGODB_URL } = process.env;
 const PORT = 3000;
 
 // credits to http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html

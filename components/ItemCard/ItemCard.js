@@ -38,38 +38,35 @@ const onCardMediaError = e => {
   }
 };
 
-const ItemCard = props => {
-  const { price, name, img, classes, id } = props;
-  return (
-    <Card className={classes.card}>
-      <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
-        <a style={{ textDecoration: 'none' }}>
-          <div className={classes.imageContainer}>
-            <CardMedia
-              className={classes.media}
-              image={img}
-              title={name}
-              component="img"
-              onError={e => onCardMediaError(e)}
-            />
-          </div>
-          <CardContent>
-            <Typography align="center" gutterBottom variant="h6" component="h2">
-              {name}
-            </Typography>
-            <Typography
-              align="center"
-              component="p"
-              className={classes.textColor}
-            >
-              {price}£
-            </Typography>
-          </CardContent>
-        </a>
-      </Link>
-    </Card>
-  );
-};
+const ItemCard = ({ price, name, img, classes, id }) => (
+  <Card className={classes.card}>
+    <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
+      <a style={{ textDecoration: 'none' }}>
+        <div className={classes.imageContainer}>
+          <CardMedia
+            className={classes.media}
+            image={img}
+            title={name}
+            component="img"
+            onError={e => onCardMediaError(e)}
+          />
+        </div>
+        <CardContent>
+          <Typography align="center" gutterBottom variant="h6" component="h2">
+            {name}
+          </Typography>
+          <Typography
+            align="center"
+            component="p"
+            className={classes.textColor}
+          >
+            {price}£
+          </Typography>
+        </CardContent>
+      </a>
+    </Link>
+  </Card>
+);
 
 ItemCard.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 
 import StripeElementWrapper from './StripeElementWrapper';
 import { clearCart, clearBuyItNow } from '../../store/actions';
-import { cart } from '../../util/helpers';
+import { cartHelper } from '../../util/helpers';
 import CartDrawerContent from '../../components/CartDrawer/CartDrawerContent';
 import Error from '../../components/Error/Error';
 import {
@@ -132,7 +132,12 @@ class StripeForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault();
-    const { stripe } = this.props;
+    const {
+      stripe,
+      clearCart: clearCartRedux,
+      clearBuyItNow: clearBuyItNowRedux
+    } = this.props;
+
     if (!this.isStripesInputsOk() || this.stripe_errors) return;
     this.setState(() => ({ disable: true }));
     if (stripe) {
@@ -154,7 +159,7 @@ class StripeForm extends Component {
         })
         .then(payload => {
           const { email, phone, additional_info } = this.state;
-          const { buyItNowItem, shippingCost } = this.props;
+          const { buyItNowItem, shippingCost, cart } = this.props;
 
           let purchaseDetails;
           if (Object.prototype.hasOwnProperty.call(buyItNowItem, 'name')) {
@@ -168,8 +173,8 @@ class StripeForm extends Component {
             console.log('is cart pirko');
             const count = cart.length;
             const selectedItems = cart;
-            const totalItems = cart.totalItems(cart);
-            const totalPrice = cart.totalPrice(cart);
+            const totalItems = cartHelper.totalItems(cart);
+            const totalPrice = cartHelper.totalPrice(cart);
             purchaseDetails = {
               count,
               selectedItems,
@@ -213,8 +218,8 @@ class StripeForm extends Component {
                 console.log('Purchase completed successfully');
                 this.setState(() => ({ orderComplete: true }));
                 // empty redux state
-                clearCart();
-                clearBuyItNow();
+                clearCartRedux();
+                clearBuyItNowRedux();
                 console.log('its ok ', res);
               }
             })
@@ -254,7 +259,9 @@ class StripeForm extends Component {
       zip_code,
       backend_validation_errors
     } = this.state;
-    const { classes, stripe, width } = this.props;
+
+    const { classes, stripe, width, cart } = this.props;
+
     let cardNumberError = null;
     if (card_number.error) {
       cardNumberError = card_number.error;
@@ -819,11 +826,14 @@ const mapDispatchToProps = dispatch => ({
 });
 
 StripeForm.propTypes = {
-  buyItNowItem: PropTypes.bool,
+  buyItNowItem: PropTypes.object,
   classes: PropTypes.object.isRequired,
   shippingCost: PropTypes.number,
   stripe: PropTypes.object,
-  width: PropTypes.number
+  width: PropTypes.string,
+  clearCart: PropTypes.func,
+  clearBuyItNow: PropTypes.func,
+  cart: PropTypes.array
 };
 
 export default withWidth()(

@@ -70,7 +70,7 @@ Edit.propTypes = {
   user: PropTypes.string,
   deauthenticate: PropTypes.func,
   collections: PropTypes.array,
-  onePieceData: PropTypes.object
+  onePieceData: PropTypes.array
 };
 
 export default connect(

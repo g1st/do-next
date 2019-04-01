@@ -37,13 +37,13 @@ const cart = (state = initialState.cart, action) => {
   }
   if (action.type === INCREASE_QUANTITY) {
     return state.map(item => {
-      if (item._id === action.id) item.quantity++;
+      if (item._id === action.id) item.quantity += 1;
       return item;
     });
   }
   if (action.type === DECREASE_QUANTITY) {
     return state.map(item => {
-      if (item.quantity > 0 && item._id === action.id) item.quantity--;
+      if (item.quantity > 0 && item._id === action.id) item.quantity -= 1;
       return item;
     });
   }

@@ -40,9 +40,9 @@ const Commissions = ({ collections }) => (
           <Mail href="mailto:hello@dovilejewellery.com" target="_top">
             e-mail me
           </Mail>{' '}
-          stating the item you are interested in, from my designs. I am accepting
-          ideas for customisations that fit my vision, aesthetics and work
-          principles. The design, price, time frame and delivery will be
+          stating the item you are interested in, from my designs. I am
+          accepting ideas for customisations that fit my vision, aesthetics and
+          work principles. The design, price, time frame and delivery will be
           discussed by email or in person.
         </Typography>
 
