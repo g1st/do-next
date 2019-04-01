@@ -24,8 +24,6 @@ const seedDB = () => {
     });
   }
 
-  console.log('sdf');
-
   const multiplier = parseInt(argument || 1);
 
   const worksData = Array.from({ length: multiplier }, () => data).flat();
