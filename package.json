@@ -9,7 +9,10 @@
     "dev": "node server.js",
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
-    "dev:auth": "concurrently \"cd authentication-server && npm start\" \"node server.js\""
+    "dev:auth": "concurrently \"cd authentication-server && npm start\" \"node server.js\"",
+    "db:populate": "cd util/seed && node seed.js",
+    "db:dropworks": "cd util/seed && node seed.js dropworks",
+    "db:dropall": "cd util/seed && node seed.js drop"
   },
   "keywords": [],
   "author": "",
