@@ -142,7 +142,8 @@ class AdminForm extends Component {
 
   // only when creating new item
   resetForm = () => {
-    const { collections } = this.props;
+    document.getElementById('images').value = null;
+
     this.setState({
       name: '',
       description: '',
@@ -152,14 +153,16 @@ class AdminForm extends Component {
       category: 'ring',
       materials: '',
       collection: '',
-      existingCollection: collections[0] || '',
+      existingCollection: '',
       available: 'available'
     });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.setState(() => ({ updating: true }));
+    this.setState(() => ({
+      updating: true
+    }));
 
     const {
       _id,
@@ -188,7 +191,9 @@ class AdminForm extends Component {
       });
     }
 
-    const currentCollection = collection || existingCollection;
+    // 'various' is default collection when collection is not specified
+    // or specified for 'various' explicitly
+    const currentCollection = collection || existingCollection || 'various';
 
     const formData = new FormData();
 
@@ -221,7 +226,10 @@ class AdminForm extends Component {
             errors &&
             Object.prototype.hasOwnProperty.call(errors, 'images')
           ) {
-            return this.setState({ errors, updating: false });
+            return this.setState({
+              errors,
+              updating: false
+            });
           }
           const keys = errors ? Object.keys(errors) : [];
           const err = keys.reduce((acc, k) => {
@@ -249,12 +257,17 @@ class AdminForm extends Component {
             images: justUpdatedImages,
             selectedImages: Object.assign(
               {},
-              ...justUpdatedImages.map(item => ({ [item.thumb]: false }))
+              ...justUpdatedImages.map(item => ({
+                [item.thumb]: false
+              }))
             )
           });
         })
         .catch(err => {
-          this.setState({ errors: err, updating: false });
+          this.setState({
+            errors: err,
+            updating: false
+          });
           console.log(err);
         });
     } else {
@@ -290,7 +303,10 @@ class AdminForm extends Component {
           );
         })
         .catch(err => {
-          this.setState({ errors: err, updating: false });
+          this.setState({
+            errors: err,
+            updating: false
+          });
           console.log(err);
         });
     }
@@ -424,6 +440,7 @@ class AdminForm extends Component {
                 value={existingCollection}
                 onChange={e => this.handleChange('existingCollection', e)}
               >
+                <option value="default" key="empty" />
                 {collections.map((c, i) => (
                   <option value={c} key={i}>
                     {c}
