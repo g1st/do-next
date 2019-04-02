@@ -88,16 +88,16 @@ class NavBar extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
     if (value === '/') {
-      Router.push('/');
+      Router.push('/').then(() => window.scrollTo(0, 0));
     }
     // if (value == '/works') {
     //   Router.push('/works');
     // }
     if (value === '/about') {
-      Router.push('/about');
+      Router.push('/about').then(() => window.scrollTo(0, 0));
     }
     if (value === '/contact') {
-      Router.push('/contact');
+      Router.push('/contact').then(() => window.scrollTo(0, 0));
     }
   };
 
@@ -108,7 +108,7 @@ class NavBar extends React.Component {
   handleClose = (e, href, as) => {
     // just actually closing panel
     if (href !== 'backdropClick') {
-      Router.push(href, as);
+      Router.push(href, as).then(() => window.scrollTo(0, 0));
     }
 
     this.setState({ anchorEl: null, value: false });

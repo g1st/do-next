@@ -27,7 +27,7 @@ const styles = {
 
 const CartDrawerContent = props => {
   const buttonClickHandler = () => {
-    Router.push('/works');
+    Router.push('/works').then(() => window.scrollTo(0, 0));
     props.closeDrawer();
   };
 
