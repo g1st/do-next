@@ -184,7 +184,7 @@ class NavBar extends React.Component {
                   id="simple-menu"
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
-                  onClose={this.handleClose}
+                  onClose={e => this.handleClose(e, 'backdropClick')}
                 >
                   <MenuItem onClick={e => this.handleClose(e, '/works')}>
                     SHOW ALL

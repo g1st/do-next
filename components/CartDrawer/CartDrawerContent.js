@@ -31,6 +31,12 @@ const CartDrawerContent = props => {
     props.closeDrawer();
   };
 
+  const keyDownHandler = ({ key }) => {
+    if (key === 'Enter') {
+      buttonClickHandler();
+    }
+  };
+
   const { classes } = props;
 
   let content = (
@@ -44,6 +50,7 @@ const CartDrawerContent = props => {
         variant="contained"
         color="secondary"
         onClick={() => buttonClickHandler()}
+        onKeyDown={e => keyDownHandler(e)}
       >
         SHOP
       </Button>
