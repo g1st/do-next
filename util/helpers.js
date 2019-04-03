@@ -14,3 +14,12 @@ export const cartHelper = {
     return totalPrice;
   }
 };
+
+export const onImageError = event => {
+  const defaultImage = '/static/images/logo.png';
+
+  if (event.target.src.indexOf('/static/images/logo.png') === -1) {
+    event.target.src = defaultImage;
+    event.target.srcset = '';
+  }
+};
