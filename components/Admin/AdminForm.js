@@ -73,7 +73,14 @@ const styles = theme => ({
     flexDirection: 'row',
     flexWrap: 'wrap',
     margin: theme.spacing.unit
+  },
+  checkbox: {
+    color: theme.palette.error.main,
+    '&$checked': {
+      color: theme.palette.error.main
   }
+  },
+  checked: {}
 });
 
 class AdminForm extends Component {
@@ -463,7 +470,7 @@ class AdminForm extends Component {
             {selectedImages ? (
               <div>
                 <Typography variant="body2">
-                  Or select images below which you would like to remove
+                  Select images below which you would like to remove
                 </Typography>
                 <FormGroup className={classes.imagesToEdit}>
                   {Object.keys(selectedImages).map(item => (
@@ -476,7 +483,10 @@ class AdminForm extends Component {
                             this.handleChange('selectedImages', e, item)
                           }
                           value={selectedImages && `${selectedImages[item]}`}
-                          color="secondary"
+                          classes={{
+                            root: classes.checkbox,
+                            checked: classes.checked
+                          }}
                         />
                       }
                       label={
