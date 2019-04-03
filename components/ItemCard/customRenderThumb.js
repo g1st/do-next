@@ -1,19 +1,3 @@
-import styled from 'styled-components';
-
-const ThumbnailContainer = styled.div`
-  width: 100%;
-  padding-bottom: 100%;
-  position: relative;
-
-  > img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-  }
-`;
-
 const renderThumb = item => {
   const defaultImage = '/static/images/logo.png';
 
@@ -24,14 +8,12 @@ const renderThumb = item => {
   };
   return (
     <div className="image-gallery-thumbnail-inner">
-      <ThumbnailContainer>
-        <img
-          src={item.thumbnail}
-          alt={item.thumbnailAlt}
-          title={item.thumbnailTitle}
-          onError={e => onThumbnailError(e)}
-        />
-      </ThumbnailContainer>
+      <img
+        src={item.thumbnail}
+        alt={item.thumbnailAlt}
+        title={item.thumbnailTitle}
+        onError={e => onThumbnailError(e)}
+      />
       {item.thumbnailLabel && (
         <div className="image-gallery-thumbnail-label">
           {item.thumbnailLabel}
