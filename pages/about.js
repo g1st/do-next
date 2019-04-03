@@ -48,7 +48,7 @@ const styles = theme => ({
 
 class About extends React.Component {
   _renderItem = item => {
-    const { onImageError: imageError, onImageLoad, width } = this.props;
+    const { width } = this.props;
 
     const onImageError = imageError || this._handleImageError;
 
@@ -571,9 +571,7 @@ About.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
   width: PropTypes.string,
-  instagram: PropTypes.object,
-  onImageError: PropTypes.func,
-  onImageLoad: PropTypes.func
+  instagram: PropTypes.object
 };
 
 About.getInitialProps = async ({ pathname }) => {
