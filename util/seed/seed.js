@@ -26,7 +26,10 @@ const seedDB = () => {
 
   const multiplier = parseInt(argument || 1);
 
-  const worksData = Array.from({ length: multiplier }, () => data).flat();
+  let worksData = [];
+  for (let i = 0; i < multiplier; i++) {
+    worksData = worksData.concat(data);
+  }
 
   mongoose
     .connect(MONGODB_URL, { useNewUrlParser: true })
