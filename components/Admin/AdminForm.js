@@ -78,7 +78,7 @@ const styles = theme => ({
     color: theme.palette.error.main,
     '&$checked': {
       color: theme.palette.error.main
-  }
+    }
   },
   checked: {}
 });
@@ -130,7 +130,7 @@ class AdminForm extends Component {
   };
 
   handleChange = (name, event, thumb) => {
-    const { checked } = event.target;
+    const { checked, value } = event.target;
     if (name === 'available') return this.setState({ [name]: checked });
     if (name === 'selectedImages')
       return this.setState(({ selectedImages }) => ({
@@ -139,6 +139,7 @@ class AdminForm extends Component {
           [thumb]: checked
         }
       }));
+    if (name === 'frontImage') return this.setState({ frontImage: value });
 
     this.setState({ [name]: event.target.value });
   };
@@ -181,7 +182,8 @@ class AdminForm extends Component {
       selectedImages,
       imageFiles,
       collection,
-      existingCollection
+      existingCollection,
+      frontImage
     } = this.state;
 
     const imagesToRemove = [];
@@ -210,6 +212,7 @@ class AdminForm extends Component {
     formData.append('available', available);
     formData.append('imagesToRemove', imagesToRemove);
     formData.append('imageCount', images.length);
+    formData.append('frontImage', frontImage);
 
     for (const photo of imageFiles) {
       formData.append('photos[]', photo);
@@ -319,7 +322,8 @@ class AdminForm extends Component {
       selectedItems,
       size,
       updating,
-      work
+      work,
+      frontImage
     } = this.state;
 
     let workInfo = null;
@@ -499,6 +503,35 @@ class AdminForm extends Component {
                     />
                   ))}
                 </FormGroup>
+              </div>
+            ) : null}
+            {selectedImages ? (
+              <div>
+                <Typography variant="body2">Select your front image</Typography>
+                <RadioGroup
+                  className={classes.formGroup}
+                  aria-label="frontImage"
+                  name="frontImage"
+                  value={frontImage}
+                >
+                  {itemToEdit.images.map(image => (
+                    <FormControlLabel
+                      key={image.medium}
+                      value={image.medium}
+                      control={<Radio color="secondary" />}
+                      labelPlacement="end"
+                      checked={image.medium === frontImage}
+                      onChange={e => this.handleChange('frontImage', e)}
+                      label={
+                        <img
+                          alt=""
+                          className={classes.singleImage}
+                          src={`/static/uploads/${image.thumb}`}
+                        />
+                      }
+                    />
+                  ))}
+                </RadioGroup>
               </div>
             ) : null}
             {errors && errors.images ? <Error>{errors.images}</Error> : null}
