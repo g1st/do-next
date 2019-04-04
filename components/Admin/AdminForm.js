@@ -160,9 +160,7 @@ class AdminForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.setState(() => ({
-      updating: true
-    }));
+    this.setState(() => ({ updating: true }));
 
     const {
       _id,
@@ -226,10 +224,7 @@ class AdminForm extends Component {
             errors &&
             Object.prototype.hasOwnProperty.call(errors, 'images')
           ) {
-            return this.setState({
-              errors,
-              updating: false
-            });
+            return this.setState({ errors, updating: false });
           }
           const keys = errors ? Object.keys(errors) : [];
           const err = keys.reduce((acc, k) => {
@@ -257,17 +252,12 @@ class AdminForm extends Component {
             images: justUpdatedImages,
             selectedImages: Object.assign(
               {},
-              ...justUpdatedImages.map(item => ({
-                [item.thumb]: false
-              }))
+              ...justUpdatedImages.map(item => ({ [item.thumb]: false }))
             )
           });
         })
         .catch(err => {
-          this.setState({
-            errors: err,
-            updating: false
-          });
+          this.setState({ errors: err, updating: false });
           console.log(err);
         });
     } else {
@@ -303,10 +293,7 @@ class AdminForm extends Component {
           );
         })
         .catch(err => {
-          this.setState({
-            errors: err,
-            updating: false
-          });
+          this.setState({ errors: err, updating: false });
           console.log(err);
         });
     }
