@@ -95,6 +95,8 @@ class AdminForm extends Component {
     imageFiles: []
   };
 
+  imageInputRef = React.createRef();
+
   componentDidMount = () => {
     const { collections, itemToEdit } = this.props;
 
@@ -142,7 +144,7 @@ class AdminForm extends Component {
 
   // only when creating new item
   resetForm = () => {
-    document.getElementById('images').value = null;
+    this.imageInputRef.current.value = null;
 
     this.setState({
       name: '',
@@ -461,6 +463,7 @@ class AdminForm extends Component {
                 name="photos[]"
                 onChange={this.handleImages}
                 required={!itemToEdit}
+                ref={this.imageInputRef}
               />
             </label>
             {/* for edit view show current photos and let select for deleting */}
