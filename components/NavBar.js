@@ -97,7 +97,7 @@ class NavBar extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleMenuItemClick = (href, as) => {
+  handleMenuItemClick = (href, as) => () => {
     this.closeMenu();
     Router.push(href, as);
   };
@@ -178,18 +178,16 @@ class NavBar extends React.Component {
                   open={Boolean(anchorEl)}
                   onClose={this.closeMenu}
                 >
-                  <MenuItem onClick={() => this.handleMenuItemClick('/works')}>
+                  <MenuItem onClick={this.handleMenuItemClick('/works')}>
                     SHOW ALL
                   </MenuItem>
                   {collections.map(collection => (
                     <MenuItem
                       key={collection}
-                      onClick={() =>
-                        this.handleMenuItemClick(
-                          `/works?collection=${collection}`,
-                          `/works/${collection}`
-                        )
-                      }
+                      onClick={this.handleMenuItemClick(
+                        `/works?collection=${collection}`,
+                        `/works/${collection}`
+                      )}
                     >
                       {collection.toUpperCase()}
                     </MenuItem>
