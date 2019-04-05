@@ -1,6 +1,6 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import { Typography } from '@material-ui/core';
 
 import Layout from '../components/Layout';
 import Form from '../components/ContactForm';

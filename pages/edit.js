@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Button from '@material-ui/core/Button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
 
 import { deauthenticate } from '../store/actions/index';
 import SignIn from '../components/Admin/SignIn';

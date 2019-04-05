@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import withWidth from '@material-ui/core/withWidth';
 import { buildUrl } from 'instafeed-lite';
 import axios from 'axios';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import { Typography, withWidth } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import InstagramGallery from '../components/Gallery/InstagramGallery';
 import Layout from '../components/Layout';

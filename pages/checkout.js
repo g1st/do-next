@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import withWidth from '@material-ui/core/withWidth';
 import { Elements, injectStripe, StripeProvider } from 'react-stripe-elements';
+import { Typography, withWidth } from '@material-ui/core';
 
 import StripeForm from '../containers/Stripe/Form';
 import Layout from '../components/Layout';
