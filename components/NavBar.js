@@ -85,33 +85,25 @@ class NavBar extends React.Component {
     };
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-    if (value === '/') {
-      Router.push('/');
-    }
-    // if (value == '/works') {
-    //   Router.push('/works');
-    // }
-    if (value === '/about') {
-      Router.push('/about');
-    }
-    if (value === '/contact') {
-      Router.push('/contact');
+  handleNavBarChange = (event, value) => {
+    // on works click we just opening menu, not redirecting
+    if (value !== '/works') {
+      this.setState({ value });
+      Router.push(value);
     }
   };
 
-  handleClick = event => {
+  openMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = (e, href, as) => {
-    // just actually closing panel
-    if (href !== 'backdropClick') {
-      Router.push(href, as);
-    }
+  handleMenuItemClick = (href, as) => {
+    this.closeMenu();
+    Router.push(href, as);
+  };
 
-    this.setState({ anchorEl: null, value: false });
+  closeMenu = () => {
+    this.setState({ anchorEl: null });
   };
 
   render() {
@@ -120,7 +112,7 @@ class NavBar extends React.Component {
     const navigation = (
       <Tabs
         value={value}
-        onChange={this.handleChange}
+        onChange={this.handleNavBarChange}
         indicatorColor="secondary"
         textColor="secondary"
         centered
@@ -142,7 +134,7 @@ class NavBar extends React.Component {
           value="/works"
           aria-owns={anchorEl ? pathname : null}
           aria-haspopup="true"
-          onClick={this.handleClick}
+          onClick={this.openMenu}
         />
         <Tab label="About" value="/about" to="/about" />
         <Tab label="Contact" value="/contact" to="/contact" />
@@ -184,17 +176,16 @@ class NavBar extends React.Component {
                   id="simple-menu"
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
-                  onClose={e => this.handleClose(e, 'backdropClick')}
+                  onClose={this.closeMenu}
                 >
-                  <MenuItem onClick={e => this.handleClose(e, '/works')}>
+                  <MenuItem onClick={() => this.handleMenuItemClick('/works')}>
                     SHOW ALL
                   </MenuItem>
                   {collections.map(collection => (
                     <MenuItem
                       key={collection}
-                      onClick={e =>
-                        this.handleClose(
-                          e,
+                      onClick={() =>
+                        this.handleMenuItemClick(
                           `/works?collection=${collection}`,
                           `/works/${collection}`
                         )
