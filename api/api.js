@@ -96,7 +96,8 @@ module.exports = (db, upload) => {
         category,
         available,
         imageCount,
-        imagesToRemove
+        imagesToRemove,
+        frontImage
       } = req.body;
 
       const { files } = req;
@@ -110,7 +111,8 @@ module.exports = (db, upload) => {
         category,
         available,
         slug: slugify(name),
-        group: collection
+        group: collection,
+        frontImage
       };
 
       let imagesToRemoveOnError;

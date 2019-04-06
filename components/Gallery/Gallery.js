@@ -38,7 +38,11 @@ const Gallery = props => {
               id={item._id.toString()}
               price={item.price}
               name={item.name}
-              img={`/static/uploads/${item.images[0].medium}`}
+              img={
+                item.frontImage
+                  ? `/static/uploads/${item.frontImage}`
+                  : `/static/uploads/${item.images[0].medium}`
+              }
             />
           </Grid>
         ))}
