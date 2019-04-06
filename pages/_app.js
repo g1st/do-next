@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import withReduxStore from '../lib/with-redux-store';
 import getPageContext from '../src/getPageContext';
 import { authUrl } from '../config';
+import { saveCart } from '../util/helpers';
 
 import '../styles/emptyFileToFixNextjsBug.css';
 
@@ -24,6 +25,10 @@ class MyApp extends App {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
+
+    ctx.reduxStore.subscribe(() => {
+      saveCart({ cart: ctx.reduxStore.getState().cart });
+    });
 
     const { token } = ctx.reduxStore.getState().authenticate;
 
