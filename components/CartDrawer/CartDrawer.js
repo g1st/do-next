@@ -59,12 +59,7 @@ class CartDrawer extends Component {
             Your Cart
           </Typography>
         ) : null}
-        <div
-          className={classes.list}
-          tabIndex={0}
-          role="button"
-          onKeyDown={toggleDrawer('drawerCart', false)}
-        >
+        <div className={classes.list} role="button">
           {sideCart}
           {uniqueCartItems > 0 ? (
             <div style={{ width: 280 }}>
