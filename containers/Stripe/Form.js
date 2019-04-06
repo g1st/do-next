@@ -171,12 +171,10 @@ class StripeForm extends Component {
             };
           } else {
             console.log('is cart pirko');
-            const count = cart.length;
             const selectedItems = cart;
             const totalItems = cartHelper.totalItems(cart);
             const totalPrice = cartHelper.totalPrice(cart);
             purchaseDetails = {
-              count,
               selectedItems,
               totalItems,
               totalPrice,
