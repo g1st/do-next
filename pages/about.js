@@ -20,6 +20,7 @@ import {
   Data,
   ImageGalleryWrapper
 } from '../styles/About';
+import { onImageError } from '../util/helpers';
 
 const options = {
   accessToken: '1759380932.1677ed0.eb657c77753b4871aee13b962fe9b3b9',
@@ -48,14 +49,12 @@ const styles = theme => ({
 
 class About extends React.Component {
   _renderItem = item => {
-    const { onImageError: imageError, onImageLoad, width } = this.props;
-
-    const onImageError = imageError || this._handleImageError;
+    const { width } = this.props;
 
     return (
       <div className="image-gallery-image">
         {item.imageSet ? (
-          <picture onLoad={onImageLoad} onError={onImageError}>
+          <picture onError={onImageError}>
             {item.imageSet.map((source, index) => (
               <source
                 key={index}
@@ -73,7 +72,6 @@ class About extends React.Component {
             srcSet={item.srcSet}
             sizes={item.sizes}
             title={item.originalTitle}
-            onLoad={onImageLoad}
             onError={onImageError}
           />
         )}
@@ -571,9 +569,7 @@ About.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
   width: PropTypes.string,
-  instagram: PropTypes.object,
-  onImageError: PropTypes.func,
-  onImageLoad: PropTypes.func
+  instagram: PropTypes.object
 };
 
 About.getInitialProps = async ({ pathname }) => {
