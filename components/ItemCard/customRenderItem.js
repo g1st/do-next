@@ -1,22 +1,18 @@
-import styled from 'styled-components';
 import { onImageError } from '../../util/helpers';
+import { createGlobalStyle } from 'styled-components';
 
-const ImageContainer = styled.div`
-  width: 100%;
-  padding-bottom: 100%;
-  position: relative;
-
-  > img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
+const GlobalStyle = createGlobalStyle`
+  @media screen and (max-width: 1000px) {
+    .image-gallery-content.fullscreen.thumbnails-horizontal .image-gallery-slide img {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;
 
 const renderItem = item => (
   <div className="image-gallery-image">
+    <GlobalStyle />
     {item.imageSet ? (
       <picture onError={onImageError}>
         {item.imageSet.map((source, index) => (
@@ -27,27 +23,23 @@ const renderItem = item => (
             type={source.type}
           />
         ))}
-        <ImageContainer>
-          <img alt={item.originalAlt} src={item.original} />
-        </ImageContainer>
+        <img alt={item.originalAlt} src={item.original} />
       </picture>
     ) : (
-      <ImageContainer>
-        <img
-          src={item.original}
-          alt={item.originalAlt}
-          srcSet={item.srcSet}
-          sizes={item.sizes}
-          title={item.originalTitle}
-          onError={onImageError}
-        />
-      </ImageContainer>
+      <img
+        src={item.original}
+        alt={item.originalAlt}
+        srcSet={item.srcSet}
+        sizes={item.sizes}
+        title={item.originalTitle}
+        onError={onImageError}
+      />
     )}
-
     {item.description && (
       <span className="image-gallery-description">{item.description}</span>
     )}
   </div>
 );
+
 
 export default renderItem;

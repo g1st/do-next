@@ -27,8 +27,14 @@ const styles = {
 
 const CartDrawerContent = props => {
   const buttonClickHandler = () => {
-    Router.push('/works');
+    Router.push('/works').then(() => window.scrollTo(0, 0));
     props.closeDrawer();
+  };
+
+  const keyDownHandler = ({ key }) => {
+    if (key === 'Enter') {
+      buttonClickHandler();
+    }
   };
 
   const { classes } = props;
@@ -44,6 +50,7 @@ const CartDrawerContent = props => {
         variant="contained"
         color="secondary"
         onClick={() => buttonClickHandler()}
+        onKeyDown={e => keyDownHandler(e)}
       >
         SHOP
       </Button>
