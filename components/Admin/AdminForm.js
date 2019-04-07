@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core';
-import withWidth from '@material-ui/core/withWidth';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormGroup from '@material-ui/core/FormGroup';
-import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
+import {
+  TextField,
+  withWidth,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Checkbox,
+  FormGroup,
+  Button,
+  InputLabel,
+  Select,
+  Typography
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import DangerZone from './DangerZone';
 import Error from '../Error/Error';

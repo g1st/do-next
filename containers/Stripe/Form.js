@@ -1,24 +1,26 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import axios from 'axios';
-import withStyles from '@material-ui/core/styles/withStyles';
-import withWidth from '@material-ui/core/withWidth';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
 import {
   CardExpiryElement,
   CardCVCElement,
   PostalCodeElement,
   CardNumberElement
 } from 'react-stripe-elements';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
+import {
+  withWidth,
+  Typography,
+  TextField,
+  Paper,
+  Button,
+  FormControl,
+  Select,
+  InputLabel,
+  Grid
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import StripeElementWrapper from './StripeElementWrapper';
 import { clearCart, clearBuyItNow } from '../../store/actions';

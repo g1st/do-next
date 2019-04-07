@@ -27,7 +27,7 @@ const seedDB = () => {
   const multiplier = parseInt(argument || 1);
 
   let worksData = [];
-  for (let i = 0; i < multiplier; i++) {
+  for (let i = 0; i < multiplier; i += 1) {
     worksData = worksData.concat(data);
   }
 

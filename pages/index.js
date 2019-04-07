@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { Button } from '@material-ui/core';
 
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';

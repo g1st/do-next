@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import Router from 'next/router';
+import { Button, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import CartItem from './CartItem';
 import { cartHelper } from '../../util/helpers';

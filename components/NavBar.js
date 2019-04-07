@@ -1,23 +1,24 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import MenuIcon from '@material-ui/icons/Menu';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import withWidth from '@material-ui/core/withWidth';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Badge from '@material-ui/core/Badge';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import ExpandLess from '@material-ui/icons/ExpandLess';
 import Router, { withRouter } from 'next/router';
 import { connect } from 'react-redux';
+import {
+  withWidth,
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Tabs,
+  Tab,
+  Menu,
+  MenuItem,
+  Badge
+} from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import { ExpandMore, ExpandLess } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
 
 import NavDrawer from './NavDrawer/NavDrawer';
 import CartDrawer from './CartDrawer/CartDrawer';

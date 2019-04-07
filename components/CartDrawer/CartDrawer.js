@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/SwipeableDrawer';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import Router from 'next/router';
-import Typography from '@material-ui/core/Typography';
+import { Button, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/SwipeableDrawer';
 
 import { clearBuyItNow } from '../../store/actions';
 import { DrawerContext } from '../DrawerContext';

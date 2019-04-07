@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router, { withRouter } from 'next/router';
-import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import Typography from '@material-ui/core/Typography';
-import ImageGallery from 'react-image-gallery';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import 'react-image-gallery/styles/css/image-gallery.css';
 import Link from 'next/link';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
+import { Typography, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
 import customItem from '../components/ItemCard/customRenderItem';
 import customThumb from '../components/ItemCard/customRenderThumb';
-
 import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
 import { Wrapper, Images, Info } from '../styles/Piece';
