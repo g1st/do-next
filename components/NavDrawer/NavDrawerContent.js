@@ -20,8 +20,21 @@ class NavDrawerContent extends React.Component {
 
   handleClick = (href, as) => {
     const { closingDrawer } = this.props;
-    Router.push(href, as);
+    Router.push(href, as).then(() => window.scrollTo(0, 0));
     closingDrawer();
+  };
+
+  handleKeyDown = ({ key }, collection, href) => {
+    if (key === 'Enter' || key === ' ') {
+      if (collection) {
+        this.handleClick(
+          `/works?collection=${collection}`,
+          `/works/${collection}`
+        );
+      } else {
+        this.handleClick(href);
+      }
+    }
   };
 
   render() {
@@ -29,7 +42,7 @@ class NavDrawerContent extends React.Component {
     const { collections } = this.props;
     return (
       <List>
-        <ListItem button>
+        <ListItem button onKeyDown={e => this.handleKeyDown(e, null, '/')}>
           <Link href="/">
             <ListItemText primary="Home" />
           </Link>
@@ -40,8 +53,26 @@ class NavDrawerContent extends React.Component {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div">
+            <ListItem
+              button
+              key="works"
+              onKeyDown={e => this.handleKeyDown(e, null, '/works')}
+            >
+              <ListItemText
+                inset
+                primary="SHOW ALL"
+                style={{ paddingLeft: '16px' }}
+                onClick={() =>
+                  this.handleClick(`/works?collection=works`, `/works/works`)
+                }
+              />
+            </ListItem>
             {collections.map(collection => (
-              <ListItem button key={collection}>
+              <ListItem
+                button
+                key={collection}
+                onKeyDown={e => this.handleKeyDown(e, collection)}
+              >
                 <ListItemText
                   inset
                   primary={collection.toUpperCase()}
@@ -57,12 +88,20 @@ class NavDrawerContent extends React.Component {
             ))}
           </List>
         </Collapse>
-        <ListItem button to="/about">
+        <ListItem
+          button
+          to="/about"
+          onKeyDown={e => this.handleKeyDown(e, null, '/about')}
+        >
           <Link href="/about">
             <ListItemText primary="About" />
           </Link>
         </ListItem>
-        <ListItem button to="/contact">
+        <ListItem
+          button
+          to="/contact"
+          onKeyDown={e => this.handleKeyDown(e, null, '/contact')}
+        >
           <Link href="/contact">
             <ListItemText primary="Contact" />
           </Link>

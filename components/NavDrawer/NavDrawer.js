@@ -34,12 +34,7 @@ class NavDrawer extends Component {
           onClose={toggleDrawer('drawerNav', false)}
           onOpen={toggleDrawer('drawerNav', true)}
         >
-          <div
-            className={classes.list}
-            tabIndex={0}
-            role="button"
-            onKeyDown={toggleDrawer('drawerNav', false)}
-          >
+          <div className={classes.list} tabIndex={-1} role="button">
             {sideNavList}
           </div>
         </Drawer>

@@ -73,7 +73,14 @@ const styles = theme => ({
     flexDirection: 'row',
     flexWrap: 'wrap',
     margin: theme.spacing.unit
-  }
+  },
+  checkbox: {
+    color: theme.palette.error.main,
+    '&$checked': {
+      color: theme.palette.error.main
+    }
+  },
+  checked: {}
 });
 
 class AdminForm extends Component {
@@ -94,6 +101,8 @@ class AdminForm extends Component {
     deletedCollection: null,
     imageFiles: []
   };
+
+  imageInputRef = React.createRef();
 
   componentDidMount = () => {
     const { collections, itemToEdit } = this.props;
@@ -123,7 +132,7 @@ class AdminForm extends Component {
   };
 
   handleChange = (name, event, thumb) => {
-    const { checked } = event.target;
+    const { checked, value } = event.target;
     if (name === 'available') return this.setState({ [name]: checked });
     if (name === 'selectedImages')
       return this.setState(({ selectedImages }) => ({
@@ -132,6 +141,7 @@ class AdminForm extends Component {
           [thumb]: checked
         }
       }));
+    if (name === 'frontImage') return this.setState({ frontImage: value });
 
     this.setState({ [name]: event.target.value });
   };
@@ -142,7 +152,8 @@ class AdminForm extends Component {
 
   // only when creating new item
   resetForm = () => {
-    const { collections } = this.props;
+    this.imageInputRef.current.value = null;
+
     this.setState({
       name: '',
       description: '',
@@ -152,7 +163,7 @@ class AdminForm extends Component {
       category: 'ring',
       materials: '',
       collection: '',
-      existingCollection: collections[0] || '',
+      existingCollection: '',
       available: 'available'
     });
   };
@@ -174,7 +185,8 @@ class AdminForm extends Component {
       selectedImages,
       imageFiles,
       collection,
-      existingCollection
+      existingCollection,
+      frontImage
     } = this.state;
 
     const imagesToRemove = [];
@@ -188,7 +200,9 @@ class AdminForm extends Component {
       });
     }
 
-    const currentCollection = collection || existingCollection;
+    // 'various' is default collection when collection is not specified
+    // or specified for 'various' explicitly
+    const currentCollection = collection || existingCollection || 'various';
 
     const formData = new FormData();
 
@@ -203,6 +217,7 @@ class AdminForm extends Component {
     formData.append('available', available);
     formData.append('imagesToRemove', imagesToRemove);
     formData.append('imageCount', images.length);
+    formData.append('frontImage', frontImage);
 
     for (const photo of imageFiles) {
       formData.append('photos[]', photo);
@@ -312,7 +327,8 @@ class AdminForm extends Component {
       selectedItems,
       size,
       updating,
-      work
+      work,
+      frontImage
     } = this.state;
 
     let workInfo = null;
@@ -424,6 +440,7 @@ class AdminForm extends Component {
                 value={existingCollection}
                 onChange={e => this.handleChange('existingCollection', e)}
               >
+                <option value="default" key="empty" />
                 {collections.map((c, i) => (
                   <option value={c} key={i}>
                     {c}
@@ -457,13 +474,14 @@ class AdminForm extends Component {
                 name="photos[]"
                 onChange={this.handleImages}
                 required={!itemToEdit}
+                ref={this.imageInputRef}
               />
             </label>
             {/* for edit view show current photos and let select for deleting */}
             {selectedImages ? (
               <div>
                 <Typography variant="body2">
-                  Or select images below which you would like to remove
+                  Select images below which you would like to remove
                 </Typography>
                 <FormGroup className={classes.imagesToEdit}>
                   {Object.keys(selectedImages).map(item => (
@@ -476,7 +494,10 @@ class AdminForm extends Component {
                             this.handleChange('selectedImages', e, item)
                           }
                           value={selectedImages && `${selectedImages[item]}`}
-                          color="secondary"
+                          classes={{
+                            root: classes.checkbox,
+                            checked: classes.checked
+                          }}
                         />
                       }
                       label={
@@ -489,6 +510,35 @@ class AdminForm extends Component {
                     />
                   ))}
                 </FormGroup>
+              </div>
+            ) : null}
+            {selectedImages ? (
+              <div>
+                <Typography variant="body2">Select your front image</Typography>
+                <RadioGroup
+                  className={classes.formGroup}
+                  aria-label="frontImage"
+                  name="frontImage"
+                  value={frontImage}
+                >
+                  {itemToEdit.images.map(image => (
+                    <FormControlLabel
+                      key={image.medium}
+                      value={image.medium}
+                      control={<Radio color="secondary" />}
+                      labelPlacement="end"
+                      checked={image.medium === frontImage}
+                      onChange={e => this.handleChange('frontImage', e)}
+                      label={
+                        <img
+                          alt=""
+                          className={classes.singleImage}
+                          src={`/static/uploads/${image.thumb}`}
+                        />
+                      }
+                    />
+                  ))}
+                </RadioGroup>
               </div>
             ) : null}
             {errors && errors.images ? <Error>{errors.images}</Error> : null}

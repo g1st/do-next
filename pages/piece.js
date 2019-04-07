@@ -37,7 +37,7 @@ class Piece extends React.Component {
     const { buyItNow: buyItNowRedux } = this.props;
 
     buyItNowRedux(item);
-    Router.push('/checkout');
+    Router.push('/checkout').then(() => window.scrollTo(0, 0));
   };
 
   render() {

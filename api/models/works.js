@@ -24,6 +24,7 @@ const worksSchema = new mongoose.Schema(
         message: 'Piece has to have at least one image'
       }
     },
+    frontImage: { type: String },
     group: {
       type: String,
       required: 'Collection name is required',
