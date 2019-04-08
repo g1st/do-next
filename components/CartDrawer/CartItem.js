@@ -34,7 +34,6 @@ const CartItem = ({
 
   const handleKeyDown = (href, as) => ({ key }) => {
     if (key === 'Enter') {
-      closeDrawer;
       Router.push(href, as);
     }
   };
