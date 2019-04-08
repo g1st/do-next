@@ -30,7 +30,7 @@ const cart = (state = initialState.cart, action) => {
     // check if item is already in the cart
     if (state.some(item => item._id === action.item._id)) return state;
 
-    return [...state, action.item];
+    return [...state, { ...action.item, images: [...action.item.images] }];
   }
   if (action.type === REMOVE_FROM_CART) {
     return state.filter(item => item._id !== action.id);
