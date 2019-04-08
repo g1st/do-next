@@ -26,10 +26,6 @@ class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx);
     }
 
-    ctx.reduxStore.subscribe(() => {
-      saveCart({ cart: ctx.reduxStore.getState().cart });
-    });
-
     const { token } = ctx.reduxStore.getState().authenticate;
 
     if (token) {
@@ -109,6 +105,12 @@ class MyApp extends App {
   pageContext = null;
 
   componentDidMount() {
+    const { reduxStore } = this.props;
+
+    reduxStore.subscribe(() => {
+      saveCart(reduxStore.getState().cart);
+    });
+
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {

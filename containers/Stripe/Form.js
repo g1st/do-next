@@ -70,8 +70,13 @@ class StripeForm extends Component {
     CVC_number: { complete: false, error: null, empty: true },
     zip_code: { complete: false, error: null, empty: true },
     stripe_errors: false,
-    backend_validation_errors: []
+    backend_validation_errors: [],
+    isClient: false
   };
+
+  componentDidMount() {
+    this.setState({ isClient: true });
+  }
 
   handleChange = name => event => {
     this.setState({
@@ -255,7 +260,8 @@ class StripeForm extends Component {
       orderComplete,
       stripe_errors,
       zip_code,
-      backend_validation_errors
+      backend_validation_errors,
+      isClient
     } = this.state;
 
     const { classes, stripe, width, cart } = this.props;
@@ -790,7 +796,7 @@ class StripeForm extends Component {
     const { buyItNowItem } = this.props;
     const buyItNow = Object.prototype.hasOwnProperty.call(buyItNowItem, 'name');
 
-    const checkoutPossible = buyItNow || cart.length > 0;
+    const checkoutPossible = buyItNow || (isClient && cart.length > 0);
     if (checkoutPossible) {
       return (
         <Wrapper>
