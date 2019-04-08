@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Layout from '../components/Layout';
+import { Typography } from '@material-ui/core';
 
+import Layout from '../components/Layout';
 import { Wrapper, Image, Figure, Caption, Text } from '../styles/CareGuide';
 
 const style = {

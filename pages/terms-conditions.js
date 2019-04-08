@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+import { Typography } from '@material-ui/core';
 
 import Layout from '../components/Layout';
 import { Wrapper, Image, Text, Figure } from '../styles/TermsAndConditions';

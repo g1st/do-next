@@ -1,26 +1,17 @@
-const renderThumb = item => {
-  const defaultImage = '/static/images/logo.png';
+import { onImageError } from '../../util/helpers';
 
-  const onThumbnailError = event => {
-    if (event.target.src.indexOf(defaultImage) === -1) {
-      event.target.src = defaultImage;
-    }
-  };
-  return (
-    <div className="image-gallery-thumbnail-inner">
+const renderThumb = item => (
+  <div className="image-gallery-thumbnail-inner">
       <img
         src={item.thumbnail}
         alt={item.thumbnailAlt}
         title={item.thumbnailTitle}
-        onError={e => onThumbnailError(e)}
+        onError={onImageError}
       />
-      {item.thumbnailLabel && (
-        <div className="image-gallery-thumbnail-label">
-          {item.thumbnailLabel}
-        </div>
-      )}
-    </div>
-  );
-};
+    {item.thumbnailLabel && (
+      <div className="image-gallery-thumbnail-label">{item.thumbnailLabel}</div>
+    )}
+  </div>
+);
 
 export default renderThumb;

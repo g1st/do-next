@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
 
 import { deauthenticate } from '../store/actions/index';
 import AdminForm from '../components/Admin/AdminForm';

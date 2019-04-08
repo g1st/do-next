@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import { FormControl, Input, InputLabel } from '@material-ui/core';
 
 import StripeInput from './StripeInput';
 import Error from '../../components/Error/Error';
