@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import withReduxStore from '../lib/with-redux-store';
 import getPageContext from '../src/getPageContext';
 import { authUrl } from '../config';
+import { saveCart } from '../util/helpers';
 
 import '../styles/emptyFileToFixNextjsBug.css';
 
@@ -104,6 +105,12 @@ class MyApp extends App {
   pageContext = null;
 
   componentDidMount() {
+    const { reduxStore } = this.props;
+
+    reduxStore.subscribe(() => {
+      saveCart(reduxStore.getState().cart);
+    });
+
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {

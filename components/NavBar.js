@@ -82,8 +82,13 @@ class NavBar extends React.Component {
       anchorEl: null,
       drawerNav: false,
       drawerCart: false,
-      toggleDrawer: this.toggleDrawer
+      toggleDrawer: this.toggleDrawer,
+      isClient: false
     };
+  }
+
+  componentDidMount() {
+    this.setState({ isClient: true });
   }
 
   handleNavBarChange = (event, value) => {
@@ -108,7 +113,22 @@ class NavBar extends React.Component {
 
   render() {
     const { classes, collections, pathname, uniqueCartItems } = this.props;
-    const { value, anchorEl } = this.state;
+    const { value, anchorEl, isClient } = this.state;
+
+    let shoppingBasket = <ShoppingBasketIcon />;
+    if (isClient && uniqueCartItems) {
+      shoppingBasket = (
+        <Badge
+          badgeContent={uniqueCartItems}
+          classes={{
+            badge: classes.badge
+          }}
+        >
+          <ShoppingBasketIcon />
+        </Badge>
+      );
+    }
+
     const navigation = (
       <Tabs
         value={value}
@@ -199,18 +219,7 @@ class NavBar extends React.Component {
                   aria-label="Shopping Basket"
                   onClick={this.toggleDrawer('drawerCart', true)}
                 >
-                  {uniqueCartItems ? (
-                    <Badge
-                      badgeContent={uniqueCartItems}
-                      classes={{
-                        badge: classes.badge
-                      }}
-                    >
-                      <ShoppingBasketIcon />
-                    </Badge>
-                  ) : (
-                    <ShoppingBasketIcon />
-                  )}
+                  {shoppingBasket}
                 </IconButton>
               </Toolbar>
             </AppBar>

@@ -15,6 +15,29 @@ export const cartHelper = {
   }
 };
 
+export const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem('cart');
+
+    if (serializedState === null) {
+      return undefined;
+    }
+
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+};
+
+export const saveCart = state => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('cart', serializedState);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const onImageError = event => {
   const defaultImage = '/static/images/logo.png';
 
