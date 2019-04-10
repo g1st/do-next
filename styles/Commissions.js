@@ -42,14 +42,3 @@ export const Image = styled.img`
   border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 Image.displayName = 'Image';
-
-export const Mail = styled.a`
-  text-decoration: none;
-  color: rgba(0, 0, 0);
-  font-weight: 500;
-
-  :hover {
-    text-decoration: underline;
-  }
-`;
-Mail.displayName = 'Mail';
