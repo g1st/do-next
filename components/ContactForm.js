@@ -66,7 +66,9 @@ class ContactForm extends Component {
         subject
       })
       .then(res => {
-        console.log('hillowwwwwww');
+        if (onEmailSend) {
+          onEmailSend(true);
+        }
 
         console.log(res);
 
