@@ -1,14 +1,5 @@
 import { onImageError } from '../../util/helpers';
-import { createGlobalStyle } from 'styled-components';
-
-const GlobalStyle = createGlobalStyle`
-  @media screen and (max-width: 1000px) {
-    .image-gallery-content.fullscreen.thumbnails-horizontal .image-gallery-slide img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-`;
+import { GlobalStyle } from '../../styles/react-image-gallery';
 
 const renderItem = item => (
   <div className="image-gallery-image">
@@ -40,6 +31,5 @@ const renderItem = item => (
     )}
   </div>
 );
-
 
 export default renderItem;

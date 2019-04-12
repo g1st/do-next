@@ -243,11 +243,14 @@ class StripeForm extends Component {
 
   isNotValid = element => {
     const { backend_validation_errors } = this.state;
-    const output = backend_validation_errors
-      ? backend_validation_errors
-          .filter(error => error.param === element)
-          .map(error => error.msg)
-      : null;
+
+    let output = null;
+
+    if (backend_validation_errors.some(error => error.param === element)) {
+      output = backend_validation_errors
+        .filter(error => error.param === element)
+        .map(error => error.msg);
+    }
     return output;
   };
 
@@ -309,7 +312,7 @@ class StripeForm extends Component {
           <FormWrapper>
             <form onSubmit={e => this.handleSubmit(e)}>
               {/* invalid quantity, price or similar errors from backend */}
-              {backend_validation_errors
+              {backend_validation_errors.length > 0
                 ? backend_validation_errors
                     .filter(error => error.param === '_error')
                     .map((error, i) => <Error key={i}>{error.msg}</Error>)
@@ -388,6 +391,7 @@ class StripeForm extends Component {
                       err => err.param === 'additional.address1'
                     )}
                     helperText={this.isNotValid('additional.address1')}
+                    // helperText={null}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -396,14 +400,15 @@ class StripeForm extends Component {
                     label="Apartment, suite, etc. (optional)"
                     type="text"
                     onChange={this.handleChange('address2')}
-                    margin="normal"
+                    margin="dense"
                     fullWidth
                   />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <FormControl
-                    style={{ margin: '16px 0 8px 0' }}
+                    margin="dense"
+                    style={{ display: 'flex' }}
                     error={backend_validation_errors.some(
                       err => err.param === 'additional.country'
                     )}
@@ -696,13 +701,13 @@ class StripeForm extends Component {
                     )}
                   </FormControl>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     id="city"
                     label="City"
                     type="text"
                     onChange={this.handleChange('city')}
-                    margin="normal"
+                    margin="dense"
                     fullWidth
                     required
                     InputLabelProps={{ required: false }}
@@ -713,7 +718,7 @@ class StripeForm extends Component {
                   />
                 </Grid>
 
-                <Grid item xs={7} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <StripeElementWrapper
                     label="Card Number"
                     placeholder="1234 1234 1234 1234"
@@ -723,7 +728,7 @@ class StripeForm extends Component {
                     error={cardNumberError}
                   />
                 </Grid>
-                <Grid item xs={5} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <StripeElementWrapper
                     label="Expiry (MM / YY)"
                     component={CardExpiryElement}
@@ -756,7 +761,7 @@ class StripeForm extends Component {
                     id="additional_info"
                     InputLabelProps={{ required: false }}
                     label="Additional information (optional)"
-                    margin="normal"
+                    margin="dense"
                     multiline
                     onChange={this.handleChange('additional_info')}
                     placeholder="Anything else you would like to add"
@@ -803,7 +808,7 @@ class StripeForm extends Component {
       return (
         <Wrapper>
           <Cart>
-            <CartDrawerContent buyItNow={buyItNow} />
+            <CartDrawerContent inForm buyItNow={buyItNow} />
           </Cart>
           <ShippmentForm>{purchase}</ShippmentForm>
         </Wrapper>
