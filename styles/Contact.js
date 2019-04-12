@@ -20,6 +20,7 @@ export const Text = styled.div`
 Text.displayName = 'Text';
 
 export const ImageWrapper = styled.div`
+  margin-bottom: 20px;
   @media (min-width: 800px) {
     margin-top: 20px;
   }

@@ -4,13 +4,7 @@ import { Typography } from '@material-ui/core';
 
 import Layout from '../components/Layout';
 import Form from '../components/ContactForm';
-import {
-  Wrapper,
-  ContactAbout,
-  Text,
-  ImageWrapper,
-  Image
-} from '../styles/Contact';
+import { Wrapper, ContactAbout, Text } from '../styles/Contact';
 
 class Contact extends React.Component {
   state = {
@@ -29,12 +23,14 @@ class Contact extends React.Component {
       <Layout pathname={pathname} collections={collections}>
         <Wrapper>
           <ContactAbout>
-            <ImageWrapper>
-              <Image src="../static/images/message.svg" alt="Send a message" />
-            </ImageWrapper>
             {emailSent ? null : (
               <Text>
-                <Typography align="left" paragraph color="secondary">
+                <Typography
+                  align="left"
+                  paragraph
+                  color="secondary"
+                  variant="body1"
+                >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
                   qui possimus necessitatibus voluptates cumque dolore unde. Sit
                   aliquid accusamus quaerat, recusandae earum neque ex saepe

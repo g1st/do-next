@@ -7,7 +7,7 @@ import Error from '../../components/Error/Error';
 
 const StripeElementWrapper = ({ component, onChange, label, name, error }) => (
   <div>
-    <FormControl fullWidth margin="normal" error={!!error}>
+    <FormControl fullWidth margin="dense" error={!!error}>
       <InputLabel shrink error={!!error}>
         {label}
       </InputLabel>
@@ -18,7 +18,7 @@ const StripeElementWrapper = ({ component, onChange, label, name, error }) => (
         inputProps={{ component }}
         name={name}
       />
-      <Error>{error}</Error>
+      {error && <Error>{error}</Error>}
     </FormControl>
   </div>
 );
