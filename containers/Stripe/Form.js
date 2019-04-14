@@ -89,8 +89,6 @@ class StripeForm extends Component {
       additional_info
     } = this.state;
 
-    const { cart, buyItNowItem } = this.props;
-
     if (
       first_name !== nextState.first_name ||
       last_name !== nextState.last_name ||
