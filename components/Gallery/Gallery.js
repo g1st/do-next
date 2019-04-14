@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, withWidth } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import ItemCard from '../ItemCard/ItemCard';
@@ -57,4 +57,4 @@ Gallery.propTypes = {
   classes: PropTypes.object
 };
 
-export default withWidth()(withStyles(styles)(Gallery));
+export default withStyles(styles)(Gallery);

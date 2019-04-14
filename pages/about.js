@@ -4,7 +4,7 @@ import { buildUrl } from 'instafeed-lite';
 import axios from 'axios';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
-import { Typography, withWidth } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import InstagramGallery from '../components/Gallery/InstagramGallery';
@@ -43,12 +43,23 @@ const styles = theme => ({
   },
   tbody: {
     verticalAlign: 'top'
+  },
+  h3: {
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '48px',
+      fontWeight: '400'
+    }
+  },
+  subtitle1: {
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '16px'
+    }
   }
 });
 
 class About extends React.Component {
   _renderItem = item => {
-    const { width } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className="image-gallery-image">
@@ -80,25 +91,24 @@ class About extends React.Component {
             className="image-gallery-description"
             style={{ right: '0', left: 'initial' }}
           >
-            {width === 'xs' ? (
-              <div>
-                <Typography variant="h6" color="primary" align="right">
-                  {item.description.split('|')[0]}
-                </Typography>
-                <Typography variant="body2" color="primary" align="right">
-                  {item.description.split('|')[1]}
-                </Typography>
-              </div>
-            ) : (
-              <div>
-                <Typography variant="h3" color="primary" align="right">
-                  {item.description.split('|')[0]}
-                </Typography>
-                <Typography variant="subtitle1" color="primary" align="right">
-                  {item.description.split('|')[1]}
-                </Typography>
-              </div>
-            )}
+            <div>
+              <Typography
+                className={classes.h3}
+                variant="h6"
+                color="primary"
+                align="right"
+              >
+                {item.description.split('|')[0]}
+              </Typography>
+              <Typography
+                className={classes.subtitle1}
+                variant="body2"
+                color="primary"
+                align="right"
+              >
+                {item.description.split('|')[1]}
+              </Typography>
+            </div>
           </div>
         )}
       </div>
@@ -567,7 +577,6 @@ About.propTypes = {
   classes: PropTypes.object.isRequired,
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
-  width: PropTypes.string,
   instagram: PropTypes.object
 };
 
@@ -579,4 +588,4 @@ About.getInitialProps = async ({ pathname }) => {
   return { pathname, instagram };
 };
 
-export default withStyles(styles)(withWidth()(About));
+export default withStyles(styles)(About);

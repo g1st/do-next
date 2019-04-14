@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Router, { withRouter } from 'next/router';
 import { connect } from 'react-redux';
 import {
-  withWidth,
   AppBar,
   Toolbar,
   Typography,
@@ -12,17 +11,16 @@ import {
   Tabs,
   Tab,
   Menu,
-  MenuItem,
-  Badge
+  MenuItem
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
-import NavDrawer from './NavDrawer/NavDrawer';
-import CartDrawer from './CartDrawer/CartDrawer';
-import { DrawerContext } from './DrawerContext';
+import NavDrawer from '../NavDrawer/NavDrawer';
+import CartDrawer from '../CartDrawer/CartDrawer';
+import { DrawerContext } from '../DrawerContext';
+import ShoppingBasket from './ShoppingBasket';
 
 const styles = theme => ({
   root: {
@@ -60,10 +58,6 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       display: 'visible'
     }
-  },
-  badge: {
-    color: '#ffffff',
-    backgroundColor: '#EE7600'
   }
 });
 
@@ -75,26 +69,18 @@ class NavBar extends React.Component {
         [type]: open
       }));
     };
-    const { pathname } = this.props;
 
     this.state = {
-      value: pathname,
       anchorEl: null,
       drawerNav: false,
       drawerCart: false,
-      toggleDrawer: this.toggleDrawer,
-      isClient: false
+      toggleDrawer: this.toggleDrawer
     };
-  }
-
-  componentDidMount() {
-    this.setState({ isClient: true });
   }
 
   handleNavBarChange = (event, value) => {
     // on works click we just opening menu, not redirecting
     if (value !== '/works') {
-      this.setState({ value });
       Router.push(value);
     }
   };
@@ -107,31 +93,19 @@ class NavBar extends React.Component {
     this.closeMenu();
     Router.push(href, as);
   };
+
   closeMenu = () => {
     this.setState({ anchorEl: null });
   };
 
   render() {
     const { classes, collections, pathname, uniqueCartItems } = this.props;
-    const { value, anchorEl, isClient } = this.state;
-
-    let shoppingBasket = <ShoppingBasketIcon />;
-    if (isClient && uniqueCartItems) {
-      shoppingBasket = (
-        <Badge
-          badgeContent={uniqueCartItems}
-          classes={{
-            badge: classes.badge
-          }}
-        >
-          <ShoppingBasketIcon />
-        </Badge>
-      );
-    }
+    const { anchorEl } = this.state;
+    console.log('navbar');
 
     const navigation = (
       <Tabs
-        value={value}
+        value={pathname}
         onChange={this.handleNavBarChange}
         indicatorColor="secondary"
         textColor="secondary"
@@ -219,7 +193,7 @@ class NavBar extends React.Component {
                   aria-label="Shopping Basket"
                   onClick={this.toggleDrawer('drawerCart', true)}
                 >
-                  {shoppingBasket}
+                  <ShoppingBasket uniqueCartItems={uniqueCartItems} />
                 </IconButton>
               </Toolbar>
             </AppBar>
@@ -241,6 +215,4 @@ NavBar.propTypes = {
   uniqueCartItems: PropTypes.number
 };
 
-export default connect(mapStateToProps)(
-  withRouter(withWidth()(withStyles(styles)(NavBar)))
-);
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(NavBar)));
