@@ -270,11 +270,14 @@ class StripeForm extends Component {
 
   isNotValid = element => {
     const { backend_validation_errors } = this.state;
-    const output = backend_validation_errors
-      ? backend_validation_errors
-          .filter(error => error.param === element)
-          .map(error => error.msg)
-      : null;
+
+    let output = null;
+
+    if (backend_validation_errors.some(error => error.param === element)) {
+      output = backend_validation_errors
+        .filter(error => error.param === element)
+        .map(error => error.msg);
+    }
     return output;
   };
 
@@ -338,7 +341,7 @@ class StripeForm extends Component {
         <Paper className={classes.paper}>
           <FormWrapper>
             <form onSubmit={e => this.handleSubmit(e)}>
-              {backend_validation_errors
+              {backend_validation_errors.length > 0
                 ? backend_validation_errors
                     .filter(error => error.param === '_error')
                     .map((error, i) => <Error key={i}>{error.msg}</Error>)
@@ -396,6 +399,7 @@ class StripeForm extends Component {
                       err => err.param === 'additional.address1'
                     )}
                     helperText={this.isNotValid('additional.address1')}
+                    // helperText={null}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -427,7 +431,7 @@ class StripeForm extends Component {
                     helperText={this.isNotValid('additional.city')}
                   />
                 </Grid>
-                <Grid item xs={7} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <StripeElementWrapper
                     label="Card Number"
                     placeholder="1234 1234 1234 1234"
@@ -437,7 +441,7 @@ class StripeForm extends Component {
                     error={cardNumberError}
                   />
                 </Grid>
-                <Grid item xs={5} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <StripeElementWrapper
                     label="Expiry (MM / YY)"
                     component={CardExpiryElement}
@@ -506,7 +510,7 @@ class StripeForm extends Component {
       return (
         <Wrapper>
           <Cart>
-            <CartDrawerContent buyItNow={buyItNow} />
+            <CartDrawerContent inForm buyItNow={buyItNow} />
           </Cart>
           <ShippmentForm>{purchase}</ShippmentForm>
         </Wrapper>

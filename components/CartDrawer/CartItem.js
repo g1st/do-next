@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import Router from 'next/router';
 import { connect } from 'react-redux';
 import { Typography, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -31,6 +32,12 @@ const CartItem = ({
   const handleRemove = id =>
     buyItNow ? clearBytItNowRedux() : removeFromCartRedux(id);
 
+  const handleKeyDown = (href, as) => ({ key }) => {
+    if (key === 'Enter') {
+      Router.push(href, as);
+    }
+  };
+
   return (
     <CartItems>
       {data.map(item => (
@@ -40,7 +47,10 @@ const CartItem = ({
               style={{ textDecoration: 'none', height: '48px' }}
               target="_self"
               onClick={closeDrawer}
-              onKeyDown={closeDrawer}
+              onKeyDown={handleKeyDown(
+                `/piece?id=${item._id}`,
+                `/piece/${item._id}`
+              )}
               role="link"
               tabIndex={0}
             >

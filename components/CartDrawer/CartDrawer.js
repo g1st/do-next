@@ -31,7 +31,7 @@ class CartDrawer extends Component {
     clearBuyItNowRedux();
     Router.push('/checkout').then(() => window.scrollTo(0, 0));
     const { toggleDrawer } = this.context;
-    toggleDrawer('drawerCart', false);
+    toggleDrawer('drawerCart', false)();
   };
 
   render() {
