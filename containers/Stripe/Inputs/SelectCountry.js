@@ -13,7 +13,7 @@ const SelectCountry = ({ error, helperText, handleChange }) => {
   };
 
   return (
-    <FormControl error={error}>
+    <FormControl error={error} style={{ display: 'flex', marginTop: '5px' }}>
       <InputLabel htmlFor="country-native">Country</InputLabel>
       <Select
         native
