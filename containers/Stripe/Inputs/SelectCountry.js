@@ -280,8 +280,8 @@ const SelectCountry = ({ error, helperText, handleChange }) => {
 };
 
 SelectCountry.propTypes = {
-  error: PropTypes.bool.isRequired,
-  helperText: PropTypes.node.isRequired,
+  error: PropTypes.bool,
+  helperText: PropTypes.node,
   handleChange: PropTypes.func.isRequired
 };
 
