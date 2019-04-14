@@ -93,6 +93,7 @@ class NavBar extends React.Component {
     this.closeMenu();
     Router.push(href, as);
   };
+
   closeMenu = () => {
     this.setState({ anchorEl: null });
   };
