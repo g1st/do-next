@@ -77,7 +77,6 @@ class ContactForm extends Component {
         if (onEmailSend) {
           onEmailSend(true);
         }
-
         this.setState(() => ({
           isSendingMail: false,
           emailSent: true
