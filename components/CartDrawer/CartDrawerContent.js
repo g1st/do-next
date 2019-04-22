@@ -2,32 +2,50 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
-import { Button, Typography } from '@material-ui/core';
+import {
+  Button,
+  Typography,
+  Paper,
+  List,
+  ListItem,
+  ListItemText
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import CartItem from './CartItem';
 import { cartHelper } from '../../util/helpers';
-import {
-  Totals,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell
-} from '../../styles/CartDrawer';
 
 const styles = {
   button: {
     margin: '0 auto',
     display: 'flex',
     marginTop: '32px'
+  },
+  textRight: {
+    textAlign: 'right',
+    padding: 0
+  },
+  list: {
+    '& > li': {
+      '&:nth-child(even)': {
+        backgroundColor: 'rgba(0, 0, 0, 0.02)'
+      }
+    }
   }
 };
 
-const CartDrawerContent = props => {
+const CartDrawerContent = ({
+  classes,
+  inForm,
+  closeDrawer,
+  cart,
+  buyItNow,
+  buyItNowItem,
+  shippingCost
+}) => {
   const buttonClickHandler = () => {
     Router.push('/works').then(() => window.scrollTo(0, 0));
-    props.closeDrawer();
+    closeDrawer();
   };
 
   const keyDownHandler = ({ key }) => {
@@ -35,8 +53,6 @@ const CartDrawerContent = props => {
       buttonClickHandler();
     }
   };
-
-  const { classes } = props;
 
   let content = (
     <>
@@ -55,62 +71,45 @@ const CartDrawerContent = props => {
       </Button>
     </>
   );
-  if (props.cart.length > 0 || props.buyItNow) {
+  if (cart.length > 0 || buyItNow) {
     content = (
-      <>
+      <div>
         <CartItem
-          data={props.buyItNow ? [props.buyItNowItem] : props.cart}
-          buyItNow={props.buyItNow}
+          data={buyItNow ? [buyItNowItem] : cart}
+          buyItNow={buyItNow}
+          closeDrawer={closeDrawer}
         />
-        <Totals />
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableHead>
-                <Typography variant="body1">Items</Typography>
-              </TableHead>
-              <TableCell>
-                <Typography variant="body1">
-                  {props.buyItNow
-                    ? props.buyItNowItem.quantity
-                    : cartHelper.totalItems(props.cart)}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableHead>
-                <Typography variant="body1">Shipping</Typography>
-              </TableHead>
-              <TableCell>
-                <Typography variant="body1">
-                  {props.shippingCost !== 0
-                    ? `£${props.shippingCost.toFixed(2)}`
-                    : 'Free'}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableHead>
-                <Typography variant="body1">Total</Typography>
-              </TableHead>
-              <TableCell>
-                <Typography variant="body1">
-                  £
-                  {props.buyItNow
-                    ? cartHelper
-                        .totalPrice([props.buyItNowItem], props.shippingCost)
-                        .toFixed(2)
-                    : cartHelper
-                        .totalPrice(props.cart, props.shippingCost)
-                        .toFixed(2)}
-                </Typography>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </>
+        <List className={classes.list}>
+          <ListItem>
+            <ListItemText>Items</ListItemText>
+            <ListItemText className={classes.textRight}>
+              {buyItNow ? buyItNowItem.quantity : cartHelper.totalItems(cart)}
+            </ListItemText>
+          </ListItem>
+          <ListItem>
+            <ListItemText>Shipping</ListItemText>
+            <ListItemText className={classes.textRight}>
+              {shippingCost !== 0 ? `£${shippingCost.toFixed(2)}` : 'Free'}
+            </ListItemText>
+          </ListItem>
+          <ListItem>
+            <ListItemText>Total</ListItemText>
+            <ListItemText className={classes.textRight}>
+              £
+              {buyItNow
+                ? cartHelper.totalPrice([buyItNowItem], shippingCost).toFixed(2)
+                : cartHelper.totalPrice(cart, shippingCost).toFixed(2)}
+            </ListItemText>
+          </ListItem>
+        </List>
+      </div>
     );
   }
+
+  if (inForm) {
+    content = <Paper>{content}</Paper>;
+  }
+
   return content;
 };
 
