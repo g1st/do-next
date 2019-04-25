@@ -135,7 +135,7 @@ Works.propTypes = {
   router: PropTypes.object,
   from: PropTypes.string,
   increaseLoadedItems: PropTypes.func,
-  reduxLoadedItems: PropTypes.number
+  reduxLoadedItems: PropTypes.object
 };
 
 Works.getInitialProps = async ({ pathname }) => ({ pathname });
