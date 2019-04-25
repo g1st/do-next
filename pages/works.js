@@ -8,6 +8,7 @@ import { Button } from '@material-ui/core';
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
 import { increaseLoadedItems } from '../store/actions';
+import { ITEMS_PER_PAGE } from '../config';
 
 const ButtonContainer = styled.div`
   text-align: center;
@@ -23,7 +24,7 @@ class Works extends React.Component {
     super(props);
     const { data, collections: collectionsNames, reduxLoadedItems } = props;
     const collections = {
-      all: { data, itemsLoaded: reduxLoadedItems }
+      all: { data, itemsLoaded: reduxLoadedItems.all }
     };
 
     const dataForSelectedCollection = (allItemsData, collection) =>
@@ -32,7 +33,7 @@ class Works extends React.Component {
     collectionsNames.forEach(collection => {
       collections[collection] = {
         data: dataForSelectedCollection(data, collection),
-        itemsLoaded: reduxLoadedItems
+        itemsLoaded: reduxLoadedItems[collection] || ITEMS_PER_PAGE
       };
     });
 
@@ -43,12 +44,9 @@ class Works extends React.Component {
   }
 
   loadMore(collection) {
-    const {
-      reduxLoadedItems,
-      increaseLoadedItems: increaseLoadedItemsRedux
-    } = this.props;
+    const { increaseLoadedItems: increaseLoadedItemsRedux } = this.props;
 
-    increaseLoadedItemsRedux();
+    increaseLoadedItemsRedux(collection);
 
     this.setState(prevState => ({
       collections: {
@@ -56,15 +54,13 @@ class Works extends React.Component {
         [collection]: {
           data: prevState.collections[collection].data,
           itemsLoaded:
-            prevState.collections[collection].itemsLoaded + reduxLoadedItems
+            prevState.collections[collection].itemsLoaded + ITEMS_PER_PAGE
         }
       }
     }));
   }
 
   render() {
-    console.log(this.state);
-
     const {
       router,
       pathname,
@@ -149,7 +145,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  increaseLoadedItems: () => dispatch(increaseLoadedItems())
+  increaseLoadedItems: collection => dispatch(increaseLoadedItems(collection))
 });
 
 export default connect(
