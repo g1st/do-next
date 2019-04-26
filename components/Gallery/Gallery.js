@@ -10,11 +10,7 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    overflow: 'hidden',
-    padding: '10px 10px 0 10px',
-    [theme.breakpoints.up('md')]: {
-      padding: '10px 0 0 0'
-    }
+    paddingTop: '10px'
   },
   gridList: {
     width: '100%'
