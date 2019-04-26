@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 export const GlobalStyle = createGlobalStyle`
   .image-gallery-right-nav:hover::before {
