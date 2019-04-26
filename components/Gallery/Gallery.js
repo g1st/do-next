@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
+import { increaseLoadedItems } from '../../store/actions';
+import Filter from './Filter';
 import ItemCard from '../ItemCard/ItemCard';
+import { ITEMS_PER_PAGE } from '../../config';
 
 const styles = theme => ({
   root: {
@@ -16,45 +20,181 @@ const styles = theme => ({
       padding: '10px 0 0 0'
     }
   },
-  gridList: {
-    width: '100%'
+  grid: {
+    marginTop: '20px'
+  },
+  buttonContainer: {
+    textAlign: 'center',
+    marginBottom: '20px',
+    '@media (min-width: 960px)': {
+      paddingBottom: '40px',
+      paddingTop: '20px'
+    }
+  },
+  collection: {
+    paddingTop: '16px'
   }
 });
 
-const Gallery = props => {
-  const { classes, data, showCollection } = props;
+class Gallery extends React.Component {
+  constructor(props) {
+    super(props);
+    const { data, collectionsNames, reduxLoadedItems } = props;
+    const collections = {
+      all: { data, itemsLoaded: reduxLoadedItems.all }
+    };
 
-  const filtered =
-    showCollection === 'all'
-      ? data
-      : data.filter(item => item.group === showCollection);
+    const dataForSelectedCollection = (allItemsData, collection) =>
+      allItemsData.filter(x => x.group === collection);
 
-  return (
-    <div className={classes.root}>
-      <Grid container spacing={8}>
-        {filtered.map(item => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
-            <ItemCard
-              id={item._id.toString()}
-              price={item.price}
-              name={item.name}
-              img={
-                item.frontImage
-                  ? `/static/uploads/${item.frontImage}`
-                  : `/static/uploads/${item.images[0].medium}`
-              }
-            />
-          </Grid>
-        ))}
-      </Grid>
-    </div>
-  );
-};
+    collectionsNames.forEach(collection => {
+      collections[collection] = {
+        data: dataForSelectedCollection(data, collection),
+        itemsLoaded: reduxLoadedItems[collection] || ITEMS_PER_PAGE
+      };
+    });
+
+    this.state = {
+      collections: { ...collections },
+      withFilter: {}
+    };
+  }
+
+  loadMore = collection => {
+    const { increaseLoadedItems: increaseLoadedItemsRedux } = this.props;
+
+    increaseLoadedItemsRedux(collection);
+
+    this.setState(prevState => ({
+      collections: {
+        ...prevState.collections,
+        [collection]: {
+          data: prevState.collections[collection].data,
+          itemsLoaded:
+            prevState.collections[collection].itemsLoaded + ITEMS_PER_PAGE
+        }
+      }
+    }));
+  };
+
+  handleChange = ({ target: { value } }) => {
+    const { showCollection } = this.props;
+
+    this.setState({
+      withFilter: {
+        [showCollection]: { filter: value, category: value }
+      }
+    });
+  };
+
+  render() {
+    const { classes, data, showCollection, showFilter } = this.props;
+
+    if (data.length < 1) {
+      return (
+        <Typography variant="body1" align="center">
+          Gallery empty.
+        </Typography>
+      );
+    }
+
+    const { withFilter, collections } = this.state;
+    const { itemsLoaded } = collections[showCollection];
+
+    const collectionData =
+      showCollection === 'all'
+        ? data
+        : data.filter(item => item.group === showCollection);
+
+    let filtered = collectionData.slice(0, itemsLoaded);
+    let loadMoreButton = null;
+
+    if (
+      Object.prototype.hasOwnProperty.call(withFilter, showCollection) &&
+      withFilter[showCollection].filter
+    ) {
+      filtered = collectionData.filter(
+        item => item.category === withFilter[showCollection].category
+      );
+    } else if (collectionData.length > itemsLoaded) {
+      loadMoreButton = (
+        <div className={classes.buttonContainer}>
+          <Button
+            size="medium"
+            variant="contained"
+            color="secondary"
+            onClick={() => this.loadMore(showCollection)}
+          >
+            Load More
+          </Button>
+        </div>
+      );
+    }
+
+    let filter = null;
+    if (showFilter) {
+      filter = (
+        <>
+          <Typography variant="h5" className={classes.collection}>
+            {showCollection === 'all' ? 'all works' : showCollection}
+          </Typography>
+          <Filter
+            data={collectionData}
+            handleChange={this.handleChange}
+            option={
+              Object.prototype.hasOwnProperty.call(withFilter, showCollection)
+                ? withFilter[showCollection].category
+                : ''
+            }
+          />
+        </>
+      );
+    }
+
+    return (
+      <div className={classes.root}>
+        {filter}
+        <Grid className={classes.grid} container spacing={8}>
+          {filtered.map(item => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
+              <ItemCard
+                id={item._id.toString()}
+                price={item.price}
+                name={item.name}
+                img={
+                  item.frontImage
+                    ? `/static/uploads/${item.frontImage}`
+                    : `/static/uploads/${item.images[0].medium}`
+                }
+              />
+            </Grid>
+          ))}
+        </Grid>
+        {loadMoreButton}
+      </div>
+    );
+  }
+}
 
 Gallery.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   showCollection: PropTypes.string,
-  classes: PropTypes.object
+  classes: PropTypes.object,
+  collectionsNames: PropTypes.arrayOf(PropTypes.string),
+  reduxLoadedItems: PropTypes.object,
+  increaseLoadedItems: PropTypes.func,
+  showFilter: PropTypes.bool
 };
 
-export default withStyles(styles)(Gallery);
+const mapStateToProps = state => ({
+  reduxLoadedItems: state.loadMore
+});
+
+const mapDispatchToProps = dispatch => ({
+  increaseLoadedItems: collection => dispatch(increaseLoadedItems(collection))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Gallery));
