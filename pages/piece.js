@@ -5,7 +5,6 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import ImageGallery from 'react-image-gallery';
-import 'react-image-gallery/styles/css/image-gallery.css';
 import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 

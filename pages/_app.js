@@ -130,8 +130,6 @@ class MyApp extends App {
     const { Component, pageProps, reduxStore } = this.props;
     return (
       <React.Fragment>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
         <Container>
           <Provider store={reduxStore}>
             {/* Wrap every page in Jss and Theme providers */}
@@ -145,11 +143,13 @@ class MyApp extends App {
                 theme={this.pageContext.theme}
                 sheetsManager={this.pageContext.sheetsManager}
               >
-                {/* Pass pageContext to the _document though the renderPage enhancer
-                to render collected styles on server side. */}
+                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                <CssBaseline />
                 <Head>
                   <title>Dovile Jewellery</title>
                 </Head>
+                {/* Pass pageContext to the _document though the renderPage enhancer
+                to render collected styles on server side. */}
                 <Component pageContext={this.pageContext} {...pageProps} />
               </MuiThemeProvider>
             </JssProvider>
