@@ -16,7 +16,7 @@ class NavDrawerContent extends React.Component {
 
   handleClick = (href, as) => {
     const { closingDrawer } = this.props;
-    Router.push(href, as).then(() => window.scrollTo(0, 0));
+    Router.push(href, as);
     closingDrawer();
   };
 

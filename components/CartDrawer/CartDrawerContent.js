@@ -44,7 +44,7 @@ const CartDrawerContent = ({
   shippingCost
 }) => {
   const buttonClickHandler = () => {
-    Router.push('/works').then(() => window.scrollTo(0, 0));
+    Router.push('/works');
     closeDrawer();
   };
 
