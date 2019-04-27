@@ -4,18 +4,9 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { connect } from 'react-redux';
 import { Typography, IconButton } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import {
-  increaseQuantity,
-  decreaseQuantity,
-  removeFromCart,
-  buyItNowIncreaseQuantity,
-  buyItNowDecreaseQuantity,
-  clearBuyItNow
-} from '../../store/actions';
+import { removeFromCart, clearBuyItNow } from '../../store/actions';
 import { CartItems, Thumb, ItemInfo } from '../../styles/CartDrawer';
 
 const CartItem = ({
@@ -23,11 +14,7 @@ const CartItem = ({
   data,
   closeDrawer,
   clearBuyItNow: clearBytItNowRedux,
-  removeFromCart: removeFromCartRedux,
-  buyItNowDecreaseQuantity: buyItNowDecreaseQuantityRedux,
-  decreaseQuantity: decreaseQuantityRedux,
-  buyItNowIncreaseQuantity: buyItNowIncreaseQuantityRedux,
-  increaseQuantity: increaseQuantityRedux
+  removeFromCart: removeFromCartRedux
 }) => {
   const handleRemove = id =>
     buyItNow ? clearBytItNowRedux() : removeFromCartRedux(id);
@@ -74,30 +61,6 @@ const CartItem = ({
             </Typography>
           </ItemInfo>
           <IconButton
-            disabled={!(item.quantity > 1)}
-            onClick={
-              buyItNow
-                ? () => buyItNowDecreaseQuantityRedux()
-                : () => decreaseQuantityRedux(item._id)
-            }
-            color="secondary"
-            aria-label="Decrease quantity"
-          >
-            <RemoveIcon fontSize="small" />
-          </IconButton>
-          <Typography variant="body2">{item.quantity}</Typography>
-          <IconButton
-            onClick={
-              buyItNow
-                ? () => buyItNowIncreaseQuantityRedux()
-                : () => increaseQuantityRedux(item._id)
-            }
-            color="secondary"
-            aria-label="Increase quantity"
-          >
-            <AddIcon fontSize="small" />
-          </IconButton>
-          <IconButton
             style={{ color: 'rgba(0, 0, 0, 0.26)', marginLeft: '4px' }}
             aria-label="Remove item"
             onClick={() =>
@@ -119,11 +82,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  increaseQuantity: id => dispatch(increaseQuantity(id)),
-  decreaseQuantity: id => dispatch(decreaseQuantity(id)),
   removeFromCart: id => dispatch(removeFromCart(id)),
-  buyItNowIncreaseQuantity: () => dispatch(buyItNowIncreaseQuantity()),
-  buyItNowDecreaseQuantity: () => dispatch(buyItNowDecreaseQuantity()),
   clearBuyItNow: () => dispatch(clearBuyItNow())
 });
 
@@ -131,11 +90,7 @@ CartItem.propTypes = {
   data: PropTypes.array,
   buyItNow: PropTypes.bool,
   closeDrawer: PropTypes.func,
-  increaseQuantity: PropTypes.func,
-  decreaseQuantity: PropTypes.func,
   removeFromCart: PropTypes.func,
-  buyItNowIncreaseQuantity: PropTypes.func,
-  buyItNowDecreaseQuantity: PropTypes.func,
   clearBuyItNow: PropTypes.func
 };
 
