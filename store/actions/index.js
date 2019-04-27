@@ -35,8 +35,9 @@ export const clearCart = () => ({ type: actionTypes.CLEAR_CART });
 
 export const clearBuyItNow = () => ({ type: actionTypes.CLEAR_BUY_IT_NOW });
 
-export const increaseLoadedItems = () => ({
-  type: actionTypes.INCREASE_LOADED_ITEMS
+export const increaseLoadedItems = collection => ({
+  type: actionTypes.INCREASE_LOADED_ITEMS,
+  collection
 });
 
 // gets token from the api and stores it in the redux store and in cookie

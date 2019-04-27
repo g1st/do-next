@@ -22,7 +22,7 @@ export const initialState = {
   buyItNow: {},
   shippingCost: shippingPrice,
   authenticate: { token: null },
-  loadMore: ITEMS_PER_PAGE
+  loadMore: { all: ITEMS_PER_PAGE }
 };
 
 const cart = (state = initialState.cart, action) => {
@@ -91,7 +91,11 @@ const authenticate = (state = initialState.authenticate, action) => {
 
 const loadMore = (state = initialState.loadMore, action) => {
   if (INCREASE_LOADED_ITEMS === action.type) {
-    return state + 6;
+    return {
+      ...state,
+      [action.collection]:
+        (state[action.collection] || ITEMS_PER_PAGE) + ITEMS_PER_PAGE
+    };
   }
   return state;
 };
