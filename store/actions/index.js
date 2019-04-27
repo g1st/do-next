@@ -11,24 +11,6 @@ export const removeFromCart = id => ({
   id
 });
 
-export const increaseQuantity = id => ({
-  type: actionTypes.INCREASE_QUANTITY,
-  id
-});
-
-export const decreaseQuantity = id => ({
-  type: actionTypes.DECREASE_QUANTITY,
-  id
-});
-
-export const buyItNowIncreaseQuantity = () => ({
-  type: actionTypes.BUY_IT_NOW_INCREASE_QUANTITY
-});
-
-export const buyItNowDecreaseQuantity = () => ({
-  type: actionTypes.BUY_IT_NOW_DECREASE_QUANTITY
-});
-
 export const buyItNow = item => ({ type: actionTypes.BUY_IT_NOW, item });
 
 export const clearCart = () => ({ type: actionTypes.CLEAR_CART });
