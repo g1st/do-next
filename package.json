@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node server.js -p $PORT",
+    "start": "concurrently \"cd authentication-server && node server.js\" \"NODE_ENV=production node server.js -p $PORT\"",
     "build": "next build",
-    "dev": "node server.js",
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
-    "dev:auth": "concurrently \"cd authentication-server && npm start\" \"node server.js\"",
+    "dev": "concurrently \"cd authentication-server && npm start\" \"node server.js\"",
     "db:populate": "cd util/seed && node seed.js",
     "db:dropworks": "cd util/seed && node seed.js dropworks",
     "db:dropall": "cd util/seed && node seed.js drop"
