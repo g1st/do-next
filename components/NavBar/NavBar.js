@@ -101,6 +101,11 @@ class NavBar extends React.Component {
   render() {
     const { classes, collections, pathname, uniqueCartItems } = this.props;
     const { anchorEl } = this.state;
+
+    Router.events.on('routeChangeComplete', () => {
+      window.scrollTo(0, 0);
+    });
+
     console.log('navbar');
 
     const navigation = (

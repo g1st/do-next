@@ -5,7 +5,6 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import ImageGallery from 'react-image-gallery';
-import 'react-image-gallery/styles/css/image-gallery.css';
 import { Typography, Button, Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -49,7 +48,7 @@ const Piece = ({
 }) => {
   const handleBuyItNow = item => {
     buyItNowRedux(item);
-    Router.push('/checkout').then(() => window.scrollTo(0, 0));
+    Router.push('/checkout');
   };
 
   if (onePieceData.length < 1 || onePieceData[0] === null) {
