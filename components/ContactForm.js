@@ -12,7 +12,6 @@ const styles = theme => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'center'
-    // flexWrap: 'wrap'
   },
   margin: {
     margin: theme.spacing.unit
@@ -73,25 +72,24 @@ class ContactForm extends Component {
     const htmlMessage = emailForContactForm(message, email, subject);
 
     axios
-      // change for deployment
       .post('http://localhost:3000/api/send', {
         email,
         message: htmlMessage,
         subject
       })
       .then(res => {
-        onEmailSend(true);
+        if (onEmailSend) {
+          onEmailSend(true);
+        }
         this.setState(() => ({
           isSendingMail: false,
           emailSent: true
         }));
       })
       .catch(err => {
-        // console.log(errors.map(err => ({ [err.param]: err.msg })));
         const { errors } = err.response.data;
         this.setState(() => ({
           isSendingMail: false,
-          // errors: { ...errors.map(err => ({ [err.param]: err.msg })) },
           errors: errors.reduce((acc, err) => {
             acc[err.param] = err.msg;
             return acc;
@@ -99,8 +97,6 @@ class ContactForm extends Component {
         }));
       });
   };
-
-  // after sent confirmation make a button to go back to shop/gallery
 
   render() {
     const { classes } = this.props;
@@ -122,7 +118,10 @@ class ContactForm extends Component {
           <ImageWrapper>
             <Image src="../static/images/message.svg" alt="Send a message" />
           </ImageWrapper>
-          <Paper className={[classes.paper, classes.paperWidth]} elevation={3}>
+          <Paper
+            className={`${classes.paper} ${classes.paperWidth}`}
+            elevation={3}
+          >
             <Typography variant="body1">
               Thank you, your message has been sent.
             </Typography>

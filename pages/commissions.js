@@ -3,14 +3,8 @@ import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
 
 import Layout from '../components/Layout';
-import {
-  Wrapper,
-  Image,
-  Figure,
-  Caption,
-  Text,
-  Mail
-} from '../styles/Commissions';
+import { Wrapper, Image, Figure, Caption, Text } from '../styles/Commissions';
+import { Mail } from '../styles/Shared';
 
 const Commissions = ({ collections }) => (
   <Layout pathname={false} collections={collections}>
