@@ -7,9 +7,9 @@ import Error from '../../../components/Error/Error';
 const SelectCountry = ({ error, helperText, handleChange }) => {
   const [country, setCountry] = useState('GB');
 
-  const changeCountry = ({ target: { value } }) => {
-    setCountry(value);
-    handleChange(value);
+  const changeCountry = e => {
+    setCountry(e.target.value);
+    handleChange(e);
   };
 
   return (

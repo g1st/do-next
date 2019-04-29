@@ -25,6 +25,13 @@ const CartItem = ({
     }
   };
 
+  const getItemImage = item => {
+    if (item && item.images && item.images.length) {
+      return `/static/uploads/${item.images[0].thumb}`;
+    }
+    return '/static/images/logo.png';
+  };
+
   return (
     <CartItems>
       {data.map(item => (
@@ -41,7 +48,7 @@ const CartItem = ({
               role="link"
               tabIndex={0}
             >
-              <Thumb src={`/static/uploads/${item.images[0].thumb}`} />
+              <Thumb src={getItemImage(item)} />
             </a>
           </Link>
           <ItemInfo>

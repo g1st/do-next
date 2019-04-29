@@ -319,17 +319,21 @@ module.exports = (db, upload) => {
         // console.log(errors.array());
         return res.status(422).json({ errors: errors.array() });
       }
-
-      sendMail({ email, subject, message })
-        .then(() =>
-          res.json({
-            msg: 'Email has been sent.'
-          })
-        )
-        .catch(err => {
-          console.log(err);
-          return res.json({ msg: err.message });
-        });
+      if (process.env.NODE_ENV === 'production') {
+        sendMail({ email, subject, message })
+          .then(() =>
+            res.json({
+              msg: 'Email has been sent.'
+            })
+          )
+          .catch(err => {
+            console.log(err);
+            return res.json({ msg: err.message });
+          });
+      } else {
+        console.log('(fake) email (not) sent');
+        return res.json({ msg: '(fake) Email (not) sent' });
+      }
     }
   );
 
@@ -467,18 +471,30 @@ module.exports = (db, upload) => {
       }
 
       /* eslint-disable camelcase */
+      let stripe_result;
+      if (process.env.NODE_ENV === 'production') {
+        stripe_result = await stripe.charges.create({
+          amount: amount * 100, // stripe needs cents
+          currency: 'gbp',
+          description: `Charge for purchase at dovilejewellery.com`,
+          source: req.body.token
+        });
+      } else {
+        stripe_result = {
+          status: 200,
+          id: `paymentId${Date.now()}`,
+          amount: amount * 100,
+          source: `sourceToken${Date.now()}`,
+          receipt_url: `receipt_url_${Date.now()}`
+        };
+      }
       const {
         status,
         id,
         amount: amount_paid,
         source,
         receipt_url
-      } = await stripe.charges.create({
-        amount: amount * 100, // stripe needs cents
-        currency: 'gbp',
-        description: `Charge for purchase at dovilejewellery.com`,
-        source: req.body.token
-      });
+      } = stripe_result;
 
       // send confirmation email to seller and buyer
       await sendPurchaseEmail(req.body);
