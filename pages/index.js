@@ -8,8 +8,8 @@ import Gallery from '../components/Gallery/Gallery';
 const Index = ({ data, pathname, collections, from }) => (
   <Layout pathname={pathname} collections={collections}>
     <div>alohha</div>
-    <Link href="/works">
-      <a>Works</a>
+    <Link href="/shop">
+      <a>Shop</a>
     </Link>
     <br />
     <Link href="/checkout">

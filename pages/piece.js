@@ -125,7 +125,7 @@ const Piece = ({
 
   return (
     // to highlight works tab in navbar under any piece is loaded
-    <Layout pathname="/works" collections={collections}>
+    <Layout pathname="/shop" collections={collections}>
       <Wrapper>
         <Images>
           <ImageGallery

@@ -44,7 +44,7 @@ const CartDrawerContent = ({
   shippingCost
 }) => {
   const buttonClickHandler = () => {
-    Router.push('/works');
+    Router.push('/shop');
     closeDrawer();
   };
 

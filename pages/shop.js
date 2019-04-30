@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
 
-const Works = ({ data, router, pathname, from, collections }) => {
+const Shop = ({ data, router, pathname, from, collections }) => {
   let { collection } = router.query;
 
   if (!collections.includes(collection)) {
@@ -15,7 +15,7 @@ const Works = ({ data, router, pathname, from, collections }) => {
   return (
     <Layout pathname={pathname} collections={collections}>
       <div>
-        <p>This is Works page.</p>
+        <p>This is Shop page.</p>
         <p>path: {pathname}</p>
         <p>from: {from}</p>
         <Link href="/piece">
@@ -33,7 +33,7 @@ const Works = ({ data, router, pathname, from, collections }) => {
   );
 };
 
-Works.propTypes = {
+Shop.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.array,
@@ -41,6 +41,6 @@ Works.propTypes = {
   from: PropTypes.string
 };
 
-Works.getInitialProps = async ({ pathname }) => ({ pathname });
+Shop.getInitialProps = async ({ pathname }) => ({ pathname });
 
-export default Works;
+export default Shop;
