@@ -30,10 +30,10 @@ const styles = theme => ({
   }
 });
 
-const fallbackImage = '../../static/images/logo.png';
+const fallbackImage = '../../static/images/fallback.png';
 
 const onCardMediaError = e => {
-  if (e.target.src.indexOf('/static/images/logo.png') === -1) {
+  if (e.target.src.indexOf('/static/images/fallback.png') === -1) {
     e.target.src = fallbackImage;
   }
 };
