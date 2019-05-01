@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  margin: -20px auto 0 auto;
   @media (min-width: 960px) {
     display: flex;
     padding-top: 40px;
@@ -52,3 +53,9 @@ export const DisabledButtonWrapper = styled.div`
   margin-bottom: 20px;
 `;
 DisabledButtonWrapper.displayName = 'DisabledButtonWrapper';
+
+export const Text = styled.div`
+  max-width: 700px;
+  margin: 0 auto;
+`;
+Text.displayName = 'Text';
