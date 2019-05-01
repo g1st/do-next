@@ -10,3 +10,8 @@ export const Mail = styled.a`
   }
 `;
 Mail.displayName = 'Mail';
+
+export const AnchorLink = styled.a`
+  color: rgba(0, 0, 0, 0.87);
+`;
+AnchorLink.displayName = 'AnchorLink';
