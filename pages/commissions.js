@@ -3,23 +3,25 @@ import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
 
 import Layout from '../components/Layout';
-import { Wrapper, Image, Figure, Caption, Text } from '../styles/Commissions';
+import {
+  Wrapper,
+  Image,
+  Figure,
+  ImageWrapper,
+  Text
+} from '../styles/Commissions';
 import { Mail } from '../styles/Shared';
 
 const Commissions = ({ collections }) => (
   <Layout pathname={false} collections={collections}>
     <Wrapper>
-      <Figure>
-        <Image src="../static/images/cufflinks.jpg" alt="Cufflinks" />
-        <Caption>
-          <Typography align="left" color="textSecondary">
-            It is always a joy to create the personalised item.
-          </Typography>
-        </Caption>
-      </Figure>
+      <ImageWrapper>
+        <Figure>
+          <Image src="../static/images/ffffr-12.JPG" alt="Cufflinks" />
+        </Figure>
+      </ImageWrapper>
       <Text>
         <Typography
-          align="left"
           color="secondary"
           variant="h5"
           gutterBottom
@@ -29,7 +31,7 @@ const Commissions = ({ collections }) => (
         >
           COMMISSIONS
         </Typography>
-        <Typography align="left" paragraph color="secondary">
+        <Typography align="left" paragraph variant="body1">
           For any interest, please{' '}
           <Mail href="mailto:hello@dovilejewellery.com" target="_top">
             e-mail me
@@ -40,13 +42,13 @@ const Commissions = ({ collections }) => (
           discussed by email or in person.
         </Typography>
 
-        <Typography align="left" paragraph color="secondary">
+        <Typography align="left" paragraph variant="body1">
           Most of my designs could be re-created in new different ways as in
           different materials, gold-plating, different gemstones etc. Feel free
           to ask. I am making one of a kind pieces so each is unique and
           special.
         </Typography>
-        <Typography align="left" paragraph color="secondary">
+        <Typography align="left" paragraph variant="body1">
           Please note, I do not make copies of designs by other makers.
         </Typography>
       </Text>

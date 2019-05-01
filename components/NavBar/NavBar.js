@@ -79,8 +79,8 @@ class NavBar extends React.Component {
   }
 
   handleNavBarChange = (event, value) => {
-    // on works click we just opening menu, not redirecting
-    if (value !== '/works') {
+    // on shop click we just opening menu, not redirecting
+    if (value !== '/shop') {
       Router.push(value);
     }
   };
@@ -110,7 +110,7 @@ class NavBar extends React.Component {
 
     const navigation = (
       <Tabs
-        value={pathname}
+        value={pathname !== '/' ? pathname : false}
         onChange={this.handleNavBarChange}
         indicatorColor="secondary"
         textColor="secondary"
@@ -118,11 +118,11 @@ class NavBar extends React.Component {
         classes={{ indicator: classes.tabIndicator }}
         className={classes.toggleNav}
       >
-        <Tab label="Home" value="/" to="/" />
+        {/* <Tab label="Home" value="/" to="/" /> */}
         <Tab
           label={
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <span style={{ paddingRight: 6 }}>Works</span>
+              <span style={{ paddingRight: 6 }}>Shop</span>
               {anchorEl ? (
                 <ExpandLess fontSize="small" />
               ) : (
@@ -130,12 +130,13 @@ class NavBar extends React.Component {
               )}
             </div>
           }
-          value="/works"
+          value="/shop"
           aria-owns={anchorEl ? pathname : null}
           aria-haspopup="true"
           onClick={this.openMenu}
         />
         <Tab label="About" value="/about" to="/about" />
+        <Tab label="Where to find" value="/wheretofind" to="/wheretofind" />
         <Tab label="Contact" value="/contact" to="/contact" />
       </Tabs>
     );
@@ -177,15 +178,15 @@ class NavBar extends React.Component {
                   open={Boolean(anchorEl)}
                   onClose={this.closeMenu}
                 >
-                  <MenuItem onClick={this.handleMenuItemClick('/works')}>
+                  <MenuItem onClick={this.handleMenuItemClick('/shop')}>
                     SHOW ALL
                   </MenuItem>
                   {collections.map(collection => (
                     <MenuItem
                       key={collection}
                       onClick={this.handleMenuItemClick(
-                        `/works?collection=${collection}`,
-                        `/works/${collection}`
+                        `/shop?collection=${collection}`,
+                        `/shop/${collection}`
                       )}
                     >
                       {collection.toUpperCase()}

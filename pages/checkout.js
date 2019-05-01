@@ -16,13 +16,7 @@ const styles = theme => ({
 
 const Checkout = ({ classes, collections }) => (
   <Layout pathname={false} collections={collections}>
-    <Typography
-      component="h1"
-      variant="h5"
-      className={classes.h6}
-      gutterBottom
-      align="center"
-    >
+    <Typography component="h1" variant="h5" className={classes.h6}>
       Checkout
     </Typography>
     <Stripe />

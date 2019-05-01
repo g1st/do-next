@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
 
-const Works = ({ data, router, pathname, collections }) => {
+const Shop = ({ data, router, pathname, collections }) => {
   let { collection } = router.query;
 
   if (!collections.includes(collection)) {
@@ -25,13 +25,13 @@ const Works = ({ data, router, pathname, collections }) => {
   );
 };
 
-Works.propTypes = {
+Shop.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.array,
   router: PropTypes.object
 };
 
-Works.getInitialProps = async ({ pathname }) => ({ pathname });
+Shop.getInitialProps = async ({ pathname }) => ({ pathname });
 
-export default Works;
+export default Shop;

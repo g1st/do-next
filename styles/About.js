@@ -1,25 +1,56 @@
 import styled from 'styled-components';
 
-export const AnchorLink = styled.a`
-  color: rgba(0, 0, 0, 0.87);
+export const Wrapper = styled.div`
+  @media (min-width: 960px) {
+    display: flex;
+    /* width: 100%; */
+  }
 `;
-AnchorLink.displayName = 'AnchorLink';
+Wrapper.displayName = 'Wrapper';
+
+export const Left = styled.div`
+  @media (min-width: 960px) {
+    flex: 3;
+  }
+`;
+Left.displayName = 'Left';
+
+export const Right = styled.div`
+  @media (min-width: 960px) {
+    display: flex;
+    flex: 4;
+    flex-flow: column-reverse;
+    justify-content: flex-end;
+  }
+`;
+Right.displayName = 'Right';
+
+export const ArtistStatement = styled.div`
+  @media (min-width: 960px) {
+    margin-bottom: 60px;
+    padding-left: 40px;
+  }
+`;
+ArtistStatement.displayName = 'ArtistStatement';
+
+export const ImageWrapper = styled.figure`
+  max-width: 300px;
+  margin: 0 auto;
+`;
+ImageWrapper.displayName = 'ImageWrapper';
+
+export const Image = styled.img`
+  width: 100%;
+`;
+Image.displayName = 'Image';
+
+export const Caption = styled.figcaption``;
+Caption.displayName = 'Caption';
 
 export const AuthorNameText = styled.div`
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin: 40px 0;
 `;
 AuthorNameText.displayName = 'AuthorNameText';
-
-export const WhereToFind = styled.div`
-  margin-bottom: 20px;
-`;
-WhereToFind.displayName = 'WhereToFind';
-
-export const ShopOnline = styled.div`
-  margin-bottom: 20px;
-`;
-ShopOnline.displayName = 'ShopOnline';
 
 export const Table = styled.table`
   margin-bottom: 14px;
@@ -39,9 +70,3 @@ export const Data = styled.td`
   max-width: 600px;
 `;
 Data.displayName = 'Data';
-
-export const ImageGalleryWrapper = styled.div`
-  max-width: 760px;
-  margin: 0 auto;
-`;
-ImageGalleryWrapper.displayName = 'ImageGalleryWrapper';

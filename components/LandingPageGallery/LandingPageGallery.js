@@ -63,6 +63,10 @@ const styles = theme => ({
   },
   figcaption: {
     paddingTop: '20px'
+  },
+  wrapper: {
+    display: 'flex',
+    height: '100%'
   }
 });
 
@@ -88,68 +92,71 @@ class LandingPageGallery extends React.Component {
     const { open, src } = this.state;
 
     return (
-      <div className={classes.root}>
-        <Modal
-          aria-labelledby="jewellery-piece"
-          aria-describedby="jewellery-piece-description"
-          open={open}
-          onClose={this.handleClose}
-        >
-          <figure className={classes.paper}>
-            <img className={classes.modalImage} src={src} alt="" />
-            <figcaption>
-              <Typography
-                variant="subtitle1"
-                id="jewellery-piece-description"
-                className={classes.figcaption}
-              >
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </Typography>
-            </figcaption>
-          </figure>
-        </Modal>
-        <Grid container className={classes.gridList} spacing={32}>
-          <Grid item key={0}>
-            <input
-              type="image"
-              className={classes.img}
-              onClick={this.onImageClick}
-              src="/static/images/Dovile Jewellery.JPG"
-              alt="Presentational Dovile Jewellery piece"
-              onKeyDown={this.handleKeyDown}
-            />
+      <div className={classes.wrapper}>
+        <div className={classes.root}>
+          <Modal
+            aria-labelledby="jewellery-piece"
+            aria-describedby="jewellery-piece-description"
+            open={open}
+            onClose={this.handleClose}
+          >
+            <figure className={classes.paper}>
+              <img className={classes.modalImage} src={src} alt="" />
+              <figcaption>
+                <Typography
+                  variant="subtitle1"
+                  id="jewellery-piece-description"
+                  className={classes.figcaption}
+                >
+                  Duis mollis, est non commodo luctus, nisi erat porttitor
+                  ligula.
+                </Typography>
+              </figcaption>
+            </figure>
+          </Modal>
+          <Grid container className={classes.gridList} spacing={32}>
+            <Grid item key={0}>
+              <input
+                type="image"
+                className={classes.img}
+                onClick={this.onImageClick}
+                src="/static/images/Dovile Jewellery.JPG"
+                alt="Presentational Dovile Jewellery piece"
+                onKeyDown={this.handleKeyDown}
+              />
+            </Grid>
+            <Grid item key={1}>
+              <input
+                type="image"
+                className={classes.img}
+                onClick={this.onImageClick}
+                src="/static/images/Dovile Jewellery-2.JPG"
+                alt="Presentational Dovile Jewellery piece"
+                onKeyDown={this.handleKeyDown}
+              />
+            </Grid>
+            <Grid item key={2}>
+              <input
+                type="image"
+                className={classes.img}
+                onClick={this.onImageClick}
+                src="/static/images/Dovile Jewellery-3.JPG"
+                alt="Presentational Dovile Jewellery piece"
+                onKeyDown={this.handleKeyDown}
+              />
+            </Grid>
+            <Grid item key={3}>
+              <input
+                type="image"
+                className={classes.img}
+                onClick={this.onImageClick}
+                src="/static/images/Dovile Jewellery-4.JPG"
+                alt="Presentational Dovile Jewellery piece"
+                onKeyDown={this.handleKeyDown}
+              />
+            </Grid>
           </Grid>
-          <Grid item key={1}>
-            <input
-              type="image"
-              className={classes.img}
-              onClick={this.onImageClick}
-              src="/static/images/Dovile Jewellery-2.JPG"
-              alt="Presentational Dovile Jewellery piece"
-              onKeyDown={this.handleKeyDown}
-            />
-          </Grid>
-          <Grid item key={2}>
-            <input
-              type="image"
-              className={classes.img}
-              onClick={this.onImageClick}
-              src="/static/images/Dovile Jewellery-3.JPG"
-              alt="Presentational Dovile Jewellery piece"
-              onKeyDown={this.handleKeyDown}
-            />
-          </Grid>
-          <Grid item key={3}>
-            <input
-              type="image"
-              className={classes.img}
-              onClick={this.onImageClick}
-              src="/static/images/Dovile Jewellery-4.JPG"
-              alt="Presentational Dovile Jewellery piece"
-              onKeyDown={this.handleKeyDown}
-            />
-          </Grid>
-        </Grid>
+        </div>
       </div>
     );
   }

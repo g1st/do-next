@@ -29,7 +29,7 @@ const CartItem = ({
     if (item && item.images && item.images.length) {
       return `/static/uploads/${item.images[0].thumb}`;
     }
-    return '/static/images/logo.png';
+    return '/static/images/fallback.png';
   };
 
   return (

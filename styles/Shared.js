@@ -10,3 +10,28 @@ export const Mail = styled.a`
   }
 `;
 Mail.displayName = 'Mail';
+
+export const AnchorLink = styled.a`
+  color: rgba(0, 0, 0, 0.87);
+`;
+AnchorLink.displayName = 'AnchorLink';
+
+export const Table = styled.table`
+  margin-bottom: 14px;
+  vertical-align: top;
+`;
+Table.displayName = 'Table';
+
+export const Row = styled.tr`
+  vertical-align: top;
+  & td:first-child {
+    padding-right: 8px;
+    white-space: nowrap;
+  }
+`;
+Row.displayName = 'Row';
+
+export const Data = styled.td`
+  max-width: 600px;
+`;
+Data.displayName = 'Data';

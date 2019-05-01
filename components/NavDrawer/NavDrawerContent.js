@@ -24,8 +24,8 @@ class NavDrawerContent extends React.Component {
     if (key === 'Enter' || key === ' ') {
       if (collection) {
         this.handleClick(
-          `/works?collection=${collection}`,
-          `/works/${collection}`
+          `/shop?collection=${collection}`,
+          `/shop/${collection}`
         );
       } else {
         this.handleClick(href);
@@ -44,22 +44,22 @@ class NavDrawerContent extends React.Component {
           </Link>
         </ListItem>
         <ListItem button onClick={this.handleToggle}>
-          <ListItemText primary="Works" />
+          <ListItemText primary="Shop" />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div">
             <ListItem
               button
-              key="works"
-              onKeyDown={e => this.handleKeyDown(e, null, '/works')}
+              key="shop"
+              onKeyDown={e => this.handleKeyDown(e, null, '/shop')}
             >
               <ListItemText
                 inset
                 primary="SHOW ALL"
                 style={{ paddingLeft: '16px' }}
                 onClick={() =>
-                  this.handleClick(`/works?collection=works`, `/works/works`)
+                  this.handleClick(`/shop?collection=shop`, `/shop/shop`)
                 }
               />
             </ListItem>
@@ -75,8 +75,8 @@ class NavDrawerContent extends React.Component {
                   style={{ paddingLeft: '16px' }}
                   onClick={() =>
                     this.handleClick(
-                      `/works?collection=${collection}`,
-                      `/works/${collection}`
+                      `/shop?collection=${collection}`,
+                      `/shop/${collection}`
                     )
                   }
                 />
@@ -91,6 +91,15 @@ class NavDrawerContent extends React.Component {
         >
           <Link href="/about">
             <ListItemText primary="About" />
+          </Link>
+        </ListItem>
+        <ListItem
+          button
+          to="/wheretofind"
+          onKeyDown={e => this.handleKeyDown(e, null, '/wheretofind')}
+        >
+          <Link href="/wheretofind">
+            <ListItemText primary="Where To Find" />
           </Link>
         </ListItem>
         <ListItem

@@ -14,11 +14,9 @@ const styles = theme => ({
     '&:hover': {
       cursor: 'pointer',
       boxShadow:
-        '-1px 2px 6px 0px rgba(0,0,0,0.2), 0px 2px 1px 0px rgba(0,0,0,0.14), 2px 2px 2px 0px rgba(0,0,0,0.12)'
+        '0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)'
     },
-    '@media(min-width: 460px)': {
-      maxWidth: '300px'
-    }
+    maxWidth: '300px'
   },
   textColor: {
     color: 'rgba(0, 0, 0, 0.5)'
@@ -30,10 +28,10 @@ const styles = theme => ({
   }
 });
 
-const fallbackImage = '../../static/images/logo.png';
+const fallbackImage = '../../static/images/fallback.png';
 
 const onCardMediaError = e => {
-  if (e.target.src.indexOf('/static/images/logo.png') === -1) {
+  if (e.target.src.indexOf('/static/images/fallback.png') === -1) {
     e.target.src = fallbackImage;
   }
 };

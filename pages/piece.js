@@ -18,7 +18,8 @@ import {
   Info,
   ButtonsWrapper,
   Form,
-  DisabledButtonWrapper
+  DisabledButtonWrapper,
+  Text
 } from '../styles/Piece';
 import { Mail } from '../styles/Shared';
 import ContactForm from '../components/ContactForm';
@@ -59,6 +60,7 @@ const Piece = ({
     description,
     materials,
     price,
+    size,
     _id,
     images,
     available
@@ -123,7 +125,7 @@ const Piece = ({
   );
 
   return (
-    <Layout pathname="/works" collections={collections}>
+    <Layout pathname="/shop" collections={collections}>
       <Wrapper>
         <Images>
           <ImageGallery
@@ -137,44 +139,58 @@ const Piece = ({
           />
         </Images>
         <Info>
-          <Typography variant="h4">
-            {name}
-            {user && edit}
-          </Typography>
-          <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
-            £{price}
-          </Typography>
-          <Typography variant="body1" classes={{ body1: classes.marginBottom }}>
-            Materials: {materials}
-          </Typography>
-          <Typography variant="body1" classes={{ body1: classes.marginBottom }}>
-            {description}
-          </Typography>
+          <Text>
+            <Typography variant="h4">
+              {name}
+              {user && edit}
+            </Typography>
+            <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
+              £{price}
+            </Typography>
+            <Typography
+              variant="body1"
+              classes={{ body1: classes.marginBottom }}
+            >
+              Materials: {materials}
+            </Typography>
+            <Typography
+              variant="body1"
+              classes={{ body1: classes.marginBottom }}
+            >
+              Size: {size}
+            </Typography>
+            <Typography
+              variant="body1"
+              classes={{ body1: classes.marginBottom }}
+            >
+              {description}
+            </Typography>
 
-          {available ? (
-            <ButtonsWrapper>
-              <Button
-                size="medium"
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={() => handleBuyItNow(dataForCart)}
-              >
-                Buy It Now
-              </Button>
-              <Button
-                size="medium"
-                variant="contained"
-                color="secondary"
-                onClick={() => addToCartRedux(dataForCart)}
-                className={classes.button}
-              >
-                Add To Cart
-              </Button>
-            </ButtonsWrapper>
-          ) : (
-            notAvailable
-          )}
+            {available ? (
+              <ButtonsWrapper>
+                <Button
+                  size="medium"
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => handleBuyItNow(dataForCart)}
+                >
+                  Buy It Now
+                </Button>
+                <Button
+                  size="medium"
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => addToCartRedux(dataForCart)}
+                  className={classes.button}
+                >
+                  Add To Cart
+                </Button>
+              </ButtonsWrapper>
+            ) : (
+              notAvailable
+            )}
+          </Text>
         </Info>
       </Wrapper>
     </Layout>
