@@ -9,7 +9,7 @@ import Filter from './Filter';
 import ItemCard from '../ItemCard/ItemCard';
 import { ITEMS_PER_PAGE } from '../../config';
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',

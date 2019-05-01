@@ -51,15 +51,15 @@ export const Loader = styled.div`
 Loader.displayName = 'Loader';
 
 export const Center = styled.div`
-  position: absolute;
-  top: 30%;
+  position: fixed;
+  top: 40%;
   left: 50%;
   transform: translate(-50%);
 `;
 Center.displayName = 'Center';
 
 export const Modal = styled.div`
-  position: absolute;
+  position: fixed;
   background: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;

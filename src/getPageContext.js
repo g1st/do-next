@@ -27,13 +27,6 @@ const theme = createMuiTheme({
       default: '#FFFFFF'
     }
   },
-  props: {
-    // withWidth component ⚛️
-    MuiWithWidth: {
-      // Initial width property
-      initialWidth: 'xs' // Breakpoint being globally set 🌎!
-    }
-  },
   typography: {
     useNextVariants: true
   }

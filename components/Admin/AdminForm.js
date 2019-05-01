@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import {
   TextField,
-  withWidth,
   FormControlLabel,
   FormControl,
   FormLabel,
@@ -677,4 +676,4 @@ AdminForm.propTypes = {
   itemToEdit: PropTypes.object
 };
 
-export default withWidth()(withStyles(styles)(AdminForm));
+export default withStyles(styles)(AdminForm);

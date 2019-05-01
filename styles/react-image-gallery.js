@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import 'react-image-gallery/styles/css/image-gallery.css';
 
 export const GlobalStyle = createGlobalStyle`
   .image-gallery-right-nav:hover::before,
@@ -7,18 +6,35 @@ export const GlobalStyle = createGlobalStyle`
     color: #fff;
   }
 
-  @media (min-width: 769px) {
+  button.image-gallery-left-nav,
+  button.image-gallery-right-nav {
+    display: none;
+  }
+
+  button.image-gallery-fullscreen-button {
+    display: none;
+  }
+
+  @media (min-width: 960px) {
     button.image-gallery-left-nav,
     button.image-gallery-right-nav {
+      display: inline-block;
       font-size: 3.4em;
       padding: 20px 15px;
     }
+    button.image-gallery-fullscreen-button {
+      display: inline-block;
+    }
   }
 
-  @media screen and (max-width: 1000px) {
-    .image-gallery-content.fullscreen.thumbnails-horizontal .image-gallery-slide img {
-      width: 100%;
-      height: 100%;
+  .image-gallery-content.fullscreen {
+    .image-gallery-slide img {
+      width: auto;
+      height: calc(100vh - 106px);
     }
+  }
+
+  .image-gallery-image {
+    text-align: center;
   }
 `;

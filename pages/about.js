@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { buildUrl } from 'instafeed-lite';
-import axios from 'axios';
 import ImageGallery from 'react-image-gallery';
-import 'react-image-gallery/styles/css/image-gallery.css';
 import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import InstagramGallery from '../components/Gallery/InstagramGallery';
 import Layout from '../components/Layout';
 import {
   AnchorLink,
@@ -20,18 +16,6 @@ import {
   ImageGalleryWrapper
 } from '../styles/About';
 import { onImageError } from '../util/helpers';
-
-const options = {
-  accessToken: '1759380932.1677ed0.eb657c77753b4871aee13b962fe9b3b9',
-  clientId: '30dea650b15e4a8b821fe1db7ce9cc54',
-  get: 'user', // popular, user
-  locationId: null,
-  resolution: 'low_resolution', // thumbnail, low_resolution, standard_resolution
-  sortBy: 'most-recent', // none, least-commented, least-liked, least-recent, most-commented, most-liked, most-recent, random
-  tagName: null,
-  userId: 1759380932
-};
-const instagramUrl = buildUrl(options);
 
 const styles = theme => ({
   root: {
@@ -150,7 +134,7 @@ class About extends React.Component {
       }
     ];
 
-    const { classes, instagram, pathname, collections } = this.props;
+    const { classes, pathname, collections } = this.props;
 
     return (
       <Layout pathname={pathname} collections={collections}>
@@ -562,12 +546,6 @@ class About extends React.Component {
             </Typography>
           </ShopOnline>
         </div>
-        {instagram && (
-          <InstagramGallery
-            data={instagram.data}
-            imageSize={options.resolution}
-          />
-        )}
       </Layout>
     );
   }
@@ -576,16 +554,9 @@ class About extends React.Component {
 About.propTypes = {
   classes: PropTypes.object.isRequired,
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  collections: PropTypes.arrayOf(PropTypes.string),
-  instagram: PropTypes.object
+  collections: PropTypes.arrayOf(PropTypes.string)
 };
 
-About.getInitialProps = async ({ pathname }) => {
-  const instagram = await axios
-    .get(instagramUrl)
-    .then(res => res.data)
-    .catch(err => console.log(err));
-  return { pathname, instagram };
-};
+About.getInitialProps = async ({ pathname }) => ({ pathname });
 
 export default withStyles(styles)(About);

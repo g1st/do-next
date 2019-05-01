@@ -7,9 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import {
   Wrapper,
   FlexContainer,
-  FlexItem,
-  FlexItemDouble,
-  DoubleItemsWrapper,
   BrandLogo,
   Social,
   FooterLinks,
@@ -18,7 +15,6 @@ import {
   Facebook,
   Instagram,
   Pinterest,
-  Mail,
   Logo
 } from '../../styles/Footer';
 
@@ -36,77 +32,60 @@ const Footer = props => {
   return (
     <Wrapper>
       <Divider />
+      <BrandLogo>
+        <Logo src="../../static/images/logo.svg" alt="Dovile Jewellery logo" />
+      </BrandLogo>
       <FlexContainer>
-        <FlexItem>
-          <BrandLogo>
-            <Logo
-              src="../../static/images/logo.png"
-              alt="Dovile Jewellery logo"
-            />
-          </BrandLogo>
-        </FlexItem>
-        <FlexItemDouble>
-          <DoubleItemsWrapper>
-            <Social>
-              <AnchorLink
-                href="https://www.facebook.com/artdovile/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Facebook src="/static/images/facebook-box.png" />
-              </AnchorLink>
-              <AnchorLink
-                href="https://www.instagram.com/dovilejewellery/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Instagram src="/static/images/instagram.png" />
-              </AnchorLink>
-              <AnchorLink
-                href="https://www.pinterest.com/dovilejewellery/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Pinterest src="/static/images/pinterest-box.png" />
-              </AnchorLink>
-            </Social>
-            <Typography color="textSecondary">
-              Dovile Jewellery, Jewellery Quarter, Birmingham, UK |{' '}
-              <Mail href="mailto:hello@dovilejewellery.com" target="_top">
-                hello@dovilejewellery.com
-              </Mail>
-            </Typography>
-          </DoubleItemsWrapper>
-        </FlexItemDouble>
-        <FlexItem>
-          <FooterLinks>
-            <FooterLink>
-              <Link href="/terms-conditions">
-                <a>
-                  <Typography gutterBottom style={styles.links}>
-                    Terms & Conditions
-                  </Typography>
-                </a>
-              </Link>
-            </FooterLink>
-            <FooterLink>
-              <Link href="/care-guide">
-                <a>
-                  <Typography gutterBottom style={styles.links}>
-                    Jewellery Care Guide
-                  </Typography>
-                </a>
-              </Link>
-            </FooterLink>
-            <FooterLink>
-              <Link href="/commissions">
-                <a>
-                  <Typography style={styles.links}>Commissions</Typography>
-                </a>
-              </Link>
-            </FooterLink>
-          </FooterLinks>
-        </FlexItem>
+        <Social>
+          <AnchorLink
+            href="https://www.facebook.com/artdovile/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Facebook src="/static/images/facebook-box.png" />
+          </AnchorLink>
+          <AnchorLink
+            href="https://www.instagram.com/dovilejewellery/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Instagram src="/static/images/instagram.png" />
+          </AnchorLink>
+          <AnchorLink
+            href="https://www.pinterest.com/dovilejewellery/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Pinterest src="/static/images/pinterest-box.png" />
+          </AnchorLink>
+        </Social>
+        <FooterLinks>
+          <FooterLink>
+            <Link href="/terms-conditions">
+              <a>
+                <Typography gutterBottom style={styles.links}>
+                  Terms & Conditions
+                </Typography>
+              </a>
+            </Link>
+          </FooterLink>
+          <FooterLink>
+            <Link href="/care-guide">
+              <a>
+                <Typography gutterBottom style={styles.links}>
+                  Jewellery Care
+                </Typography>
+              </a>
+            </Link>
+          </FooterLink>
+          <FooterLink>
+            <Link href="/commissions">
+              <a>
+                <Typography style={styles.links}>Commissions</Typography>
+              </a>
+            </Link>
+          </FooterLink>
+        </FooterLinks>
       </FlexContainer>
       <Typography color="textSecondary" classes={{ root: classes.root }}>
         &copy; {new Date().getFullYear()} Dovile Jewellery

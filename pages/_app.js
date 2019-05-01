@@ -10,6 +10,7 @@ import withReduxStore from '../lib/with-redux-store';
 import getPageContext from '../src/getPageContext';
 import { authUrl } from '../config';
 import { saveCart } from '../util/helpers';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 import '../styles/emptyFileToFixNextjsBug.css';
 

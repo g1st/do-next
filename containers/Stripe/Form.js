@@ -14,6 +14,7 @@ import StripeDetailForm from './StripeDetailForm';
 import PaymentFailureSegment from './PaymentFailureSegment';
 import { attemptPayment } from './actions';
 import BuyButton from './BuyButton';
+import ModalLoader from '../../components/UI/ModalLoader/ModalLoader';
 
 import {
   Wrapper,
@@ -34,11 +35,6 @@ const styles = theme => ({
       marginBottom: theme.spacing.unit * 6,
       padding: theme.spacing.unit * 3
     }
-  },
-  fullWidth: {
-    [theme.breakpoints.down('xs')]: {
-      width: '100%'
-    }
   }
 });
 
@@ -46,7 +42,7 @@ class StripeForm extends Component {
   state = {
     orderComplete: false,
     error: false,
-    disable: false,
+    processing: false,
     email: '',
     first_name: '',
     last_name: '',
@@ -169,7 +165,8 @@ class StripeForm extends Component {
     } = this.props;
 
     if (!this.isStripesInputsOk() || stripe_errors) return;
-    this.setState(() => ({ disable: true }));
+    this.setState(() => ({ processing: true }));
+
     if (stripe) {
       attemptPayment({ ...this.state, ...this.props })
         .then(res => {
@@ -177,28 +174,31 @@ class StripeForm extends Component {
           if (res.data.errors) {
             console.log(res.data.errors);
             console.log('terminatinu?');
+            window.scrollTo(0, 0);
+
             this.setState({
               // backend_validation_errors: { ...res.data.errors },
               backend_validation_errors: res.data.errors,
-              disable: false
+              processing: false
             });
 
             return;
           }
           if (res.status === 200) {
             console.log('Purchase completed successfully');
-            this.setState(() => ({ orderComplete: true }));
+            this.setState(() => ({ orderComplete: true, processing: false }));
             // empty redux state
             clearCartRedux();
             clearBuyItNowRedux();
+            window.scrollTo(0, 0);
             console.log('its ok ', res);
           }
         })
         .catch(err => {
           console.log('its not ok ', err.response);
           console.log('whole error object:', err);
-
-          this.setState(() => ({ error: true }));
+          window.scrollTo(0, 0);
+          this.setState(() => ({ error: true, processing: false }));
         });
     } else {
       console.log('Form submitted before Stripe.js loaded.');
@@ -221,12 +221,12 @@ class StripeForm extends Component {
   render() {
     const {
       backend_validation_errors,
-      disable,
+      processing,
       isClient,
       orderComplete
     } = this.state;
 
-    const { cart, classes, stripe, width } = this.props;
+    const { cart, classes, stripe } = this.props;
 
     const purchase = orderComplete ? (
       <p>Purchase Complete.</p>
@@ -256,20 +256,23 @@ class StripeForm extends Component {
               </Grid>
               <br />
               <CenterButton>
-                <BuyButton
-                  disabled={!stripe || disable}
-                  fullWidth={width === 'xs'}
-                />
+                <BuyButton disabled={!stripe || processing} fullWidth />
               </CenterButton>
             </form>
           </FormWrapper>
         </Paper>
+        {processing ? <ModalLoader /> : null}
       </CheckoutForm>
     );
 
     const { error } = this.state;
     if (error) {
-      return <PaymentFailureSegment />;
+      return (
+        <>
+          <PaymentFailureSegment />
+          {processing ? <ModalLoader /> : null}
+        </>
+      );
     }
     const { buyItNowItem } = this.props;
     const buyItNow = Object.prototype.hasOwnProperty.call(buyItNowItem, 'name');
@@ -316,8 +319,7 @@ StripeForm.propTypes = {
   clearCart: PropTypes.func,
   // eslint-disable-next-line react/no-unused-prop-types
   shippingCost: PropTypes.number,
-  stripe: PropTypes.object,
-  width: PropTypes.string
+  stripe: PropTypes.object
 };
 
 export default withStyles(styles)(

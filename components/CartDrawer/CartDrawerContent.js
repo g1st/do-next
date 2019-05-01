@@ -19,7 +19,9 @@ const styles = {
   button: {
     margin: '0 auto',
     display: 'flex',
-    marginTop: '32px'
+    marginTop: '32px',
+    maxWidth: '300px',
+    padding: '10px'
   },
   textRight: {
     textAlign: 'right',
@@ -31,6 +33,9 @@ const styles = {
         backgroundColor: 'rgba(0, 0, 0, 0.02)'
       }
     }
+  },
+  marginTop: {
+    marginTop: '20px'
   }
 };
 
@@ -56,7 +61,7 @@ const CartDrawerContent = ({
 
   let content = (
     <>
-      <Typography variant="body1" align="center">
+      <Typography variant="body1" align="center" className={classes.marginTop}>
         Cart is currently empty.
       </Typography>
       <Button
@@ -66,6 +71,7 @@ const CartDrawerContent = ({
         color="secondary"
         onClick={() => buttonClickHandler()}
         onKeyDown={e => keyDownHandler(e)}
+        fullWidth
       >
         SHOP
       </Button>
