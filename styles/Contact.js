@@ -1,36 +1,37 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  margin: 0 20px;
-  text-align: center;
+  @media (min-width: 960px) {
+    width: 100%;
+  }
 `;
 Wrapper.displayName = 'Wrapper';
 
-export const ContactAbout = styled.div``;
-ContactAbout.displayName = 'ContactAbout';
+export const ImagesWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 
-export const Text = styled.div`
-  @media (min-width: 800px) {
-    max-width: 800px;
-    margin: 0 auto;
+  div:nth-child(2) {
+    margin: 0 20px;
   }
-  padding-top: 20px;
-  align-self: center;
+
+  @media (min-width: 960px) {
+    margin-top: 40px;
+  }
 `;
-Text.displayName = 'Text';
+ImagesWrapper.displayName = 'ImagesWrapper';
 
 export const ImageWrapper = styled.div`
-  margin-bottom: 20px;
-  @media (min-width: 800px) {
-    margin-top: 20px;
-  }
+  max-width: 300px;
 `;
 ImageWrapper.displayName = 'ImageWrapper';
 
 export const Image = styled.img`
-  @media (min-width: 800px) {
-    width: 200px;
-  }
-  width: 140px;
+  width: 100%;
 `;
 Image.displayName = 'Image';
+
+export const EmailSent = styled.div`
+  margin-top: 80px;
+`;
+EmailSent.displayName = 'EmailSent';

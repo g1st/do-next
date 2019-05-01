@@ -6,19 +6,24 @@ import { withStyles } from '@material-ui/core/styles';
 
 import emailForContactForm from '../api/EmailTemplates/emailForContactForm';
 import ModalLoader from './UI/ModalLoader/ModalLoader';
-import { ImageWrapper, Image } from '../styles/Contact';
+import { EmailSent } from '../styles/Contact';
 
 const styles = theme => ({
   wrapper: {
+    marginTop: '30px',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    textAlign: 'center'
   },
   margin: {
     margin: theme.spacing.unit
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: '50px'
+    marginTop: '50px',
+    padding: '10px',
+    maxWidth: '300px',
+    width: '100%'
   },
   message: {
     alignSelf: 'flex-start'
@@ -39,7 +44,8 @@ const styles = theme => ({
       marginTop: theme.spacing.unit * 6,
       marginBottom: theme.spacing.unit * 6,
       padding: theme.spacing.unit * 3
-    }
+    },
+    background: 'rgba(0, 0, 0, 0.01)'
   },
   paperWidth: {
     maxWidth: '500px',
@@ -66,7 +72,6 @@ class ContactForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.setState({ isSendingMail: true });
-    const { onEmailSend } = this.props;
     const { email, message, subject } = this.state;
 
     const htmlMessage = emailForContactForm(message, email, subject);
@@ -78,9 +83,6 @@ class ContactForm extends Component {
         subject
       })
       .then(res => {
-        if (onEmailSend) {
-          onEmailSend(true);
-        }
         this.setState(() => ({
           isSendingMail: false,
           emailSent: true
@@ -114,10 +116,7 @@ class ContactForm extends Component {
     }
     if (emailSent) {
       return (
-        <>
-          <ImageWrapper>
-            <Image src="../static/images/message.svg" alt="Send a message" />
-          </ImageWrapper>
+        <EmailSent>
           <Paper
             className={`${classes.paper} ${classes.paperWidth}`}
             elevation={3}
@@ -126,7 +125,7 @@ class ContactForm extends Component {
               Thank you, your message has been sent.
             </Typography>
           </Paper>
-        </>
+        </EmailSent>
       );
     }
     return (
@@ -141,7 +140,7 @@ class ContactForm extends Component {
               type="email"
               required
               fullWidth
-              margin="normal"
+              margin="dense"
               InputLabelProps={{ required: false }}
               onChange={this.handleChange('email')}
               error={!!errors.email}
@@ -154,7 +153,7 @@ class ContactForm extends Component {
               required
               InputLabelProps={{ required: false }}
               type="text"
-              margin="normal"
+              margin="dense"
               fullWidth
               onChange={this.handleChange('subject')}
               error={!!errors.subject}
@@ -166,7 +165,7 @@ class ContactForm extends Component {
               id="message"
               label="Message"
               required
-              margin="normal"
+              margin="dense"
               type="text"
               multiline
               fullWidth
@@ -193,8 +192,7 @@ class ContactForm extends Component {
 }
 
 ContactForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onEmailSend: PropTypes.func
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(ContactForm);
