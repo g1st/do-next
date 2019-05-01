@@ -16,6 +16,7 @@ import {
   Wrapper,
   Images,
   Info,
+  ButtonsWrapper,
   Form,
   DisabledButtonWrapper
 } from '../styles/Piece';
@@ -27,14 +28,12 @@ const styles = {
     marginBottom: '1.25rem'
   },
   marginBottomBig: {
-    marginBottom: '3rem'
+    marginBottom: '2rem'
   },
-  thumbnailPosition: {
-    xs: 'bottom',
-    sm: 'bottom',
-    md: 'bottom',
-    lg: 'bottom',
-    xl: 'bottom'
+  button: {
+    padding: '10px',
+    margin: '0 auto 20px auto',
+    width: '100%'
   }
 };
 
@@ -124,7 +123,6 @@ const Piece = ({
   );
 
   return (
-    // to highlight works tab in navbar under any piece is loaded
     <Layout pathname="/works" collections={collections}>
       <Wrapper>
         <Images>
@@ -139,25 +137,27 @@ const Piece = ({
           />
         </Images>
         <Info>
-          <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
+          <Typography variant="h4">
             {name}
             {user && edit}
           </Typography>
-          <Typography variant="body1" classes={{ body1: classes.marginBottom }}>
-            {description}
+          <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
+            £{price}
           </Typography>
           <Typography variant="body1" classes={{ body1: classes.marginBottom }}>
             Materials: {materials}
           </Typography>
           <Typography variant="body1" classes={{ body1: classes.marginBottom }}>
-            Price: £{price}
+            {description}
           </Typography>
+
           {available ? (
-            <div>
+            <ButtonsWrapper>
               <Button
                 size="medium"
                 variant="contained"
                 color="primary"
+                className={classes.button}
                 onClick={() => handleBuyItNow(dataForCart)}
               >
                 Buy It Now
@@ -167,10 +167,11 @@ const Piece = ({
                 variant="contained"
                 color="secondary"
                 onClick={() => addToCartRedux(dataForCart)}
+                className={classes.button}
               >
                 Add To Cart
               </Button>
-            </div>
+            </ButtonsWrapper>
           ) : (
             notAvailable
           )}
