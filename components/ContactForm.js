@@ -44,8 +44,7 @@ const styles = theme => ({
       marginTop: theme.spacing.unit * 6,
       marginBottom: theme.spacing.unit * 6,
       padding: theme.spacing.unit * 3
-    },
-    background: 'rgba(0, 0, 0, 0.01)'
+    }
   },
   paperWidth: {
     maxWidth: '500px',
