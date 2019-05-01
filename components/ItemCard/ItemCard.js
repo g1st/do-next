@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   card: {
     margin: '0 auto 16px auto',
+    boxShadow: 'none',
     [theme.breakpoints.up('md')]: {
       marginBottom: '32px'
     },

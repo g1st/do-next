@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 
 import Layout from '../components/Layout';
 import Gallery from '../components/Gallery/Gallery';
 
-const Works = ({ data, router, pathname, from, collections }) => {
+const Works = ({ data, router, pathname, collections }) => {
   let { collection } = router.query;
 
   if (!collections.includes(collection)) {
@@ -15,13 +14,6 @@ const Works = ({ data, router, pathname, from, collections }) => {
   return (
     <Layout pathname={pathname} collections={collections}>
       <div>
-        <p>This is Works page.</p>
-        <p>path: {pathname}</p>
-        <p>from: {from}</p>
-        <Link href="/piece">
-          <a>Dedicated item page</a>
-        </Link>
-
         <Gallery
           data={data}
           showCollection={collection}
@@ -37,8 +29,7 @@ Works.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.array,
-  router: PropTypes.object,
-  from: PropTypes.string
+  router: PropTypes.object
 };
 
 Works.getInitialProps = async ({ pathname }) => ({ pathname });
