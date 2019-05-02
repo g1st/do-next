@@ -10,6 +10,7 @@ import {
   Left,
   Right,
   ImageWrapper,
+  PortraitWrapper,
   Image,
   Caption,
   ArtistStatement
@@ -32,14 +33,14 @@ const About = ({ pathname, collections, classes }) => (
   <Layout pathname={pathname} collections={collections}>
     <Wrapper>
       <Left>
-        <ImageWrapper>
+        <PortraitWrapper>
           <Image src="/static/images/fff-2.JPG" alt="Dovile's Portrait" />
           <Caption>
             <Typography variant="subtitle2" align="right">
               photo credit &copy;Agne Bekeraityte
             </Typography>
           </Caption>
-        </ImageWrapper>
+        </PortraitWrapper>
         <AuthorNameText>
           <Typography variant="h4">Dovile Kondrasovaite</Typography>
           <Typography variant="body1" gutterBottom>

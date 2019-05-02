@@ -34,10 +34,16 @@ export const ArtistStatement = styled.div`
 ArtistStatement.displayName = 'ArtistStatement';
 
 export const ImageWrapper = styled.figure`
-  max-width: 300px;
+  max-width: 100%;
   margin: 0 auto;
 `;
 ImageWrapper.displayName = 'ImageWrapper';
+
+export const PortraitWrapper = styled.figure`
+  max-width: 300px;
+  margin: 0 auto;
+`;
+PortraitWrapper.displayName = 'PortraitWrapper';
 
 export const Image = styled.img`
   width: 100%;
