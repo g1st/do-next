@@ -10,6 +10,8 @@ Wrapper.displayName = 'Wrapper';
 export const ImagesWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
 
   div:nth-child(2) {
     margin: 0 20px;
@@ -28,6 +30,7 @@ ImageWrapper.displayName = 'ImageWrapper';
 
 export const Image = styled.img`
   width: 100%;
+  filter: grayscale(100%);
 `;
 Image.displayName = 'Image';
 
