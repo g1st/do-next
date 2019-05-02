@@ -1,34 +1,21 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  @media (min-width: 960px) {
-    margin: 0;
-    display: grid;
-    grid-gap: 80px;
-    grid-template-columns: 1fr 1fr;
-  }
+  width: 100%;
 `;
 Wrapper.displayName = 'Wrapper';
 
 export const Text = styled.div`
   max-width: 700px;
   margin: 0 auto;
-  @media (min-width: 960px) {
-    grid-column-start: 2;
-    grid-row-start: 1;
-  }
 `;
 Text.displayName = 'Text';
 
 export const Figure = styled.figure`
-  display: block;
+  display: inline-block;
   margin: 0;
   margin-left: 20px;
   margin-right: 20px;
-  @media (min-width: 960px) {
-    margin: 20px 0 0 0;
-    grid-column-start: 1;
-  }
 `;
 Figure.displayName = 'Figure';
 
@@ -39,5 +26,12 @@ Caption.displayName = 'Caption';
 
 export const Image = styled.img`
   max-width: 100%;
+  margin: 0 auto;
 `;
 Image.displayName = 'Image';
+
+export const ImageWrapper = styled.div`
+  width: 100%;
+  text-align: center;
+`;
+ImageWrapper.displayName = 'ImageWrapper';

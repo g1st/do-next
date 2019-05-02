@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
 
 import Layout from '../components/Layout';
-import { Wrapper, Image, Figure, Caption, Text } from '../styles/CareGuide';
+import { Wrapper, Image, Figure, Text } from '../styles/CareGuide';
+import { ImageWrapper } from '../styles/TermsAndConditions';
 
 const style = {
   headline: {
@@ -14,15 +15,11 @@ const CareGuide = ({ collections }) => (
   // false for Material UI Tabs to know this endpoint not needed
   <Layout pathname={false} collections={collections}>
     <Wrapper>
-      <Figure>
-        <Image src="../static/images/f-5.JPG" alt="Crafts market" />
-        <Caption>
-          <Typography variant="body1" align="left">
-            If you love jewellery as much as I do, jewellery needs your tender
-            loving care.
-          </Typography>
-        </Caption>
-      </Figure>
+      <ImageWrapper>
+        <Figure>
+          <Image src="../static/images/f-5.JPG" alt="Crafts market" />
+        </Figure>
+      </ImageWrapper>
       <Text>
         <Typography
           align="left"

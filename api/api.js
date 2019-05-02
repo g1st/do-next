@@ -12,6 +12,7 @@ const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const { shippingPrice } = require('../util/globals');
 const serverUtils = require('../util/serverHelper');
+const emailForContactForm = require('./EmailTemplates/emailForContactForm');
 
 module.exports = (db, upload) => {
   const router = express.Router();
@@ -312,7 +313,11 @@ module.exports = (db, upload) => {
         .withMessage('Please provide a message.')
     ],
     (req, res) => {
-      const { email, subject, message } = req.body;
+      const { email, subject, message, contactForm } = req.body;
+
+      const htmlMessage = contactForm
+        ? emailForContactForm(message, email, subject)
+        : null;
 
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -320,7 +325,11 @@ module.exports = (db, upload) => {
         return res.status(422).json({ errors: errors.array() });
       }
       if (process.env.NODE_ENV === 'production') {
-        sendMail({ email, subject, message })
+        sendMail({
+          email,
+          subject,
+          message: htmlMessage || message
+        })
           .then(() =>
             res.json({
               msg: 'Email has been sent.'

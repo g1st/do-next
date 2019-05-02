@@ -23,7 +23,10 @@ const styles = {
     color: 'rgba(0, 0, 0, .54)'
   },
   root: {
-    textAlign: 'center'
+    textAlign: 'center',
+    '@media (min-width: 960px)': {
+      marginTop: '24px'
+    }
   }
 };
 

@@ -38,16 +38,6 @@ export const Info = styled.div`
 `;
 Info.displayName = 'Info';
 
-export const Form = styled.div`
-  text-align: center;
-  max-width: 450px;
-  margin: 20px auto;
-  @media (min-width: 768px) {
-    margin: 20px 0;
-  }
-`;
-Form.displayName = 'Form';
-
 export const DisabledButtonWrapper = styled.div`
   display: inline-block;
   margin-bottom: 20px;

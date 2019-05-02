@@ -17,12 +17,11 @@ import {
   Images,
   Info,
   ButtonsWrapper,
-  Form,
   DisabledButtonWrapper,
   Text
 } from '../styles/Piece';
 import { Mail } from '../styles/Shared';
-import ContactForm from '../components/ContactForm';
+import DialogForm from '../components/DialogForm/DialogForm';
 
 const styles = {
   marginBottom: {
@@ -116,11 +115,9 @@ const Piece = ({
         <Mail href="mailto:hello@dovilejewellery.com" target="_top">
           hello@dovilejewellery.com
         </Mail>{' '}
-        or fill in the form below.
+        or fill in the contact form.
       </Typography>
-      <Form>
-        <ContactForm />
-      </Form>
+      <DialogForm />
     </>
   );
 

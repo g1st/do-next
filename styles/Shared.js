@@ -17,7 +17,8 @@ export const AnchorLink = styled.a`
 AnchorLink.displayName = 'AnchorLink';
 
 export const Table = styled.table`
-  margin-bottom: 14px;
+  margin-top: 12px;
+  margin-bottom: 36px;
   vertical-align: top;
 `;
 Table.displayName = 'Table';
@@ -33,5 +34,6 @@ Row.displayName = 'Row';
 
 export const Data = styled.td`
   max-width: 600px;
+  min-width: 116px;
 `;
 Data.displayName = 'Data';

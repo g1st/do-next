@@ -5,7 +5,8 @@ export const Wrapper = styled.div`
   position: relative;
   flex-shrink: 0;
   @media (min-width: 960px) {
-    padding: 20px 0;
+    padding: 80px 0 40px 0;
+    margin-top: 100px;
   }
 `;
 Wrapper.displayName = 'Wrapper';
@@ -18,7 +19,7 @@ export const BrandLogo = styled.div`
 
   @media (min-width: 960px) {
     position: absolute;
-    top: 60px;
+    top: 120px;
     left: 60px;
   }
 `;
@@ -26,7 +27,7 @@ BrandLogo.displayName = 'BrandLogo';
 
 export const Logo = styled.img`
   width: 80px;
-  margin: 20px auto 0 auto;
+  margin: 40px auto 0 auto;
   @media (min-width: 960px) {
     margin-top: 0;
   }
@@ -57,8 +58,11 @@ export const Social = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100px;
-  padding-bottom: 15px;
+  padding-bottom: 4px;
   margin: 0 auto;
+  @media (min-width: 960px) {
+    padding-bottom: 15px;
+  }
 `;
 Social.displayName = 'Social';
 
