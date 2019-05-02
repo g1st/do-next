@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   position: relative;
   flex-shrink: 0;
   @media (min-width: 960px) {
-    padding: 20px 0;
+    padding: 80px 0 40px 0;
   }
 `;
 Wrapper.displayName = 'Wrapper';
@@ -18,7 +18,7 @@ export const BrandLogo = styled.div`
 
   @media (min-width: 960px) {
     position: absolute;
-    top: 60px;
+    top: 120px;
     left: 60px;
   }
 `;
