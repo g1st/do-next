@@ -1,47 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 
+import {
+  Wrapper,
+  Headline,
+  Content,
+  Input,
+  ModalImage,
+  Figcaption,
+  ImagesWrapper,
+  TwoImages,
+  Image
+} from '../../styles/LandingPageGallery';
+
 const styles = theme => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
   gridList: {
     display: 'flex',
     justifyContent: 'center',
     margin: '0 auto',
+    maxWidth: '100%',
     '@media (min-width: 600px)': {
-      flexWrap: 'nowrap',
-      margin: 0
+      margin: 0,
+      flexWrap: 'nowrap'
     },
 
     '& > div': {
       '@media (max-width: 600px)': {
         maxWidth: '250px'
       }
-    }
-  },
-  img: {
-    width: '100%',
-    '&:hover': {
-      cursor: 'pointer'
-    },
-    '@media (min-width: 600px)': {
-      maxHeight: '360px',
-      width: '100%'
-    }
-  },
-  modalImage: {
-    maxWidth: '100%',
-    '@media (min-width: 600px)': {
-      maxWidth: '580px',
-      width: 'auto',
-      height: 'auto',
-      maxHeight: '80%'
     }
   },
   paper: {
@@ -52,21 +41,14 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
     outline: 'none',
-    maxHeight: '95%',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '80vw',
 
-    '@media (min-width: 600px)': {
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      height: '90%'
+    '@media (min-width: 800px)': {
+      maxWidth: '750px'
     }
-  },
-  figcaption: {
-    paddingTop: '20px'
-  },
-  wrapper: {
-    display: 'flex',
-    height: '100%'
   }
 });
 
@@ -92,72 +74,76 @@ class LandingPageGallery extends React.Component {
     const { open, src } = this.state;
 
     return (
-      <div className={classes.wrapper}>
-        <div className={classes.root}>
-          <Modal
-            aria-labelledby="jewellery-piece"
-            aria-describedby="jewellery-piece-description"
-            open={open}
-            onClose={this.handleClose}
-          >
-            <figure className={classes.paper}>
-              <img className={classes.modalImage} src={src} alt="" />
-              <figcaption>
-                <Typography
-                  variant="subtitle1"
-                  id="jewellery-piece-description"
-                  className={classes.figcaption}
-                >
-                  Duis mollis, est non commodo luctus, nisi erat porttitor
-                  ligula.
-                </Typography>
-              </figcaption>
-            </figure>
-          </Modal>
-          <Grid container className={classes.gridList} spacing={32}>
-            <Grid item key={0}>
-              <input
-                type="image"
-                className={classes.img}
-                onClick={this.onImageClick}
-                src="/static/images/Dovile Jewellery.JPG"
-                alt="Presentational Dovile Jewellery piece"
-                onKeyDown={this.handleKeyDown}
-              />
-            </Grid>
-            <Grid item key={1}>
-              <input
-                type="image"
-                className={classes.img}
-                onClick={this.onImageClick}
-                src="/static/images/Dovile Jewellery-2.JPG"
-                alt="Presentational Dovile Jewellery piece"
-                onKeyDown={this.handleKeyDown}
-              />
-            </Grid>
-            <Grid item key={2}>
-              <input
-                type="image"
-                className={classes.img}
-                onClick={this.onImageClick}
-                src="/static/images/Dovile Jewellery-3.JPG"
-                alt="Presentational Dovile Jewellery piece"
-                onKeyDown={this.handleKeyDown}
-              />
-            </Grid>
-            <Grid item key={3}>
-              <input
-                type="image"
-                className={classes.img}
-                onClick={this.onImageClick}
-                src="/static/images/Dovile Jewellery-4.JPG"
-                alt="Presentational Dovile Jewellery piece"
-                onKeyDown={this.handleKeyDown}
-              />
-            </Grid>
-          </Grid>
-        </div>
-      </div>
+      <Wrapper>
+        <Modal
+          aria-labelledby="jewellery-piece"
+          aria-describedby="jewellery-piece-description"
+          open={open}
+          onClose={this.handleClose}
+        >
+          <figure className={classes.paper}>
+            <ModalImage src={src} alt="" />
+            <Figcaption>
+              <Typography
+                variant="subtitle1"
+                id="jewellery-piece-description"
+                className={classes.figcaption}
+              >
+                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              </Typography>
+            </Figcaption>
+          </figure>
+        </Modal>
+        <Content>
+          <ImagesWrapper>
+            <TwoImages>
+              <Image>
+                <Input
+                  type="image"
+                  onClick={this.onImageClick}
+                  src="/static/images/Dovile Jewellery.JPG"
+                  alt="Presentational Dovile Jewellery piece"
+                  onKeyDown={this.handleKeyDown}
+                />
+              </Image>
+              <Image>
+                <Input
+                  type="image"
+                  onClick={this.onImageClick}
+                  src="/static/images/Dovile Jewellery-2.JPG"
+                  alt="Presentational Dovile Jewellery piece"
+                  onKeyDown={this.handleKeyDown}
+                />
+              </Image>
+            </TwoImages>
+            <TwoImages>
+              <Image>
+                <Input
+                  type="image"
+                  onClick={this.onImageClick}
+                  src="/static/images/Dovile Jewellery-3.JPG"
+                  alt="Presentational Dovile Jewellery piece"
+                  onKeyDown={this.handleKeyDown}
+                />
+              </Image>
+              <Image>
+                <Input
+                  type="image"
+                  onClick={this.onImageClick}
+                  src="/static/images/Dovile Jewellery-4.JPG"
+                  alt="Presentational Dovile Jewellery piece"
+                  onKeyDown={this.handleKeyDown}
+                />
+              </Image>
+            </TwoImages>
+          </ImagesWrapper>
+          <Headline>
+            <Typography variant="h5" component="h2">
+              contemporary amber art jewellery
+            </Typography>
+          </Headline>
+        </Content>
+      </Wrapper>
     );
   }
 }
