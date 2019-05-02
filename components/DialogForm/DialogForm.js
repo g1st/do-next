@@ -33,6 +33,10 @@ const styles = theme => ({
 });
 
 class FormDialog extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired
+  };
+
   state = {
     open: false,
     subject: '',
@@ -94,7 +98,8 @@ class FormDialog extends React.Component {
       errors,
       isSendingMail,
       message,
-      subject
+      subject,
+      open
     } = this.state;
 
     const { classes } = this.props;
@@ -105,7 +110,7 @@ class FormDialog extends React.Component {
     if (emailSent) {
       return (
         <Dialog
-          open={this.state.open}
+          open={open}
           onClose={this.handleClose}
           aria-labelledby="contact-form"
         >
@@ -128,7 +133,7 @@ class FormDialog extends React.Component {
           Open form
         </Button>
         <Dialog
-          open={this.state.open}
+          open={open}
           onClose={this.handleClose}
           aria-labelledby="contact-form"
         >

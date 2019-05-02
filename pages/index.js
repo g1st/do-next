@@ -38,7 +38,8 @@ const Index = ({ pathname, collections, classes }) => (
 
 Index.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  classes: PropTypes.object.isRequired
 };
 
 Index.getInitialProps = async ({ pathname, user }) => ({ pathname, user });

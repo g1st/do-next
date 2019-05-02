@@ -328,7 +328,7 @@ module.exports = (db, upload) => {
         sendMail({
           email,
           subject,
-          message: htmlMessage ? htmlMessage : message
+          message: htmlMessage || message
         })
           .then(() =>
             res.json({
