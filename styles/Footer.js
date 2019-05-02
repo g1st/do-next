@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   flex-shrink: 0;
   @media (min-width: 960px) {
     padding: 80px 0 40px 0;
+    margin-top: 100px;
   }
 `;
 Wrapper.displayName = 'Wrapper';
