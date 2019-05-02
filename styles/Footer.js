@@ -26,7 +26,7 @@ BrandLogo.displayName = 'BrandLogo';
 
 export const Logo = styled.img`
   width: 80px;
-  margin: 20px auto 0 auto;
+  margin: 40px auto 0 auto;
   @media (min-width: 960px) {
     margin-top: 0;
   }
@@ -57,8 +57,11 @@ export const Social = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100px;
-  padding-bottom: 15px;
+  padding-bottom: 4px;
   margin: 0 auto;
+  @media (min-width: 960px) {
+    padding-bottom: 15px;
+  }
 `;
 Social.displayName = 'Social';
 
