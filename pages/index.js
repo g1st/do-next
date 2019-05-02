@@ -11,7 +11,10 @@ const styles = () => ({
   button: {
     maxWidth: '300px',
     display: 'block',
-    margin: '40px auto 20px auto'
+    margin: '40px auto 20px auto',
+    '@media (min-width: 960px)': {
+      display: 'none'
+    }
   }
 });
 
@@ -23,7 +26,7 @@ const Index = ({ pathname, collections, classes }) => (
     <LandingPageGallery />
     <Button
       variant="contained"
-      color="primary"
+      color="secondary"
       fullWidth
       className={classes.button}
       onClick={handleButton}
