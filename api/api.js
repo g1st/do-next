@@ -508,6 +508,8 @@ module.exports = (db, upload) => {
       // send confirmation email to seller and buyer
       await sendPurchaseEmail(req.body);
 
+      await Work.findByIdAndUpdate({ _id }, { $set: { available: false } });
+
       const { client_ip } = req.body.payload.token;
       const {
         email,
