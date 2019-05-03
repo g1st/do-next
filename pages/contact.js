@@ -6,7 +6,11 @@ import Form from '../components/ContactForm';
 import { Wrapper, ImagesWrapper, ImageWrapper, Image } from '../styles/Contact';
 
 const Contact = ({ pathname, collections }) => (
-  <Layout pathname={pathname} collections={collections}>
+  <Layout
+    pathname={pathname}
+    collections={collections}
+    title="Contact | Dovile Jewellery"
+  >
     <Wrapper>
       <ImagesWrapper>
         <ImageWrapper>
