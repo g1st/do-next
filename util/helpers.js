@@ -46,3 +46,22 @@ export const onImageError = event => {
     event.target.srcset = '';
   }
 };
+
+export const pluralise = category => {
+  switch (category) {
+    case 'brooch':
+      return 'brooches';
+    case 'ring':
+      return 'rings';
+    case 'earring':
+      return 'earrings';
+    case 'necklace':
+      return 'necklaces';
+    case 'bracelet':
+      return 'bracelets';
+    case 'other':
+      return 'other';
+    default:
+      return 'all types';
+  }
+};

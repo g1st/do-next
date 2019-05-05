@@ -8,6 +8,7 @@ import { increaseLoadedItems } from '../../store/actions';
 import Filter from './Filter';
 import ItemCard from '../ItemCard/ItemCard';
 import { ITEMS_PER_PAGE } from '../../config';
+import { FilterWrapper } from '../../styles/Gallery';
 
 const styles = () => ({
   root: {
@@ -29,7 +30,8 @@ const styles = () => ({
     }
   },
   collection: {
-    paddingTop: '16px'
+    lineHeight: '48px',
+    textTransform: 'uppercase'
   }
 });
 
@@ -74,7 +76,7 @@ class Gallery extends React.Component {
     }));
   };
 
-  handleChange = ({ target: { value } }) => {
+  handleChange = value => {
     const { showCollection } = this.props;
 
     this.setState({
@@ -131,11 +133,9 @@ class Gallery extends React.Component {
     let filter = null;
     if (showFilter) {
       filter = (
-        <>
-          <Typography variant="h5" className={classes.collection}>
-            {showCollection === 'all' ? 'all works' : showCollection}
-          </Typography>
+        <FilterWrapper>
           <Filter
+            collection={showCollection}
             data={collectionData}
             handleChange={this.handleChange}
             option={
@@ -144,30 +144,32 @@ class Gallery extends React.Component {
                 : ''
             }
           />
-        </>
+        </FilterWrapper>
       );
     }
 
     return (
-      <div className={classes.root}>
+      <div>
         {filter}
-        <Grid className={classes.grid} container spacing={8}>
-          {filtered.map(item => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
-              <ItemCard
-                id={item._id.toString()}
-                price={item.price}
-                name={item.name}
-                img={
-                  item.frontImage
-                    ? `/static/uploads/${item.frontImage}`
-                    : `/static/uploads/${item.images[0].medium}`
-                }
-              />
-            </Grid>
-          ))}
-        </Grid>
-        {loadMoreButton}
+        <div className={classes.root}>
+          <Grid className={classes.grid} container spacing={8}>
+            {filtered.map(item => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
+                <ItemCard
+                  id={item._id.toString()}
+                  price={item.price}
+                  name={item.name}
+                  img={
+                    item.frontImage
+                      ? `/static/uploads/${item.frontImage}`
+                      : `/static/uploads/${item.images[0].medium}`
+                  }
+                />
+              </Grid>
+            ))}
+          </Grid>
+          {loadMoreButton}
+        </div>
       </div>
     );
   }
