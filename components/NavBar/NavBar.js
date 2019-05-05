@@ -14,18 +14,16 @@ import {
   MenuItem
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { ExpandMore, ExpandLess } from '@material-ui/icons';
+import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
 import NavDrawer from '../NavDrawer/NavDrawer';
 import CartDrawer from '../CartDrawer/CartDrawer';
 import { DrawerContext } from '../DrawerContext';
 import ShoppingBasket from './ShoppingBasket';
+import { Wrapper, WrapSpan, Span } from '../../styles/NavBar';
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
   flex: {
     flex: 1,
     [theme.breakpoints.down('sm')]: {
@@ -58,6 +56,9 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       display: 'visible'
     }
+  },
+  menuItem: {
+    fontSize: '.9rem'
   }
 });
 
@@ -121,14 +122,14 @@ class NavBar extends React.Component {
         {/* <Tab label="Home" value="/" to="/" /> */}
         <Tab
           label={
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <span style={{ paddingRight: 6 }}>Shop</span>
+            <WrapSpan>
+              <Span>Shop</Span>
               {anchorEl ? (
-                <ExpandLess fontSize="small" />
+                <ArrowDropUp fontSize="small" />
               ) : (
-                <ExpandMore fontSize="small" />
+                <ArrowDropDown fontSize="small" />
               )}
-            </div>
+            </WrapSpan>
           }
           value="/shop"
           aria-owns={anchorEl ? pathname : null}
@@ -153,59 +154,59 @@ class NavBar extends React.Component {
     );
 
     return (
-      <div>
-        <div>
-          <div className={classes.root}>
-            <DrawerContext.Provider value={this.state}>
-              <NavDrawer collections={collections} />
-              <CartDrawer />
-            </DrawerContext.Provider>
-            <AppBar>
-              <Toolbar>
-                {smallMenu}
-                <Typography
-                  variant="h6"
-                  component="h1"
-                  color="inherit"
-                  className={classes.flex}
+      <Wrapper>
+        <DrawerContext.Provider value={this.state}>
+          <NavDrawer collections={collections} />
+          <CartDrawer />
+        </DrawerContext.Provider>
+        <AppBar>
+          <Toolbar>
+            {smallMenu}
+            <Typography
+              variant="h6"
+              component="h1"
+              color="inherit"
+              className={classes.flex}
+            >
+              Dovile Jewellery
+            </Typography>
+            {navigation}
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={this.closeMenu}
+            >
+              <MenuItem
+                onClick={this.handleMenuItemClick('/shop')}
+                className={classes.menuItem}
+              >
+                SHOW ALL
+              </MenuItem>
+              {collections.map(collection => (
+                <MenuItem
+                  key={collection}
+                  onClick={this.handleMenuItemClick(
+                    `/shop?collection=${collection}`,
+                    `/shop/${collection}`
+                  )}
+                  className={classes.menuItem}
                 >
-                  Dovile Jewellery
-                </Typography>
-                {navigation}
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={this.closeMenu}
-                >
-                  <MenuItem onClick={this.handleMenuItemClick('/shop')}>
-                    SHOW ALL
-                  </MenuItem>
-                  {collections.map(collection => (
-                    <MenuItem
-                      key={collection}
-                      onClick={this.handleMenuItemClick(
-                        `/shop?collection=${collection}`,
-                        `/shop/${collection}`
-                      )}
-                    >
-                      {collection.toUpperCase()}
-                    </MenuItem>
-                  ))}
-                </Menu>
-                <IconButton
-                  className={classes.iconButton}
-                  color="inherit"
-                  aria-label="Shopping Basket"
-                  onClick={this.toggleDrawer('drawerCart', true)}
-                >
-                  <ShoppingBasket uniqueCartItems={uniqueCartItems} />
-                </IconButton>
-              </Toolbar>
-            </AppBar>
-          </div>
-        </div>
-      </div>
+                  {collection.toUpperCase()}
+                </MenuItem>
+              ))}
+            </Menu>
+            <IconButton
+              className={classes.iconButton}
+              color="inherit"
+              aria-label="Shopping Basket"
+              onClick={this.toggleDrawer('drawerCart', true)}
+            >
+              <ShoppingBasket uniqueCartItems={uniqueCartItems} />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      </Wrapper>
     );
   }
 }
