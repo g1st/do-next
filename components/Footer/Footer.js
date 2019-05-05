@@ -44,6 +44,7 @@ const Footer = props => {
             href="https://www.facebook.com/artdovile/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Go to Dovile's facebook page"
           >
             <Facebook src="/static/images/facebook-box.png" />
           </AnchorLink>
@@ -51,6 +52,7 @@ const Footer = props => {
             href="https://www.instagram.com/dovilejewellery/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Go to Dovile's instagram page"
           >
             <Instagram src="/static/images/instagram.png" />
           </AnchorLink>
@@ -58,6 +60,7 @@ const Footer = props => {
             href="https://www.pinterest.com/dovilejewellery/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Go to Dovile's pinterest page"
           >
             <Pinterest src="/static/images/pinterest-box.png" />
           </AnchorLink>
