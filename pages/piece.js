@@ -7,6 +7,7 @@ import Link from 'next/link';
 import ImageGallery from 'react-image-gallery';
 import { Typography, Button, Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { ArrowRight } from '@material-ui/icons';
 
 import customItem from '../components/ItemCard/customRenderItem';
 import customThumb from '../components/ItemCard/customRenderThumb';
@@ -22,6 +23,7 @@ import {
 } from '../styles/Piece';
 import { Mail } from '../styles/Shared';
 import DialogForm from '../components/DialogForm/DialogForm';
+import { pluralise } from '../util/helpers';
 
 const styles = {
   marginBottom: {
@@ -34,6 +36,16 @@ const styles = {
     padding: '10px',
     margin: '0 auto 20px auto',
     width: '100%'
+  },
+  filterLine: {
+    color: '#595959',
+    letterSpacing: '1px'
+  },
+  svg: {
+    top: '.3em',
+    position: 'relative',
+    color: '#595959',
+    margin: '0 12px'
   }
 };
 
@@ -62,7 +74,9 @@ const Piece = ({
     size,
     _id,
     images,
-    available
+    available,
+    group: collection,
+    category
   } = onePieceData[0];
 
   const dataForCart = {
@@ -121,8 +135,21 @@ const Piece = ({
     </>
   );
 
+  const pathLine = (
+    <div>
+      <Typography inline variant="body2" className={classes.filterLine}>
+        {collection}
+      </Typography>
+      <ArrowRight fontSize="small" className={classes.svg} />
+      <Typography inline variant="body2" className={classes.filterLine}>
+        {pluralise(category)}
+      </Typography>
+    </div>
+  );
+
   return (
     <Layout pathname="/shop" collections={collections}>
+      {pathLine}
       <Wrapper>
         <Images>
           <ImageGallery
