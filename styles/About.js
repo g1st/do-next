@@ -26,9 +26,13 @@ export const Right = styled.div`
 Right.displayName = 'Right';
 
 export const ArtistStatement = styled.div`
+  background-color: #fafafa;
+  padding-left: 10px;
+  padding-right: 10px;
   @media (min-width: 960px) {
     margin-bottom: 60px;
     padding-left: 40px;
+    padding-right: 20px;
   }
 `;
 ArtistStatement.displayName = 'ArtistStatement';

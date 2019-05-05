@@ -39,7 +39,10 @@ const About = ({ pathname, collections, classes }) => (
     <Wrapper>
       <Left>
         <PortraitWrapper>
-          <Image src="/static/images/fff-2.JPG" alt="Dovile's Portrait" />
+          <Image
+            src="/static/images/Dovile Kondrasovaite.jpeg"
+            alt="Portrait photo of Dovile Kondrasovaite"
+          />
           <Caption>
             <Typography
               variant="subtitle2"
@@ -155,7 +158,10 @@ const About = ({ pathname, collections, classes }) => (
       <Divider className={classes.divider} />
       <Right>
         <ImageWrapper>
-          <Image src="/static/images/s-1.JPG" alt="Model wearing brooch" />
+          <Image
+            src="/static/images/s-1.jpeg"
+            alt="Model wearing Dovile Jewellery brooch"
+          />
           <Caption>
             <Typography
               variant="subtitle2"
