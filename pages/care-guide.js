@@ -13,7 +13,11 @@ const style = {
 
 const CareGuide = ({ collections }) => (
   // false for Material UI Tabs to know this endpoint not needed
-  <Layout pathname={false} collections={collections}>
+  <Layout
+    pathname={false}
+    collections={collections}
+    title="Care Guide | Dovile Jewellery"
+  >
     <Wrapper>
       <ImageWrapper>
         <Figure>

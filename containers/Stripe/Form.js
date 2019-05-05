@@ -35,6 +35,9 @@ const styles = theme => ({
       marginBottom: theme.spacing.unit * 6,
       padding: theme.spacing.unit * 3
     }
+  },
+  marginTop: {
+    marginTop: '30px'
   }
 });
 
@@ -289,7 +292,12 @@ class StripeForm extends Component {
       );
     }
     if (orderComplete) {
-      return <div>order complete, clear cart</div>;
+      return (
+        <Typography variant="body1" className={classes.marginTop}>
+          Your order was successful. I just sent you a confirmation email about
+          your purchase, thank you!
+        </Typography>
+      );
     }
     return (
       <div>

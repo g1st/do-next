@@ -15,7 +15,11 @@ const styles = theme => ({
 });
 
 const Checkout = ({ classes, collections }) => (
-  <Layout pathname={false} collections={collections}>
+  <Layout
+    pathname={false}
+    collections={collections}
+    title="Checkout | Dovile Jewellery"
+  >
     <Typography component="h1" variant="h5" className={classes.h6}>
       Checkout
     </Typography>

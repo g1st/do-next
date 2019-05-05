@@ -20,7 +20,11 @@ import {
 
 const styles = {
   links: {
-    color: 'rgba(0, 0, 0, .54)'
+    color: 'rgba(0, 0, 0, .54)',
+    marginBottom: '27px',
+    '@media (min-width: 960px)': {
+      marginBottom: 0
+    }
   },
   root: {
     textAlign: 'center',
@@ -46,7 +50,10 @@ const Footer = props => {
             rel="noopener noreferrer"
             aria-label="Go to Dovile's facebook page"
           >
-            <Facebook src="/static/images/facebook-box.png" />
+            <Facebook
+              src="/static/images/facebook-box.png"
+              alt="Facebook logo"
+            />
           </AnchorLink>
           <AnchorLink
             href="https://www.instagram.com/dovilejewellery/"
@@ -54,7 +61,10 @@ const Footer = props => {
             rel="noopener noreferrer"
             aria-label="Go to Dovile's instagram page"
           >
-            <Instagram src="/static/images/instagram.png" />
+            <Instagram
+              src="/static/images/instagram.png"
+              alt="Instagram logo"
+            />
           </AnchorLink>
           <AnchorLink
             href="https://www.pinterest.com/dovilejewellery/"
@@ -62,33 +72,36 @@ const Footer = props => {
             rel="noopener noreferrer"
             aria-label="Go to Dovile's pinterest page"
           >
-            <Pinterest src="/static/images/pinterest-box.png" />
+            <Pinterest
+              src="/static/images/pinterest-box.png"
+              alt="Pinterest logo"
+            />
           </AnchorLink>
         </Social>
         <FooterLinks>
           <FooterLink>
             <Link href="/terms-conditions">
-              <a>
-                <Typography gutterBottom style={styles.links}>
+              <AnchorLink>
+                <Typography className={classes.links}>
                   Terms & Conditions
                 </Typography>
-              </a>
+              </AnchorLink>
             </Link>
           </FooterLink>
           <FooterLink>
             <Link href="/care-guide">
-              <a>
-                <Typography gutterBottom style={styles.links}>
+              <AnchorLink>
+                <Typography className={classes.links}>
                   Jewellery Care
                 </Typography>
-              </a>
+              </AnchorLink>
             </Link>
           </FooterLink>
           <FooterLink>
             <Link href="/commissions">
-              <a>
-                <Typography style={styles.links}>Commissions</Typography>
-              </a>
+              <AnchorLink>
+                <Typography className={classes.links}>Commissions</Typography>
+              </AnchorLink>
             </Link>
           </FooterLink>
         </FooterLinks>

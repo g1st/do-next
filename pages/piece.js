@@ -148,7 +148,13 @@ const Piece = ({
   );
 
   return (
-    <Layout pathname="/shop" collections={collections}>
+    <Layout
+      pathname="/shop"
+      collections={collections}
+      title={`${name} | Dovile Jewellery`}
+      description={`Materials: ${materials}
+      ${description}`}
+    >
       {pathLine}
       <Wrapper>
         <Images>

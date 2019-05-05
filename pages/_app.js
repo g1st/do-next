@@ -147,7 +147,13 @@ class MyApp extends App {
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
                 <Head>
-                  <title>Dovile Jewellery</title>
+                  <title>
+                    Jewellery artist Dovile Kondrasovaite | Dovile Jewellery
+                  </title>
+                  <meta
+                    name="Description"
+                    content="Contemporary amber jewellery with a delicate and modern touch by Dovile Kondrasovaite. Shop authentic handmade jewelry made by independent artist."
+                  />
                 </Head>
                 {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}

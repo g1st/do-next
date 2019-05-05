@@ -12,7 +12,11 @@ const Shop = ({ data, router, pathname, collections }) => {
   }
 
   return (
-    <Layout pathname={pathname} collections={collections}>
+    <Layout
+      pathname={pathname}
+      collections={collections}
+      title="Shop | Dovile Jewellery"
+    >
       <div>
         <Gallery
           data={data}
