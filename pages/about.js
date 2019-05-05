@@ -35,7 +35,11 @@ const styles = () => ({
 });
 
 const About = ({ pathname, collections, classes }) => (
-  <Layout pathname={pathname} collections={collections}>
+  <Layout
+    pathname={pathname}
+    collections={collections}
+    title="About | Dovile Jewellery"
+  >
     <Wrapper>
       <Left>
         <PortraitWrapper>

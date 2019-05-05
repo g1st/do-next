@@ -13,7 +13,11 @@ import {
 import { Mail } from '../styles/Shared';
 
 const Commissions = ({ collections }) => (
-  <Layout pathname={false} collections={collections}>
+  <Layout
+    pathname={false}
+    collections={collections}
+    title="Commissions | Dovile Jewellery"
+  >
     <Wrapper>
       <ImageWrapper>
         <Figure>

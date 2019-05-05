@@ -15,7 +15,11 @@ import {
 import { AnchorLink, Table, Row, Data } from '../styles/Shared';
 
 const WhereToFind = ({ pathname, collections }) => (
-  <Layout pathname={pathname} collections={collections}>
+  <Layout
+    pathname={pathname}
+    collections={collections}
+    title="Where To Find | Dovile Jewellery"
+  >
     <Wrapper>
       <Stockist>
         <ImageWrapper>

@@ -69,11 +69,13 @@ Social.displayName = 'Social';
 export const FooterLinks = styled.ul`
   list-style: none;
   list-style-type: none;
-  padding: 20px 0;
+  padding: 20px 0 0 0;
   text-align: center;
+  margin-bottom: 40px;
 
   @media (min-width: 960px) {
     padding: 0;
+    margin-bottom: 16px;
   }
 `;
 FooterLinks.displayName = 'FooterLinks';
@@ -98,7 +100,9 @@ export const FooterLink = styled.li`
 `;
 FooterLink.displayName = 'FooterLink';
 
-export const AnchorLink = styled.a``;
+export const AnchorLink = styled.a`
+  cursor: pointer;
+`;
 AnchorLink.displayName = 'AnchorLink';
 
 export const Mail = styled.a`
