@@ -1,10 +1,11 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 
 const PaymentFailureSegment = () => (
-  <div>
+  <Typography variant="body1">
     We cannot process your payment. Please check your payment details and try
     again.
-  </div>
+  </Typography>
 );
 
 export default PaymentFailureSegment;
