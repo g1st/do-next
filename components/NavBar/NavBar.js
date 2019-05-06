@@ -38,9 +38,6 @@ const styles = theme => ({
     marginLeft: 20,
     marginRight: 0
   },
-  tabIndicator: {
-    display: 'none'
-  },
   toggleNav: {
     [theme.breakpoints.up('md')]: {
       display: 'visible'
