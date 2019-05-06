@@ -1,20 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Document, { Head, Main, NextScript } from 'next/document';
-import JssProvider from 'react-jss/lib/JssProvider';
 import flush from 'styled-jsx/server';
 import { ServerStyleSheet } from 'styled-components';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import getPageContext from '../src/getPageContext';
 
 class MyDocument extends Document {
   render() {
-    const { pageContext, styleTags } = this.props;
+    const { pageContext } = this.props;
 
     return (
       <html lang="en" dir="ltr">
         <Head>
           <meta charSet="utf-8" />
-          {styleTags}
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
             name="viewport"
@@ -26,7 +23,9 @@ class MyDocument extends Document {
           {/* PWA primary color */}
           <meta
             name="theme-color"
-            content={pageContext.theme.palette.primary.main}
+            content={
+              pageContext ? pageContext.theme.palette.primary.main : null
+            }
           />
           <link
             rel="stylesheet"
@@ -43,7 +42,7 @@ class MyDocument extends Document {
   }
 }
 
-MyDocument.getInitialProps = ctx => {
+MyDocument.getInitialProps = async ctx => {
   // Resolution order
   //
   // On the server:
@@ -61,38 +60,57 @@ MyDocument.getInitialProps = ctx => {
   // 1. page.getInitialProps
   // 3. page.render
   // Get the context of the page to collected side effects.
-  const pageContext = getPageContext();
+  let pageContext;
+  const page = ctx.renderPage(Component => {
+    const WrappedComponent = props => {
+      console.log(props);
+      pageContext = props.pageContext;
+      return <Component {...props} />;
+    };
+
+    WrappedComponent.propTypes = {
+      pageContext: PropTypes.object.isRequired
+    };
+
+    return WrappedComponent;
+  });
+
+  let css;
+  // It might be undefined, e.g. after an error.
+  if (pageContext) {
+    css = pageContext.sheetsRegistry.toString();
+  }
+
   const sheet = new ServerStyleSheet();
-  const page = ctx.renderPage(Component => props =>
-    sheet.collectStyles(
-      <JssProvider
-        registry={pageContext.sheetsRegistry}
-        generateClassName={pageContext.generateClassName}
-      >
+  const originalRenderPage = ctx.renderPage;
+
+  try {
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+      });
+
+    const initialProps = await Document.getInitialProps(ctx);
+    return {
+      ...initialProps,
+      ...page,
+      pageContext,
+      styles: (
         <React.Fragment>
-          <CssBaseline />
-          <Component pageContext={pageContext} {...props} />
+          <style
+            id="jss-server-side"
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: css }}
+          />
+          {initialProps.styles}
+          {sheet.getStyleElement()}
+          {flush() || null}
         </React.Fragment>
-      </JssProvider>
-    )
-  );
-  const styleTags = sheet.getStyleElement();
-  return {
-    ...page,
-    pageContext,
-    styles: (
-      <React.Fragment>
-        <style
-          id="jss-server-side" // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: pageContext.sheetsRegistry.toString()
-          }}
-        />
-        {flush() || null}
-      </React.Fragment>
-    ),
-    styleTags
-  };
+      )
+    };
+  } finally {
+    sheet.seal();
+  }
 };
 
 export default MyDocument;
