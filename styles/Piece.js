@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  margin: -20px auto 0 auto;
+  margin: 0 auto;
   @media (min-width: 960px) {
     display: flex;
     padding-top: 40px;

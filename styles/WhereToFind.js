@@ -42,11 +42,11 @@ LatestEvents.displayName = 'LatestEvents';
 
 export const ImageWrapper = styled.div`
   max-width: 480px;
-  margin: 0 auto 20px auto;
+  margin-bottom: 20px;
 
   @media (min-width: 960px) {
     max-width: 480px;
-    margin: 0 auto 60px auto;
+    margin-bottom: 60px;
   }
 `;
 ImageWrapper.displayName = 'ImageWrapper';

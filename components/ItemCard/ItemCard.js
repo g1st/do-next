@@ -19,7 +19,7 @@ const styles = theme => ({
     maxWidth: '300px'
   },
   textColor: {
-    color: 'rgba(0, 0, 0, 0.5)'
+    color: '#595959'
   },
   imageContainer: {
     paddingBottom: '100%',

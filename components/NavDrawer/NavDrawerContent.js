@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Router from 'next/router';
 import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 
 class NavDrawerContent extends React.Component {
   state = {
@@ -45,7 +45,7 @@ class NavDrawerContent extends React.Component {
         </ListItem>
         <ListItem button onClick={this.handleToggle}>
           <ListItemText primary="Shop" />
-          {open ? <ExpandLess /> : <ExpandMore />}
+          {open ? <ArrowDropUp /> : <ArrowDropDown />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div">

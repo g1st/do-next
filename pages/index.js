@@ -12,6 +12,7 @@ const styles = () => ({
     maxWidth: '300px',
     display: 'block',
     margin: '40px auto 20px auto',
+    padding: '10px',
     '@media (min-width: 960px)': {
       display: 'none'
     }
