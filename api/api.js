@@ -508,7 +508,25 @@ module.exports = (db, upload) => {
       // send confirmation email to seller and buyer
       await sendPurchaseEmail(req.body);
 
-      await Work.findByIdAndUpdate({ _id }, { $set: { available: false } });
+      if (boughtFrom === 'buyItNow') {
+        await Work.findByIdAndUpdate({ _id }, { $set: { available: false } });
+      } else {
+        // bought from cart - might be multiple
+        const ids = req.body.additional.purchaseDetails.selectedItems.map(
+          item => ({
+            id: item._id
+          })
+        );
+
+        const promises = ids.map(item =>
+          Work.findByIdAndUpdate(
+            { _id: item.id },
+            { $set: { available: false } }
+          )
+        );
+
+        await Promise.all(promises);
+      }
 
       const { client_ip } = req.body.payload.token;
       const {
