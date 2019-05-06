@@ -22,6 +22,7 @@ import {
   Text
 } from '../styles/Piece';
 import { Mail } from '../styles/Shared';
+import { AnchorLink } from '../styles/Piece';
 import DialogForm from '../components/DialogForm/DialogForm';
 import { pluralise } from '../util/helpers';
 
@@ -39,7 +40,8 @@ const styles = {
   },
   filterLine: {
     color: '#595959',
-    letterSpacing: '1px'
+    letterSpacing: '1px',
+    lineHeight: '44px'
   },
   svg: {
     top: '.3em',
@@ -137,9 +139,21 @@ const Piece = ({
 
   const pathLine = (
     <div>
-      <Typography inline variant="body2" className={classes.filterLine}>
-        {collection}
-      </Typography>
+      <Link href="/shop">
+        <AnchorLink>
+          <Typography inline variant="body2" className={classes.filterLine}>
+            shop
+          </Typography>
+        </AnchorLink>
+      </Link>
+      <ArrowRight fontSize="small" className={classes.svg} />
+      <Link href={`/shop/${collection}`}>
+        <AnchorLink>
+          <Typography inline variant="body2" className={classes.filterLine}>
+            {collection}
+          </Typography>
+        </AnchorLink>
+      </Link>
       <ArrowRight fontSize="small" className={classes.svg} />
       <Typography inline variant="body2" className={classes.filterLine}>
         {pluralise(category)}

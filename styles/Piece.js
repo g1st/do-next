@@ -49,3 +49,11 @@ export const Text = styled.div`
   margin: 0 auto;
 `;
 Text.displayName = 'Text';
+
+export const AnchorLink = styled.a`
+  cursor: pointer;
+  :hover {
+    text-decoration: underline;
+  }
+`;
+AnchorLink.displayName = 'AnchorLink';

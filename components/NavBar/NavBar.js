@@ -16,12 +16,14 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
+import Link from 'next/link';
 
 import NavDrawer from '../NavDrawer/NavDrawer';
 import CartDrawer from '../CartDrawer/CartDrawer';
 import { DrawerContext } from '../DrawerContext';
 import ShoppingBasket from './ShoppingBasket';
 import { Wrapper, WrapSpan, Span } from '../../styles/NavBar';
+import { AnchorLink } from '../../styles/Shared';
 
 const styles = theme => ({
   flex: {
@@ -159,14 +161,20 @@ class NavBar extends React.Component {
         <AppBar>
           <Toolbar>
             {smallMenu}
-            <Typography
-              variant="h6"
-              component="h1"
-              color="inherit"
-              className={classes.flex}
-            >
-              Dovile Jewellery
-            </Typography>
+            <div className={classes.flex}>
+              <Link href="/">
+                <AnchorLink>
+                  <Typography
+                    variant="h6"
+                    component="h1"
+                    color="inherit"
+                    className={classes.flex}
+                  >
+                    Dovile Jewellery
+                  </Typography>
+                </AnchorLink>
+              </Link>
+            </div>
             {navigation}
             <Menu
               id="simple-menu"

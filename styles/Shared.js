@@ -13,6 +13,7 @@ Mail.displayName = 'Mail';
 
 export const AnchorLink = styled.a`
   color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
 `;
 AnchorLink.displayName = 'AnchorLink';
 
