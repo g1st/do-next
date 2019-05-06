@@ -132,35 +132,36 @@ class MyApp extends App {
     return (
       <React.Fragment>
         <Container>
-          <Provider store={reduxStore}>
-            {/* Wrap every page in Jss and Theme providers */}
-            <JssProvider
-              registry={this.pageContext.sheetsRegistry}
-              generateClassName={this.pageContext.generateClassName}
-            >
-              {/* MuiThemeProvider makes the theme available down the React
+          <Head>
+            <title>
+              Jewellery artist Dovile Kondrasovaite | Dovile Jewellery
+            </title>
+            <meta
+              name="Description"
+              content="Contemporary amber jewellery with a delicate and modern touch by Dovile Kondrasovaite. Shop authentic handmade jewelry made by independent artist."
+            />
+          </Head>
+          {/* Wrap every page in Jss and Theme providers */}
+          <JssProvider
+            registry={this.pageContext.sheetsRegistry}
+            generateClassName={this.pageContext.generateClassName}
+          >
+            {/* MuiThemeProvider makes the theme available down the React
               tree thanks to React context. */}
-              <MuiThemeProvider
-                theme={this.pageContext.theme}
-                sheetsManager={this.pageContext.sheetsManager}
-              >
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline />
-                <Head>
-                  <title>
-                    Jewellery artist Dovile Kondrasovaite | Dovile Jewellery
-                  </title>
-                  <meta
-                    name="Description"
-                    content="Contemporary amber jewellery with a delicate and modern touch by Dovile Kondrasovaite. Shop authentic handmade jewelry made by independent artist."
-                  />
-                </Head>
+            <MuiThemeProvider
+              theme={this.pageContext.theme}
+              sheetsManager={this.pageContext.sheetsManager}
+            >
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+
+              <Provider store={reduxStore}>
                 {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
                 <Component pageContext={this.pageContext} {...pageProps} />
-              </MuiThemeProvider>
-            </JssProvider>
-          </Provider>
+              </Provider>
+            </MuiThemeProvider>
+          </JssProvider>
         </Container>
       </React.Fragment>
     );
