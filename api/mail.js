@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+
 const {
   EMAIL,
   MAIL_HOST,
