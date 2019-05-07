@@ -328,7 +328,8 @@ module.exports = (db, upload) => {
         sendMail({
           email,
           subject,
-          message: htmlMessage || message
+          message: htmlMessage || message,
+          contactForm
         })
           .then(() =>
             res.json({
