@@ -76,7 +76,8 @@ class ContactForm extends Component {
       .post('http://localhost:3000/api/send', {
         email,
         message,
-        subject
+        subject,
+        contactForm: true
       })
       .then(res => {
         this.setState(() => ({

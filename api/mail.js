@@ -1,15 +1,23 @@
 const nodemailer = require('nodemailer');
 
+const {
+  EMAIL,
+  MAIL_HOST,
+  MAIL_PORT,
+  MAIL_API_USER,
+  MAIL_API_PASS
+} = process.env;
+
 // send mail with defined transport object
-const sendMail = ({ email, subject, message }) => {
+const sendMail = ({ email, subject, message, contactForm }) => {
   // create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
-    host: process.env.MAIL_HOST,
-    port: process.env.MAIL_PORT,
+    host: MAIL_HOST,
+    port: MAIL_PORT,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: process.env.MAIL_API_USER, // generated ethereal user
-      pass: process.env.MAIL_API_PASS // generated ethereal password
+      user: MAIL_API_USER, // generated ethereal user
+      pass: MAIL_API_PASS // generated ethereal password
     },
     tls: {
       rejectUnauthorized: false
@@ -19,7 +27,7 @@ const sendMail = ({ email, subject, message }) => {
   // setup email data with unicode symbols
   const mailOptions = {
     from: '"Dovile Jewellery" <hello@dovilejewellery.com>', // sender address
-    to: email, // list of receivers
+    to: contactForm ? EMAIL : email, // list of receivers
     subject, // Subject line
     text: `${message} From: ${email}`, // plain text body
     html: message // html body
