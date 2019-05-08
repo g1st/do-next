@@ -341,7 +341,6 @@ module.exports = (db, upload) => {
             return res.json({ msg: err.message });
           });
       } else {
-        console.log('(fake) email (not) sent');
         return res.json({ msg: '(fake) Email (not) sent' });
       }
     }

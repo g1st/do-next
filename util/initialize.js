@@ -10,8 +10,6 @@ export default function(ctx) {
       ctx.reduxStore.dispatch(reauthenticate(getCookie('token', ctx.req)));
     }
   } else {
-    console.log(ctx.reduxStore.getState());
-
     const { token } = ctx.reduxStore.getState().authenticate;
 
     if (token && (ctx.pathname === '/signin' || ctx.pathname === '/signup')) {

@@ -8,6 +8,7 @@ const uuidv4 = require('uuid/v4');
 const path = require('path');
 const cors = require('cors');
 const api = require('./api/api');
+const compression = require('compression');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -27,7 +28,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const { MONGODB_URL } = process.env;
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // credits to http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
 co(function*() {
@@ -40,6 +41,7 @@ co(function*() {
 
   // Configure express to expose a REST API
   const server = express();
+  server.use(compression());
   server.use(cors());
   server.use(body.json());
   server.use((req, res, next) => {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd authentication-server && node server.js\" \"NODE_ENV=production node server.js -p $PORT\"",
+    "start": "NODE_ENV=production node server.js",
     "build": "next build",
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
@@ -23,6 +23,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "co": "^4.6.0",
+    "compression": "^1.7.4",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
