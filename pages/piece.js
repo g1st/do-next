@@ -78,7 +78,8 @@ const Piece = ({
     images,
     available,
     group: collection,
-    category
+    category,
+    frontImage
   } = onePieceData[0];
 
   const dataForCart = {
@@ -90,14 +91,23 @@ const Piece = ({
     quantity: 1
   };
 
-  const gallery = images.map(image => ({
-    original: `/static/uploads/${image.medium}`,
-    thumbnail: `/static/uploads/${image.thumb}`,
-    srcSet: `/static/uploads/${image.medium} 400w, /static/uploads/${
-      image.big
-    } 960w`,
-    sizes: '(min-width: 960px) 30vw, 80vw'
-  }));
+  const gallery = images.reduce((acc, image) => {
+    const galleryFormatted = {
+      original: `/static/uploads/${image.medium}`,
+      thumbnail: `/static/uploads/${image.thumb}`,
+      srcSet: `/static/uploads/${image.medium} 400w, /static/uploads/${
+        image.big
+      } 960w`,
+      sizes: '(min-width: 960px) 30vw, 80vw'
+    };
+    if (image.medium === frontImage) {
+      // add in front of array to be first in gallery
+      acc.unshift(galleryFormatted);
+    } else {
+      acc.push(galleryFormatted);
+    }
+    return acc;
+  }, []);
 
   const edit = (
     <div>

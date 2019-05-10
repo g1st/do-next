@@ -246,6 +246,8 @@ module.exports = (db, upload) => {
         };
       });
 
+      const frontImage = images[0].medium;
+
       const piece = {
         name,
         slug: slugify(name),
@@ -256,7 +258,8 @@ module.exports = (db, upload) => {
         images,
         size,
         price,
-        available: available === 'available'
+        available: available === 'available',
+        frontImage
       };
 
       const work = new Work(piece);
