@@ -106,8 +106,6 @@ class NavBar extends React.Component {
       window.scrollTo(0, 0);
     });
 
-    console.log('navbar');
-
     const navigation = (
       <Tabs
         value={pathname !== '/' ? pathname : false}

@@ -321,7 +321,6 @@ module.exports = (db, upload) => {
 
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        // console.log(errors.array());
         return res.status(422).json({ errors: errors.array() });
       }
       if (process.env.NODE_ENV === 'production') {
@@ -337,7 +336,6 @@ module.exports = (db, upload) => {
             })
           )
           .catch(err => {
-            console.log(err);
             return res.json({ msg: err.message });
           });
       } else {
@@ -421,7 +419,6 @@ module.exports = (db, upload) => {
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
-        // console.log(errors.array());
         return { errors: errors.array() };
       }
 

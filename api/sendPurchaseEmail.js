@@ -1,5 +1,6 @@
 const axios = require('axios');
 
+const { APP_URL } = process.env;
 const emailForClient = require('./EmailTemplates/emailForClient');
 const emailForAdmin = require('./EmailTemplates/emailForAdmin');
 
@@ -8,7 +9,7 @@ const emailForAdmin = require('./EmailTemplates/emailForAdmin');
 module.exports = data => {
   const { boughtFrom } = data.additional.purchaseDetails;
 
-  const baseUrl = 'http://localhost:3000/piece/';
+  const baseUrl = `${APP_URL}/piece/`;
   const purchaseData = [];
   if (boughtFrom === 'buyItNow') {
     purchaseData.push({
@@ -16,7 +17,7 @@ module.exports = data => {
       ...data.additional.purchaseDetails
     });
   } else {
-    // from cart, could be multiple items
+    // from cart, might be multiple items
     data.additional.purchaseDetails.selectedItems.forEach(item =>
       purchaseData.push({
         name: item.name,
@@ -49,22 +50,18 @@ module.exports = data => {
 
   Promise.all([
     // mail for business owner
-    axios.post('http://localhost:3000/api/send', {
+    axios.post(`${APP_URL}/api/send`, {
       subject: 'Successful order @ dovilejewellery.com',
       email: 'gintstan@gmail.com', // dovile jewellery email
       message: adminHTML
     }),
-    // mial to client
-    axios.post('http://localhost:3000/api/send', {
+    // mail to client
+    axios.post(`${APP_URL}/api/send`, {
       subject: 'Successful purchase from dovilejewellery.com!',
       email,
       message: clientHTML
     })
-  ])
-    .then(() => {
-      console.log('both emails sent!');
-    })
-    .catch(err => console.log(err));
+  ]).catch(err => console.log(err));
 };
 
 /* eslint-enable camelcase */
