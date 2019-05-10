@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Work = require('../../api/models/works');
 const data = require('./data');
 
-const { MONGODB_URL } = process.env;
+const { MONGO_URL } = process.env;
 
 const seedDB = () => {
   console.log(`hints:
@@ -16,7 +16,7 @@ const seedDB = () => {
   const argument = process.argv[2];
 
   if (argument === 'drop') {
-    mongoose.connect(MONGODB_URL, { useNewUrlParser: true });
+    mongoose.connect(MONGO_URL, { useNewUrlParser: true });
     return mongoose.connection.dropDatabase(error => {
       console.log(error);
       console.log(`database dropped`);
@@ -32,7 +32,7 @@ const seedDB = () => {
   }
 
   mongoose
-    .connect(MONGODB_URL, { useNewUrlParser: true })
+    .connect(MONGO_URL, { useNewUrlParser: true })
     .then(() => {
       console.log('db connected');
     })
