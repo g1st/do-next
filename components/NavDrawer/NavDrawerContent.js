@@ -59,7 +59,7 @@ class NavDrawerContent extends React.Component {
                 primary="SHOW ALL"
                 style={{ paddingLeft: '16px' }}
                 onClick={() =>
-                  this.handleClick(`/shop?collection=shop`, `/shop/shop`)
+                  this.handleClick(`/shop?collection=shop`, `/shop`)
                 }
               />
             </ListItem>
