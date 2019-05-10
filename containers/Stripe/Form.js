@@ -123,14 +123,6 @@ class StripeForm extends Component {
     });
   };
 
-  handleFocus = () => {
-    console.log('[focus]');
-  };
-
-  handleReady = () => {
-    console.log('[ready]');
-  };
-
   isStripesInputsOk = () => {
     const { card_number, card_expiration, CVC_number, zip_code } = this.state;
     if (
@@ -152,7 +144,7 @@ class StripeForm extends Component {
       return true;
     }
 
-    // that means fields are left blank
+    // fields are left blank
     this.setState(() => ({ stripe_errors: true }));
 
     return false;
@@ -175,12 +167,9 @@ class StripeForm extends Component {
         .then(res => {
           // backend did not validate form
           if (res.data.errors) {
-            console.log(res.data.errors);
-            console.log('terminatinu?');
             window.scrollTo(0, 0);
 
             this.setState({
-              // backend_validation_errors: { ...res.data.errors },
               backend_validation_errors: res.data.errors,
               processing: false
             });
@@ -188,18 +177,13 @@ class StripeForm extends Component {
             return;
           }
           if (res.status === 200) {
-            console.log('Purchase completed successfully');
             this.setState(() => ({ orderComplete: true, processing: false }));
-            // empty redux state
             clearCartRedux();
             clearBuyItNowRedux();
             window.scrollTo(0, 0);
-            console.log('its ok ', res);
           }
         })
         .catch(err => {
-          console.log('its not ok ', err.response);
-          console.log('whole error object:', err);
           window.scrollTo(0, 0);
           this.setState(() => ({ error: true, processing: false }));
         });

@@ -19,10 +19,10 @@ import {
   Info,
   ButtonsWrapper,
   DisabledButtonWrapper,
-  Text
+  Text,
+  AnchorLink
 } from '../styles/Piece';
 import { Mail } from '../styles/Shared';
-import { AnchorLink } from '../styles/Piece';
 import DialogForm from '../components/DialogForm/DialogForm';
 import { pluralise } from '../util/helpers';
 

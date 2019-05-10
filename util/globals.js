@@ -1,1 +1,1 @@
-exports.shippingPrice = 5; // pounds
+exports.shippingPrice = 5;

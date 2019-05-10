@@ -71,9 +71,6 @@ const styles = theme => ({
 class LandingPageGallery extends React.Component {
   state = { open: false };
 
-  // onImageClick = ({ target: { src } }, text) => {
-  //   this.setState({ open: true, src, text });
-  // };
   onImageClick = ({ target: { src } }, figcaption) => {
     this.setState({ open: true, src, figcaption });
   };

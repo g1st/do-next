@@ -1,5 +1,6 @@
 module.exports = {
   authUrl: 'http://localhost:3030',
-  shippingPrice: 5, // pounds
-  ITEMS_PER_PAGE: 6
+  appUrl: 'http://localhost:3000',
+  shippingPrice: 5,
+  ITEMS_PER_PAGE: 28
 };

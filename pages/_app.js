@@ -117,7 +117,7 @@ class MyApp extends App {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-    // Save data to localStorage
+
     if (
       !localStorage.getItem('data') ||
       localStorage.getItem('data') !== JSON.stringify(this.props.pageProps.data)

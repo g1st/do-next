@@ -321,7 +321,6 @@ module.exports = (db, upload) => {
 
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        // console.log(errors.array());
         return res.status(422).json({ errors: errors.array() });
       }
       if (process.env.NODE_ENV === 'production') {
@@ -336,10 +335,7 @@ module.exports = (db, upload) => {
               msg: 'Email has been sent.'
             })
           )
-          .catch(err => {
-            console.log(err);
-            return res.json({ msg: err.message });
-          });
+          .catch(err => res.json({ msg: err.message }));
       } else {
         return res.json({ msg: '(fake) Email (not) sent' });
       }
@@ -421,7 +417,6 @@ module.exports = (db, upload) => {
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
-        // console.log(errors.array());
         return { errors: errors.array() };
       }
 

@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
+
+import { appUrl } from '../../config';
 import { cartHelper } from '../../util/helpers';
 
 export const attemptPayment = ({
@@ -28,14 +30,12 @@ export const attemptPayment = ({
     .then(payload => {
       let purchaseDetails;
       if (Object.prototype.hasOwnProperty.call(buyItNowItem, 'name')) {
-        console.log('is buyitnow pirko payload:', payload);
         purchaseDetails = {
           ...buyItNowItem,
           shippingCost,
           boughtFrom: 'buyItNow'
         };
       } else {
-        console.log('is cart pirko');
         const selectedItems = cart;
         const totalItems = cartHelper.totalItems(cart);
         const totalPrice = cartHelper.totalPrice(cart);
@@ -47,7 +47,7 @@ export const attemptPayment = ({
           shippingCost
         };
       }
-      return axios.post('//localhost:3000/api/charge', {
+      return axios.post(`${appUrl}/api/charge`, {
         token: payload.token.id,
         payload,
         additional: {

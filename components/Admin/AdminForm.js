@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
+import { appUrl } from '../../config';
 import DangerZone from './DangerZone';
 import Error from '../Error/Error';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
@@ -225,11 +226,8 @@ class AdminForm extends Component {
     }
     const { itemToEdit } = this.props;
     if (itemToEdit) {
-      // axios call for edit
-
       axios
-        // change for deployment
-        .patch('http://localhost:3000/api/update', formData)
+        .patch(`${appUrl}/api/update`, formData)
         .then(response => {
           const { errors } = response.data;
 
@@ -271,13 +269,11 @@ class AdminForm extends Component {
         })
         .catch(err => {
           this.setState({ errors: err, updating: false });
-          console.log(err);
         });
     } else {
       // creating new item
       axios
-        // change for deployment
-        .post('http://localhost:3000/api/update', formData)
+        .post(`${appUrl}/api/update`, formData)
         .then(response => {
           const { errors } = response.data;
 
@@ -307,7 +303,6 @@ class AdminForm extends Component {
         })
         .catch(err => {
           this.setState({ errors: err, updating: false });
-          console.log(err);
         });
     }
   };
@@ -335,10 +330,6 @@ class AdminForm extends Component {
     let workInfo = null;
 
     if (work) {
-      // TODO: check name, collection in state === work.name work.collection
-      // ! Answer: it is not (all the time). work = justUpdatedItem,
-      // ! state could be reseted (when creating new items) and work
-      // !will still have data of previously created one
       const {
         id,
         name: justCreatedName,
