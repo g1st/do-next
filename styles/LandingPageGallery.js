@@ -75,3 +75,26 @@ export const Image = styled.div`
   }
 `;
 Image.displayName = 'Image';
+
+export const Close = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 100%;
+  font-family: inherit;
+  border: 0;
+  padding: 0;
+  background: #fff;
+
+  ::before {
+    content: '×';
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.5);
+    @media (min-width: 960px) {
+      font-size: 30px;
+    }
+  }
+`;
+Close.displayName = 'Close';

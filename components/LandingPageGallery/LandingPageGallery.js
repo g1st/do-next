@@ -12,7 +12,8 @@ import {
   Figcaption,
   ImagesWrapper,
   TwoImages,
-  Image
+  Image,
+  Close
 } from '../../styles/LandingPageGallery';
 
 const styles = theme => ({
@@ -98,6 +99,10 @@ class LandingPageGallery extends React.Component {
           onClose={this.handleClose}
         >
           <figure className={classes.paper}>
+            <Close
+              onClick={this.handleClose}
+              aria-label="Close Image Modal Box"
+            />
             <ModalImage
               src={src}
               alt="Presentational Dovile Jewellery art piece"
