@@ -7,6 +7,7 @@ import { deauthenticate } from '../store/actions/index';
 import AdminForm from '../components/Admin/AdminForm';
 import SignIn from '../components/Admin/SignIn';
 import SignUp from '../components/Admin/SignUp';
+import Error from '../components/Error/Error';
 
 const styles = {
   header: {
@@ -20,7 +21,8 @@ const styles = {
 const Admin = ({
   user,
   deauthenticate: reduxPropDeauthenticate,
-  collections
+  collections,
+  authServerError
 }) => (
   <div>
     {user ? (
@@ -40,6 +42,12 @@ const Admin = ({
       <>
         <SignIn />
         <SignUp />
+        {authServerError ? (
+          <Error>
+            Sorry there was a problem connecting to authentication server.
+            Please try again later.
+          </Error>
+        ) : null}
       </>
     )}
   </div>
@@ -48,12 +56,17 @@ const Admin = ({
 Admin.propTypes = {
   user: PropTypes.string,
   collections: PropTypes.array,
-  deauthenticate: PropTypes.func
+  deauthenticate: PropTypes.func,
+  authServerError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 };
 
 Admin.getInitialProps = ({ user }) => ({ user });
 
+const mapStateToProps = state => ({
+  authServerError: state.authenticate.error
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { deauthenticate }
 )(Admin);

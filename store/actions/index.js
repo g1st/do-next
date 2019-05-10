@@ -32,15 +32,18 @@ export const authenticate = ({ email, password }, type) => {
       .post(`${authUrl}/${type}`, { email, password })
       .then(response => {
         setCookie('token', response.data.token);
-        Router.push('/');
+        Router.push('/admin');
         dispatch({
           type: actionTypes.AUTHENTICATE,
           payload: response.data.token
         });
       })
       .catch(err => {
-        // console.log(err.response);
-        throw new Error(err);
+        dispatch({
+          type: actionTypes.AUTHENTICATE_ERROR,
+          payload: err.message
+        });
+        console.error(err);
       });
   };
 };

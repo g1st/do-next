@@ -6,3 +6,4 @@ export const CLEAR_BUY_IT_NOW = 'CLEAR_BUY_IT_NOW';
 export const INCREASE_LOADED_ITEMS = 'INCREASE_LOADED_ITEMS';
 export const AUTHENTICATE = 'authenticate';
 export const DEAUTHENTICATE = 'deauthenticate';
+export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';

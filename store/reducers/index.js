@@ -9,6 +9,7 @@ import {
   CLEAR_BUY_IT_NOW,
   CLEAR_CART,
   AUTHENTICATE,
+  AUTHENTICATE_ERROR,
   DEAUTHENTICATE,
   INCREASE_LOADED_ITEMS
 } from '../constants/action-types';
@@ -17,7 +18,7 @@ export const initialState = {
   cart: [],
   buyItNow: {},
   shippingCost: shippingPrice,
-  authenticate: { token: null },
+  authenticate: { token: null, error: false },
   loadMore: { all: ITEMS_PER_PAGE }
 };
 
@@ -55,6 +56,9 @@ const authenticate = (state = initialState.authenticate, action) => {
   }
   if (DEAUTHENTICATE === action.type) {
     return { token: null };
+  }
+  if (AUTHENTICATE_ERROR === action.type) {
+    return { error: action.payload };
   }
   return state;
 };
