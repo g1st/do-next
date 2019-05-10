@@ -2,44 +2,40 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   padding: 40px 5px 20px 5px;
+  position: relative;
+  flex-shrink: 0;
   @media (min-width: 960px) {
-    padding: 20px 0;
+    padding: 80px 0 40px 0;
+    margin-top: 100px;
   }
 `;
 Wrapper.displayName = 'Wrapper';
 
 export const BrandLogo = styled.div`
-  height: 260px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: static;
+
   @media (min-width: 960px) {
-    height: 340px;
+    position: absolute;
+    top: 120px;
+    left: 60px;
   }
 `;
 BrandLogo.displayName = 'BrandLogo';
 
-export const Logo = styled.img``;
+export const Logo = styled.img`
+  width: 80px;
+  margin: 40px auto 0 auto;
+  @media (min-width: 960px) {
+    margin-top: 0;
+  }
+`;
 Logo.displayName = 'Logo';
 
 export const FlexContainer = styled.div`
-  @media (min-width: 960px) {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-`;
-FlexContainer.displayName = 'FlexContainer';
-
-export const FlexItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-FlexItem.displayName = 'FlexItem';
-
-export const FlexItemDouble = styled.div`
+  padding-top: 40px;
   @media (min-width: 960px) {
     display: flex;
     flex-direction: column;
@@ -47,10 +43,7 @@ export const FlexItemDouble = styled.div`
   }
   text-align: center;
 `;
-FlexItemDouble.displayName = 'FlexItemDouble';
-
-export const DoubleItemsWrapper = styled.div``;
-DoubleItemsWrapper.displayName = 'DoubleItemsWrapper';
+FlexContainer.displayName = 'FlexContainer';
 
 export const Facebook = styled.img``;
 Facebook.displayName = 'Facebook';
@@ -65,19 +58,24 @@ export const Social = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100px;
-  padding-bottom: 20px;
+  padding-bottom: 4px;
   margin: 0 auto;
+  @media (min-width: 960px) {
+    padding-bottom: 15px;
+  }
 `;
 Social.displayName = 'Social';
 
 export const FooterLinks = styled.ul`
   list-style: none;
   list-style-type: none;
-  padding: 20px 0;
+  padding: 20px 0 0 0;
   text-align: center;
+  margin-bottom: 40px;
 
   @media (min-width: 960px) {
     padding: 0;
+    margin-bottom: 16px;
   }
 `;
 FooterLinks.displayName = 'FooterLinks';
@@ -87,15 +85,24 @@ export const FooterLink = styled.li`
     line-height: 28px;
     color: rgba(0, 0, 0, 0.54);
     text-decoration: none;
-
+    text-transform: uppercase;
     &:hover {
       text-decoration: underline;
+    }
+  }
+  @media (min-width: 960px) {
+    display: inline-block;
+    margin-right: 20px;
+    &:last-child {
+      margin-right: 0;
     }
   }
 `;
 FooterLink.displayName = 'FooterLink';
 
-export const AnchorLink = styled.a``;
+export const AnchorLink = styled.a`
+  cursor: pointer;
+`;
 AnchorLink.displayName = 'AnchorLink';
 
 export const Mail = styled.a`

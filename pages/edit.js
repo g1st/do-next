@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Button from '@material-ui/core/Button';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
+
 import { deauthenticate } from '../store/actions/index';
 import SignIn from '../components/Admin/SignIn';
 import AdminForm from '../components/Admin/AdminForm';
@@ -15,7 +17,12 @@ const styles = {
   }
 };
 
-const Edit = ({ user, deauthenticate, collections, onePieceData }) => (
+const Edit = ({
+  user,
+  deauthenticate: reduxPropDeauthenticate,
+  collections,
+  onePieceData
+}) => (
   <div>
     {user ? (
       <div>
@@ -25,7 +32,7 @@ const Edit = ({ user, deauthenticate, collections, onePieceData }) => (
             <Link href="/">
               <Button>Home</Button>
             </Link>
-            <Button onClick={deauthenticate}>Logout</Button>
+            <Button onClick={reduxPropDeauthenticate}>Logout</Button>
           </div>
         </div>
         <AdminForm collections={collections} itemToEdit={onePieceData[0]} />
@@ -46,15 +53,24 @@ Edit.getInitialProps = async ({ user, req, query }) => {
       .find()
       .toArray();
 
-    const onePieceData = data.filter(obj => obj._id == id);
+    const onePieceDataFromServer = data.filter(
+      obj => obj._id.toString() === id
+    );
 
-    return { onePieceData };
+    return { onePieceData: onePieceDataFromServer };
   }
 
-  const onePieceData = await axios
+  const onePieceDataFromAPI = await axios
     .get('/api/single', { params: { id: query.id } })
     .then(res => res.data);
-  return { user, onePieceData: [onePieceData] };
+  return { user, onePieceData: [onePieceDataFromAPI] };
+};
+
+Edit.propTypes = {
+  user: PropTypes.string,
+  deauthenticate: PropTypes.func,
+  collections: PropTypes.array,
+  onePieceData: PropTypes.array
 };
 
 export default connect(

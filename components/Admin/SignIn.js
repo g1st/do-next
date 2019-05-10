@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { authenticate } from '../../store/actions/index';
 
 class Signin extends Component {
@@ -10,13 +12,14 @@ class Signin extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.authenticate(
-      { email: this.state.email, password: this.state.password },
-      'signin'
-    );
+    const { email, password } = this.state;
+    const { authenticate: authenticateRedux } = this.props;
+
+    authenticateRedux({ email, password }, 'signin');
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <div>
         <h3>Sign In</h3>
@@ -25,14 +28,14 @@ class Signin extends Component {
             type="email"
             placeholder="Email"
             required
-            value={this.state.email}
+            value={email}
             onChange={e => this.setState({ email: e.target.value })}
           />
           <input
             type="password"
             placeholder="Password"
             required
-            value={this.state.password}
+            value={password}
             onChange={e => this.setState({ password: e.target.value })}
           />
           <button type="submit" className="button is-success">
@@ -43,6 +46,10 @@ class Signin extends Component {
     );
   }
 }
+
+Signin.propTypes = {
+  authenticate: PropTypes.func
+};
 
 export default connect(
   null,

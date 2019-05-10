@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
+import { Typography, Divider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import {
   Wrapper,
   FlexContainer,
-  FlexItem,
-  FlexItemDouble,
-  DoubleItemsWrapper,
   BrandLogo,
   Social,
   FooterLinks,
@@ -19,16 +15,22 @@ import {
   Facebook,
   Instagram,
   Pinterest,
-  Mail,
   Logo
 } from '../../styles/Footer';
 
 const styles = {
   links: {
-    color: 'rgba(0, 0, 0, .54)'
+    color: 'rgba(0, 0, 0, .54)',
+    marginBottom: '27px',
+    '@media (min-width: 960px)': {
+      marginBottom: 0
+    }
   },
   root: {
-    textAlign: 'center'
+    textAlign: 'center',
+    '@media (min-width: 960px)': {
+      marginTop: '24px'
+    }
   }
 };
 
@@ -37,77 +39,72 @@ const Footer = props => {
   return (
     <Wrapper>
       <Divider />
+      <BrandLogo>
+        <Logo src="../../static/images/logo.svg" alt="Dovile Jewellery logo" />
+      </BrandLogo>
       <FlexContainer>
-        <FlexItem>
-          <BrandLogo>
-            <Logo
-              src="../../static/images/logo.png"
-              alt="Dovile Jewellery logo"
+        <Social>
+          <AnchorLink
+            href="https://www.facebook.com/artdovile/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Go to Dovile's facebook page"
+          >
+            <Facebook
+              src="/static/images/facebook-box.png"
+              alt="Facebook logo"
             />
-          </BrandLogo>
-        </FlexItem>
-        <FlexItemDouble>
-          <DoubleItemsWrapper>
-            <Social>
-              <AnchorLink
-                href="https://www.facebook.com/artdovile/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Facebook src="/static/images/facebook-box.png" />
+          </AnchorLink>
+          <AnchorLink
+            href="https://www.instagram.com/dovilejewellery/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Go to Dovile's instagram page"
+          >
+            <Instagram
+              src="/static/images/instagram.png"
+              alt="Instagram logo"
+            />
+          </AnchorLink>
+          <AnchorLink
+            href="https://www.pinterest.com/dovilejewellery/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Go to Dovile's pinterest page"
+          >
+            <Pinterest
+              src="/static/images/pinterest-box.png"
+              alt="Pinterest logo"
+            />
+          </AnchorLink>
+        </Social>
+        <FooterLinks>
+          <FooterLink>
+            <Link href="/terms-conditions">
+              <AnchorLink>
+                <Typography className={classes.links}>
+                  Terms & Conditions
+                </Typography>
               </AnchorLink>
-              <AnchorLink
-                href="https://www.instagram.com/dovilejewellery/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Instagram src="/static/images/instagram.png" />
+            </Link>
+          </FooterLink>
+          <FooterLink>
+            <Link href="/care-guide">
+              <AnchorLink>
+                <Typography className={classes.links}>
+                  Jewellery Care
+                </Typography>
               </AnchorLink>
-              <AnchorLink
-                href="https://www.pinterest.com/dovilejewellery/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Pinterest src="/static/images/pinterest-box.png" />
+            </Link>
+          </FooterLink>
+          <FooterLink>
+            <Link href="/commissions">
+              <AnchorLink>
+                <Typography className={classes.links}>Commissions</Typography>
               </AnchorLink>
-            </Social>
-            <Typography color="textSecondary">
-              Dovile Jewellery, Jewellery Quarter, Birmingham, UK |{' '}
-              <Mail href="mailto:hello@dovilejewellery.com" target="_top">
-                hello@dovilejewellery.com
-              </Mail>
-            </Typography>
-          </DoubleItemsWrapper>
-        </FlexItemDouble>
-        <FlexItem>
-          <FooterLinks>
-            <FooterLink>
-              <Link href="/terms-conditions">
-                <a>
-                  <Typography gutterBottom style={styles.links}>
-                    Terms & Conditions
-                  </Typography>
-                </a>
-              </Link>
-            </FooterLink>
-            <FooterLink>
-              <Link href="/care-guide">
-                <a>
-                  <Typography gutterBottom style={styles.links}>
-                    Jewellery Care Guide
-                  </Typography>
-                </a>
-              </Link>
-            </FooterLink>
-            <FooterLink>
-              <Link href="/commissions">
-                <a>
-                  <Typography style={styles.links}>Commissions</Typography>
-                </a>
-              </Link>
-            </FooterLink>
-          </FooterLinks>
-        </FlexItem>
+            </Link>
+          </FooterLink>
+        </FooterLinks>
       </FlexContainer>
       <Typography color="textSecondary" classes={{ root: classes.root }}>
         &copy; {new Date().getFullYear()} Dovile Jewellery

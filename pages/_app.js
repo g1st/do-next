@@ -9,6 +9,8 @@ import { Provider } from 'react-redux';
 import withReduxStore from '../lib/with-redux-store';
 import getPageContext from '../src/getPageContext';
 import { authUrl } from '../config';
+import { saveCart } from '../util/helpers';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 import '../styles/emptyFileToFixNextjsBug.css';
 
@@ -50,16 +52,16 @@ class MyApp extends App {
         .collection('works')
         .find()
         .toArray();
-      const collections = data.reduce((acc, next) => {
+      const collectionsFromServer = data.reduce((acc, next) => {
         if (!acc.includes(next.group)) acc.push(next.group.toLowerCase());
         return acc;
       }, []);
 
       pageProps = {
         ...pageProps,
-        data: JSON.stringify(data),
+        data,
         from: 'server',
-        collections,
+        collections: collectionsFromServer,
         router,
         user
       };
@@ -71,7 +73,7 @@ class MyApp extends App {
     if (localStorage.getItem('data')) {
       pageProps = {
         ...pageProps,
-        data: localStorage.getItem('data'),
+        data: JSON.parse(localStorage.getItem('data')),
         collections: localStorage.getItem('collections').split(','),
         from: 'rest api',
         router,
@@ -91,7 +93,7 @@ class MyApp extends App {
 
     pageProps = {
       ...pageProps,
-      data: JSON.stringify(works),
+      data: works,
       from: 'rest api',
       collections,
       router,
@@ -104,6 +106,12 @@ class MyApp extends App {
   pageContext = null;
 
   componentDidMount() {
+    const { reduxStore } = this.props;
+
+    reduxStore.subscribe(() => {
+      saveCart(reduxStore.getState().cart);
+    });
+
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {
@@ -112,9 +120,9 @@ class MyApp extends App {
     // Save data to localStorage
     if (
       !localStorage.getItem('data') ||
-      localStorage.getItem('data') != JSON.stringify(this.props.pageProps.data)
+      localStorage.getItem('data') !== JSON.stringify(this.props.pageProps.data)
     ) {
-      localStorage.setItem('data', this.props.pageProps.data);
+      localStorage.setItem('data', JSON.stringify(this.props.pageProps.data));
       localStorage.setItem('collections', this.props.pageProps.collections);
     }
   }
@@ -123,30 +131,37 @@ class MyApp extends App {
     const { Component, pageProps, reduxStore } = this.props;
     return (
       <React.Fragment>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
         <Container>
-          <Provider store={reduxStore}>
-            {/* Wrap every page in Jss and Theme providers */}
-            <JssProvider
-              registry={this.pageContext.sheetsRegistry}
-              generateClassName={this.pageContext.generateClassName}
-            >
-              {/* MuiThemeProvider makes the theme available down the React
+          <Head>
+            <title>
+              Jewellery artist Dovile Kondrasovaite | Dovile Jewellery
+            </title>
+            <meta
+              name="Description"
+              content="Contemporary amber jewellery with a delicate and modern touch by Dovile Kondrasovaite. Shop authentic handmade jewelry made by independent artist."
+            />
+          </Head>
+          {/* Wrap every page in Jss and Theme providers */}
+          <JssProvider
+            registry={this.pageContext.sheetsRegistry}
+            generateClassName={this.pageContext.generateClassName}
+          >
+            {/* MuiThemeProvider makes the theme available down the React
               tree thanks to React context. */}
-              <MuiThemeProvider
-                theme={this.pageContext.theme}
-                sheetsManager={this.pageContext.sheetsManager}
-              >
+            <MuiThemeProvider
+              theme={this.pageContext.theme}
+              sheetsManager={this.pageContext.sheetsManager}
+            >
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+
+              <Provider store={reduxStore}>
                 {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
-                <Head>
-                  <title>Dovile Jewellery</title>
-                </Head>
                 <Component pageContext={this.pageContext} {...pageProps} />
-              </MuiThemeProvider>
-            </JssProvider>
-          </Provider>
+              </Provider>
+            </MuiThemeProvider>
+          </JssProvider>
         </Container>
       </React.Fragment>
     );

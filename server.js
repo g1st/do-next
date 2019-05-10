@@ -8,6 +8,7 @@ const uuidv4 = require('uuid/v4');
 const path = require('path');
 const cors = require('cors');
 const api = require('./api/api');
+const compression = require('compression');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -26,20 +27,21 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const MONGO_URL = 'mongodb://localhost:27017/dovile';
-const PORT = 3000;
+const { MONGODB_URL } = process.env;
+const PORT = process.env.PORT || 3000;
 
 // credits to http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
 co(function*() {
   // Initialize the Next.js app
   yield app.prepare();
 
-  console.log(`Connecting to ${MONGO_URL}`);
-  mongoose.connect(MONGO_URL, { useNewUrlParser: true });
+  console.log(`Connecting to ${MONGODB_URL}`);
+  mongoose.connect(MONGODB_URL, { useNewUrlParser: true });
   const db = yield mongoose.connection;
 
   // Configure express to expose a REST API
   const server = express();
+  server.use(compression());
   server.use(cors());
   server.use(body.json());
   server.use((req, res, next) => {
@@ -62,8 +64,8 @@ co(function*() {
     app.render(req, res, actualPage, queryParams);
   });
 
-  server.get('/works/:collection', (req, res) => {
-    const actualPage = '/works';
+  server.get('/shop/:collection', (req, res) => {
+    const actualPage = '/shop';
     const queryParams = { collection: req.params.collection.toLowerCase() };
     app.render(req, res, actualPage, queryParams);
   });

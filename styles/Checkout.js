@@ -23,9 +23,9 @@ export const CheckoutForm = styled.div`
 CheckoutForm.displayName = 'CheckoutForm';
 
 export const CenterButton = styled.div`
-  @media screen and (min-width: 600px) {
-    text-align: center;
-  }
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
 `;
 CenterButton.displayName = 'CenterButton';
 

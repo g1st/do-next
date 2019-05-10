@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core';
 import axios from 'axios';
+import { Typography, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   button: {
@@ -28,9 +27,9 @@ const DangerZone = ({
   removeItem,
   removeCollection
 }) => {
-  const deleteItem = id => {
+  const deleteItem = () => {
     axios
-      .delete('http://localhost:3000/api/delete', { params: { _id: id } })
+      .delete('http://localhost:3000/api/delete', { params: { _id: itemID } })
       .then(res => {
         console.log(res.data.deletedItem);
         removeItem(res.data.deletedItem);
@@ -38,7 +37,7 @@ const DangerZone = ({
       .catch(err => console.log(err));
   };
 
-  const deleteCollection = collection => {
+  const deleteCollection = () => {
     axios
       .delete('http://localhost:3000/api/delete', { params: { collection } })
       .then(res => {
@@ -59,10 +58,10 @@ const DangerZone = ({
           size="medium"
           variant="contained"
           color="secondary"
-          onClick={() => {
+          onClick={() =>
             window.confirm('Are you sure you want to delete this item?') &&
-              deleteItem(itemID);
-          }}
+            deleteItem()
+          }
         >
           Delete item
         </Button>
@@ -72,11 +71,11 @@ const DangerZone = ({
           size="medium"
           variant="contained"
           color="secondary"
-          onClick={() => {
+          onClick={() =>
             window.confirm(
               'Are you sure you want to delete the whole collection?'
-            ) && deleteCollection(collection);
-          }}
+            ) && deleteCollection()
+          }
         >
           Delete whole collection
         </Button>

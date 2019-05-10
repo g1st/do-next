@@ -1,39 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import Typography from '@material-ui/core/Typography';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import ClearIcon from '@material-ui/icons/Clear';
-import IconButton from '@material-ui/core/IconButton';
+import Router from 'next/router';
 import { connect } from 'react-redux';
+import { Typography, IconButton } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 
-import {
-  increaseQuantity,
-  decreaseQuantity,
-  removeFromCart,
-  buyItNowIncreaseQuantity,
-  buyItNowDecreaseQuantity,
-  clearBuyItNow
-} from '../../store/actions';
+import { removeFromCart, clearBuyItNow } from '../../store/actions';
 import { CartItems, Thumb, ItemInfo } from '../../styles/CartDrawer';
 
-const CartItem = props => {
-  const handleRemove = id => {
-    props.buyItNow ? props.clearBuyItNow() : props.removeFromCart(id);
+const CartItem = ({
+  buyItNow,
+  data,
+  closeDrawer,
+  clearBuyItNow: clearBytItNowRedux,
+  removeFromCart: removeFromCartRedux
+}) => {
+  const handleRemove = id =>
+    buyItNow ? clearBytItNowRedux() : removeFromCartRedux(id);
+
+  const handleKeyDown = (href, as) => ({ key }) => {
+    if (key === 'Enter') {
+      Router.push(href, as);
+    }
+  };
+
+  const getItemImage = item => {
+    if (item && item.images && item.images.length) {
+      return `/static/uploads/${item.images[0].thumb}`;
+    }
+    return '/static/images/fallback.png';
   };
 
   return (
     <CartItems>
-      {props.data.map(item => (
+      {data.map(item => (
         <li key={item._id}>
           <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
             <a
               style={{ textDecoration: 'none', height: '48px' }}
               target="_self"
-              onClick={props.closeDrawer}
+              onClick={closeDrawer}
+              onKeyDown={handleKeyDown(
+                `/piece?id=${item._id}`,
+                `/piece/${item._id}`
+              )}
+              role="link"
+              tabIndex={0}
             >
-              <Thumb src={`/static/uploads/${item.images[0].thumb}`} />
+              <Thumb src={getItemImage(item)} />
             </a>
           </Link>
           <ItemInfo>
@@ -52,30 +67,6 @@ const CartItem = props => {
               £{item.price.toFixed(2)}
             </Typography>
           </ItemInfo>
-          <IconButton
-            disabled={!(item.quantity > 1)}
-            onClick={
-              props.buyItNow
-                ? () => props.buyItNowDecreaseQuantity()
-                : () => props.decreaseQuantity(item._id)
-            }
-            color="secondary"
-            aria-label="Decrease quantity"
-          >
-            <RemoveIcon fontSize="small" />
-          </IconButton>
-          <Typography variant="body2">{item.quantity}</Typography>
-          <IconButton
-            onClick={
-              props.buyItNow
-                ? () => props.buyItNowIncreaseQuantity()
-                : () => props.increaseQuantity(item._id)
-            }
-            color="secondary"
-            aria-label="Increase quantity"
-          >
-            <AddIcon fontSize="small" />
-          </IconButton>
           <IconButton
             style={{ color: 'rgba(0, 0, 0, 0.26)', marginLeft: '4px' }}
             aria-label="Remove item"
@@ -98,17 +89,16 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  increaseQuantity: id => dispatch(increaseQuantity(id)),
-  decreaseQuantity: id => dispatch(decreaseQuantity(id)),
   removeFromCart: id => dispatch(removeFromCart(id)),
-  buyItNowIncreaseQuantity: () => dispatch(buyItNowIncreaseQuantity()),
-  buyItNowDecreaseQuantity: () => dispatch(buyItNowDecreaseQuantity()),
   clearBuyItNow: () => dispatch(clearBuyItNow())
 });
 
 CartItem.propTypes = {
+  data: PropTypes.array,
   buyItNow: PropTypes.bool,
-  data: PropTypes.arrayOf(PropTypes.object)
+  closeDrawer: PropTypes.func,
+  removeFromCart: PropTypes.func,
+  clearBuyItNow: PropTypes.func
 };
 
 export default connect(

@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+function toLowerCase(val) {
+  const v = typeof val === 'string' ? val : '';
+  return v.toLowerCase();
+}
+
 const worksSchema = new mongoose.Schema(
   {
     name: { type: String, required: 'Title is required', trim: true },
@@ -19,6 +24,7 @@ const worksSchema = new mongoose.Schema(
         message: 'Piece has to have at least one image'
       }
     },
+    frontImage: { type: String },
     group: {
       type: String,
       required: 'Collection name is required',
@@ -34,10 +40,5 @@ const worksSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-function toLowerCase(val) {
-  if (typeof val !== 'string') val = '';
-  return val.toLowerCase();
-}
 
 module.exports = mongoose.model('Work', worksSchema);

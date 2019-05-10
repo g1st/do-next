@@ -1,53 +1,32 @@
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Layout from '../components/Layout';
 import Form from '../components/ContactForm';
-import {
-  Wrapper,
-  ContactAbout,
-  Text,
-  ImageWrapper,
-  Image
-} from '../styles/Contact';
+import { Wrapper, ImagesWrapper, ImageWrapper, Image } from '../styles/Contact';
 
-class Contact extends React.Component {
-  state = {
-    emailSent: false
-  };
-
-  handleEmailSend = state => {
-    this.setState(() => ({ emailSent: state }));
-  };
-
-  render() {
-    return (
-      <Layout
-        pathname={this.props.pathname}
-        collections={this.props.collections}
-      >
-        <Wrapper>
-          <ContactAbout>
-            <ImageWrapper>
-              <Image src="../static/images/message.svg" alt="Send a message" />
-            </ImageWrapper>
-            {this.state.emailSent ? null : (
-              <Text>
-                <Typography align="left" paragraph color="secondary">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-                  qui possimus necessitatibus voluptates cumque dolore unde. Sit
-                  aliquid accusamus quaerat, recusandae earum neque ex saepe
-                  soluta. Ipsam, qui dolorem, officiis culpa!
-                </Typography>
-              </Text>
-            )}
-          </ContactAbout>
-          <Form onEmailSend={this.handleEmailSend} />
-        </Wrapper>
-      </Layout>
-    );
-  }
-}
+const Contact = ({ pathname, collections }) => (
+  <Layout
+    pathname={pathname}
+    collections={collections}
+    title="Contact | Dovile Jewellery"
+  >
+    <Wrapper>
+      <ImagesWrapper>
+        <ImageWrapper>
+          <Image src="/static/images/d-4.JPG" />
+        </ImageWrapper>
+        <ImageWrapper>
+          <Image src="/static/images/cx-10.JPG" />
+        </ImageWrapper>
+        <ImageWrapper>
+          <Image src="/static/images/a-6.JPG" />
+        </ImageWrapper>
+      </ImagesWrapper>
+      <Form />
+    </Wrapper>
+  </Layout>
+);
 
 Contact.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),

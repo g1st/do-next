@@ -1,41 +1,67 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import Router from 'next/router';
+import {
+  Button,
+  Typography,
+  Paper,
+  List,
+  ListItem,
+  ListItemText
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import CartItem from './CartItem';
-import { cart } from '../../util/helpers';
-import {
-  Totals,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell
-} from '../../styles/CartDrawer';
+import { cartHelper } from '../../util/helpers';
 
 const styles = {
   button: {
     margin: '0 auto',
     display: 'flex',
-    marginTop: '32px'
+    marginTop: '32px',
+    maxWidth: '300px',
+    padding: '10px'
+  },
+  textRight: {
+    textAlign: 'right',
+    padding: 0
+  },
+  list: {
+    '& > li': {
+      '&:nth-child(even)': {
+        backgroundColor: 'rgba(0, 0, 0, 0.02)'
+      }
+    }
+  },
+  marginTop: {
+    marginTop: '20px'
   }
 };
 
-const CartDrawerContent = props => {
+const CartDrawerContent = ({
+  classes,
+  inForm,
+  closeDrawer,
+  cart,
+  buyItNow,
+  buyItNowItem,
+  shippingCost
+}) => {
   const buttonClickHandler = () => {
-    Router.push('/works');
-    props.closeDrawer();
+    Router.push('/shop');
+    closeDrawer();
   };
 
-  const { classes } = props;
+  const keyDownHandler = ({ key }) => {
+    if (key === 'Enter') {
+      buttonClickHandler();
+    }
+  };
 
   let content = (
     <>
-      <Typography variant="body1" align="center">
+      <Typography variant="body1" align="center" className={classes.marginTop}>
         Cart is currently empty.
       </Typography>
       <Button
@@ -44,67 +70,52 @@ const CartDrawerContent = props => {
         variant="contained"
         color="secondary"
         onClick={() => buttonClickHandler()}
+        onKeyDown={e => keyDownHandler(e)}
+        fullWidth
       >
         SHOP
       </Button>
     </>
   );
-  if (props.cart.length > 0 || props.buyItNow) {
+  if (cart.length > 0 || buyItNow) {
     content = (
-      <>
+      <div>
         <CartItem
-          data={props.buyItNow ? [props.buyItNowItem] : props.cart}
-          buyItNow={props.buyItNow}
+          data={buyItNow ? [buyItNowItem] : cart}
+          buyItNow={buyItNow}
+          closeDrawer={closeDrawer}
         />
-        <Totals />
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableHead>
-                <Typography variant="body1">Items</Typography>
-              </TableHead>
-              <TableCell>
-                <Typography variant="body1">
-                  {props.buyItNow
-                    ? props.buyItNowItem.quantity
-                    : cart.totalItems(props.cart)}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableHead>
-                <Typography variant="body1">Shipping</Typography>
-              </TableHead>
-              <TableCell>
-                <Typography variant="body1">
-                  {props.shippingCost != 0
-                    ? `£${props.shippingCost.toFixed(2)}`
-                    : 'Free'}
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableHead>
-                <Typography variant="body1">Total</Typography>
-              </TableHead>
-              <TableCell>
-                <Typography variant="body1">
-                  £
-                  {props.buyItNow
-                    ? cart
-                        .totalPrice([props.buyItNowItem], props.shippingCost)
-                        .toFixed(2)
-                    : cart
-                        .totalPrice(props.cart, props.shippingCost)
-                        .toFixed(2)}
-                </Typography>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </>
+        <List className={classes.list}>
+          <ListItem>
+            <ListItemText>Items</ListItemText>
+            <ListItemText className={classes.textRight}>
+              {buyItNow ? buyItNowItem.quantity : cartHelper.totalItems(cart)}
+            </ListItemText>
+          </ListItem>
+          <ListItem>
+            <ListItemText>Shipping</ListItemText>
+            <ListItemText className={classes.textRight}>
+              {shippingCost !== 0 ? `£${shippingCost.toFixed(2)}` : 'Free'}
+            </ListItemText>
+          </ListItem>
+          <ListItem>
+            <ListItemText>Total</ListItemText>
+            <ListItemText className={classes.textRight}>
+              £
+              {buyItNow
+                ? cartHelper.totalPrice([buyItNowItem], shippingCost).toFixed(2)
+                : cartHelper.totalPrice(cart, shippingCost).toFixed(2)}
+            </ListItemText>
+          </ListItem>
+        </List>
+      </div>
     );
   }
+
+  if (inForm) {
+    content = <Paper>{content}</Paper>;
+  }
+
   return content;
 };
 

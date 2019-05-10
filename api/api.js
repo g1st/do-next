@@ -3,13 +3,16 @@ const express = require('express');
 const slugify = require('slugify');
 const { check, oneOf, validationResult } = require('express-validator/check');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const mongoose = require('mongoose');
 
-const Works = require('./models/works');
-const Orders = require('./models/orders');
+const Work = require('./models/works');
+const Order = require('./models/orders');
+const Client = require('./models/clients');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const { shippingPrice } = require('../util/globals');
 const serverUtils = require('../util/serverHelper');
+const emailForContactForm = require('./EmailTemplates/emailForContactForm');
 
 module.exports = (db, upload) => {
   const router = express.Router();
@@ -25,8 +28,8 @@ module.exports = (db, upload) => {
 
   router.get(
     '/',
-    wrapAsync(async function(req) {
-      return Works.find();
+    wrapAsync(async function() {
+      return Work.find();
     })
   );
 
@@ -35,7 +38,7 @@ module.exports = (db, upload) => {
     wrapAsync(async function(req) {
       const { id } = req.query;
 
-      return Works.findById(id);
+      return Work.findById(id);
     })
   );
 
@@ -46,7 +49,7 @@ module.exports = (db, upload) => {
       const group = req.query.collection;
       // deleting single item
       if (id) {
-        const works = await Works.findOneAndRemove({ _id: id });
+        const works = await Work.findOneAndRemove({ _id: id });
 
         // removeImagesFromDisk needs thumb as starter
         const imagesToRemove = works.images.map(img => img.thumb);
@@ -57,10 +60,10 @@ module.exports = (db, upload) => {
       }
       // deleting collection
       if (group) {
-        const worksToBeDeleted = await Works.find({ group });
+        const worksToBeDeleted = await Work.find({ group });
 
         // delete in db
-        await Works.deleteMany({ group });
+        await Work.deleteMany({ group });
 
         // removeImagesFromDisk needs thumb as starter
         const imagesToRemove = worksToBeDeleted.reduce((acc, currObj) => {
@@ -83,17 +86,41 @@ module.exports = (db, upload) => {
     wrapAsync(async (req, res) => {
       const imageSizes = { big: 900, medium: 300, thumb: 92 };
 
+      const {
+        _id,
+        name,
+        description,
+        materials,
+        size,
+        collection,
+        price,
+        category,
+        available,
+        imageCount,
+        imagesToRemove,
+        frontImage
+      } = req.body;
+
+      const { files } = req;
+
       const update = {
-        ...req.body,
-        slug: slugify(req.body.name),
-        group: req.body.collection
+        name,
+        description,
+        materials,
+        size,
+        price,
+        category,
+        available,
+        slug: slugify(name),
+        group: collection,
+        frontImage
       };
 
       let imagesToRemoveOnError;
 
       // user adds new images
-      if (req.files.length > 0) {
-        const images = req.files.map(image => {
+      if (files.length > 0) {
+        const images = files.map(image => {
           const dot = image.filename.indexOf('.');
 
           return {
@@ -109,17 +136,24 @@ module.exports = (db, upload) => {
           };
         });
 
-        update.$push = {
-          images: { $each: images }
+        const newImages = {
+          $push: {
+            images: { $each: images }
+          }
         };
+
+        await Work.findOneAndUpdate({ _id }, newImages, {
+          new: true
+        });
 
         imagesToRemoveOnError = images.map(image => image.thumb);
       }
 
-      if (req.body.imagesToRemove.length > 0) {
-        const imagesToRemove = req.body.imagesToRemove.split(',');
+      if (imagesToRemove.length > 0) {
+        const imagesForRemoval = imagesToRemove.split(',');
 
-        if (req.body.photos.length - imagesToRemove.length < 1) {
+        // current images + how many adding - how many deleting
+        if (Number(imageCount) + files.length - imagesForRemoval.length < 1) {
           return {
             errors: { images: 'Piece must have at least one image.' }
           };
@@ -128,15 +162,15 @@ module.exports = (db, upload) => {
         //  remove image paths from DB document
         update.$pull = {
           images: {
-            thumb: { $in: imagesToRemove }
+            thumb: { $in: imagesForRemoval }
           }
         };
 
         // remove images from disk
-        serverUtils.removeImagesFromDisk(imagesToRemove);
+        serverUtils.removeImagesFromDisk(imagesForRemoval);
       }
 
-      const work = await Works.findOneAndUpdate({ _id: req.body._id }, update, {
+      const work = await Work.findOneAndUpdate({ _id }, update, {
         new: true
       });
 
@@ -144,25 +178,25 @@ module.exports = (db, upload) => {
 
       if (error) {
         // remove already uploaded images (not elegant but rarely will happen irl)
-        if (req.files.length > 0) {
+        if (files.length > 0) {
           serverUtils.removeImagesFromDisk(imagesToRemoveOnError);
         }
 
         return error;
       }
 
-      if (req.files.length > 0) {
-        const sizes = req.files.map(obj => [
+      if (files.length > 0) {
+        const sizes = files.map(obj => [
           { path: obj.path, size: imageSizes.big },
           { path: obj.path, size: imageSizes.medium },
           { path: obj.path, size: imageSizes.thumb }
         ]);
 
-        const files = sizes.map(photos =>
+        const filesToSave = sizes.map(photos =>
           photos.map(photo => serverUtils.writeFile(photo.path, photo.size))
         );
 
-        Promise.all(files)
+        Promise.all(filesToSave)
           .then(val => console.log(val))
           .catch(err => console.log(err));
       }
@@ -194,7 +228,9 @@ module.exports = (db, upload) => {
         available
       } = req.body;
 
-      const images = req.files.map(image => {
+      const { files } = req;
+
+      const images = files.map(image => {
         const dot = image.filename.indexOf('.');
 
         return {
@@ -223,7 +259,7 @@ module.exports = (db, upload) => {
         available: available === 'available'
       };
 
-      const work = new Works(piece);
+      const work = new Work(piece);
 
       const error = work.validateSync();
 
@@ -239,17 +275,17 @@ module.exports = (db, upload) => {
 
       await db.collection('works').insertOne(work);
 
-      const sizes = req.files.map(obj => [
+      const sizes = files.map(obj => [
         { path: obj.path, size: imageSizes.big },
         { path: obj.path, size: imageSizes.medium },
         { path: obj.path, size: imageSizes.thumb }
       ]);
 
-      const files = sizes.map(photos =>
+      const filesToSave = sizes.map(photos =>
         photos.map(photo => serverUtils.writeFile(photo.path, photo.size))
       );
 
-      Promise.all(files)
+      Promise.all(filesToSave)
         .then(val => console.log(val))
         .catch(err => console.log(err));
 
@@ -277,24 +313,36 @@ module.exports = (db, upload) => {
         .withMessage('Please provide a message.')
     ],
     (req, res) => {
-      const { email, subject, message } = req.body;
+      const { email, subject, message, contactForm } = req.body;
+
+      const htmlMessage = contactForm
+        ? emailForContactForm(message, email, subject)
+        : null;
 
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         // console.log(errors.array());
         return res.status(422).json({ errors: errors.array() });
       }
-
-      sendMail({ email, subject, message })
-        .then(() =>
-          res.json({
-            msg: 'Email has been sent.'
-          })
-        )
-        .catch(err => {
-          console.log(err);
-          return res.json({ msg: err.message });
-        });
+      if (process.env.NODE_ENV === 'production') {
+        sendMail({
+          email,
+          subject,
+          message: htmlMessage || message,
+          contactForm
+        })
+          .then(() =>
+            res.json({
+              msg: 'Email has been sent.'
+            })
+          )
+          .catch(err => {
+            console.log(err);
+            return res.json({ msg: err.message });
+          });
+      } else {
+        return res.json({ msg: '(fake) Email (not) sent' });
+      }
     }
   );
 
@@ -388,7 +436,7 @@ module.exports = (db, upload) => {
       let amount;
 
       if (boughtFrom === 'buyItNow') {
-        const amountFromBackend = await Works.findById(_id, 'price');
+        const amountFromBackend = await Work.findById(_id, 'price');
 
         amount =
           price === amountFromBackend.price
@@ -404,7 +452,7 @@ module.exports = (db, upload) => {
         );
 
         const pricePromises = items.map(async item =>
-          Works.findById(item.id, 'price')
+          Work.findById(item.id, 'price')
         );
 
         const backendPrices = await Promise.all(pricePromises);
@@ -431,26 +479,130 @@ module.exports = (db, upload) => {
         return { errors: [{ param: '_error', msg: 'Invalid amount.' }] };
       }
 
-      // try {
-      const { status } = await stripe.charges.create({
-        amount: amount * 100, // stripe needs cents
-        currency: 'gbp',
-        description: `Charge for purchase at dovilejewellery.com`,
-        source: req.body.token
-      });
+      /* eslint-disable camelcase */
+      let stripe_result;
+      if (process.env.NODE_ENV === 'production') {
+        stripe_result = await stripe.charges.create({
+          amount: amount * 100, // stripe needs cents
+          currency: 'gbp',
+          description: `Charge for purchase at dovilejewellery.com`,
+          source: req.body.token
+        });
+      } else {
+        stripe_result = {
+          status: 200,
+          id: `paymentId${Date.now()}`,
+          amount: amount * 100,
+          source: `sourceToken${Date.now()}`,
+          receipt_url: `receipt_url_${Date.now()}`
+        };
+      }
+      const {
+        status,
+        id,
+        amount: amount_paid,
+        source,
+        receipt_url
+      } = stripe_result;
 
       // send confirmation email to seller and buyer
       await sendPurchaseEmail(req.body);
 
-      const { payload, additional } = req.body;
+      if (boughtFrom === 'buyItNow') {
+        await Work.findByIdAndUpdate({ _id }, { $set: { available: false } });
+      } else {
+        // bought from cart - might be multiple
+        const ids = req.body.additional.purchaseDetails.selectedItems.map(
+          item => ({
+            id: item._id
+          })
+        );
 
-      // save order to db
-      const order = new Orders({
-        payload,
-        additional
-      });
+        const promises = ids.map(item =>
+          Work.findByIdAndUpdate(
+            { _id: item.id },
+            { $set: { available: false } }
+          )
+        );
 
-      await db.collection('orders').insertOne(order);
+        await Promise.all(promises);
+      }
+
+      const { client_ip } = req.body.payload.token;
+      const {
+        email,
+        first_name,
+        last_name,
+        phone,
+        address1,
+        address2,
+        city,
+        additional_info,
+        country,
+        purchaseDetails
+      } = req.body.additional;
+      /* eslint-enable camelcase */
+
+      let client;
+
+      // check if client already exists
+      client = await db
+        .collection('clients')
+        .findOne({ email: email.toLowerCase().trim() });
+
+      // client exists
+      if (client) {
+        const order = new Order({
+          _id: mongoose.Types.ObjectId(),
+          transaction_id: id,
+          receipt_url,
+          amount_paid,
+          source,
+          purchaseDetails,
+          additional_info,
+          client: client._id
+        });
+
+        await db.collection('orders').insertOne(order);
+
+        await Client.findOneAndUpdate(
+          { _id: client._id },
+          { $push: { orders: order._id } }
+        );
+      } else {
+        // new client
+        const orderId = mongoose.Types.ObjectId();
+
+        client = new Client({
+          _id: mongoose.Types.ObjectId(),
+          first_name,
+          last_name,
+          email,
+          phone,
+          address: {
+            address1,
+            address2,
+            city,
+            country,
+            client_ip
+          },
+          orders: [orderId]
+        });
+
+        const order = new Order({
+          _id: orderId,
+          transaction_id: id,
+          receipt_url,
+          amount_paid,
+          source,
+          purchaseDetails,
+          additional_info,
+          client: client._id
+        });
+
+        await db.collection('orders').insertOne(order);
+        await db.collection('clients').insertOne(client);
+      }
 
       return status;
     })

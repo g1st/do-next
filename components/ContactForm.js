@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { TextField, Paper, Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 
 import ModalLoader from './UI/ModalLoader/ModalLoader';
+import { EmailSent } from '../styles/Contact';
 
 const styles = theme => ({
   wrapper: {
+    marginTop: '30px',
     display: 'flex',
-    justifyContent: 'center'
-    // flexWrap: 'wrap'
+    justifyContent: 'center',
+    textAlign: 'center'
   },
   margin: {
     margin: theme.spacing.unit
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: '50px'
+    marginTop: '50px',
+    padding: '10px',
+    maxWidth: '300px',
+    width: '100%'
   },
   message: {
     alignSelf: 'flex-start'
@@ -34,9 +36,18 @@ const styles = theme => ({
     width: '100%'
   },
   paper: {
-    marginTop: '2em',
-    display: 'inline-block',
-    padding: '1em 2em'
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 6,
+      marginBottom: theme.spacing.unit * 6,
+      padding: theme.spacing.unit * 3
+    }
+  },
+  paperWidth: {
+    maxWidth: '500px',
+    margin: '0 auto'
   }
 });
 
@@ -59,30 +70,25 @@ class ContactForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.setState({ isSendingMail: true });
+    const { email, message, subject } = this.state;
+
     axios
-      // change for deployment
       .post('http://localhost:3000/api/send', {
-        subject: this.state.subject,
-        email: this.state.email,
-        message: this.state.message
+        email,
+        message,
+        subject,
+        contactForm: true
       })
       .then(res => {
-        console.log('hillowwwwwww');
-
-        console.log(res);
-
-        this.props.onEmailSend(true);
         this.setState(() => ({
           isSendingMail: false,
           emailSent: true
         }));
       })
       .catch(err => {
-        // console.log(errors.map(err => ({ [err.param]: err.msg })));
         const { errors } = err.response.data;
         this.setState(() => ({
           isSendingMail: false,
-          // errors: { ...errors.map(err => ({ [err.param]: err.msg })) },
           errors: errors.reduce((acc, err) => {
             acc[err.param] = err.msg;
             return acc;
@@ -91,75 +97,92 @@ class ContactForm extends Component {
       });
   };
 
-  // after sent confirmation make a button to go back to shop/gallery
-
   render() {
     const { classes } = this.props;
+    const {
+      email,
+      emailSent,
+      errors,
+      isSendingMail,
+      message,
+      subject
+    } = this.state;
 
-    return this.state.isSendingMail ? (
-      <ModalLoader />
-    ) : this.state.emailSent ? (
-      <Paper className={classes.paper} elevation={3}>
-        <Typography variant="body2">
-          Thank you, your message has been sent.
-        </Typography>
-      </Paper>
-    ) : (
-      <div className={classes.wrapper}>
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <TextField
-            value={this.state.email}
-            id="email"
-            label="Email"
-            placeholder="Your Email"
-            type="email"
-            required
-            fullWidth
-            margin="normal"
-            InputLabelProps={{ required: false }}
-            onChange={this.handleChange('email')}
-            error={!!this.state.errors.email}
-            helperText={this.state.errors.email}
-          />
-          <TextField
-            value={this.state.subject}
-            id="subject"
-            label="Subject"
-            required
-            InputLabelProps={{ required: false }}
-            type="text"
-            margin="normal"
-            fullWidth
-            onChange={this.handleChange('subject')}
-            error={!!this.state.errors.subject}
-            helperText={this.state.errors.subject}
-          />
-
-          <TextField
-            value={this.state.message}
-            id="message"
-            label="Message"
-            required
-            margin="normal"
-            type="text"
-            multiline
-            fullWidth
-            rows={4}
-            InputLabelProps={{ required: false }}
-            onChange={this.handleChange('message')}
-            error={!!this.state.errors.message}
-            helperText={this.state.errors.message}
-          />
-          <Button
-            type="submit"
-            size="medium"
-            variant="contained"
-            color="secondary"
-            className={classes.button}
+    if (isSendingMail) {
+      return <ModalLoader />;
+    }
+    if (emailSent) {
+      return (
+        <EmailSent>
+          <Paper
+            className={`${classes.paper} ${classes.paperWidth}`}
+            elevation={3}
           >
-            SEND
-          </Button>
-        </form>
+            <Typography variant="body1">
+              Thank you, your message has been sent.
+            </Typography>
+          </Paper>
+        </EmailSent>
+      );
+    }
+    return (
+      <div className={classes.wrapper}>
+        <Paper className={classes.paper}>
+          <form onSubmit={e => this.handleSubmit(e)}>
+            <TextField
+              value={email}
+              id="email"
+              label="Email"
+              placeholder="Your Email"
+              type="email"
+              required
+              fullWidth
+              margin="dense"
+              InputLabelProps={{ required: false }}
+              onChange={this.handleChange('email')}
+              error={!!errors.email}
+              helperText={errors.email}
+            />
+            <TextField
+              value={subject}
+              id="subject"
+              label="Subject"
+              required
+              InputLabelProps={{ required: false }}
+              type="text"
+              margin="dense"
+              fullWidth
+              onChange={this.handleChange('subject')}
+              error={!!errors.subject}
+              helperText={errors.subject}
+            />
+
+            <TextField
+              value={message}
+              id="message"
+              label="Message"
+              required
+              margin="dense"
+              type="text"
+              multiline
+              fullWidth
+              rows={4}
+              InputLabelProps={{ required: false }}
+              onChange={this.handleChange('message')}
+              error={!!errors.message}
+              helperText={errors.message}
+            />
+            <Button
+              type="submit"
+              size="medium"
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+            >
+              SEND
+            </Button>
+          </form>
+        </Paper>
       </div>
     );
   }

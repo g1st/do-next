@@ -1,112 +1,195 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'next/router';
-import { withStyles } from '@material-ui/core/styles';
+import Router, { withRouter } from 'next/router';
 import axios from 'axios';
-import Typography from '@material-ui/core/Typography';
-import ImageGallery from 'react-image-gallery';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import 'react-image-gallery/styles/css/image-gallery.css';
-import Router from 'next/router';
 import Link from 'next/link';
+import ImageGallery from 'react-image-gallery';
+import { Typography, Button, Tooltip } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { ArrowRight } from '@material-ui/icons';
+
 import customItem from '../components/ItemCard/customRenderItem';
 import customThumb from '../components/ItemCard/customRenderThumb';
-
 import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
-import { Wrapper, Images, Info } from '../styles/Piece';
+import {
+  Wrapper,
+  Images,
+  Info,
+  ButtonsWrapper,
+  DisabledButtonWrapper,
+  Text
+} from '../styles/Piece';
+import { Mail } from '../styles/Shared';
+import { AnchorLink } from '../styles/Piece';
+import DialogForm from '../components/DialogForm/DialogForm';
+import { pluralise } from '../util/helpers';
 
 const styles = {
   marginBottom: {
     marginBottom: '1.25rem'
   },
   marginBottomBig: {
-    marginBottom: '3rem'
+    marginBottom: '2rem'
   },
-  thumbnailPosition: {
-    xs: 'bottom',
-    sm: 'bottom',
-    md: 'bottom',
-    lg: 'bottom',
-    xl: 'bottom'
+  button: {
+    padding: '10px',
+    margin: '0 auto 20px auto',
+    width: '100%'
+  },
+  filterLine: {
+    color: '#595959',
+    letterSpacing: '1px',
+    lineHeight: '44px'
+  },
+  svg: {
+    top: '.3em',
+    position: 'relative',
+    color: '#595959',
+    margin: '0 12px'
   }
 };
 
-class Piece extends React.Component {
-  handleBuyItNow = item => {
-    this.props.buyItNow(item);
+const Piece = ({
+  classes,
+  onePieceData,
+  collections,
+  user,
+  addToCart: addToCartRedux,
+  buyItNow: buyItNowRedux
+}) => {
+  const handleBuyItNow = item => {
+    buyItNowRedux(item);
     Router.push('/checkout');
   };
 
-  render() {
-    const { classes, onePieceData, user } = this.props;
+  if (onePieceData.length < 1 || onePieceData[0] === null) {
+    return <p>Page doesn't exist</p>;
+  }
 
-    if (onePieceData.length < 1 || onePieceData[0] === null) {
-      return <p>Page doesn't exist</p>;
-    }
+  const {
+    name,
+    description,
+    materials,
+    price,
+    size,
+    _id,
+    images,
+    available,
+    group: collection,
+    category
+  } = onePieceData[0];
 
-    const {
-      name,
-      description,
-      materials,
-      price,
-      _id,
-      images,
-      available
-    } = this.props.onePieceData[0];
+  const dataForCart = {
+    name,
+    price,
+    images,
+    _id,
+    available,
+    quantity: 1
+  };
 
-    const dataForCart = {
-      name,
-      price,
-      images,
-      _id,
-      available,
-      quantity: 1
-    };
+  const gallery = images.map(image => ({
+    original: `/static/uploads/${image.medium}`,
+    thumbnail: `/static/uploads/${image.thumb}`,
+    srcSet: `/static/uploads/${image.medium} 400w, /static/uploads/${
+      image.big
+    } 960w`,
+    sizes: '(min-width: 960px) 30vw, 80vw'
+  }));
 
-    const gallery = images.map(image => ({
-      original: `/static/uploads/${image.medium}`,
-      thumbnail: `/static/uploads/${image.thumb}`,
-      srcSet: `/static/uploads/${image.medium} 400w, /static/uploads/${
-        image.big
-      } 960w`,
-      sizes: '(min-width: 960px) 30vw, 80vw'
-    }));
+  const edit = (
+    <div>
+      <Link href={`/edit?id=${_id}`} as={`/edit/${_id}`}>
+        <a>Edit</a>
+      </Link>
+    </div>
+  );
 
-    const edit = (
-      <div>
-        <Link href={`/edit?id=${_id}`} as={`/edit/${_id}`}>
-          <a>Edit</a>
-        </Link>
-      </div>
-    );
+  const notAvailable = (
+    <>
+      <Tooltip
+        title={
+          <Typography variant="body2" color="inherit">
+            Item is on display at exhibition or found a happy wearer!
+          </Typography>
+        }
+        placement="right"
+      >
+        <DisabledButtonWrapper>
+          <Button size="medium" variant="contained" color="primary" disabled>
+            Buy It Now
+          </Button>
+        </DisabledButtonWrapper>
+      </Tooltip>
+      <Typography variant="body1" classes={{ body1: classes.marginBottom }}>
+        Item currently is not available.
+      </Typography>
+      <Typography variant="body1" classes={{ body1: classes.marginBottom }}>
+        Want it badly? Email me at{' '}
+        <Mail href="mailto:hello@dovilejewellery.com" target="_top">
+          hello@dovilejewellery.com
+        </Mail>{' '}
+        or fill in the contact form.
+      </Typography>
+      <DialogForm />
+    </>
+  );
 
-    return (
-      // to highlight works tab in navbar under any piece is loaded
-      <Layout pathname="/works" collections={this.props.collections}>
-        <Wrapper>
-          <Images>
-            <ImageGallery
-              items={gallery}
-              lazyLoad
-              showNav
-              showPlayButton={false}
-              showFullscreenButton
-              renderItem={customItem}
-              renderThumbInner={customThumb}
-            />
-          </Images>
-          <Info>
-            <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
+  const pathLine = (
+    <div>
+      <Link href="/shop">
+        <AnchorLink>
+          <Typography inline variant="body2" className={classes.filterLine}>
+            shop
+          </Typography>
+        </AnchorLink>
+      </Link>
+      <ArrowRight fontSize="small" className={classes.svg} />
+      <Link href={`/shop/${collection}`}>
+        <AnchorLink>
+          <Typography inline variant="body2" className={classes.filterLine}>
+            {collection}
+          </Typography>
+        </AnchorLink>
+      </Link>
+      <ArrowRight fontSize="small" className={classes.svg} />
+      <Typography inline variant="body2" className={classes.filterLine}>
+        {pluralise(category)}
+      </Typography>
+    </div>
+  );
+
+  return (
+    <Layout
+      pathname="/shop"
+      collections={collections}
+      title={`${name} | Dovile Jewellery`}
+      description={`Materials: ${materials}
+      ${description}`}
+    >
+      {pathLine}
+      <Wrapper>
+        <Images>
+          <ImageGallery
+            items={gallery}
+            lazyLoad
+            showNav
+            showPlayButton={false}
+            showFullscreenButton
+            renderItem={customItem}
+            renderThumbInner={customThumb}
+          />
+        </Images>
+        <Info>
+          <Text>
+            <Typography variant="h4">
               {name}
               {user && edit}
             </Typography>
-            <Typography
-              variant="body1"
-              classes={{ body1: classes.marginBottom }}
-            >
-              {description}
+            <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
+              £{price}
             </Typography>
             <Typography
               variant="body1"
@@ -118,42 +201,56 @@ class Piece extends React.Component {
               variant="body1"
               classes={{ body1: classes.marginBottom }}
             >
-              Price: {price}
+              Size: {size}
             </Typography>
-            <div>
-              <Button
-                size="medium"
-                variant="contained"
-                color="primary"
-                onClick={() => this.handleBuyItNow(dataForCart)}
-              >
-                Buy It Now
-              </Button>
-              <Button
-                size="medium"
-                variant="contained"
-                color="secondary"
-                onClick={() => this.props.addToCart(dataForCart)}
-              >
-                Add To Cart
-              </Button>
-            </div>
-          </Info>
-        </Wrapper>
-      </Layout>
-    );
-  }
-}
+            <Typography
+              variant="body1"
+              classes={{ body1: classes.marginBottom }}
+            >
+              {description}
+            </Typography>
+
+            {available ? (
+              <ButtonsWrapper>
+                <Button
+                  size="medium"
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => handleBuyItNow(dataForCart)}
+                >
+                  Buy It Now
+                </Button>
+                <Button
+                  size="medium"
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => addToCartRedux(dataForCart)}
+                  className={classes.button}
+                >
+                  Add To Cart
+                </Button>
+              </ButtonsWrapper>
+            ) : (
+              notAvailable
+            )}
+          </Text>
+        </Info>
+      </Wrapper>
+    </Layout>
+  );
+};
 
 Piece.propTypes = {
   classes: PropTypes.object.isRequired,
-  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
   onePieceData: PropTypes.arrayOf(PropTypes.object),
-  user: PropTypes.string
+  user: PropTypes.string,
+  buyItNow: PropTypes.func,
+  addToCart: PropTypes.func
 };
 
-Piece.getInitialProps = async ({ pathname, req, query, user }) => {
+Piece.getInitialProps = async ({ pathname, req, query }) => {
   if (req) {
     const { db } = req;
     const { id } = req.params;
@@ -163,15 +260,17 @@ Piece.getInitialProps = async ({ pathname, req, query, user }) => {
       .find()
       .toArray();
 
-    const onePieceData = data.filter(obj => obj._id == id);
+    const onePieceDataFromServer = data.filter(
+      obj => obj._id.toString() === id
+    );
 
-    return { onePieceData, pathname };
+    return { onePieceData: onePieceDataFromServer, pathname };
   }
 
-  const onePieceData = await axios
+  const onePieceDataFromAPI = await axios
     .get('/api/single', { params: { id: query.id } })
     .then(res => res.data);
-  return { onePieceData: [onePieceData], pathname };
+  return { onePieceData: [onePieceDataFromAPI], pathname };
 };
 
 const mapDispatchToProps = dispatch => ({

@@ -8,17 +8,19 @@ module.exports = {
   writeFile: function writeFile(file, size) {
     // default image size
     const big = 900;
+    let sizeString = size;
     return new Promise((resolve, reject) => {
       sharp(file)
-        .resize(size, size)
+        .resize(sizeString, sizeString)
         .toBuffer(async function(err, buffer) {
           const dot = file.indexOf('.');
           // overwrites original multers file
-          if (size === big) {
-            size = '';
+          if (sizeString === big) {
+            // may be clearer to change to value of big
+            sizeString = '';
           }
           fs.writeFile(
-            file.substring(0, dot) + size + file.substring(dot),
+            file.substring(0, dot) + sizeString + file.substring(dot),
             buffer,
             err => {
               if (err) {

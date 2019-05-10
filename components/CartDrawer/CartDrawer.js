@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/SwipeableDrawer';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import Router from 'next/router';
-import Typography from '@material-ui/core/Typography';
+import { Button, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/SwipeableDrawer';
 
 import { clearBuyItNow } from '../../store/actions';
 import { DrawerContext } from '../DrawerContext';
@@ -28,18 +27,21 @@ class CartDrawer extends Component {
   static contextType = DrawerContext;
 
   handleCheckout = () => {
-    this.props.clearBuyItNow();
+    const { clearBuyItNow: clearBuyItNowRedux } = this.props;
+    clearBuyItNowRedux();
     Router.push('/checkout');
-    this.context.toggleDrawer('drawerCart', false);
+    const { toggleDrawer } = this.context;
+    toggleDrawer('drawerCart', false)();
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, uniqueCartItems } = this.props;
+    const { drawerCart, toggleDrawer } = this.context;
 
     const sideCart = (
       // buyItNow always false because checkouting from cart component
       <CartDrawerContent
-        closeDrawer={this.context.toggleDrawer('drawerCart', false)}
+        closeDrawer={toggleDrawer('drawerCart', false)}
         buyItNow={false}
       />
     );
@@ -47,23 +49,18 @@ class CartDrawer extends Component {
     return (
       <Drawer
         anchor="right"
-        open={this.context.drawerCart}
-        onClose={this.context.toggleDrawer('drawerCart', false)}
-        onOpen={this.context.toggleDrawer('drawerCart', true)}
+        open={drawerCart}
+        onClose={toggleDrawer('drawerCart', false)}
+        onOpen={toggleDrawer('drawerCart', true)}
       >
-        {this.props.uniqueCartItems > 0 ? (
+        {uniqueCartItems > 0 ? (
           <Typography className={classes.cart} variant="h5" align="center">
             Your Cart
           </Typography>
         ) : null}
-        <div
-          className={classes.list}
-          tabIndex={0}
-          role="button"
-          onKeyDown={this.context.toggleDrawer('drawerCart', false)}
-        >
+        <div className={classes.list} role="button">
           {sideCart}
-          {this.props.uniqueCartItems > 0 ? (
+          {uniqueCartItems > 0 ? (
             <div style={{ width: 280 }}>
               <Button
                 className={classes.button}
@@ -92,7 +89,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 CartDrawer.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  uniqueCartItems: PropTypes.number,
+  clearBuyItNow: PropTypes.func
 };
 
 export default connect(

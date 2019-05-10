@@ -22,13 +22,9 @@ const theme = createMuiTheme({
     },
     error: {
       main: '#9e2146'
-    }
-  },
-  props: {
-    // withWidth component ⚛️
-    MuiWithWidth: {
-      // Initial width property
-      initialWidth: 'xs' // Breakpoint being globally set 🌎!
+    },
+    background: {
+      default: '#FFFFFF'
     }
   },
   typography: {

@@ -5,10 +5,6 @@ import { ITEMS_PER_PAGE } from '../../config';
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
-  INCREASE_QUANTITY,
-  DECREASE_QUANTITY,
-  BUY_IT_NOW_INCREASE_QUANTITY,
-  BUY_IT_NOW_DECREASE_QUANTITY,
   BUY_IT_NOW,
   CLEAR_BUY_IT_NOW,
   CLEAR_CART,
@@ -22,7 +18,7 @@ export const initialState = {
   buyItNow: {},
   shippingCost: shippingPrice,
   authenticate: { token: null },
-  loadMore: ITEMS_PER_PAGE
+  loadMore: { all: ITEMS_PER_PAGE }
 };
 
 const cart = (state = initialState.cart, action) => {
@@ -30,22 +26,10 @@ const cart = (state = initialState.cart, action) => {
     // check if item is already in the cart
     if (state.some(item => item._id === action.item._id)) return state;
 
-    return [...state, action.item];
+    return [...state, { ...action.item, images: [...action.item.images] }];
   }
   if (action.type === REMOVE_FROM_CART) {
     return state.filter(item => item._id !== action.id);
-  }
-  if (action.type === INCREASE_QUANTITY) {
-    return state.map(item => {
-      if (item._id === action.id) item.quantity++;
-      return item;
-    });
-  }
-  if (action.type === DECREASE_QUANTITY) {
-    return state.map(item => {
-      if (item.quantity > 0 && item._id === action.id) item.quantity--;
-      return item;
-    });
   }
   if (CLEAR_CART === action.type) {
     return [];
@@ -59,20 +43,6 @@ const buyItNow = (state = initialState.buyItNow, action) => {
   }
   if (CLEAR_BUY_IT_NOW === action.type) {
     return {};
-  }
-  if (BUY_IT_NOW_DECREASE_QUANTITY === action.type) {
-    if (state.quantity > 0) {
-      return {
-        ...state,
-        quantity: state.quantity - 1
-      };
-    }
-  }
-  if (BUY_IT_NOW_INCREASE_QUANTITY === action.type) {
-    return {
-      ...state,
-      quantity: state.quantity + 1
-    };
   }
   return state;
 };
@@ -91,7 +61,11 @@ const authenticate = (state = initialState.authenticate, action) => {
 
 const loadMore = (state = initialState.loadMore, action) => {
   if (INCREASE_LOADED_ITEMS === action.type) {
-    return state + 6;
+    return {
+      ...state,
+      [action.collection]:
+        (state[action.collection] || ITEMS_PER_PAGE) + ITEMS_PER_PAGE
+    };
   }
   return state;
 };
