@@ -57,7 +57,7 @@ const authenticate = (state = initialState.authenticate, action) => {
   if (DEAUTHENTICATE === action.type) {
     return { token: null };
   }
-  if (AUTHENTICATE_ERROR == action.type) {
+  if (AUTHENTICATE_ERROR === action.type) {
     return { error: action.payload };
   }
   return state;

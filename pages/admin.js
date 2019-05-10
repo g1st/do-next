@@ -56,7 +56,8 @@ const Admin = ({
 Admin.propTypes = {
   user: PropTypes.string,
   collections: PropTypes.array,
-  deauthenticate: PropTypes.func
+  deauthenticate: PropTypes.func,
+  authServerError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 };
 
 Admin.getInitialProps = ({ user }) => ({ user });
