@@ -335,9 +335,7 @@ module.exports = (db, upload) => {
               msg: 'Email has been sent.'
             })
           )
-          .catch(err => {
-            return res.json({ msg: err.message });
-          });
+          .catch(err => res.json({ msg: err.message }));
       } else {
         return res.json({ msg: '(fake) Email (not) sent' });
       }

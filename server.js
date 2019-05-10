@@ -7,8 +7,9 @@ const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 const path = require('path');
 const cors = require('cors');
-const api = require('./api/api');
 const compression = require('compression');
+
+const api = require('./api/api');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
