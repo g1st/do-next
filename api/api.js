@@ -326,22 +326,19 @@ module.exports = (db, upload) => {
       if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
       }
-      if (process.env.NODE_ENV === 'production') {
-        sendMail({
-          email,
-          subject,
-          message: htmlMessage || message,
-          contactForm
-        })
-          .then(() =>
-            res.json({
-              msg: 'Email has been sent.'
-            })
-          )
-          .catch(err => res.json({ msg: err.message }));
-      } else {
-        return res.json({ msg: '(fake) Email (not) sent' });
-      }
+
+      sendMail({
+        email,
+        subject,
+        message: htmlMessage || message,
+        contactForm
+      })
+        .then(() =>
+          res.json({
+            msg: 'Email has been sent.'
+          })
+        )
+        .catch(err => res.json({ msg: err.message }));
     }
   );
 
