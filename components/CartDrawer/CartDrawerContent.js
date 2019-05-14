@@ -61,7 +61,7 @@ const CartDrawerContent = ({
 
   let content = (
     <>
-      <Typography variant="body1" align="center" className={classes.marginTop}>
+      <Typography variant="body2" align="center" className={classes.marginTop}>
         Cart is currently empty.
       </Typography>
       <Button
@@ -87,24 +87,38 @@ const CartDrawerContent = ({
         />
         <List className={classes.list}>
           <ListItem>
-            <ListItemText>Items</ListItemText>
+            <ListItemText>
+              <Typography variant="body2">Items</Typography>
+            </ListItemText>
             <ListItemText className={classes.textRight}>
-              {buyItNow ? buyItNowItem.quantity : cartHelper.totalItems(cart)}
+              <Typography variant="body2">
+                {buyItNow ? buyItNowItem.quantity : cartHelper.totalItems(cart)}
+              </Typography>
             </ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>Shipping</ListItemText>
+            <ListItemText>
+              <Typography variant="body2">Shipping</Typography>
+            </ListItemText>
             <ListItemText className={classes.textRight}>
-              {shippingCost !== 0 ? `£${shippingCost.toFixed(2)}` : 'Free'}
+              <Typography variant="body2">
+                {shippingCost !== 0 ? `£${shippingCost.toFixed(2)}` : 'Free'}
+              </Typography>
             </ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>Total</ListItemText>
+            <ListItemText>
+              <Typography variant="body2">Total</Typography>
+            </ListItemText>
             <ListItemText className={classes.textRight}>
-              £
-              {buyItNow
-                ? cartHelper.totalPrice([buyItNowItem], shippingCost).toFixed(2)
-                : cartHelper.totalPrice(cart, shippingCost).toFixed(2)}
+              <Typography variant="body2">
+                £
+                {buyItNow
+                  ? cartHelper
+                      .totalPrice([buyItNowItem], shippingCost)
+                      .toFixed(2)
+                  : cartHelper.totalPrice(cart, shippingCost).toFixed(2)}
+              </Typography>
             </ListItemText>
           </ListItem>
         </List>

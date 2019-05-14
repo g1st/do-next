@@ -35,6 +35,6 @@ Row.displayName = 'Row';
 
 export const Data = styled.td`
   max-width: 600px;
-  min-width: 116px;
+  min-width: 100px;
 `;
 Data.displayName = 'Data';

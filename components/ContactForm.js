@@ -19,7 +19,6 @@ const styles = theme => ({
     margin: theme.spacing.unit
   },
   button: {
-    margin: theme.spacing.unit,
     marginTop: '50px',
     padding: '10px',
     maxWidth: '300px',
@@ -37,6 +36,7 @@ const styles = theme => ({
     width: '100%'
   },
   paper: {
+    maxWidth: '700px',
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,
@@ -45,10 +45,6 @@ const styles = theme => ({
       marginBottom: theme.spacing.unit * 6,
       padding: theme.spacing.unit * 3
     }
-  },
-  paperWidth: {
-    maxWidth: '500px',
-    margin: '0 auto'
   }
 });
 
@@ -115,11 +111,8 @@ class ContactForm extends Component {
     if (emailSent) {
       return (
         <EmailSent>
-          <Paper
-            className={`${classes.paper} ${classes.paperWidth}`}
-            elevation={3}
-          >
-            <Typography variant="body1">
+          <Paper className={classes.paper} elevation={3}>
+            <Typography variant="body2">
               Thank you, your message has been sent.
             </Typography>
           </Paper>
@@ -132,6 +125,7 @@ class ContactForm extends Component {
           <form onSubmit={e => this.handleSubmit(e)}>
             <TextField
               value={email}
+              autoFocus
               id="email"
               label="Email"
               placeholder="Your Email"

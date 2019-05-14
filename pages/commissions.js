@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
 import {
@@ -12,7 +13,14 @@ import {
 } from '../styles/Commissions';
 import { Mail } from '../styles/Shared';
 
-const Commissions = ({ collections }) => (
+const styles = () => ({
+  heading: {
+    fontSize: '1.2rem',
+    paddingTop: '20px'
+  }
+});
+
+const Commissions = ({ collections, classes }) => (
   <Layout
     pathname={false}
     collections={collections}
@@ -27,15 +35,13 @@ const Commissions = ({ collections }) => (
       <Text>
         <Typography
           color="secondary"
-          variant="h5"
+          variant="body1"
           gutterBottom
-          style={{
-            paddingTop: '20px'
-          }}
+          className={classes.heading}
         >
           COMMISSIONS
         </Typography>
-        <Typography align="left" paragraph variant="body1">
+        <Typography align="left" paragraph variant="body2">
           For any interest, please{' '}
           <Mail href="mailto:hello@dovilejewellery.com" target="_top">
             e-mail me
@@ -46,13 +52,13 @@ const Commissions = ({ collections }) => (
           discussed by email or in person.
         </Typography>
 
-        <Typography align="left" paragraph variant="body1">
+        <Typography align="left" paragraph variant="body2">
           Most of my designs could be re-created in new different ways as in
           different materials, gold-plating, different gemstones etc. Feel free
           to ask. I am making one of a kind pieces so each is unique and
           special.
         </Typography>
-        <Typography align="left" paragraph variant="body1">
+        <Typography align="left" paragraph variant="body2">
           Please note, I do not make copies of designs by other makers.
         </Typography>
       </Text>
@@ -61,7 +67,8 @@ const Commissions = ({ collections }) => (
 );
 
 Commissions.propTypes = {
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  classes: PropTypes.object.isRequired
 };
 
-export default Commissions;
+export default withStyles(styles)(Commissions);

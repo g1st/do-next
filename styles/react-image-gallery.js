@@ -37,4 +37,9 @@ export const GlobalStyle = createGlobalStyle`
   .image-gallery-image {
     text-align: center;
   }
+
+  .image-gallery-thumbnail.active {
+    border-color: #9e9e9e;
+  } 
+  
 `;

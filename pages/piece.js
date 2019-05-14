@@ -133,10 +133,10 @@ const Piece = ({
           </Button>
         </DisabledButtonWrapper>
       </Tooltip>
-      <Typography variant="body1" classes={{ body1: classes.marginBottom }}>
+      <Typography variant="body2" classes={{ body2: classes.marginBottom }}>
         Item currently is not available.
       </Typography>
-      <Typography variant="body1" classes={{ body1: classes.marginBottom }}>
+      <Typography variant="body2" classes={{ body2: classes.marginBottom }}>
         Want it badly? Email me at{' '}
         <Mail href="mailto:hello@dovilejewellery.com" target="_top">
           hello@dovilejewellery.com
@@ -202,20 +202,20 @@ const Piece = ({
               £{price}
             </Typography>
             <Typography
-              variant="body1"
-              classes={{ body1: classes.marginBottom }}
+              variant="body2"
+              classes={{ body2: classes.marginBottom }}
             >
               Materials: {materials}
             </Typography>
             <Typography
-              variant="body1"
-              classes={{ body1: classes.marginBottom }}
+              variant="body2"
+              classes={{ body2: classes.marginBottom }}
             >
               Size: {size}
             </Typography>
             <Typography
-              variant="body1"
-              classes={{ body1: classes.marginBottom }}
+              variant="body2"
+              classes={{ body2: classes.marginBottom }}
             >
               {description}
             </Typography>

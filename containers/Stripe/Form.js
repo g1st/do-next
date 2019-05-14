@@ -277,7 +277,7 @@ class StripeForm extends Component {
     }
     if (orderComplete) {
       return (
-        <Typography variant="body1" className={classes.marginTop}>
+        <Typography variant="body2" className={classes.marginTop}>
           Your order was successful. I just sent you a confirmation email about
           your purchase, thank you!
         </Typography>
@@ -285,7 +285,7 @@ class StripeForm extends Component {
     }
     return (
       <div>
-        <Typography variant="body1">Your Cart is empty.</Typography>
+        <Typography variant="body2">Your Cart is empty.</Typography>
       </div>
     );
   }

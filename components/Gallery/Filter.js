@@ -103,7 +103,7 @@ class Filter extends React.Component {
           onClose={this.handleClose}
         >
           <MenuItem key="show all" onClick={this.handleItemClick('')}>
-            <Typography variant="body1" className={classes.menuItemText}>
+            <Typography variant="body2" className={classes.menuItemText}>
               show all
             </Typography>
           </MenuItem>
@@ -113,7 +113,7 @@ class Filter extends React.Component {
               value={category}
               onClick={this.handleItemClick(category)}
             >
-              <Typography variant="body1" className={classes.menuItemText}>
+              <Typography variant="body2" className={classes.menuItemText}>
                 {pluralise(category)}
               </Typography>
             </MenuItem>
