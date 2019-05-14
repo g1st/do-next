@@ -81,7 +81,7 @@ const About = ({ pathname, collections, classes }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body2">2008-2012</Typography>
+                <Typography variant="body2">2008 - 2012</Typography>
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
@@ -92,7 +92,7 @@ const About = ({ pathname, collections, classes }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2010-2011</Typography>
+                <Typography variant="body2">2010 - 2011</Typography>
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
@@ -110,7 +110,7 @@ const About = ({ pathname, collections, classes }) => (
             <Row>
               <Data>
                 <Typography variant="body2" gutterBottom>
-                  2016-current
+                  2016 - current
                 </Typography>
               </Data>
               <Data>
@@ -130,7 +130,7 @@ const About = ({ pathname, collections, classes }) => (
             <Row>
               <Data>
                 <Typography variant="body2" gutterBottom>
-                  2013-2015
+                  2013 - 2015
                 </Typography>
               </Data>
               <Data>
@@ -149,7 +149,7 @@ const About = ({ pathname, collections, classes }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body2">2008-2012</Typography>
+                <Typography variant="body2">2008 - 2012</Typography>
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
@@ -159,7 +159,7 @@ const About = ({ pathname, collections, classes }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2010-2011</Typography>
+                <Typography variant="body2">2010 - 2011</Typography>
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
