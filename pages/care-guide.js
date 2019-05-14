@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
 import { Wrapper, Image, Figure, Text } from '../styles/CareGuide';
 import { ImageWrapper } from '../styles/TermsAndConditions';
 
-const style = {
-  headline: {
-    paddingTop: '30px'
+const styles = () => ({
+  heading: {
+    fontSize: '1.2rem',
+    paddingTop: '20px'
   }
-};
+});
 
-const CareGuide = ({ collections }) => (
+const CareGuide = ({ collections, classes }) => (
   // false for Material UI Tabs to know this endpoint not needed
   <Layout
     pathname={false}
@@ -28,9 +30,9 @@ const CareGuide = ({ collections }) => (
         <Typography
           align="left"
           color="secondary"
-          variant="h5"
+          variant="body1"
           gutterBottom
-          style={style.headline}
+          className={classes.heading}
         >
           WEARING
         </Typography>
@@ -52,9 +54,9 @@ const CareGuide = ({ collections }) => (
         <Typography
           align="left"
           color="secondary"
-          variant="h5"
+          variant="body1"
           gutterBottom
-          style={style.headline}
+          className={classes.heading}
         >
           CLEANING
         </Typography>
@@ -71,9 +73,9 @@ const CareGuide = ({ collections }) => (
         <Typography
           align="left"
           color="secondary"
-          variant="h5"
+          variant="body1"
           gutterBottom
-          style={style.headline}
+          className={classes.heading}
         >
           STORAGE
         </Typography>
@@ -91,7 +93,8 @@ const CareGuide = ({ collections }) => (
 );
 
 CareGuide.propTypes = {
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  classes: PropTypes.object.isRequired
 };
 
-export default CareGuide;
+export default withStyles(styles)(CareGuide);

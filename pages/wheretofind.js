@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
 import {
@@ -14,7 +15,13 @@ import {
 } from '../styles/WhereToFind';
 import { AnchorLink, Table, Row, Data } from '../styles/Shared';
 
-const WhereToFind = ({ pathname, collections }) => (
+const styles = () => ({
+  fontSize: {
+    fontSize: '1.2rem'
+  }
+});
+
+const WhereToFind = ({ pathname, collections, classes }) => (
   <Layout
     pathname={pathname}
     collections={collections}
@@ -25,7 +32,7 @@ const WhereToFind = ({ pathname, collections }) => (
         <ImageWrapper>
           <Image src="/static/images/ef-13.JPG" alt="dovile jewellery" />
         </ImageWrapper>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="body1" gutterBottom className={classes.fontSize}>
           STOCKIST
         </Typography>
         <Typography variant="body2" gutterBottom>
@@ -83,7 +90,7 @@ const WhereToFind = ({ pathname, collections }) => (
           <ImageWrapper>
             <Image src="/static/images/gf-14.JPG" alt="dovile jewellery" />
           </ImageWrapper>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="body1" gutterBottom className={classes.fontSize}>
             UPCOMING EVENTS
           </Typography>
           <Table>
@@ -143,7 +150,7 @@ const WhereToFind = ({ pathname, collections }) => (
           </Table>
         </UpcomingEvents>
         <LatestEvents>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="body1" gutterBottom className={classes.fontSize}>
             LATEST EVENTS
           </Typography>
           <Table>
@@ -309,9 +316,10 @@ const WhereToFind = ({ pathname, collections }) => (
 
 WhereToFind.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
-  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  classes: PropTypes.object.isRequired
 };
 
 WhereToFind.getInitialProps = async ({ pathname }) => ({ pathname });
 
-export default WhereToFind;
+export default withStyles(styles)(WhereToFind);

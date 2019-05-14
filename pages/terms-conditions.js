@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
 import {
@@ -10,7 +11,14 @@ import {
   Figure
 } from '../styles/TermsAndConditions';
 
-const TermsAndConditions = ({ collections }) => (
+const styles = () => ({
+  heading: {
+    fontSize: '1.2rem',
+    paddingTop: '20px'
+  }
+});
+
+const TermsAndConditions = ({ collections, classes }) => (
   // For Material UI Tabs to know this endpoint not needed
   <Layout
     pathname={false}
@@ -32,9 +40,7 @@ const TermsAndConditions = ({ collections }) => (
           color="secondary"
           variant="h5"
           gutterBottom
-          style={{
-            paddingTop: '20px'
-          }}
+          className={classes.heading}
         >
           SHIPPING
         </Typography>
@@ -63,9 +69,7 @@ const TermsAndConditions = ({ collections }) => (
           color="secondary"
           variant="h5"
           gutterBottom
-          style={{
-            paddingTop: '20px'
-          }}
+          className={classes.heading}
         >
           REFUND
         </Typography>
@@ -99,9 +103,10 @@ const TermsAndConditions = ({ collections }) => (
 );
 
 TermsAndConditions.propTypes = {
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  classes: PropTypes.object.isRequired
 };
 
 TermsAndConditions.getInitialProps = async ({ pathname }) => ({ pathname });
 
-export default TermsAndConditions;
+export default withStyles(styles)(TermsAndConditions);

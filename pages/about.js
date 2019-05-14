@@ -31,6 +31,15 @@ const styles = () => ({
     fontWeight: 100,
     fontSize: '0.8rem',
     color: 'rgba(0,0,0,0.5)'
+  },
+  lighterFont: {
+    fontWeight: 400
+  },
+  fontSize: {
+    fontSize: '1.2rem'
+  },
+  increaseFontWeight: {
+    fontWeight: 500
   }
 });
 
@@ -58,12 +67,14 @@ const About = ({ pathname, collections, classes }) => (
           </Caption>
         </PortraitWrapper>
         <AuthorNameText>
-          <Typography variant="h4">Dovile Kondrasovaite</Typography>
+          <Typography variant="h5" className={classes.increaseFontWeight}>
+            Dovile Kondrasovaite
+          </Typography>
           <Typography variant="body2" gutterBottom>
             Born 19/3/1989 in Dusetos, Lithuania
           </Typography>
         </AuthorNameText>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="body1" gutterBottom className={classes.fontSize}>
           EDUCATION
         </Typography>
         <Table>
@@ -91,7 +102,7 @@ const About = ({ pathname, collections, classes }) => (
             </Row>
           </tbody>
         </Table>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="body1" gutterBottom className={classes.fontSize}>
           PROFESSIONAL POSITION
         </Typography>
         <Table>
@@ -131,7 +142,7 @@ const About = ({ pathname, collections, classes }) => (
             </Row>
           </tbody>
         </Table>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="body1" gutterBottom className={classes.fontSize}>
           EXHIBITIONS
         </Typography>
         <Table>
@@ -177,7 +188,11 @@ const About = ({ pathname, collections, classes }) => (
           </Caption>
         </ImageWrapper>
         <ArtistStatement>
-          <Typography variant="h5" className={classes.marginTop} paragraph>
+          <Typography
+            variant="body1"
+            className={`${classes.fontSize} ${classes.marginTop}`}
+            paragraph
+          >
             ARTIST'S STATEMENT
           </Typography>
           <Typography variant="body2" className={classes.marginTop} paragraph>
