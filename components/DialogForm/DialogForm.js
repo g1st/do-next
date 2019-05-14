@@ -6,7 +6,6 @@ import {
   TextField,
   Dialog,
   DialogContent,
-  DialogTitle,
   Paper,
   Typography
 } from '@material-ui/core';

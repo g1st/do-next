@@ -87,50 +87,39 @@ const CartDrawerContent = ({
         />
         <List className={classes.list}>
           <ListItem>
-            <ListItemText
-              children={<Typography variant="body2">Items</Typography>}
-            />
-            <ListItemText
-              className={classes.textRight}
-              children={
-                <Typography variant="body2">
-                  {buyItNow
-                    ? buyItNowItem.quantity
-                    : cartHelper.totalItems(cart)}
-                </Typography>
-              }
-            />
+            <ListItemText>
+              <Typography variant="body2">Items</Typography>
+            </ListItemText>
+            <ListItemText className={classes.textRight}>
+              <Typography variant="body2">
+                {buyItNow ? buyItNowItem.quantity : cartHelper.totalItems(cart)}
+              </Typography>
+            </ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText
-              children={<Typography variant="body2">Shipping</Typography>}
-            />
-            <ListItemText
-              className={classes.textRight}
-              children={
-                <Typography variant="body2">
-                  {shippingCost !== 0 ? `£${shippingCost.toFixed(2)}` : 'Free'}
-                </Typography>
-              }
-            />
+            <ListItemText>
+              <Typography variant="body2">Shipping</Typography>
+            </ListItemText>
+            <ListItemText className={classes.textRight}>
+              <Typography variant="body2">
+                {shippingCost !== 0 ? `£${shippingCost.toFixed(2)}` : 'Free'}
+              </Typography>
+            </ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText
-              children={<Typography variant="body2">Total</Typography>}
-            />
-            <ListItemText
-              className={classes.textRight}
-              children={
-                <Typography variant="body2">
-                  £
-                  {buyItNow
-                    ? cartHelper
-                        .totalPrice([buyItNowItem], shippingCost)
-                        .toFixed(2)
-                    : cartHelper.totalPrice(cart, shippingCost).toFixed(2)}
-                </Typography>
-              }
-            />
+            <ListItemText>
+              <Typography variant="body2">Total</Typography>
+            </ListItemText>
+            <ListItemText className={classes.textRight}>
+              <Typography variant="body2">
+                £
+                {buyItNow
+                  ? cartHelper
+                      .totalPrice([buyItNowItem], shippingCost)
+                      .toFixed(2)
+                  : cartHelper.totalPrice(cart, shippingCost).toFixed(2)}
+              </Typography>
+            </ListItemText>
           </ListItem>
         </List>
       </div>
