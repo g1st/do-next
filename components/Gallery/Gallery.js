@@ -91,7 +91,7 @@ class Gallery extends React.Component {
 
     if (data.length < 1) {
       return (
-        <Typography variant="body1" align="center">
+        <Typography variant="body2" align="center">
           Gallery empty.
         </Typography>
       );

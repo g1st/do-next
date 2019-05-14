@@ -35,7 +35,7 @@ const Commissions = ({ collections }) => (
         >
           COMMISSIONS
         </Typography>
-        <Typography align="left" paragraph variant="body1">
+        <Typography align="left" paragraph variant="body2">
           For any interest, please{' '}
           <Mail href="mailto:hello@dovilejewellery.com" target="_top">
             e-mail me
@@ -46,13 +46,13 @@ const Commissions = ({ collections }) => (
           discussed by email or in person.
         </Typography>
 
-        <Typography align="left" paragraph variant="body1">
+        <Typography align="left" paragraph variant="body2">
           Most of my designs could be re-created in new different ways as in
           different materials, gold-plating, different gemstones etc. Feel free
           to ask. I am making one of a kind pieces so each is unique and
           special.
         </Typography>
-        <Typography align="left" paragraph variant="body1">
+        <Typography align="left" paragraph variant="body2">
           Please note, I do not make copies of designs by other makers.
         </Typography>
       </Text>

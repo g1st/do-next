@@ -34,7 +34,7 @@ const CareGuide = ({ collections }) => (
         >
           WEARING
         </Typography>
-        <Typography variant="body1" align="left" paragraph color="secondary">
+        <Typography variant="body2" align="left" paragraph color="secondary">
           All sterling silver will tarnish over time, but it will happen much
           faster when it comes into contact with agents such as perfume, salty
           air, sulphur, skin creams, hairspray, chlorine and acidic skin ph. The
@@ -42,7 +42,7 @@ const CareGuide = ({ collections }) => (
           and care habits of the wearer. Tarnishing is therefore not a
           manufacturing fault.
         </Typography>
-        <Typography variant="body1" align="left" paragraph color="secondary">
+        <Typography variant="body2" align="left" paragraph color="secondary">
           I encourage customers to remove the jewellery prior to cleaning,
           bathing and swimming and ensure that the jewellery is not exposed to
           UV light, hairspray, perfume and cosmetics. I also recommend that you
@@ -58,11 +58,11 @@ const CareGuide = ({ collections }) => (
         >
           CLEANING
         </Typography>
-        <Typography variant="body1" align="left" paragraph color="secondary">
+        <Typography variant="body2" align="left" paragraph color="secondary">
           In order to care for Dovile Jewellery, I recommend using a polishing
           cloth regularly to prevent the natural process of tarnishing.
         </Typography>
-        <Typography variant="body1" align="left" paragraph color="secondary">
+        <Typography variant="body2" align="left" paragraph color="secondary">
           Clean your jewellery using lukewarm soapy water and a soft brush. It
           is especially recommended for cleaning gemstones. I do not recommend
           the use of silver polish and silver dip as they may destroy the
@@ -77,11 +77,11 @@ const CareGuide = ({ collections }) => (
         >
           STORAGE
         </Typography>
-        <Typography variant="body1" align="left" paragraph color="secondary">
+        <Typography variant="body2" align="left" paragraph color="secondary">
           Please store your jewellery safe in its original box or in a jewellery
           organiser. Make sure the chain is fastened to prevent tangling.
         </Typography>
-        <Typography variant="body1" align="left" paragraph color="secondary">
+        <Typography variant="body2" align="left" paragraph color="secondary">
           Keep dark oxidized items separate from other jewellery you have,
           because the black oxide can cause tarnish too.
         </Typography>

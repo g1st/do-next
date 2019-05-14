@@ -112,7 +112,7 @@ class ContactForm extends Component {
       return (
         <EmailSent>
           <Paper className={classes.paper} elevation={3}>
-            <Typography variant="body1">
+            <Typography variant="body2">
               Thank you, your message has been sent.
             </Typography>
           </Paper>

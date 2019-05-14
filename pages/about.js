@@ -59,7 +59,7 @@ const About = ({ pathname, collections, classes }) => (
         </PortraitWrapper>
         <AuthorNameText>
           <Typography variant="h4">Dovile Kondrasovaite</Typography>
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="body2" gutterBottom>
             Born 19/3/1989 in Dusetos, Lithuania
           </Typography>
         </AuthorNameText>
@@ -70,10 +70,10 @@ const About = ({ pathname, collections, classes }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body1">2008-2012</Typography>
+                <Typography variant="body2">2008-2012</Typography>
               </Data>
               <Data>
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="body2" gutterBottom>
                   BA in jewellery and smithery, Vilnius Academy of Arts,
                   Lithuania
                 </Typography>
@@ -81,10 +81,10 @@ const About = ({ pathname, collections, classes }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body1">2010-2011</Typography>
+                <Typography variant="body2">2010-2011</Typography>
               </Data>
               <Data>
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="body2" gutterBottom>
                   Study exchange Escola Massana, Barcelona, Spain
                 </Typography>
               </Data>
@@ -98,12 +98,12 @@ const About = ({ pathname, collections, classes }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="body2" gutterBottom>
                   2016-current
                 </Typography>
               </Data>
               <Data>
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="body2" gutterBottom>
                   Jewellery tutor,{' '}
                   <AnchorLink
                     href="http://www.thequarterworkshop.com/"
@@ -118,13 +118,13 @@ const About = ({ pathname, collections, classes }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="body2" gutterBottom>
                   2013-2015
                 </Typography>
               </Data>
               <Data>
                 {' '}
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="body2" gutterBottom>
                   Jewellery tutor, Art Studio Ramios Bites, Vilnius, Lithuania
                 </Typography>
               </Data>
@@ -138,20 +138,20 @@ const About = ({ pathname, collections, classes }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body1">2008-2012</Typography>
+                <Typography variant="body2">2008-2012</Typography>
               </Data>
               <Data>
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="body2" gutterBottom>
                   todo
                 </Typography>
               </Data>
             </Row>
             <Row>
               <Data>
-                <Typography variant="body1">2010-2011</Typography>
+                <Typography variant="body2">2010-2011</Typography>
               </Data>
               <Data>
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="body2" gutterBottom>
                   todo
                 </Typography>
               </Data>
@@ -180,10 +180,10 @@ const About = ({ pathname, collections, classes }) => (
           <Typography variant="h5" className={classes.marginTop} paragraph>
             ARTIST'S STATEMENT
           </Typography>
-          <Typography variant="body1" className={classes.marginTop} paragraph>
+          <Typography variant="body2" className={classes.marginTop} paragraph>
             THE DIALOGUE BETWEEN PAST, PRESENT AND FUTURE
           </Typography>
-          <Typography variant="body1" paragraph align="justify">
+          <Typography variant="body2" paragraph align="justify">
             The central concept of my jewellery is time and natural ageing
             processes. This is shown through the use of hand-carved amber and
             wood, their interplay, giving a sense of the growth to the wearer.
@@ -195,7 +195,7 @@ const About = ({ pathname, collections, classes }) => (
             starting to bloom or even a coming wave. It could take seconds or
             centuries.
           </Typography>
-          <Typography variant="body1" paragraph align="justify">
+          <Typography variant="body2" paragraph align="justify">
             The materials I have chosen to work with have gone through long
             ageing processes until they have reached my hands as natural raw
             Baltic amber and bog oak and other naturally black hardwoods. Amber
@@ -205,7 +205,7 @@ const About = ({ pathname, collections, classes }) => (
             within my own work with a hope to modify the image of amber and to
             use it in a more considered and contemporary way.
           </Typography>
-          <Typography variant="body1" paragraph align="justify">
+          <Typography variant="body2" paragraph align="justify">
             I bring wood and amber together into sculptural shapes. The visual
             confrontation of hard black wood and fragile amber and dynamic
             volume creates intriguing dialogue. Every design in shaping comes
@@ -214,7 +214,7 @@ const About = ({ pathname, collections, classes }) => (
             Sometimes it goes into a very dramatic structure sometimes turn into
             a still and light design.
           </Typography>
-          <Typography variant="body1" paragraph align="justify">
+          <Typography variant="body2" paragraph align="justify">
             Over the time and with wear the objects will change, the surface may
             rub off, may crack and polish naturally. It is sustainable
             jewellery, which after wearing could be dropped into the bog or the

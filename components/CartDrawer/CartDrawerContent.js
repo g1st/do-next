@@ -61,7 +61,7 @@ const CartDrawerContent = ({
 
   let content = (
     <>
-      <Typography variant="body1" align="center" className={classes.marginTop}>
+      <Typography variant="body2" align="center" className={classes.marginTop}>
         Cart is currently empty.
       </Typography>
       <Button
