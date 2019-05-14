@@ -11,9 +11,10 @@ import {
   Events,
   LatestEvents,
   ImageWrapper,
-  Image
+  Image,
+  Data
 } from '../styles/WhereToFind';
-import { AnchorLink, Table, Row, Data } from '../styles/Shared';
+import { AnchorLink, Table, Row } from '../styles/Shared';
 
 const styles = () => ({
   fontSize: {

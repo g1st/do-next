@@ -56,3 +56,9 @@ export const Image = styled.img`
   border-radius: 3px;
 `;
 Image.displayName = 'Image';
+
+export const Data = styled.td`
+  max-width: 600px;
+  min-width: 80px;
+`;
+Data.displayName = 'Data';
