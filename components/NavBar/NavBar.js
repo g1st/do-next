@@ -30,7 +30,10 @@ const styles = theme => ({
     flex: 1,
     [theme.breakpoints.down('sm')]: {
       textAlign: 'center'
-    }
+    },
+    fontWeight: 400,
+    fontSize: '1.2rem',
+    textTransform: 'uppercase'
   },
   menuButton: {
     marginLeft: -12,
