@@ -6,7 +6,6 @@ import {
   TextField,
   Dialog,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Paper,
   Typography
@@ -24,7 +23,6 @@ const styles = theme => ({
     }
   },
   button: {
-    margin: theme.spacing.unit,
     marginTop: '50px',
     padding: '10px',
     maxWidth: '300px',
@@ -138,13 +136,9 @@ class FormDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="contact-form"
         >
-          <DialogTitle id="contact-form">Contact Dovile</DialogTitle>
+          {/* <DialogTitle id="contact-form">Contact Dovile</DialogTitle> */}
           <DialogContent>
-            <DialogContentText style={{ marginBottom: '14px' }}>
-              Please fill in this form and I will reach out to you as soon as
-              possible.
-            </DialogContentText>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
               <TextField
                 value={email}
                 autoFocus
