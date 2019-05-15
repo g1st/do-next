@@ -29,7 +29,7 @@ const TermsAndConditions = ({ collections, classes }) => (
       <ImageWrapper>
         <Figure>
           <Image
-            src="../static/images/Dovile Jewellery-5.JPG"
+            src="../static/images/Dovile-Jewellery-5.JPG"
             alt="Jewellery packaging boxes"
           />
         </Figure>

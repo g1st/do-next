@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
 `;
 Wrapper.displayName = 'Wrapper';
 
-export const WrapSpan = styled.div`
+export const WrapSpan = styled.span`
   display: flex;
   justify-content: center;
 `;

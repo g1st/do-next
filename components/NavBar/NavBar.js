@@ -44,19 +44,14 @@ const styles = theme => ({
     marginRight: 0
   },
   toggleNav: {
+    display: 'none',
     [theme.breakpoints.up('md')]: {
-      display: 'visible'
-    },
-    [theme.breakpoints.down('sm')]: {
-      display: 'none'
+      display: 'block'
     }
   },
   toggleNavMenu: {
     [theme.breakpoints.up('md')]: {
       display: 'none'
-    },
-    [theme.breakpoints.down('sm')]: {
-      display: 'visible'
     }
   },
   menuItem: {
@@ -136,9 +131,9 @@ class NavBar extends React.Component {
           aria-haspopup="true"
           onClick={this.openMenu}
         />
-        <Tab label="About" value="/about" to="/about" />
-        <Tab label="Where to find" value="/wheretofind" to="/wheretofind" />
-        <Tab label="Contact" value="/contact" to="/contact" />
+        <Tab label="About" value="/about" />
+        <Tab label="Where to find" value="/wheretofind" />
+        <Tab label="Contact" value="/contact" />
       </Tabs>
     );
 

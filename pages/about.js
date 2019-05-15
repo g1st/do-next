@@ -53,7 +53,7 @@ const About = ({ pathname, collections, classes }) => (
       <Left>
         <PortraitWrapper>
           <Image
-            src="/static/images/Dovile Kondrasovaite.jpeg"
+            src="/static/images/Dovile-Kondrasovaite.jpeg"
             alt="Portrait photo of Dovile Kondrasovaite"
           />
           <Caption>

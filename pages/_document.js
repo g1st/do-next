@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Document, { Head, Main, NextScript } from 'next/document';
@@ -11,7 +12,6 @@ class MyDocument extends Document {
     return (
       <html lang="en" dir="ltr">
         <Head>
-          <meta charSet="utf-8" />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
             name="viewport"
@@ -63,6 +63,7 @@ MyDocument.getInitialProps = async ctx => {
   let pageContext;
   const page = ctx.renderPage(Component => {
     const WrappedComponent = props => {
+      // eslint-disable-next-line react/destructuring-assignment
       pageContext = props.pageContext;
       return <Component {...props} />;
     };

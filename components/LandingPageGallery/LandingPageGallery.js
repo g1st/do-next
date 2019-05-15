@@ -126,7 +126,7 @@ class LandingPageGallery extends React.Component {
                       'FLOW n°B8 and n°B10 | brooches | Baltic amber, ebony, steel'
                     )
                   }
-                  src="/static/images/Dovile Jewellery.JPG"
+                  src="/static/images/Dovile-Jewellery.JPG"
                   alt="Presentational Dovile Jewellery art piece"
                   onKeyDown={e =>
                     this.handleKeyDown(
@@ -145,7 +145,7 @@ class LandingPageGallery extends React.Component {
                       'FLOW n°B6 | brooch | Baltic amber, ebony, steel'
                     )
                   }
-                  src="/static/images/Dovile Jewellery-2.JPG"
+                  src="/static/images/Dovile-Jewellery-2.JPG"
                   alt="Presentational Dovile Jewellery art piece"
                   onKeyDown={e =>
                     this.handleKeyDown(
@@ -166,7 +166,7 @@ class LandingPageGallery extends React.Component {
                       'FLOW n°R29 | ring | Baltic amber, ebony'
                     )
                   }
-                  src="/static/images/Dovile Jewellery-3.JPG"
+                  src="/static/images/Dovile-Jewellery-3.JPG"
                   alt="Presentational Dovile Jewellery art piece"
                   onKeyDown={e =>
                     this.handleKeyDown(
@@ -185,7 +185,7 @@ class LandingPageGallery extends React.Component {
                       'FLOW n°N9 | chest piece | Baltic amber, bog oak, oxidized silver, silk'
                     )
                   }
-                  src="/static/images/Dovile Jewellery-4.JPG"
+                  src="/static/images/Dovile-Jewellery-4.JPG"
                   alt="Presentational Dovile Jewellery art piece"
                   onKeyDown={e =>
                     this.handleKeyDown(
