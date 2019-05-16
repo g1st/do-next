@@ -11,6 +11,7 @@ module.exports = {
     let sizeString = size;
     return new Promise((resolve, reject) => {
       sharp(file)
+        .jpeg({ quality: 90, progressive: true })
         .resize(sizeString, sizeString)
         .toBuffer(async function(err, buffer) {
           const dot = file.indexOf('.');
