@@ -108,7 +108,7 @@ class LandingPageGallery extends React.Component {
               alt="Presentational Dovile Jewellery art piece"
             />
             <Figcaption>
-              <Typography variant="subtitle1" id="jewellery-piece-description">
+              <Typography variant="body2" id="jewellery-piece-description">
                 {figcaption}
               </Typography>
             </Figcaption>

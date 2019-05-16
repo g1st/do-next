@@ -31,7 +31,7 @@ const worksSchema = new mongoose.Schema(
       set: toLowerCase,
       trim: true
     },
-    materials: [{ type: String, trim: true }],
+    materials: { type: String, trim: true },
     category: { type: String, default: 'other', trim: true },
     size: { type: String, trim: true },
     price: { type: Number, required: 'Price is required' },

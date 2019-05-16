@@ -95,10 +95,12 @@ const Piece = ({
     const galleryFormatted = {
       original: `/static/uploads/${image.medium}`,
       thumbnail: `/static/uploads/${image.thumb}`,
-      srcSet: `/static/uploads/${image.medium} 400w, /static/uploads/${
+      originalAlt: description,
+      thumbnailAlt: name,
+      srcSet: `/static/uploads/${image.medium} 300w, /static/uploads/${
         image.big
-      } 960w`,
-      sizes: '(min-width: 960px) 30vw, 80vw'
+      } 900w`,
+      sizes: '(max-width: 800px) 300w, (max-width: 960px) 65vw, 45vw'
     };
     if (image.medium === frontImage) {
       // add in front of array to be first in gallery
@@ -201,18 +203,22 @@ const Piece = ({
             <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
               £{price}
             </Typography>
-            <Typography
-              variant="body2"
-              classes={{ body2: classes.marginBottom }}
-            >
-              Materials: {materials}
-            </Typography>
-            <Typography
-              variant="body2"
-              classes={{ body2: classes.marginBottom }}
-            >
-              Size: {size}
-            </Typography>
+            {materials && (
+              <Typography
+                variant="body2"
+                classes={{ body2: classes.marginBottom }}
+              >
+                Materials: {materials}
+              </Typography>
+            )}
+            {size && (
+              <Typography
+                variant="body2"
+                classes={{ body2: classes.marginBottom }}
+              >
+                Size: {size}
+              </Typography>
+            )}
             <Typography
               variant="body2"
               classes={{ body2: classes.marginBottom }}

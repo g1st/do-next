@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Grid, TextField } from '@material-ui/core';
 
-import { SelectCountry } from './Inputs';
+import SelectCountry from './SelectCountry';
 import FirstNameField from './FirstNameField';
 import LastNameField from './LastNameField';
 import EmailField from './EmailField';

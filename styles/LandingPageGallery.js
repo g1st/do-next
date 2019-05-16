@@ -31,16 +31,12 @@ export const Input = styled.input`
 Input.displayName = 'Input';
 
 export const ModalImage = styled.img`
-  /* width: 100%; */
   max-width: 100%;
   height: auto;
   max-height: 80vh;
   @media (min-width: 960px) {
     max-width: 750px;
     width: unset;
-    /* max-width: 580px; */
-    /* height: auto; */
-    /* max-height: 80%; */
   }
 `;
 ModalImage.displayName = 'ModalImage';

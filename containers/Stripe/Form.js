@@ -278,8 +278,7 @@ class StripeForm extends Component {
     if (orderComplete) {
       return (
         <Typography variant="body2" className={classes.marginTop}>
-          Your order was successful. I just sent you a confirmation email about
-          your purchase, thank you!
+          Your order was successful. Confirmation has been sent to your e-mail.
         </Typography>
       );
     }
