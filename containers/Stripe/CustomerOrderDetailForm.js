@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Grid, TextField } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import SelectCountry from './SelectCountry';
 import FirstNameField from './FirstNameField';
@@ -10,6 +10,7 @@ import LastNameField from './LastNameField';
 import EmailField from './EmailField';
 import PhoneField from './PhoneField';
 import AddressField from './AddressField';
+import AddressField2 from './AddressField2';
 import CityField from './CityField';
 
 const CustomerOrderDetailForm = ({
@@ -50,14 +51,7 @@ const CustomerOrderDetailForm = ({
       />
     </Grid>
     <Grid item xs={12}>
-      <TextField
-        id="address2"
-        label="Apartment, suite, etc. (optional)"
-        type="text"
-        onChange={handleChange('address2')}
-        margin="dense"
-        fullWidth
-      />
+      <AddressField2 handleChange={handleChange('address2')} />
     </Grid>
     <Grid item xs={12} sm={6}>
       <SelectCountry

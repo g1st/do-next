@@ -1,13 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
-const AdditionalInfoField = ({ handleChange }) => (
+const styles = {
+  inputRoot: {
+    fontSize: '14px'
+  },
+  labelRoot: {
+    fontSize: '14px'
+  }
+};
+
+const AdditionalInfoField = ({ handleChange, classes }) => (
   <TextField
     fullWidth
     id="additional_info"
-    InputLabelProps={{ required: false }}
+    InputLabelProps={{
+      required: false,
+      FormLabelClasses: {
+        root: classes.labelRoot
+      }
+    }}
+    InputProps={{ classes: { root: classes.inputRoot } }}
     label="Additional information (optional)"
     margin="dense"
     multiline
@@ -19,7 +34,8 @@ const AdditionalInfoField = ({ handleChange }) => (
 );
 
 AdditionalInfoField.propTypes = {
-  handleChange: PropTypes.func
+  handleChange: PropTypes.func,
+  classes: PropTypes.object.isRequired
 };
 
-export default AdditionalInfoField;
+export default withStyles(styles)(AdditionalInfoField);
