@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Typography } from '@material-ui/core';
 
 import Layout from '../components/Layout';
 import Form from '../components/ContactForm';
@@ -23,6 +24,10 @@ const Contact = ({ pathname, collections }) => (
           <Image src="/static/images/a-6.JPG" />
         </ImageWrapper>
       </ImagesWrapper>
+      <Typography align="center" variant="body2" style={{ marginTop: '50px' }}>
+        If you would like to contact me to discuss a commission or have any
+        other questions please fill in the form below
+      </Typography>
       <Form />
     </Wrapper>
   </Layout>
