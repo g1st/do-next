@@ -34,6 +34,7 @@ const worksSchema = new mongoose.Schema(
     materials: { type: String, trim: true },
     category: { type: String, default: 'other', trim: true },
     size: { type: String, trim: true },
+    weight: { type: String, trim: true },
     price: { type: Number, required: 'Price is required' },
     available: { type: Boolean, default: true, required: true },
     created: { type: Date, default: Date.now }

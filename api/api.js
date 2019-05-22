@@ -92,6 +92,7 @@ module.exports = (db, upload) => {
         description,
         materials,
         size,
+        weight,
         collection,
         price,
         category,
@@ -108,6 +109,7 @@ module.exports = (db, upload) => {
         description,
         materials,
         size,
+        weight,
         price,
         category,
         available,
@@ -223,6 +225,7 @@ module.exports = (db, upload) => {
         collection,
         materials,
         size,
+        weight,
         price,
         category,
         available
@@ -257,6 +260,7 @@ module.exports = (db, upload) => {
         category,
         images,
         size,
+        weight,
         price,
         available: available === 'available',
         frontImage

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import ImageGallery from 'react-image-gallery';
-import { Typography, Button, Tooltip } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ArrowRight } from '@material-ui/icons';
 
@@ -72,6 +72,7 @@ const Piece = ({
     materials,
     price,
     size,
+    weight,
     _id,
     images,
     available,
@@ -185,9 +186,11 @@ const Piece = ({
             <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
               £{price}
             </Typography>
-            <Typography variant="body2" paragraph>
-              {description}
-            </Typography>
+            {description.split('\n').map((paragraph, i) => (
+              <Typography key={i} variant="body2">
+                {paragraph}
+              </Typography>
+            ))}
             <ListInfo>
               {materials && (
                 <li>
@@ -201,9 +204,9 @@ const Piece = ({
                   <Typography variant="body2">Dimensions: {size}</Typography>
                 </li>
               )}
-              {'weight' && (
+              {weight && (
                 <li>
-                  <Typography variant="body2">Weight: </Typography>
+                  <Typography variant="body2">Weight: {weight}</Typography>
                 </li>
               )}
 
