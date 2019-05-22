@@ -208,7 +208,7 @@ const Piece = ({
                 variant="body2"
                 classes={{ body2: classes.marginBottom }}
               >
-                Materials: {materials}
+                {materials}
               </Typography>
             )}
             {size && (
@@ -216,7 +216,7 @@ const Piece = ({
                 variant="body2"
                 classes={{ body2: classes.marginBottom }}
               >
-                Size: {size}
+                Dimensions: {size}
               </Typography>
             )}
             <Typography
