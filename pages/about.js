@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Divider } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
@@ -18,12 +18,6 @@ import {
 import { AnchorLink, Table, Row, Data } from '../styles/Shared';
 
 const styles = () => ({
-  divider: {
-    margin: '30px 0',
-    '@media (min-width: 960px)': {
-      display: 'none'
-    }
-  },
   marginTop: {
     marginTop: '36px'
   },
@@ -57,12 +51,11 @@ const About = ({ pathname, collections, classes }) => (
             alt="Portrait photo of Dovile Kondrasovaite"
           />
           <Caption>
-            <Typography
-              variant="subtitle2"
-              align="right"
-              className={classes.credit}
-            >
-              photo credit &copy;Agne Bekeraityte
+            <Typography inline variant="body2">
+              Dovile
+            </Typography>
+            <Typography inline variant="subtitle2" className={classes.credit}>
+              &copy;Agne Bekeraityte
             </Typography>
           </Caption>
         </PortraitWrapper>
@@ -81,7 +74,7 @@ const About = ({ pathname, collections, classes }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body2">2008 - 2012</Typography>
+                <Typography variant="body2">2012</Typography>
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
@@ -92,7 +85,7 @@ const About = ({ pathname, collections, classes }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2010 - 2011</Typography>
+                <Typography variant="body2">2011</Typography>
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
@@ -170,23 +163,7 @@ const About = ({ pathname, collections, classes }) => (
           </tbody>
         </Table>
       </Left>
-      <Divider className={classes.divider} />
       <Right>
-        <ImageWrapper>
-          <Image
-            src="/static/images/s-1.jpeg"
-            alt="Model wearing Dovile Jewellery brooch"
-          />
-          <Caption>
-            <Typography
-              variant="subtitle2"
-              align="right"
-              className={classes.credit}
-            >
-              photo credit &copy;Agne Bekeraityte
-            </Typography>
-          </Caption>
-        </ImageWrapper>
         <ArtistStatement>
           <Typography
             variant="body1"
@@ -236,6 +213,24 @@ const About = ({ pathname, collections, classes }) => (
             sea again to continue the processes.
           </Typography>
         </ArtistStatement>
+        <ImageWrapper>
+          <Image
+            src="/static/images/s-1.jpeg"
+            alt="A man wearing FLOW silver brooch"
+          />
+          <Caption>
+            <Typography inline variant="body2">
+              A man wearing FLOW silver brooch
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              align="right"
+              className={classes.credit}
+            >
+              &copy;Agne Bekeraityte
+            </Typography>
+          </Caption>
+        </ImageWrapper>
       </Right>
     </Wrapper>
   </Layout>
