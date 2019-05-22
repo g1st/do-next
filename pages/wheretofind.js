@@ -7,6 +7,7 @@ import Layout from '../components/Layout';
 import {
   Wrapper,
   Stockist,
+  StockistText,
   UpcomingEvents,
   Events,
   LatestEvents,
@@ -36,55 +37,57 @@ const WhereToFind = ({ pathname, collections, classes }) => (
         <Typography variant="body1" gutterBottom className={classes.fontSize}>
           STOCKIST
         </Typography>
-        <Typography variant="body2" gutterBottom>
-          <AnchorLink
-            href="https://studiofusiongallery.co.uk/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Studio Fusion Gallery
-          </AnchorLink>
-          , London
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          <AnchorLink
-            href="https://www.artisan-alchemy.co.uk/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Artisan Alchemy Gallery
-          </AnchorLink>
-          , Birmingham
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          <AnchorLink
-            href="http://www.vda.lt/lt/galerija-argentum/apie-galerija"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Argentum Gallery
-          </AnchorLink>
-          , Vilnius
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          <AnchorLink
-            href="https://www.facebook.com/theplaces17/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            The Place
-          </AnchorLink>
-          , Vilnius
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          <AnchorLink
-            href="https://miutto.com/collections/dovile-jewellery"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            miutto
-          </AnchorLink>
-        </Typography>
+        <StockistText>
+          <Typography variant="body2" gutterBottom>
+            <AnchorLink
+              href="https://studiofusiongallery.co.uk/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              STUDIO FUSION GALLERY
+            </AnchorLink>
+            , Unit 1:06, Oxo Tower Wharf, Bargehouse Street, London SE1 9PH, UK
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            <AnchorLink
+              href="https://www.artisan-alchemy.co.uk/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ARTISAN ALCHEMY GALLERY
+            </AnchorLink>
+            , 85 Caroline Street, Birmingham, B3 1UP, UK
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            <AnchorLink
+              href="http://www.vda.lt/lt/galerija-argentum/apie-galerija"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ARGENTUM GALLERY
+            </AnchorLink>
+            , Latako g. 2, Vilnius, Lithuania
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            <AnchorLink
+              href="https://www.facebook.com/theplaces17/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              THE PLACE
+            </AnchorLink>
+            , Subaciaus g. 17-33, Vilnius, Lithuania
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            <AnchorLink
+              href="https://miutto.com/collections/dovile-jewellery"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              MIUTTO
+            </AnchorLink>
+          </Typography>
+        </StockistText>
       </Stockist>
       <Events>
         <UpcomingEvents>
@@ -99,52 +102,42 @@ const WhereToFind = ({ pathname, collections, classes }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">3-27 Aug</Typography>
+                  <Typography variant="body2">May - July</Typography>
                 </Data>
                 <Data>
                   <AnchorLink
-                    href="http://www.dazzle-exhibitions.co.uk/Exhibitions/Exhibition.aspx?pageid=1674"
+                    href="http://www.lgac.org.uk/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Typography variant="body2" gutterBottom>
-                      DAZZLE@DOVECOT, Edinburgh, UK
+                    <Typography variant="body2" gutterBottom inline>
+                      SUMMER SHOWCASE
                     </Typography>
                   </AnchorLink>
+                  <Typography cariant="body2" gutterBottom inline>
+                    {' '}
+                    at Llantarnam Grange Arts Centre, Wales, UK
+                  </Typography>
                 </Data>
               </Row>
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">3-27 Aug</Typography>
+                  <Typography variant="body2">10-12 Oct</Typography>
                 </Data>
                 <Data>
                   <AnchorLink
-                    href="http://www.dazzle-exhibitions.co.uk/Exhibitions/Exhibition.aspx?pageid=1674"
+                    href="http://preview.joyabarcelona.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Typography variant="body2" gutterBottom>
-                      DAZZLE@DOVECOT, Edinburgh, UK
+                    <Typography variant="body2" gutterBottom inline>
+                      JOYA Barcelona Art Jewellery & Objects
                     </Typography>
                   </AnchorLink>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">3-27 Aug</Typography>
-                </Data>
-                <Data>
-                  <AnchorLink
-                    href="http://www.dazzle-exhibitions.co.uk/Exhibitions/Exhibition.aspx?pageid=1674"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Typography variant="body2" gutterBottom>
-                      DAZZLE@DOVECOT, Edinburgh, UK
-                    </Typography>
-                  </AnchorLink>
+                  <Typography cariant="body2" gutterBottom inline>
+                    , Barcelona, Spain
+                  </Typography>
                 </Data>
               </Row>
             </tbody>
@@ -159,18 +152,7 @@ const WhereToFind = ({ pathname, collections, classes }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2018 Jun</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2018 Mar</Typography>
+                  <Typography variant="body2">2019</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
@@ -182,31 +164,64 @@ const WhereToFind = ({ pathname, collections, classes }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2017 Nov</Typography>
+                  <Typography variant="body2">2018</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
-                    MAKING IT NOW, group exhibition curated by Gregory Parsons,
-                    Ruthin Craft Centre, Ruthin, Wales, UK
+                    DAZZLE LONDON, Oxo Tower Wharf, London, UK
                   </Typography>
                 </Data>
               </Row>
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2017 Nov</Typography>
+                  <Typography variant="body2">2018</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
-                    PRESENT, group exhibition, Studio Fusion Gallery, Oxo Tower
-                    Wharf, London, UK
+                    MADE IN LEAMINGTON, Town Hall, Entertainments Venue,
+                    Leamington Spa, UK
                   </Typography>
                 </Data>
               </Row>
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2017 Nov</Typography>
+                  <Typography variant="body2">2018</Typography>
+                </Data>
+                <Data>
+                  <Typography variant="body2" gutterBottom>
+                    DAZZLE @ DOVECOT, Edinburgh, UK
+                  </Typography>
+                </Data>
+              </Row>
+              <Row>
+                <Data>
+                  {' '}
+                  <Typography variant="body2">2018</Typography>
+                </Data>
+                <Data>
+                  <Typography variant="body2" gutterBottom>
+                    THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
+                  </Typography>
+                </Data>
+              </Row>
+              <Row>
+                <Data>
+                  {' '}
+                  <Typography variant="body2">2018</Typography>
+                </Data>
+                <Data>
+                  <Typography variant="body2" gutterBottom>
+                    AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
+                    Vilnius, Lithuania
+                  </Typography>
+                </Data>
+              </Row>
+              <Row>
+                <Data>
+                  {' '}
+                  <Typography variant="body2">2017</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
@@ -217,7 +232,7 @@ const WhereToFind = ({ pathname, collections, classes }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2017 Nov</Typography>
+                  <Typography variant="body2">2017</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
@@ -228,18 +243,18 @@ const WhereToFind = ({ pathname, collections, classes }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2017 Sep</Typography>
+                  <Typography variant="body2">2017</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
-                    LUMINATES, group exhibition, Mint Shop, London, UK
+                    DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
                   </Typography>
                 </Data>
               </Row>
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2017 Jul</Typography>
+                  <Typography variant="body2">2017</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
@@ -251,7 +266,7 @@ const WhereToFind = ({ pathname, collections, classes }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2017 Jun</Typography>
+                  <Typography variant="body2">2017</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
@@ -262,43 +277,19 @@ const WhereToFind = ({ pathname, collections, classes }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2017 Mar</Typography>
+                  <Typography variant="body2">2017</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
                     AMBER TRIP, Art Jewellery Competition show & jewellery show
-                    Vilnius, Lithuania.
+                    Vilnius, Lithuania
                   </Typography>
                 </Data>
               </Row>
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2017 Jan</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    NATURE MORTE: Contemporary artists reinvigorate the
-                    Still-Life tradition, group exhibition, Wroclaw National
-                    Museum. Wroclav, Poland.
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2016 Jan</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    THE EYE/HOME, group exhibition, Magan gallery, London, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2015 Sep</Typography>
+                  <Typography variant="body2">2017</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body2" gutterBottom>
