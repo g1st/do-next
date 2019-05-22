@@ -14,8 +14,11 @@ module.exports = function emailForClient(
   const title = 'Purchase @dovilejewellery.com';
   const body = `
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hello ${first_name},</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Thank you for your purchase at dovilejewellery.com. Your order will be sent in 3 working days and you can find the details below. </p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">You have ordered:</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">THANK YOU for your purchase, this e-mail confirms your order.</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">You will be contacted when the order will be shipped providing you with a tracking number.</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; color: #999999">PLEASE NOTE, that <i>made to order</i> items producing times are indicated at each piece's description. Producing times and delivery options for commissions are discussed individually by e-mail.</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Delivery times will vary but usually, it is 1-2 days for UK, 3-7 days for Europe and 5-10 days worldwide. Delivery times may be extended during particularly busy periods such as Christmas.</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Your order:</p>
       ${data
         .map(
           item => `
@@ -33,13 +36,20 @@ module.exports = function emailForClient(
     }</p>
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">Total amount: £${price +
       shippingCost}</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px;">Parcel will be sent to:</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Address1: ${address1}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Address2: ${address2 ||
-        'Not provided'}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">City: ${city}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">Country: ${country}</p>
-    <p>If there are any mistakes in your order or address please contact me by replying to this email as soon as possible, thank you.</p>`;
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Your address:</p>
+      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">${address1}</p>
+      ${
+        address2
+          ? `<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">
+            ${address2}
+          </p>`
+          : ''
+      }
+      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">${city}</p>
+      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">${country}</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Please do not hesitate to contact me, if you have any questions.</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 6px;">Many thanks,</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Dovile</p>`;
 
   return emailTemplate(body, title);
 };
