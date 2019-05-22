@@ -5,7 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import ImageGallery from 'react-image-gallery';
-import { Typography, Button, Tooltip } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ArrowRight } from '@material-ui/icons';
 

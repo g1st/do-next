@@ -260,6 +260,7 @@ module.exports = (db, upload) => {
         category,
         images,
         size,
+        weight,
         price,
         available: available === 'available',
         frontImage
