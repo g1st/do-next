@@ -149,21 +149,77 @@ const About = ({ pathname, collections, classes }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body2">2008 - 2012</Typography>
+                <Typography variant="body2">2019</Typography>
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
-                  todo
+                  TEKME/FLOW, solo exhibition, Art jewellery gallery ARgenTum,
+                  Vilnius, Lithuania
                 </Typography>
               </Data>
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2010 - 2011</Typography>
+                <Typography variant="body2">2019</Typography>
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
-                  todo
+                  TRIPLE PARADE Biennale for Contemporary Jewellery, How Design
+                  Center, Shanghai, China
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  MAKING IT NOW, group exhibition, Ruthin Craft Centre, Ruthin,
+                  Wales, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  PRESENT, group exhibition, Studio Fusion Gallery, Oxo Tower
+                  Wharf, London, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  LUMINATES, group exhibition, Mint Shop, London, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  NATURE MORTE: Contemporary artists reinvigorate the Still-Life
+                  tradition, group exhibition, Wroclaw National Museum, Wroclav,
+                  Poland
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                <Typography variant="body2">2016</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  THE EYE/HOME, group exhibition, Magan gallery, London, UK
                 </Typography>
               </Data>
             </Row>
