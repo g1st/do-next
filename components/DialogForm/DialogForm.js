@@ -128,19 +128,17 @@ class FormDialog extends React.Component {
           color="primary"
           onClick={this.handleClickOpen}
         >
-          Open form
+          Contact Dovile
         </Button>
         <Dialog
           open={open}
           onClose={this.handleClose}
           aria-labelledby="contact-form"
         >
-          {/* <DialogTitle id="contact-form">Contact Dovile</DialogTitle> */}
           <DialogContent>
             <form onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
               <TextField
                 value={email}
-                autoFocus
                 id="email"
                 label="Email"
                 placeholder="Your Email"

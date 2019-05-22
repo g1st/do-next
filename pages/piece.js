@@ -20,16 +20,14 @@ import {
   ButtonsWrapper,
   DisabledButtonWrapper,
   Text,
-  AnchorLink
+  AnchorLink,
+  ListInfo
 } from '../styles/Piece';
 import { Mail } from '../styles/Shared';
 import DialogForm from '../components/DialogForm/DialogForm';
 import { pluralise } from '../util/helpers';
 
 const styles = {
-  marginBottom: {
-    marginBottom: '1.25rem'
-  },
   marginBottomBig: {
     marginBottom: '2rem'
   },
@@ -121,31 +119,15 @@ const Piece = ({
 
   const notAvailable = (
     <>
-      <Tooltip
-        title={
-          <Typography variant="body2" color="inherit">
-            Item is on display at exhibition or found a happy wearer!
-          </Typography>
-        }
-        placement="right"
-      >
-        <DisabledButtonWrapper>
-          <Button size="medium" variant="contained" color="primary" disabled>
-            Buy It Now
-          </Button>
-        </DisabledButtonWrapper>
-      </Tooltip>
-      <Typography variant="body2" classes={{ body2: classes.marginBottom }}>
-        Item currently is not available.
+      <DisabledButtonWrapper>
+        <Button size="medium" variant="contained" color="primary" disabled>
+          Buy It Now
+        </Button>
+      </DisabledButtonWrapper>
+      <Typography variant="body2" paragraph>
+        This item is NOT AVAILABLE for purchasing because of exhibiting at the
+        various events or it’s already sold.
       </Typography>
-      <Typography variant="body2" classes={{ body2: classes.marginBottom }}>
-        Want it badly? Email me at{' '}
-        <Mail href="mailto:hello@dovilejewellery.com" target="_top">
-          hello@dovilejewellery.com
-        </Mail>{' '}
-        or fill in the contact form.
-      </Typography>
-      <DialogForm />
     </>
   );
 
@@ -154,7 +136,7 @@ const Piece = ({
       <Link href="/shop">
         <AnchorLink>
           <Typography inline variant="body2" className={classes.filterLine}>
-            shop
+            gallery
           </Typography>
         </AnchorLink>
       </Link>
@@ -203,27 +185,42 @@ const Piece = ({
             <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
               £{price}
             </Typography>
-            {materials && (
-              <Typography
-                variant="body2"
-                classes={{ body2: classes.marginBottom }}
-              >
-                {materials}
-              </Typography>
-            )}
-            {size && (
-              <Typography
-                variant="body2"
-                classes={{ body2: classes.marginBottom }}
-              >
-                Dimensions: {size}
-              </Typography>
-            )}
-            <Typography
-              variant="body2"
-              classes={{ body2: classes.marginBottom }}
-            >
+            <Typography variant="body2" paragraph>
               {description}
+            </Typography>
+            <ListInfo>
+              {materials && (
+                <li>
+                  <Typography variant="body2">
+                    Materials: {materials}
+                  </Typography>
+                </li>
+              )}
+              {size && (
+                <li>
+                  <Typography variant="body2">Dimensions: {size}</Typography>
+                </li>
+              )}
+              {'weight' && (
+                <li>
+                  <Typography variant="body2">Weight: </Typography>
+                </li>
+              )}
+
+              <li>
+                <Typography variant="body2">
+                  Ready to order / ready made
+                </Typography>
+              </li>
+            </ListInfo>
+
+            <Typography variant="body2" paragraph>
+              All purchases come in a branded box.
+            </Typography>
+            <Typography variant="body2" paragraph>
+              All items being sold as gold or silver are hallmarked to confirm
+              that they meet the legal standard in accordance with the British
+              Assay Office.
             </Typography>
 
             {available ? (
@@ -250,6 +247,19 @@ const Piece = ({
             ) : (
               notAvailable
             )}
+            <Typography variant="body2" paragraph>
+              Please note, most of the pieces are ONE OF A KIND, therefore,
+              commissions are welcome in related designs to meet your personal
+              needs.
+            </Typography>
+            <Typography variant="body2" paragraph>
+              If interested in ordering customized design please contact me
+              directly to{' '}
+              <Mail href="mailto:hello@dovilejewellery.com" target="_top">
+                hello@dovilejewellery.com
+              </Mail>
+            </Typography>
+            {available ? null : <DialogForm />}
           </Text>
         </Info>
       </Wrapper>
