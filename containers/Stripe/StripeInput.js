@@ -16,7 +16,7 @@ const StripeInput = ({ classes, component: Component, onChange, name }) => (
     onChange={e => onChange(e, name)}
     style={{
       base: {
-        fontSize: '16px',
+        fontSize: '14px',
         letterSpacing: '0.025em'
       },
       invalid: {

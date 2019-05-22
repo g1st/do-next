@@ -56,6 +56,9 @@ const styles = theme => ({
   },
   menuItem: {
     fontSize: '.9rem'
+  },
+  textColor: {
+    color: '#212121'
   }
 });
 
@@ -111,14 +114,14 @@ class NavBar extends React.Component {
         indicatorColor="secondary"
         textColor="secondary"
         centered
-        classes={{ indicator: classes.tabIndicator }}
         className={classes.toggleNav}
       >
         {/* <Tab label="Home" value="/" to="/" /> */}
         <Tab
+          classes={{ textColorSecondary: classes.textColor }}
           label={
             <WrapSpan>
-              <Span>Shop</Span>
+              <Span>Gallery</Span>
               {anchorEl ? (
                 <ArrowDropUp fontSize="small" />
               ) : (
@@ -131,9 +134,21 @@ class NavBar extends React.Component {
           aria-haspopup="true"
           onClick={this.openMenu}
         />
-        <Tab label="About" value="/about" />
-        <Tab label="Where to find" value="/wheretofind" />
-        <Tab label="Contact" value="/contact" />
+        <Tab
+          label="About"
+          value="/about"
+          classes={{ textColorSecondary: classes.textColor }}
+        />
+        <Tab
+          label="Where to find"
+          value="/wheretofind"
+          classes={{ textColorSecondary: classes.textColor }}
+        />
+        <Tab
+          label="Contact"
+          value="/contact"
+          classes={{ textColorSecondary: classes.textColor }}
+        />
       </Tabs>
     );
 

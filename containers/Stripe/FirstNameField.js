@@ -1,13 +1,22 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = {
+  inputRoot: {
+    fontSize: '14px'
+  },
+  labelRoot: {
+    fontSize: '14px'
+  }
+};
 const FirstNameField = ({
   backend_validation_errors,
   handleChange,
-  isNotValid
+  isNotValid,
+  classes
 }) => (
   <TextField
     id="first_name"
@@ -17,7 +26,13 @@ const FirstNameField = ({
     margin="dense"
     required
     fullWidth
-    InputLabelProps={{ required: false }} // to get rid of asterisk
+    InputLabelProps={{
+      required: false,
+      FormLabelClasses: {
+        root: classes.labelRoot
+      }
+    }}
+    InputProps={{ classes: { root: classes.inputRoot } }}
     error={backend_validation_errors.some(
       err => err.param === 'additional.first_name'
     )}
@@ -28,7 +43,8 @@ const FirstNameField = ({
 FirstNameField.propTypes = {
   backend_validation_errors: PropTypes.array,
   handleChange: PropTypes.func,
-  isNotValid: PropTypes.func
+  isNotValid: PropTypes.func,
+  classes: PropTypes.object.isRequired
 };
 
-export default FirstNameField;
+export default withStyles(styles)(FirstNameField);

@@ -10,7 +10,7 @@ import { EmailSent } from '../styles/Contact';
 
 const styles = theme => ({
   wrapper: {
-    marginTop: '30px',
+    marginTop: '10px',
     display: 'flex',
     justifyContent: 'center',
     textAlign: 'center'
@@ -40,11 +40,21 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,
+    paddingBottom: '20px',
+    backgroundColor: '#fafafa',
+
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 6,
       marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3
+      padding: theme.spacing.unit * 3,
+      paddingBottom: '32px'
     }
+  },
+  inputRoot: {
+    fontSize: '14px'
+  },
+  labelRoot: {
+    fontSize: '14px'
   }
 });
 
@@ -125,15 +135,19 @@ class ContactForm extends Component {
           <form onSubmit={e => this.handleSubmit(e)}>
             <TextField
               value={email}
-              autoFocus
               id="email"
               label="Email"
-              placeholder="Your Email"
               type="email"
               required
               fullWidth
               margin="dense"
-              InputLabelProps={{ required: false }}
+              InputLabelProps={{
+                required: false,
+                FormLabelClasses: {
+                  root: classes.labelRoot
+                }
+              }}
+              InputProps={{ classes: { root: classes.inputRoot } }}
               onChange={this.handleChange('email')}
               error={!!errors.email}
               helperText={errors.email}
@@ -143,7 +157,13 @@ class ContactForm extends Component {
               id="subject"
               label="Subject"
               required
-              InputLabelProps={{ required: false }}
+              InputLabelProps={{
+                required: false,
+                FormLabelClasses: {
+                  root: classes.labelRoot
+                }
+              }}
+              InputProps={{ classes: { root: classes.inputRoot } }}
               type="text"
               margin="dense"
               fullWidth
@@ -162,7 +182,13 @@ class ContactForm extends Component {
               multiline
               fullWidth
               rows={4}
-              InputLabelProps={{ required: false }}
+              InputLabelProps={{
+                required: false,
+                FormLabelClasses: {
+                  root: classes.labelRoot
+                }
+              }}
+              InputProps={{ classes: { root: classes.inputRoot } }}
               onChange={this.handleChange('message')}
               error={!!errors.message}
               helperText={errors.message}

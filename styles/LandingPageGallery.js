@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   height: 100%;
   align-items: center;
+  margin-top: 20px;
 `;
 Wrapper.displayName = 'Wrapper';
 
@@ -49,7 +50,6 @@ export const ImagesWrapper = styled.div`
   flex-direction: column;
 
   @media (min-width: 600px) {
-    flex-direction: row;
     flex-direction: row;
     flex: 1 1 auto;
   }

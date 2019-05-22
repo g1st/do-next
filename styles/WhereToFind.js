@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-flow: column-reverse;
-  margin: 0 10px;
 
   @media (min-width: 960px) {
     flex-flow: row;
@@ -15,12 +14,23 @@ export const Wrapper = styled.div`
 Wrapper.displayName = 'Wrapper';
 
 export const Stockist = styled.div`
+  div > p {
+    margin-bottom: 12px;
+  }
   @media (min-width: 960px) {
     width: 50%;
     padding-right: 30px;
   }
 `;
 Stockist.displayName = 'Stockist';
+
+export const StockistText = styled.div`
+  @media (min-width: 960px) {
+    max-width: 540px;
+    margin-top: 16px;
+  }
+`;
+StockistText.displayName = 'StockistText';
 
 export const Events = styled.div`
   margin-bottom: 50px;
@@ -53,7 +63,6 @@ ImageWrapper.displayName = 'ImageWrapper';
 
 export const Image = styled.img`
   width: 100%;
-  border-radius: 3px;
 `;
 Image.displayName = 'Image';
 

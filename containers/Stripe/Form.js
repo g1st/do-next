@@ -27,6 +27,7 @@ import {
 
 const styles = theme => ({
   paper: {
+    backgroundColor: '#fafafa',
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,

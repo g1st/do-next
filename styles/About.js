@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   @media (min-width: 960px) {
     display: flex;
-    /* width: 100%; */
   }
 `;
 Wrapper.displayName = 'Wrapper';
@@ -16,11 +15,11 @@ export const Left = styled.div`
 Left.displayName = 'Left';
 
 export const Right = styled.div`
+  display: flex;
+  flex: 4;
+  flex-flow: column;
   @media (min-width: 960px) {
-    display: flex;
-    flex: 4;
-    flex-flow: column-reverse;
-    justify-content: flex-end;
+    margin-left: 60px;
   }
 `;
 Right.displayName = 'Right';
@@ -29,6 +28,7 @@ export const ArtistStatement = styled.div`
   background-color: #fafafa;
   padding-left: 10px;
   padding-right: 10px;
+  margin-bottom: 40px;
   @media (min-width: 960px) {
     margin-bottom: 60px;
     padding-left: 40px;
@@ -38,23 +38,27 @@ export const ArtistStatement = styled.div`
 ArtistStatement.displayName = 'ArtistStatement';
 
 export const ImageWrapper = styled.figure`
-  max-width: 100%;
+  max-width: 400px;
   margin: 0 auto;
 `;
 ImageWrapper.displayName = 'ImageWrapper';
 
 export const PortraitWrapper = styled.figure`
-  max-width: 300px;
+  max-width: 400px;
   margin: 0 auto;
 `;
 PortraitWrapper.displayName = 'PortraitWrapper';
 
 export const Image = styled.img`
   width: 100%;
+  max-width: 100%;
 `;
 Image.displayName = 'Image';
 
-export const Caption = styled.figcaption``;
+export const Caption = styled.figcaption`
+  display: flex;
+  justify-content: space-between;
+`;
 Caption.displayName = 'Caption';
 
 export const AuthorNameText = styled.div`

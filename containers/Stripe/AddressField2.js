@@ -12,23 +12,14 @@ const styles = {
     fontSize: '14px'
   }
 };
-const EmailField = ({
-  backend_validation_errors,
-  handleChange,
-  isNotValid,
-  classes
-}) => (
+const AddressField2 = ({ handleChange, classes }) => (
   <TextField
-    id="email"
-    label="Email address"
-    type="email"
+    id="address2"
+    label="Apartment, suite, etc. (optional)"
+    type="text"
     onChange={handleChange}
     margin="dense"
     fullWidth
-    required
-    error={backend_validation_errors.some(
-      err => err.param === 'additional.email'
-    )}
     InputLabelProps={{
       required: false,
       FormLabelClasses: {
@@ -36,15 +27,12 @@ const EmailField = ({
       }
     }}
     InputProps={{ classes: { root: classes.inputRoot } }}
-    helperText={isNotValid('additional.email')}
   />
 );
 
-EmailField.propTypes = {
-  backend_validation_errors: PropTypes.array,
+AddressField2.propTypes = {
   handleChange: PropTypes.func,
-  isNotValid: PropTypes.func,
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(EmailField);
+export default withStyles(styles)(AddressField2);

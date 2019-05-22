@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Select, InputLabel, FormControl } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import Error from '../../components/Error/Error';
 
-const SelectCountry = ({ error, helperText, handleChange }) => {
+const styles = {
+  inputRoot: {
+    fontSize: '14px'
+  },
+  labelRoot: {
+    fontSize: '14px'
+  }
+};
+
+const SelectCountry = ({ error, helperText, handleChange, classes }) => {
   const [country, setCountry] = useState('GB');
 
   const changeCountry = e => {
@@ -14,14 +24,22 @@ const SelectCountry = ({ error, helperText, handleChange }) => {
 
   return (
     <FormControl error={error} style={{ display: 'flex', marginTop: '5px' }}>
-      <InputLabel htmlFor="country-native">Country</InputLabel>
+      <InputLabel
+        htmlFor="country-native"
+        classes={{ root: classes.labelRoot }}
+      >
+        Country
+      </InputLabel>
       <Select
         native
         value={country}
         onChange={changeCountry}
         inputProps={{
           name: 'country',
-          id: 'country-native'
+          id: 'country-native',
+          classes: {
+            root: classes.inputRoot
+          }
         }}
       >
         <option value="AF">Afghanistan</option>
@@ -282,7 +300,8 @@ const SelectCountry = ({ error, helperText, handleChange }) => {
 SelectCountry.propTypes = {
   error: PropTypes.bool,
   helperText: PropTypes.node,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default SelectCountry;
+export default withStyles(styles)(SelectCountry);

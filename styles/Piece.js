@@ -13,10 +13,9 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 300px;
-  margin: 0 auto;
-  padding-top: 3rem;
+  margin: 2rem auto 1.6rem auto;
   @media (min-width: 960px) {
-    margin: 0;
+    margin: 2rem 0 1.6rem 0;
   }
 `;
 ButtonsWrapper.displayName = 'ButtonsWrapper';
@@ -57,3 +56,8 @@ export const AnchorLink = styled.a`
   }
 `;
 AnchorLink.displayName = 'AnchorLink';
+
+export const ListInfo = styled.ul`
+  padding-left: 26px;
+`;
+ListInfo.displayName = 'ListInfo';

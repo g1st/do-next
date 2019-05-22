@@ -55,7 +55,6 @@ const StripeDetailForm = ({
       <Grid item xs={12} sm={6}>
         <StripeElementWrapper
           label="Card Number"
-          placeholder="1234 1234 1234 1234"
           component={CardNumberElement}
           name="card_number"
           onChange={handleStripeChange}
