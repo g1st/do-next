@@ -91,6 +91,7 @@ class AdminForm extends Component {
     description: '',
     images: '',
     size: '',
+    weight: '',
     price: '',
     category: 'ring',
     materials: '',
@@ -161,6 +162,7 @@ class AdminForm extends Component {
       description: '',
       images: '',
       size: '',
+      weight: '',
       price: '',
       category: 'ring',
       materials: '',
@@ -181,6 +183,7 @@ class AdminForm extends Component {
       images,
       materials,
       size,
+      weight,
       price,
       category,
       available,
@@ -213,6 +216,7 @@ class AdminForm extends Component {
     formData.append('description', description);
     formData.append('materials', materials);
     formData.append('size', size);
+    formData.append('weight', weight);
     formData.append('collection', currentCollection);
     formData.append('price', price);
     formData.append('category', category);
@@ -322,6 +326,7 @@ class AdminForm extends Component {
       selectedImages,
       selectedItems,
       size,
+      weight,
       updating,
       work,
       frontImage
@@ -549,6 +554,14 @@ class AdminForm extends Component {
             label="Size (optional)"
             value={size}
             onChange={e => this.handleChange('size', e)}
+            margin="normal"
+          />
+          <TextField
+            className={classes.root}
+            id="weight"
+            label="Weight (optional)"
+            value={weight}
+            onChange={e => this.handleChange('weight', e)}
             margin="normal"
           />
           <TextField

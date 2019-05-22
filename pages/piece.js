@@ -72,6 +72,7 @@ const Piece = ({
     materials,
     price,
     size,
+    weight,
     _id,
     images,
     available,
@@ -188,7 +189,7 @@ const Piece = ({
             {description.split('\n').map((paragraph, i) => (
               <Typography key={i} variant="body2">
                 {paragraph}
-            </Typography>
+              </Typography>
             ))}
             <ListInfo>
               {materials && (
@@ -203,9 +204,9 @@ const Piece = ({
                   <Typography variant="body2">Dimensions: {size}</Typography>
                 </li>
               )}
-              {'weight' && (
+              {weight && (
                 <li>
-                  <Typography variant="body2">Weight: </Typography>
+                  <Typography variant="body2">Weight: {weight}</Typography>
                 </li>
               )}
 
