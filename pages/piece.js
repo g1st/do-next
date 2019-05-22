@@ -185,9 +185,11 @@ const Piece = ({
             <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
               £{price}
             </Typography>
-            <Typography variant="body2" paragraph>
-              {description}
+            {description.split('\n').map((paragraph, i) => (
+              <Typography key={i} variant="body2">
+                {paragraph}
             </Typography>
+            ))}
             <ListInfo>
               {materials && (
                 <li>
