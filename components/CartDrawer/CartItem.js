@@ -27,9 +27,7 @@ const CartItem = ({
 
   const getItemImage = item => {
     if (item && item.images && item.images.length) {
-      return `/var/lib/dokku/data/storage/dovile-jewellery/${
-        item.images[0].thumb
-      }`;
+      return `/static/uploads/${item.images[0].thumb}`;
     }
     return '/static/images/fallback.png';
   };

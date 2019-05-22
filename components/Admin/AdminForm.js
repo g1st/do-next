@@ -496,7 +496,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`/var/lib/dokku/data/storage/dovile-jewellery/${item}`}
+                          src={`/static/uploads/${item}`}
                         />
                       }
                     />
@@ -525,9 +525,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`/var/lib/dokku/data/storage/dovile-jewellery/${
-                            image.thumb
-                          }`}
+                          src={`/static/uploads/${image.thumb}`}
                         />
                       }
                     />

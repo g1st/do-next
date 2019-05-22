@@ -161,12 +161,8 @@ class Gallery extends React.Component {
                   name={item.name}
                   img={
                     item.frontImage
-                      ? `/var/lib/dokku/data/storage/dovile-jewellery/${
-                          item.frontImage
-                        }`
-                      : `/var/lib/dokku/data/storage/dovile-jewellery/${
-                          item.images[0].medium
-                        }`
+                      ? `/static/uploads/${item.frontImage}`
+                      : `/static/uploads/${item.images[0].medium}`
                   }
                 />
               </Grid>
