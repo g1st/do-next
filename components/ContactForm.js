@@ -135,7 +135,6 @@ class ContactForm extends Component {
           <form onSubmit={e => this.handleSubmit(e)}>
             <TextField
               value={email}
-              autoFocus
               id="email"
               label="Email"
               type="email"
