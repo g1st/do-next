@@ -15,13 +15,12 @@ export const Left = styled.div`
 Left.displayName = 'Left';
 
 export const Right = styled.div`
-  @media (min-width: 960px) {
-    margin-left: 60px;
-  }
   display: flex;
   flex: 4;
   flex-flow: column;
-  justify-content: flex-end;
+  @media (min-width: 960px) {
+    margin-left: 60px;
+  }
 `;
 Right.displayName = 'Right';
 
