@@ -93,13 +93,13 @@ const Piece = ({
 
   const gallery = images.reduce((acc, image) => {
     const galleryFormatted = {
-      original: `/static/uploads/${image.medium}`,
-      thumbnail: `/static/uploads/${image.thumb}`,
+      original: `/var/lib/dokku/data/storage/dovile-jewellery/${image.medium}`,
+      thumbnail: `/var/lib/dokku/data/storage/dovile-jewellery/${image.thumb}`,
       originalAlt: description,
       thumbnailAlt: name,
-      srcSet: `/static/uploads/${image.medium} 300w, /static/uploads/${
-        image.big
-      } 900w`,
+      srcSet: `/var/lib/dokku/data/storage/dovile-jewellery/${
+        image.medium
+      } 300w, /var/lib/dokku/data/storage/dovile-jewellery/${image.big} 900w`,
       sizes: '(max-width: 800px) 300w, (max-width: 960px) 65vw, 45vw'
     };
     if (image.medium === frontImage) {

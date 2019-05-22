@@ -13,7 +13,11 @@ const api = require('./api/api');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, path.join(__dirname, '/static/uploads'));
+    // cb(null, path.join(__dirname, '/static/uploads'));
+    cb(
+      null,
+      path.join(__dirname, '/var/lib/dokku/data/storage/dovile-jewellery')
+    );
   },
   filename(req, file, cb) {
     const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
