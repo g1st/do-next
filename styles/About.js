@@ -62,7 +62,10 @@ export const Caption = styled.figcaption`
 Caption.displayName = 'Caption';
 
 export const AuthorNameText = styled.div`
-  margin: 40px 0;
+  margin: 40px 0 20px 0;
+  @media (min-wdith: 960px) {
+    margin: 40px 0;
+  }
 `;
 AuthorNameText.displayName = 'AuthorNameText';
 
@@ -84,3 +87,27 @@ export const Data = styled.td`
   max-width: 600px;
 `;
 Data.displayName = 'Data';
+
+export const WrapLink = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+`;
+WrapLink.displayName = 'WrapLink';
+
+export const ToArtistStatement = styled.a`
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 6px 8px;
+  background-color: #fafafa;
+  display: flex;
+
+  :last-child {
+    padding-left: 0;
+  }
+
+  @media (min-width: 960px) {
+    display: none;
+  }
+`;
+ToArtistStatement.displayName = 'ToArtistStatement';
