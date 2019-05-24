@@ -18,12 +18,11 @@ import {
   Images,
   Info,
   ButtonsWrapper,
-  DisabledButtonWrapper,
   Text,
   AnchorLink,
   ListInfo
 } from '../styles/Piece';
-import { Mail } from '../styles/Shared';
+import { Mail, Strong } from '../styles/Shared';
 import DialogForm from '../components/DialogForm/DialogForm';
 import { pluralise } from '../util/helpers';
 
@@ -119,17 +118,10 @@ const Piece = ({
   );
 
   const notAvailable = (
-    <>
-      <DisabledButtonWrapper>
-        <Button size="medium" variant="contained" color="primary" disabled>
-          Buy It Now
-        </Button>
-      </DisabledButtonWrapper>
-      <Typography variant="body2" paragraph>
-        This item is NOT AVAILABLE for purchasing because of exhibiting at the
-        various events or it’s already sold.
-      </Typography>
-    </>
+    <Typography variant="body2" paragraph>
+      This item is <Strong>NOT AVAILABLE</Strong> for purchasing because of
+      exhibiting at the various events or it’s already sold.
+    </Typography>
   );
 
   const pathLine = (

@@ -21,10 +21,10 @@ export const ButtonsWrapper = styled.div`
 ButtonsWrapper.displayName = 'ButtonsWrapper';
 
 export const Images = styled.div`
-  max-width: 500px;
+  max-width: 525px;
   margin: 0 auto 40px auto;
   @media (min-width: 960px) {
-    width: 50%;
+    width: 60%;
   }
 `;
 Images.displayName = 'Images';
@@ -32,16 +32,10 @@ Images.displayName = 'Images';
 export const Info = styled.div`
   @media (min-width: 960px) {
     padding-left: 50px;
-    width: 50%;
+    width: 40%;
   }
 `;
 Info.displayName = 'Info';
-
-export const DisabledButtonWrapper = styled.div`
-  display: inline-block;
-  margin-bottom: 20px;
-`;
-DisabledButtonWrapper.displayName = 'DisabledButtonWrapper';
 
 export const Text = styled.div`
   max-width: 700px;
@@ -59,5 +53,6 @@ AnchorLink.displayName = 'AnchorLink';
 
 export const ListInfo = styled.ul`
   padding-left: 26px;
+  list-style: square;
 `;
 ListInfo.displayName = 'ListInfo';

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { ArrowDropDown } from '@material-ui/icons';
 
 import Layout from '../components/Layout';
 import {
@@ -13,7 +14,9 @@ import {
   PortraitWrapper,
   Image,
   Caption,
-  ArtistStatement
+  ArtistStatement,
+  WrapLink,
+  ToArtistStatement
 } from '../styles/About';
 import { AnchorLink, Table, Row, Data } from '../styles/Shared';
 
@@ -34,6 +37,13 @@ const styles = () => ({
   },
   increaseFontWeight: {
     fontWeight: 500
+  },
+  button: {
+    lineHeight: '24px',
+    fontWeight: 500
+  },
+  icon: {
+    alignSelf: 'center'
   }
 });
 
@@ -52,7 +62,7 @@ const About = ({ pathname, collections, classes }) => (
           />
           <Caption>
             <Typography inline variant="body2">
-              Dovile
+              Dovile wearing FLOW ring
             </Typography>
             <Typography inline variant="subtitle2" className={classes.credit}>
               &copy;Agne Bekeraityte
@@ -67,6 +77,16 @@ const About = ({ pathname, collections, classes }) => (
             Born 19/3/1989 in Dusetos, Lithuania
           </Typography>
         </AuthorNameText>
+        <WrapLink>
+          <ToArtistStatement href="#artist-statement">
+            <Typography inline variant="body2" className={classes.button}>
+              READ ARTIST'S STATEMENT
+            </Typography>
+          </ToArtistStatement>
+          <ToArtistStatement href="#artist-statement">
+            <ArrowDropDown fontSize="small" className={classes.icon} />
+          </ToArtistStatement>
+        </WrapLink>
         <Typography variant="body1" gutterBottom className={classes.fontSize}>
           EDUCATION
         </Typography>
@@ -212,7 +232,161 @@ const About = ({ pathname, collections, classes }) => (
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
-                  THE EYE/HOME, group exhibition, Magan gallery, London, UK
+                  THE EYE / HOME, group exhibition, Magan gallery, London, UK
+                </Typography>
+              </Data>
+            </Row>
+          </tbody>
+        </Table>
+        <Typography variant="body1" gutterBottom className={classes.fontSize}>
+          LATEST EVENTS
+        </Typography>
+        <Table>
+          <tbody>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2019</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
+                  Vilnius, Lithuania
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2018</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  DAZZLE LONDON, Oxo Tower Wharf, London, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2018</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  MADE IN LEAMINGTON, Town Hall, Entertainments Venue,
+                  Leamington Spa, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2018</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  DAZZLE @ DOVECOT, Edinburgh, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2018</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2018</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
+                  Vilnius, Lithuania
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  MADE BY HAND CARDIFF, contemporary craft fair, Cardiff, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  NEW DESIGNERS, ONE YEAR ON, Business Design Centre, London, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  AMBER TRIP, Art Jewellery Competition show & jewellery show
+                  Vilnius, Lithuania
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2017</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  THE EYE, Contemporary Jewellery Symposium, Telsiai, Lithuania
                 </Typography>
               </Data>
             </Row>
@@ -225,6 +399,7 @@ const About = ({ pathname, collections, classes }) => (
             variant="body1"
             className={`${classes.fontSize} ${classes.marginTop}`}
             paragraph
+            id="artist-statement"
           >
             ARTIST'S STATEMENT
           </Typography>

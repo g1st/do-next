@@ -47,9 +47,6 @@ export const UpcomingEvents = styled.div`
 `;
 UpcomingEvents.displayName = 'UpcomingEvents';
 
-export const LatestEvents = styled.div``;
-LatestEvents.displayName = 'LatestEvents';
-
 export const ImageWrapper = styled.div`
   max-width: 480px;
   margin-bottom: 20px;
@@ -69,5 +66,9 @@ Image.displayName = 'Image';
 export const Data = styled.td`
   max-width: 600px;
   min-width: 80px;
+
+  > p {
+    margin-bottom: 12px;
+  }
 `;
 Data.displayName = 'Data';

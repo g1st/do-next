@@ -19,10 +19,10 @@ export const GlobalStyle = createGlobalStyle`
     button.image-gallery-left-nav,
     button.image-gallery-right-nav {
       display: inline-block;
-      font-size: 3.4em;
-      padding: 20px 15px;
+      font-size: 2em;
     }
     button.image-gallery-fullscreen-button {
+      font-size: 0.75em;
       display: inline-block;
     }
   }

@@ -30,3 +30,13 @@ export const Image = styled.img`
   margin: 0 auto;
 `;
 Image.displayName = 'Image';
+
+export const List = styled.ul`
+  margin-top: 0;
+  padding-left: 30px;
+  list-style: square;
+`;
+List.displayName = 'List';
+
+export const ListItem = styled.li``;
+ListItem.displayName = 'ListItem';
