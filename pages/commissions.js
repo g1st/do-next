@@ -41,25 +41,33 @@ const Commissions = ({ collections, classes }) => (
         >
           COMMISSIONS
         </Typography>
-        <Typography align="left" paragraph variant="body2">
-          For any interest, please{' '}
+        <Typography align="justify" paragraph variant="body2">
+          For me, working to commission is to offer clients the opportunity to
+          have an input into their piece of jewellery. Essentially, the client
+          likes my style of work, and there are several particular elements of
+          which they would like to include in their design. It is always a
+          pleasure to create the personalised piece, especially if it is a
+          surprise for somebody else.
+        </Typography>
+        <Typography align="justify" paragraph variant="body2">
+          Despite my original art jewellery pieces in wood and amber, I do
+          commissions in silver and gold such as wedding rings, engagement rings
+          etc.
+        </Typography>
+        <Typography align="justify" paragraph variant="body2">
+          Please note, I do not make any other designs taken from other makers.
+          I am accepting the idea for the customised item only fitting my vision
+          and my aesthetics, work principles.
+        </Typography>
+        <Typography align="justify" paragraph variant="body2">
+          The design, price, timing and delivery are discussed individually by
+          e-mail or in person.
+        </Typography>
+        <Typography align="justify" paragraph variant="body2">
+          For any interest, please contact me{' '}
           <Mail href="mailto:hello@dovilejewellery.com" target="_top">
-            e-mail me
-          </Mail>{' '}
-          stating the item you are interested in, from my designs. I am
-          accepting ideas for customisations that fit my vision, aesthetics and
-          work principles. The design, price, time frame and delivery will be
-          discussed by email or in person.
-        </Typography>
-
-        <Typography align="left" paragraph variant="body2">
-          Most of my designs could be re-created in new different ways as in
-          different materials, gold-plating, different gemstones etc. Feel free
-          to ask. I am making one of a kind pieces so each is unique and
-          special.
-        </Typography>
-        <Typography align="left" paragraph variant="body2">
-          Please note, I do not make copies of designs by other makers.
+            hello@dovilejewellery.com
+          </Mail>
         </Typography>
       </Text>
     </Wrapper>
