@@ -3,7 +3,14 @@ import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
-import { Wrapper, Image, Figure, Text } from '../styles/CareGuide';
+import {
+  Wrapper,
+  Image,
+  Figure,
+  Text,
+  List,
+  ListItem
+} from '../styles/CareGuide';
 import { ImageWrapper } from '../styles/TermsAndConditions';
 
 const styles = () => ({
@@ -31,61 +38,182 @@ const CareGuide = ({ collections, classes }) => (
           align="left"
           color="secondary"
           variant="body1"
-          gutterBottom
+          paragraph
           className={classes.heading}
         >
-          WEARING
+          GENERAL JEWELLERY CARE GUIDE
         </Typography>
-        <Typography variant="body2" align="left" paragraph color="secondary">
-          All sterling silver will tarnish over time, but it will happen much
-          faster when it comes into contact with agents such as perfume, salty
-          air, sulphur, skin creams, hairspray, chlorine and acidic skin ph. The
-          amount of tarnishing (oxidation) that occurs is dependent on the skin
-          and care habits of the wearer. Tarnishing is therefore not a
-          manufacturing fault.
-        </Typography>
-        <Typography variant="body2" align="left" paragraph color="secondary">
-          I encourage customers to remove the jewellery prior to cleaning,
-          bathing and swimming and ensure that the jewellery is not exposed to
-          UV light, hairspray, perfume and cosmetics. I also recommend that you
-          do not wear your jewellery whilst bathing, whilst in bed or during
-          sporting activities.
-        </Typography>
+        <List>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Store your jewellery separately, so the pieces don’t rub and
+              scratch against each other. It is especially important for
+              oxidized silver, gold-plated metals to keep them all separated.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Damp and hot conditions will cause jewellery to tarnish so do not
+              store jewellery next to heating vents, windowsills or in the
+              bathroom.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Perfumes, lotions, creams and hair products can react with the
+              jewellery, causing silver to tarnish and gold to erode. Apply any
+              scents or cosmetics before you put on your jewellery.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Remove jewellery when exercising, cleaning, gardening or carrying
+              out any other rough or physical work.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Try not to wear your jewellery overnight.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Hot weather, bright sunlight and perspiration can speed up the
+              tarnishing process and damage gemstones. Jewellery should always
+              be taken off before the pool, shower or sea.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              A Silver 'Dip' treatment is a great way to clean silver jewellery,
+              but always make sure the jewellery is rinsed thoroughly with water
+              afterwards and the instructions for the product are strictly
+              followed.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Gold-plated jewellery can be cleaned with warm soapy water. Then
+              rinse thoroughly and dry well with a soft cloth.
+            </Typography>
+          </ListItem>
+        </List>
         <Typography
           align="left"
           color="secondary"
           variant="body1"
-          gutterBottom
+          paragraph
           className={classes.heading}
         >
-          CLEANING
+          WOOD AND AMBER JEWELLERY CARE
         </Typography>
-        <Typography variant="body2" align="left" paragraph color="secondary">
-          In order to care for Dovile Jewellery, I recommend using a polishing
-          cloth regularly to prevent the natural process of tarnishing.
-        </Typography>
-        <Typography variant="body2" align="left" paragraph color="secondary">
-          Clean your jewellery using lukewarm soapy water and a soft brush. It
-          is especially recommended for cleaning gemstones. I do not recommend
-          the use of silver polish and silver dip as they may destroy the
-          delicate oxidised details of your jewellery.
-        </Typography>
-        <Typography
-          align="left"
-          color="secondary"
-          variant="body1"
-          gutterBottom
-          className={classes.heading}
-        >
-          STORAGE
-        </Typography>
-        <Typography variant="body2" align="left" paragraph color="secondary">
-          Please store your jewellery safe in its original box or in a jewellery
-          organiser. Make sure the chain is fastened to prevent tangling.
-        </Typography>
-        <Typography variant="body2" align="left" paragraph color="secondary">
-          Keep dark oxidized items separate from other jewellery you have,
-          because the black oxide can cause tarnish too.
+        <List>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Never leave amber jewellery under direct sunlight. It could cause
+              a colour change from yellow to orange.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Wood and amber jewellery is water resistant but should not be
+              immersed in water or kept in high humidity; if it does get wet
+              however, immediately blot dry.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              To keep the wood smooth and to help maintain its dark colour, rub
+              it with oil such as linseed, olive or even baby oil with a soft
+              cloth.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              All Dovile's jewellery is made from solid, natural hardwood; do
+              not try to force or bend it and be careful not to drop it.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Always make sure earrings and brooches with amber are locked
+              correctly while wearing it. Pay attention when handling these
+              designs because amber could be brittle. Although it is presented
+              as a gemstone that does not mean it is hard as a stone.
+            </Typography>
+          </ListItem>
+        </List>
+        <Typography variant="body2" align="justify" paragraph color="secondary">
+          Amber is authentic and organic gem material. It is still breathing and
+          interacting with the environment. Amber colour may change over time,
+          this is expected and contributes to the unique, intensely individual
+          nature of Baltic Amber. Each piece of amber ages differently because
+          of its combination of plant materials and fossil inclusions.
         </Typography>
       </Text>
     </Wrapper>
