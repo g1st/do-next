@@ -10,7 +10,6 @@ import {
   StockistText,
   UpcomingEvents,
   Events,
-  LatestEvents,
   ImageWrapper,
   Image,
   Data
@@ -20,6 +19,9 @@ import { AnchorLink, Table, Row } from '../styles/Shared';
 const styles = () => ({
   fontSize: {
     fontSize: '1.2rem'
+  },
+  mb: {
+    marginBottom: '12px'
   }
 });
 
@@ -38,7 +40,7 @@ const WhereToFind = ({ pathname, collections, classes }) => (
           STOCKIST
         </Typography>
         <StockistText>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body2">
             <AnchorLink
               href="https://studiofusiongallery.co.uk/"
               target="_blank"
@@ -143,164 +145,6 @@ const WhereToFind = ({ pathname, collections, classes }) => (
             </tbody>
           </Table>
         </UpcomingEvents>
-        <LatestEvents>
-          <Typography variant="body1" gutterBottom className={classes.fontSize}>
-            LATEST EVENTS
-          </Typography>
-          <Table>
-            <tbody>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2019</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
-                    Vilnius, Lithuania
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2018</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    DAZZLE LONDON, Oxo Tower Wharf, London, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2018</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    MADE IN LEAMINGTON, Town Hall, Entertainments Venue,
-                    Leamington Spa, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2018</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    DAZZLE @ DOVECOT, Edinburgh, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2018</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2018</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
-                    Vilnius, Lithuania
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2017</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2017</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    MADE BY HAND CARDIFF, contemporary craft fair, Cardiff, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2017</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2017</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    NEW DESIGNERS, ONE YEAR ON, Business Design Centre, London,
-                    UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2017</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2017</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    AMBER TRIP, Art Jewellery Competition show & jewellery show
-                    Vilnius, Lithuania
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2017</Typography>
-                </Data>
-                <Data>
-                  <Typography variant="body2" gutterBottom>
-                    THE EYE, Contemporary Jewellery Symposium, Telsiai,
-                    Lithuania
-                  </Typography>
-                </Data>
-              </Row>
-            </tbody>
-          </Table>
-        </LatestEvents>
       </Events>
     </Wrapper>
   </Layout>
