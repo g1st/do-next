@@ -21,7 +21,6 @@ import {
 const styles = {
   links: {
     color: 'rgba(0, 0, 0, .54)',
-    marginBottom: '27px',
     '@media (min-width: 960px)': {
       marginBottom: 0
     }
@@ -82,8 +81,8 @@ const Footer = props => {
           <FooterLink>
             <Link href="/terms-conditions">
               <AnchorLink>
-                <Typography className={classes.links}>
-                  Terms & Conditions
+                <Typography inline className={classes.links}>
+                  Terms &amp; Conditions
                 </Typography>
               </AnchorLink>
             </Link>
@@ -91,7 +90,7 @@ const Footer = props => {
           <FooterLink>
             <Link href="/care-guide">
               <AnchorLink>
-                <Typography className={classes.links}>
+                <Typography inline className={classes.links}>
                   Jewellery Care
                 </Typography>
               </AnchorLink>
@@ -100,7 +99,18 @@ const Footer = props => {
           <FooterLink>
             <Link href="/commissions">
               <AnchorLink>
-                <Typography className={classes.links}>Commissions</Typography>
+                <Typography inline className={classes.links}>
+                  Commissions
+                </Typography>
+              </AnchorLink>
+            </Link>
+          </FooterLink>
+          <FooterLink>
+            <Link href="/privacy-policy">
+              <AnchorLink>
+                <Typography inline className={classes.links}>
+                  Privacy Policy
+                </Typography>
               </AnchorLink>
             </Link>
           </FooterLink>

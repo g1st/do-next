@@ -81,6 +81,7 @@ export const FooterLinks = styled.ul`
 FooterLinks.displayName = 'FooterLinks';
 
 export const FooterLink = styled.li`
+  margin-bottom: 24px;
   a {
     line-height: 28px;
     color: rgba(0, 0, 0, 0.54);
