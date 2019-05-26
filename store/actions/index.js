@@ -59,3 +59,8 @@ export const deauthenticate = () => dispatch => {
   Router.push('/');
   dispatch({ type: actionTypes.DEAUTHENTICATE });
 };
+
+export const countShippingCost = country => ({
+  type: actionTypes.COUNT_SHIPPING_COST,
+  country
+});

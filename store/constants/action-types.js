@@ -7,3 +7,4 @@ export const INCREASE_LOADED_ITEMS = 'INCREASE_LOADED_ITEMS';
 export const AUTHENTICATE = 'authenticate';
 export const DEAUTHENTICATE = 'deauthenticate';
 export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';
+export const COUNT_SHIPPING_COST = 'COUNT_SHIPPING_COST';

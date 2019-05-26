@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { shippingPrice } from '../../util/globals';
+import { postageForCountry } from '../../util/globals';
 import { ITEMS_PER_PAGE } from '../../config';
 
 import {
@@ -11,13 +11,14 @@ import {
   AUTHENTICATE,
   AUTHENTICATE_ERROR,
   DEAUTHENTICATE,
-  INCREASE_LOADED_ITEMS
+  INCREASE_LOADED_ITEMS,
+  COUNT_SHIPPING_COST
 } from '../constants/action-types';
 
 export const initialState = {
   cart: [],
   buyItNow: {},
-  shippingCost: shippingPrice,
+  shippingCost: postageForCountry('GB'),
   authenticate: { token: null, error: false },
   loadMore: { all: ITEMS_PER_PAGE }
 };
@@ -48,7 +49,13 @@ const buyItNow = (state = initialState.buyItNow, action) => {
   return state;
 };
 
-const shippingCost = (state = initialState.shippingCost) => state;
+const shippingCost = (state = initialState.shippingCost, action) => {
+  if (COUNT_SHIPPING_COST === action.type) {
+    console.log('countinu');
+    return postageForCountry(action.country);
+  }
+  return state;
+};
 
 const authenticate = (state = initialState.authenticate, action) => {
   if (AUTHENTICATE === action.type) {

@@ -8,8 +8,10 @@ import {
   Paper,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Tooltip
 } from '@material-ui/core';
+import InfoIcon from '@material-ui/icons/Info';
 import { withStyles } from '@material-ui/core/styles';
 
 import CartItem from './CartItem';
@@ -97,9 +99,34 @@ const CartDrawerContent = ({
             </ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>
-              <Typography variant="body2">Shipping</Typography>
-            </ListItemText>
+            <Typography inline variant="body2">
+              Shipping
+            </Typography>
+            <div classes={{ display: 'inline-block' }}>
+              <Tooltip
+                enterTouchDelay={0}
+                aria-label="Info"
+                placement="right"
+                title={
+                  <>
+                    <Typography variant="body2" style={{ color: '#fff' }}>
+                      UK - Free
+                    </Typography>
+                    <Typography variant="body2" style={{ color: '#fff' }}>
+                      EU - £9
+                    </Typography>
+                    <Typography variant="body2" style={{ color: '#fff' }}>
+                      Worldwide - £16
+                    </Typography>
+                  </>
+                }
+              >
+                <InfoIcon
+                  fontSize="small"
+                  style={{ fill: 'rgba(0, 0, 0, 0.87)', marginLeft: '6px' }}
+                />
+              </Tooltip>
+            </div>
             <ListItemText className={classes.textRight}>
               <Typography variant="body2">
                 {shippingCost !== 0 ? `£${shippingCost.toFixed(2)}` : 'Free'}
