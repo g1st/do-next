@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Select, InputLabel, FormControl } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
+import { countShippingCost } from '../../store/actions';
 import Error from '../../components/Error/Error';
 
 const styles = {
@@ -14,11 +16,19 @@ const styles = {
   }
 };
 
-const SelectCountry = ({ error, helperText, handleChange, classes }) => {
+const SelectCountry = ({
+  error,
+  helperText,
+  handleChange,
+  classes,
+  countShippingCost: countShippingCostRedux
+}) => {
   const [country, setCountry] = useState('GB');
 
   const changeCountry = e => {
-    setCountry(e.target.value);
+    const countryISO = e.target.value;
+    countShippingCostRedux(countryISO);
+    setCountry(countryISO);
     handleChange(e);
   };
 
@@ -301,7 +311,15 @@ SelectCountry.propTypes = {
   error: PropTypes.bool,
   helperText: PropTypes.node,
   handleChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  countShippingCost: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(SelectCountry);
+const mapDispatchToProps = dispatch => ({
+  countShippingCost: country => dispatch(countShippingCost(country))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(SelectCountry));

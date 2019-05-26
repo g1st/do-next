@@ -2,6 +2,13 @@ const sharp = require('sharp');
 const fs = require('fs');
 const { promisify } = require('util');
 
+const {
+  europeCountries,
+  shippingPriceGB,
+  shippingPriceEU,
+  shippingPriceWorldwide
+} = require('./globals');
+
 const asyncUnlink = promisify(fs.unlink);
 
 module.exports = {
@@ -47,5 +54,14 @@ module.exports = {
       // removes big image 900x900, which will not have '92' in its file name
       await asyncUnlink(`static/uploads/${image.replace(/92(\.\w+)/, '$1')}`);
     });
+  },
+  postageForCountry: function postageForCountry(country) {
+    if (country === 'GB') {
+      return shippingPriceGB;
+    }
+    if (europeCountries.includes(country)) {
+      return shippingPriceEU;
+    }
+    return shippingPriceWorldwide;
   }
 };

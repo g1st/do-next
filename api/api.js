@@ -10,7 +10,6 @@ const Order = require('./models/orders');
 const Client = require('./models/clients');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
-const { shippingPrice } = require('../util/globals');
 const serverUtils = require('../util/serverHelper');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
 
@@ -411,11 +410,7 @@ module.exports = (db, upload) => {
       check('additional.country')
         .not()
         .isEmpty()
-        .withMessage('Country is required.'),
-      check('additional.purchaseDetails.shippingCost')
-        .isFloat({ min: 0 })
-        .equals(shippingPrice.toString()) // same as backend
-        .withMessage('Shipping cost must be a positive number.')
+        .withMessage('Country is required.')
     ],
     wrapAsync(async (req, res) => {
       const errors = validationResult(req);
@@ -431,6 +426,9 @@ module.exports = (db, upload) => {
         _id,
         quantity
       } = req.body.additional.purchaseDetails;
+
+      const { country: countryISO } = req.body.additional;
+      const shippingPrice = serverUtils.postageForCountry(countryISO);
 
       let amount;
 
