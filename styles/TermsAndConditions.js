@@ -21,6 +21,11 @@ Figure.displayName = 'Figure';
 export const ImageWrapper = styled.div`
   width: 100%;
   text-align: center;
+  margin-bottom: 20px;
+
+  @media (min-width: 960px) {
+    margin-bottom: 40px;
+  }
 `;
 ImageWrapper.displayName = 'ImageWrapper';
 
