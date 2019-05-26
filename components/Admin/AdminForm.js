@@ -349,8 +349,8 @@ class AdminForm extends Component {
             </Link>{' '}
             was {itemToEdit ? 'updated' : 'added'} to a collection{' '}
             <Link
-              href={`/shop?collection=${justCreatedCollection}`}
-              as={`/shop/${justCreatedCollection}`}
+              href={`/gallery?collection=${justCreatedCollection}`}
+              as={`/gallery/${justCreatedCollection}`}
             >
               <a>{justCreatedCollection}</a>
             </Link>{' '}

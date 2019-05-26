@@ -51,7 +51,7 @@ const CartDrawerContent = ({
   shippingCost
 }) => {
   const buttonClickHandler = () => {
-    Router.push('/shop');
+    Router.push('/gallery');
     closeDrawer();
   };
 
@@ -75,7 +75,7 @@ const CartDrawerContent = ({
         onKeyDown={e => keyDownHandler(e)}
         fullWidth
       >
-        SHOP
+        GALLERY
       </Button>
     </>
   );

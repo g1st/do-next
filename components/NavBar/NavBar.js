@@ -80,8 +80,8 @@ class NavBar extends React.Component {
   }
 
   handleNavBarChange = (event, value) => {
-    // on shop click we just opening menu, not redirecting
-    if (value !== '/shop') {
+    // on gallery click we just opening menu, not redirecting
+    if (value !== '/gallery') {
       Router.push(value);
     }
   };
@@ -129,7 +129,7 @@ class NavBar extends React.Component {
               )}
             </WrapSpan>
           }
-          value="/shop"
+          value="/gallery"
           aria-owns={anchorEl ? pathname : null}
           aria-haspopup="true"
           onClick={this.openMenu}
@@ -194,7 +194,7 @@ class NavBar extends React.Component {
               onClose={this.closeMenu}
             >
               <MenuItem
-                onClick={this.handleMenuItemClick('/shop')}
+                onClick={this.handleMenuItemClick('/gallery')}
                 className={classes.menuItem}
               >
                 SHOW ALL
@@ -203,8 +203,8 @@ class NavBar extends React.Component {
                 <MenuItem
                   key={collection}
                   onClick={this.handleMenuItemClick(
-                    `/shop?collection=${collection}`,
-                    `/shop/${collection}`
+                    `/gallery?collection=${collection}`,
+                    `/gallery/${collection}`
                   )}
                   className={classes.menuItem}
                 >

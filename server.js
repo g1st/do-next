@@ -65,8 +65,8 @@ co(function*() {
     app.render(req, res, actualPage, queryParams);
   });
 
-  server.get('/shop/:collection', (req, res) => {
-    const actualPage = '/shop';
+  server.get('/gallery/:collection', (req, res) => {
+    const actualPage = '/gallery';
     const queryParams = { collection: req.params.collection.toLowerCase() };
     app.render(req, res, actualPage, queryParams);
   });

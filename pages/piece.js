@@ -126,7 +126,7 @@ const Piece = ({
 
   const pathLine = (
     <div>
-      <Link href="/shop">
+      <Link href="/gallery">
         <AnchorLink>
           <Typography inline variant="body2" className={classes.filterLine}>
             gallery
@@ -134,7 +134,10 @@ const Piece = ({
         </AnchorLink>
       </Link>
       <ArrowRight fontSize="small" className={classes.svg} />
-      <Link href={`/shop/${collection}`}>
+      <Link
+        href={`/gallery?collection=${collection}`}
+        as={`/gallery/${collection}`}
+      >
         <AnchorLink>
           <Typography inline variant="body2" className={classes.filterLine}>
             {collection}
@@ -150,7 +153,7 @@ const Piece = ({
 
   return (
     <Layout
-      pathname="/shop"
+      pathname="/gallery"
       collections={collections}
       title={`${name} | Dovile Jewellery`}
       description={`Materials: ${materials}

@@ -20,7 +20,7 @@ const styles = () => ({
 });
 
 const handleButton = () => {
-  Router.push('/shop');
+  Router.push('/gallery');
 };
 const Index = ({ pathname, collections, classes }) => (
   <Layout pathname={pathname} collections={collections}>
@@ -32,7 +32,7 @@ const Index = ({ pathname, collections, classes }) => (
       className={classes.button}
       onClick={handleButton}
     >
-      SHOP
+      GALLERY
     </Button>
   </Layout>
 );

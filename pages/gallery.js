@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Layout from '../components/Layout';
-import Gallery from '../components/Gallery/Gallery';
+import GridGallery from '../components/Gallery/Gallery';
 
-const Shop = ({ data, router, pathname, collections }) => {
+const Gallery = ({ data, router, pathname, collections }) => {
   let { collection } = router.query;
 
   if (!collections.includes(collection)) {
@@ -15,10 +15,10 @@ const Shop = ({ data, router, pathname, collections }) => {
     <Layout
       pathname={pathname}
       collections={collections}
-      title="Shop | Dovile Jewellery"
+      title="Gallery | Dovile Jewellery"
     >
       <div>
-        <Gallery
+        <GridGallery
           data={data}
           showCollection={collection}
           collectionsNames={collections}
@@ -29,13 +29,13 @@ const Shop = ({ data, router, pathname, collections }) => {
   );
 };
 
-Shop.propTypes = {
+Gallery.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.array,
   router: PropTypes.object
 };
 
-Shop.getInitialProps = async ({ pathname }) => ({ pathname });
+Gallery.getInitialProps = async ({ pathname }) => ({ pathname });
 
-export default Shop;
+export default Gallery;

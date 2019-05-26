@@ -24,8 +24,8 @@ class NavDrawerContent extends React.Component {
     if (key === 'Enter' || key === ' ') {
       if (collection) {
         this.handleClick(
-          `/shop?collection=${collection}`,
-          `/shop/${collection}`
+          `/gallery?collection=${collection}`,
+          `/gallery/${collection}`
         );
       } else {
         this.handleClick(href);
@@ -44,22 +44,22 @@ class NavDrawerContent extends React.Component {
           </Link>
         </ListItem>
         <ListItem button onClick={this.handleToggle}>
-          <ListItemText primary="Shop" />
+          <ListItemText primary="Gallery" />
           {open ? <ArrowDropUp /> : <ArrowDropDown />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div">
             <ListItem
               button
-              key="shop"
-              onKeyDown={e => this.handleKeyDown(e, null, '/shop')}
+              key="gallery"
+              onKeyDown={e => this.handleKeyDown(e, null, '/gallery')}
             >
               <ListItemText
                 inset
                 primary="SHOW ALL"
                 style={{ paddingLeft: '16px' }}
                 onClick={() =>
-                  this.handleClick(`/shop?collection=shop`, `/shop`)
+                  this.handleClick(`/gallery?collection=gallery`, `/gallery`)
                 }
               />
             </ListItem>
@@ -75,8 +75,8 @@ class NavDrawerContent extends React.Component {
                   style={{ paddingLeft: '16px' }}
                   onClick={() =>
                     this.handleClick(
-                      `/shop?collection=${collection}`,
-                      `/shop/${collection}`
+                      `/gallery?collection=${collection}`,
+                      `/gallery/${collection}`
                     )
                   }
                 />
