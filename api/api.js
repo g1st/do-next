@@ -4,10 +4,12 @@ const slugify = require('slugify');
 const { check, oneOf, validationResult } = require('express-validator/check');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const mongoose = require('mongoose');
+const axios = require('axios');
 
 const Work = require('./models/works');
 const Order = require('./models/orders');
 const Client = require('./models/clients');
+const Subscriber = require('./models/subscribers');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const serverUtils = require('../util/serverHelper');
@@ -602,6 +604,59 @@ module.exports = (db, upload) => {
       }
 
       return status;
+    })
+  );
+
+  router.post(
+    '/subscribe',
+    wrapAsync(async function(req) {
+      const { email } = req.body;
+      const name = email.split('@')[0];
+
+      const subscriber = new Subscriber({ email });
+
+      // check if email already exists
+      const existingEmail = await db
+        .collection('subscribers')
+        .findOne({ email: email.toLowerCase().trim() });
+
+      if (existingEmail) {
+        return {
+          err: 'This email address is already subscribed.'
+        };
+      }
+
+      const error = subscriber.validateSync();
+
+      if (error) {
+        return { err: error };
+      }
+
+      await db.collection('subscribers').insertOne(subscriber);
+
+      axios
+        .post(
+          'https://api.sendgrid.com/v3/contactdb/recipients',
+          [
+            {
+              email,
+              first_name: name
+            }
+          ],
+          {
+            headers: {
+              authorization: `Bearer ${process.env.MAIL_API_PASS}`,
+              'content-type': 'application/json'
+            }
+          }
+        )
+        .catch(err => ({ err }));
+
+      return {
+        msg: 'Email has been added',
+        email,
+        err: error
+      };
     })
   );
 
