@@ -173,18 +173,16 @@ class NavBar extends React.Component {
           <Toolbar>
             {smallMenu}
             <div className={classes.flex}>
-              <Link href="/">
-                <AnchorLink>
-                  <Typography
-                    variant="h6"
-                    component="h1"
-                    color="inherit"
-                    className={classes.flex}
-                  >
-                    Dovile Jewellery
-                  </Typography>
-                </AnchorLink>
-              </Link>
+              <Typography
+                variant="h6"
+                component="h1"
+                color="inherit"
+                className={classes.flex}
+              >
+                <Link href="/">
+                  <AnchorLink>Dovile Jewellery</AnchorLink>
+                </Link>
+              </Typography>
             </div>
             {navigation}
             <Menu
