@@ -65,8 +65,11 @@ const Commissions = ({ collections, classes }) => (
         </Typography>
         <Typography align="justify" paragraph variant="body2">
           For any interest, please contact me{' '}
-          <Mail href="mailto:hello@dovilejewellery.com" target="_top">
-            hello@dovilejewellery.com
+          <Mail
+            href="mailto:&#104;&#101;&#108;&#108;&#111;&#064;&#100;&#111;&#118;&#105;&#108;&#101;&#106;&#101;&#119;&#101;&#108;&#108;&#101;&#114;&#121;&#046;&#099;&#111;&#109;"
+            target="_top"
+          >
+            &#104;&#101;&#108;&#108;&#111;&#064;&#100;&#111;&#118;&#105;&#108;&#101;&#106;&#101;&#119;&#101;&#108;&#108;&#101;&#114;&#121;&#046;&#099;&#111;&#109;
           </Mail>
         </Typography>
       </Text>

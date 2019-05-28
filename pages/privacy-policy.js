@@ -56,10 +56,12 @@ const TermsAndConditions = ({ collections, classes }) => (
         <Typography variant="body2" align="justify" paragraph color="secondary">
           You can change your mind at any time by clicking the unsubscribe link
           in the footer of any marketing email you receive from me, or by
-          contacting me at hello@dovilejewellery.com. I will treat your
-          information with respect. By signing up to my mailing list, visiting
-          this website, corresponding via email, you agree that I may process
-          your information in accordance with these terms.
+          contacting me at
+          &#104;&#101;&#108;&#108;&#111;&#064;&#100;&#111;&#118;&#105;&#108;&#101;&#106;&#101;&#119;&#101;&#108;&#108;&#101;&#114;&#121;&#046;&#099;&#111;&#109;.
+          I will treat your information with respect. By signing up to my
+          mailing list, visiting this website, corresponding via email, you
+          agree that I may process your information in accordance with these
+          terms.
         </Typography>
         <Typography
           variant="body2"
