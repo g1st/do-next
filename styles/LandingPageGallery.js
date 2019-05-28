@@ -2,23 +2,14 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
-  height: 100%;
+  height: calc(100vh - 64px);
   align-items: center;
-  margin-top: 20px;
 `;
 Wrapper.displayName = 'Wrapper';
 
 export const Content = styled.div`
   text-align: center;
   margin-top: -20px;
-
-  @media (min-width: 600px) {
-    margin-top: 80px;
-  }
-
-  @media (min-width: 960px) {
-    margin-top: 160px;
-  }
 `;
 Content.displayName = 'Content';
 
