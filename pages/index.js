@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Router from 'next/router';
+import { InView } from 'react-intersection-observer';
 
 import Layout from '../components/Layout';
 import LandingPageGallery from '../components/LandingPageGallery/LandingPageGallery';
+import InstagramGallery from '../components/InstagramGallery/InstagramGallery';
 
 const styles = () => ({
   button: {
     maxWidth: '300px',
     display: 'block',
-    margin: '40px auto 20px auto',
+    margin: '40px auto 100px auto',
     padding: '10px',
     '@media (min-width: 960px)': {
       display: 'none'
@@ -34,6 +36,18 @@ const Index = ({ pathname, collections, classes }) => (
     >
       GALLERY
     </Button>
+    <InView triggerOnce rootMargin="450px">
+      {({ inView, ref }) => (
+        <div ref={ref}>
+          {inView ? (
+            <InstagramGallery
+              account="dovilejewellery"
+              numberOfMediaElements={9}
+            />
+          ) : null}
+        </div>
+      )}
+    </InView>
   </Layout>
 );
 
