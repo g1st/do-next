@@ -33,6 +33,11 @@ const TermsAndConditions = ({ collections, classes }) => (
             src="../static/images/Dovile-Jewellery-5.JPG"
             alt="Jewellery packaging boxes"
           />
+          <figcaption>
+            <Typography align="left" variant="body2">
+              FLOW n°B13 and n°B12 | brooches | handcarved ebony
+            </Typography>
+          </figcaption>
         </Figure>
       </ImageWrapper>
       <Text>
