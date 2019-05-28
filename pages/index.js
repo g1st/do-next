@@ -7,6 +7,8 @@ import Router from 'next/router';
 import Layout from '../components/Layout';
 import LandingPageGallery from '../components/LandingPageGallery/LandingPageGallery';
 import Newsletter from '../components/Newsletter/Newsletter';
+import UpcomingEvent from '../components/UpcomingEvent/UpcomingEvent';
+import InstagramGallery from '../components/InstagramGallery/InstagramGallery';
 
 const styles = () => ({
   button: {
@@ -35,7 +37,20 @@ const Index = ({ pathname, collections, classes }) => (
     >
       GALLERY
     </Button>
+    <UpcomingEvent />
     <Newsletter />
+    <InView triggerOnce rootMargin="450px">
+      {({ inView, ref }) => (
+        <div ref={ref}>
+          {inView ? (
+            <InstagramGallery
+              account="dovilejewellery"
+              numberOfMediaElements={9}
+            />
+          ) : null}
+        </div>
+      )}
+    </InView>
   </Layout>
 );
 
