@@ -122,8 +122,7 @@ class Newsletter extends React.Component {
                 id="email"
                 inputProps={{
                   'aria-label': 'Signup for newsletter',
-                  required: true,
-                  label: 'Email'
+                  required: true
                 }}
                 type="email"
                 disableUnderline
