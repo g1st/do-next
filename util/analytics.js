@@ -1,10 +1,12 @@
 import ReactGA from 'react-ga';
 
 export const initGA = () => {
-  ReactGA.initialize('UA-141053312-1');
+  console.log('initialize reactGA');
+  ReactGA.initialize('UA-141043136-1');
 };
 
 export const logPageView = () => {
+  console.log('logging page ', window.location.pathname);
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
 };
