@@ -6,12 +6,14 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import Head from 'next/head';
 import axios from 'axios';
 import { Provider } from 'react-redux';
+import Router from 'next/router';
+
 import withReduxStore from '../lib/with-redux-store';
 import getPageContext from '../src/getPageContext';
 import { authUrl } from '../config';
 import { saveCart } from '../util/helpers';
+import { initGA, logPageView } from '../util/analytics';
 import 'react-image-gallery/styles/css/image-gallery.css';
-
 import '../styles/emptyFileToFixNextjsBug.css';
 
 class MyApp extends App {
@@ -106,6 +108,10 @@ class MyApp extends App {
   pageContext = null;
 
   componentDidMount() {
+    initGA();
+    logPageView();
+    Router.router.events.on('routeChangeComplete', logPageView);
+
     const { reduxStore } = this.props;
 
     reduxStore.subscribe(() => {
