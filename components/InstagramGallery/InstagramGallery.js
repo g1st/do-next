@@ -12,7 +12,11 @@ import {
 import { StyledAnchorLink } from '../../styles/Shared';
 
 const styles = () => ({
-  wrapper: {},
+  wrapper: {
+    '@media (min-width: 960px)': {
+      margin: '-26px'
+    }
+  },
   image: {
     width: '100%',
     height: '100%'
