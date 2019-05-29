@@ -37,6 +37,8 @@ const worksSchema = new mongoose.Schema(
     weight: { type: String, trim: true },
     price: { type: Number, required: 'Price is required' },
     available: { type: Boolean, default: true, required: true },
+    madeToOrder: { type: Boolean, default: false },
+    producingTime: { type: String, default: '2 weeks' },
     created: { type: Date, default: Date.now }
   },
   { timestamps: true }

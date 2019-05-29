@@ -100,7 +100,9 @@ module.exports = (db, upload) => {
         available,
         imageCount,
         imagesToRemove,
-        frontImage
+        frontImage,
+        madeToOrder,
+        producingTime
       } = req.body;
 
       const { files } = req;
@@ -116,7 +118,9 @@ module.exports = (db, upload) => {
         available,
         slug: slugify(name),
         group: collection,
-        frontImage
+        frontImage,
+        madeToOrder,
+        producingTime
       };
 
       let imagesToRemoveOnError;
@@ -229,7 +233,9 @@ module.exports = (db, upload) => {
         weight,
         price,
         category,
-        available
+        available,
+        madeToOrder,
+        producingTime
       } = req.body;
 
       const { files } = req;
@@ -264,7 +270,9 @@ module.exports = (db, upload) => {
         weight,
         price,
         available: available === 'available',
-        frontImage
+        frontImage,
+        madeToOrder,
+        producingTime
       };
 
       const work = new Work(piece);
@@ -508,14 +516,17 @@ module.exports = (db, upload) => {
       await sendPurchaseEmail(req.body);
 
       if (boughtFrom === 'buyItNow') {
-        await Work.findByIdAndUpdate({ _id }, { $set: { available: false } });
+        const { madeToOrder } = req.body.additional.purchaseDetails;
+        if (madeToOrder === false) {
+          await Work.findByIdAndUpdate({ _id }, { $set: { available: false } });
+        }
       } else {
         // bought from cart - might be multiple
-        const ids = req.body.additional.purchaseDetails.selectedItems.map(
-          item => ({
+        const ids = req.body.additional.purchaseDetails.selectedItems
+          .filter(item => item.madeToOrder === false)
+          .map(item => ({
             id: item._id
-          })
-        );
+          }));
 
         const promises = ids.map(item =>
           Work.findByIdAndUpdate(

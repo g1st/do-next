@@ -77,7 +77,9 @@ const Piece = ({
     available,
     group: collection,
     category,
-    frontImage
+    frontImage,
+    madeToOrder,
+    producingTime
   } = onePieceData[0];
 
   const dataForCart = {
@@ -86,7 +88,8 @@ const Piece = ({
     images,
     _id,
     available,
-    quantity: 1
+    quantity: 1,
+    madeToOrder
   };
 
   const gallery = images.reduce((acc, image) => {
@@ -204,12 +207,15 @@ const Piece = ({
                   <Typography variant="body2">Weight: {weight}</Typography>
                 </li>
               )}
-
-              <li>
-                <Typography variant="body2">
-                  Ready to order / ready made
-                </Typography>
-              </li>
+              {available && madeToOrder && (
+                <li>
+                  <Typography variant="body2">
+                    This is <Strong>made to order</Strong> item. PLEASE NOTE
+                    that estimated producing time for this item is{' '}
+                    {producingTime}.
+                  </Typography>
+                </li>
+              )}
             </ListInfo>
 
             <Typography variant="body2" paragraph>
