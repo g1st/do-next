@@ -117,23 +117,21 @@ class Newsletter extends React.Component {
         <Form onSubmit={e => this.sendRequest(e)}>
           <Wrap>
             {subscribed ? null : (
-              <>
-                <Input
-                  value={email}
-                  id="email"
-                  inputProps={{
-                    'aria-label': 'Signup for newsletter'
-                  }}
-                  label="Email"
-                  type="email"
-                  disableUnderline
-                  required
-                  classes={{ root: classes.inputRoot }}
-                  onChange={this.handleChange('email')}
-                  error={!!error}
-                  placeholder="Email"
-                />
-              </>
+              <Input
+                value={email}
+                id="email"
+                inputProps={{
+                  'aria-label': 'Signup for newsletter',
+                  required: true,
+                  label: 'Email'
+                }}
+                type="email"
+                disableUnderline
+                classes={{ root: classes.inputRoot }}
+                onChange={this.handleChange('email')}
+                error={!!error}
+                placeholder="Email"
+              />
             )}
             <div className={classes.root}>
               <div className={classes.wrapper}>
