@@ -19,6 +19,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 
 import { appUrl } from '../../config';
+import { StyledAnchorLink } from '../../styles/Shared';
 import DangerZone from './DangerZone';
 import Error from '../Error/Error';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
@@ -82,7 +83,16 @@ const styles = theme => ({
       color: theme.palette.error.main
     }
   },
-  checked: {}
+  checked: {},
+  madeToOrder: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    margin: theme.spacing.unit,
+    flexDirection: 'row'
+  },
+  producingTime: {
+    flexGrow: 1
+  }
 });
 
 class AdminForm extends Component {
@@ -97,6 +107,8 @@ class AdminForm extends Component {
     materials: '',
     collection: '',
     available: 'available',
+    madeToOrder: '',
+    producingTime: '',
     updating: false,
     errors: null,
     work: null,
@@ -137,6 +149,9 @@ class AdminForm extends Component {
   handleChange = (name, event, thumb) => {
     const { checked, value } = event.target;
     if (name === 'available') return this.setState({ [name]: checked });
+    if (name === 'madeToOrder') {
+      return this.setState({ [name]: checked });
+    }
     if (name === 'selectedImages')
       return this.setState(({ selectedImages }) => ({
         selectedImages: {
@@ -168,7 +183,9 @@ class AdminForm extends Component {
       materials: '',
       collection: '',
       existingCollection: '',
-      available: 'available'
+      available: 'available',
+      madeToOrder: '',
+      producingTime: ''
     });
   };
 
@@ -191,7 +208,9 @@ class AdminForm extends Component {
       imageFiles,
       collection,
       existingCollection,
-      frontImage
+      frontImage,
+      madeToOrder,
+      producingTime
     } = this.state;
 
     const imagesToRemove = [];
@@ -224,6 +243,8 @@ class AdminForm extends Component {
     formData.append('imagesToRemove', imagesToRemove);
     formData.append('imageCount', images.length);
     formData.append('frontImage', frontImage);
+    formData.append('madeToOrder', madeToOrder);
+    formData.append('producingTime', producingTime);
 
     for (const photo of imageFiles) {
       formData.append('photos[]', photo);
@@ -329,7 +350,9 @@ class AdminForm extends Component {
       weight,
       updating,
       work,
-      frontImage
+      frontImage,
+      madeToOrder,
+      producingTime
     } = this.state;
 
     let workInfo = null;
@@ -397,6 +420,19 @@ class AdminForm extends Component {
           onSubmit={e => this.handleSubmit(e)}
           className={classes.form}
         >
+          {itemToEdit && (
+            <div>
+              <Typography inline variant="body2">
+                Item's page:{' '}
+              </Typography>
+              <Link
+                href={`/piece?id=${itemToEdit._id}`}
+                as={`/piece/${itemToEdit._id}`}
+              >
+                <StyledAnchorLink>{itemToEdit.name}</StyledAnchorLink>
+              </Link>{' '}
+            </div>
+          )}
           <TextField
             className={classes.root}
             id="name"
@@ -648,6 +684,27 @@ class AdminForm extends Component {
                 />
               }
               label="Available to buy"
+            />
+          </FormGroup>
+          <FormGroup className={classes.madeToOrder}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={madeToOrder}
+                  onChange={e => this.handleChange('madeToOrder', e)}
+                  value="madeToOrder"
+                  color="secondary"
+                />
+              }
+              label="Made To Order Item"
+            />
+            <TextField
+              className={classes.producingTime}
+              id="producingTime"
+              label='Producing Time (optional, default: "2 weeks")'
+              value={producingTime}
+              onChange={e => this.handleChange('producingTime', e)}
+              margin="dense"
             />
           </FormGroup>
           <Button
