@@ -15,7 +15,7 @@ import PaymentFailureSegment from './PaymentFailureSegment';
 import { attemptPayment } from './actions';
 import BuyButton from './BuyButton';
 import ModalLoader from '../../components/UI/ModalLoader/ModalLoader';
-
+import * as gtag from '../../lib/gtag';
 import {
   Wrapper,
   ShippmentForm,
@@ -153,6 +153,13 @@ class StripeForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault();
+
+    gtag.event({
+      action: 'submit_payment',
+      category: 'Purchase',
+      label: 'BUY_button'
+    });
+
     const { stripe_errors } = this.state;
     const {
       stripe,

@@ -25,6 +25,7 @@ import {
 import { Mail, Strong } from '../styles/Shared';
 import DialogForm from '../components/DialogForm/DialogForm';
 import { pluralise } from '../util/helpers';
+import * as gtag from '../lib/gtag';
 
 const styles = {
   marginBottomBig: {
@@ -57,8 +58,24 @@ const Piece = ({
   buyItNow: buyItNowRedux
 }) => {
   const handleBuyItNow = item => {
+    gtag.event({
+      action: 'click_buyitnow',
+      category: 'Purchase',
+      label: 'BuyItNow'
+    });
+
     buyItNowRedux(item);
     Router.push('/checkout');
+  };
+
+  const handleAddToCart = data => {
+    gtag.event({
+      action: 'click_addToCart',
+      category: 'Purchase',
+      label: 'AddToCart'
+    });
+
+    addToCartRedux(data);
   };
 
   if (onePieceData.length < 1 || onePieceData[0] === null) {
@@ -242,7 +259,7 @@ const Piece = ({
                   size="medium"
                   variant="contained"
                   color="secondary"
-                  onClick={() => addToCartRedux(dataForCart)}
+                  onClick={() => handleAddToCart(dataForCart)}
                   className={classes.button}
                 >
                   Add To Cart
