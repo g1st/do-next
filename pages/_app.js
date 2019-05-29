@@ -8,11 +8,11 @@ import axios from 'axios';
 import { Provider } from 'react-redux';
 import Router from 'next/router';
 
+import * as gtag from '../lib/gtag';
 import withReduxStore from '../lib/with-redux-store';
 import getPageContext from '../src/getPageContext';
 import { authUrl } from '../config';
 import { saveCart } from '../util/helpers';
-import { initGA, logPageView } from '../util/analytics';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '../styles/emptyFileToFixNextjsBug.css';
 
@@ -108,9 +108,7 @@ class MyApp extends App {
   pageContext = null;
 
   componentDidMount() {
-    initGA();
-    logPageView();
-    Router.router.events.on('routeChangeComplete', logPageView);
+    Router.events.on('routeChangeComplete', url => gtag.pageview(url));
 
     const { reduxStore } = this.props;
 
