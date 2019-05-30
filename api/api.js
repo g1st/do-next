@@ -420,7 +420,11 @@ module.exports = (db, upload) => {
       check('additional.country')
         .not()
         .isEmpty()
-        .withMessage('Country is required.')
+        .withMessage('Country is required.'),
+      check('additional.postal_code')
+        .not()
+        .isEmpty()
+        .withMessage('Postal / ZIP code is required.')
     ],
     wrapAsync(async (req, res) => {
       const errors = validationResult(req);
@@ -549,6 +553,7 @@ module.exports = (db, upload) => {
         city,
         additional_info,
         country,
+        postal_code,
         purchaseDetails
       } = req.body.additional;
       /* eslint-enable camelcase */
@@ -594,6 +599,7 @@ module.exports = (db, upload) => {
             address2,
             city,
             country,
+            postal_code,
             client_ip
           },
           orders: [orderId]
