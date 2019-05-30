@@ -7,15 +7,18 @@ import { Grid } from '@material-ui/core';
 import {
   CardExpiryElement,
   CardCVCElement,
-  PostalCodeElement,
   CardNumberElement
 } from 'react-stripe-elements';
 
 import StripeElementWrapper from './StripeElementWrapper';
+import CustomPostalCode from './CustomPostalCode';
 
 const StripeDetailForm = ({
-  data: { card_number, card_expiration, CVC_number, stripe_errors, zip_code },
-  handleStripeChange
+  data: { card_number, card_expiration, CVC_number, stripe_errors },
+  handleStripeChange,
+  handleChange,
+  backend_validation_errors,
+  isNotValid
 }) => {
   let cardNumberError = null;
   if (card_number.error) {
@@ -23,14 +26,6 @@ const StripeDetailForm = ({
   } else if (stripe_errors) {
     if (card_number.empty) {
       cardNumberError = `Your card's number is blank`;
-    }
-  }
-  let postCodeError = null;
-  if (zip_code.error) {
-    postCodeError = zip_code.error;
-  } else if (stripe_errors) {
-    if (zip_code.empty) {
-      postCodeError = `Your card's postal code is blank.`;
     }
   }
   let cvcError = null;
@@ -80,12 +75,10 @@ const StripeDetailForm = ({
         />
       </Grid>
       <Grid item xs={6}>
-        <StripeElementWrapper
-          component={PostalCodeElement}
-          error={postCodeError}
-          label="Postal / ZIP code"
-          name="zip_code"
-          onChange={handleStripeChange}
+        <CustomPostalCode
+          handleChange={handleChange('postal_code')}
+          backend_validation_errors={backend_validation_errors}
+          isNotValid={isNotValid}
         />
       </Grid>
     </React.Fragment>
@@ -94,7 +87,10 @@ const StripeDetailForm = ({
 
 StripeDetailForm.propTypes = {
   data: PropTypes.object,
-  handleStripeChange: PropTypes.func
+  handleStripeChange: PropTypes.func,
+  backend_validation_errors: PropTypes.array,
+  handleChange: PropTypes.func,
+  isNotValid: PropTypes.func
 };
 
 export default StripeDetailForm;

@@ -63,7 +63,7 @@ class StripeForm extends Component {
       empty: true
     },
     CVC_number: { complete: false, error: null, empty: true },
-    zip_code: { complete: false, error: null, empty: true },
+    postal_code: '',
     stripe_errors: false,
     backend_validation_errors: [],
     isClient: false
@@ -83,6 +83,7 @@ class StripeForm extends Component {
       address2,
       country,
       city,
+      postal_code,
       additional_info
     } = this.state;
 
@@ -95,6 +96,7 @@ class StripeForm extends Component {
       address2 !== nextState.address2 ||
       country !== nextState.country ||
       city !== nextState.city ||
+      postal_code !== nextState.postal_code ||
       additional_info !== nextState.additional_info
     ) {
       return false;
@@ -125,21 +127,15 @@ class StripeForm extends Component {
   };
 
   isStripesInputsOk = () => {
-    const { card_number, card_expiration, CVC_number, zip_code } = this.state;
-    if (
-      card_number.error ||
-      card_expiration.error ||
-      CVC_number.error ||
-      zip_code.error
-    ) {
+    const { card_number, card_expiration, CVC_number } = this.state;
+    if (card_number.error || card_expiration.error || CVC_number.error) {
       this.setState({ stripe_errors: true });
       return false;
     }
     if (
       card_number.complete &&
       card_expiration.complete &&
-      CVC_number.complete &&
-      zip_code.complete
+      CVC_number.complete
     ) {
       this.setState(() => ({ stripe_errors: false }));
       return true;
@@ -243,7 +239,10 @@ class StripeForm extends Component {
                 />
                 <StripeDetailForm
                   data={this.state}
+                  isNotValid={this.isNotValid}
+                  handleChange={this.handleChange}
                   handleStripeChange={this.handleStripeChange}
+                  backend_validation_errors={backend_validation_errors}
                 />
                 <Grid item xs={12}>
                   <AdditionalInfoField handleChange={this.handleChange} />

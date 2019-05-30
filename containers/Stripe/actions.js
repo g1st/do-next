@@ -17,7 +17,8 @@ export const attemptPayment = ({
   buyItNowItem,
   shippingCost,
   cart,
-  stripe
+  stripe,
+  postal_code
 }) =>
   stripe
     .createToken({
@@ -25,7 +26,8 @@ export const attemptPayment = ({
       address_line1: address1,
       address_line2: address2,
       address_city: city,
-      address_country: country
+      address_country: country,
+      address_zip: postal_code
     })
     .then(payload => {
       let purchaseDetails;
@@ -47,8 +49,21 @@ export const attemptPayment = ({
           shippingCost
         };
       }
+
+      const { token, error } = payload;
+      if (error && error.code === 'postal_code_invalid') {
+        return {
+          data: {
+            errors: {
+              msg: 'The postal code provided was incorrect.',
+              param: 'additional.postal_code'
+            }
+          }
+        };
+      }
+
       return axios.post(`${appUrl}/api/charge`, {
-        token: payload.token.id,
+        token: token.id,
         payload,
         additional: {
           email,
@@ -60,7 +75,11 @@ export const attemptPayment = ({
           city,
           additional_info,
           country,
+          postal_code,
           purchaseDetails
         }
       });
+    })
+    .catch(err => {
+      console.log(err);
     });
