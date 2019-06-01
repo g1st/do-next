@@ -84,7 +84,36 @@ module.exports = (db, upload) => {
   router.patch(
     '/update',
     upload.array('photos[]', 10),
+    [
+      check('name')
+        .not()
+        .isEmpty()
+        .withMessage('Name is required.'),
+      check('description')
+        .not()
+        .isEmpty()
+        .withMessage('Description is required.'),
+      check('price')
+        .not()
+        .isEmpty()
+        .withMessage('Price is required.'),
+      check('collection')
+        .not()
+        .isEmpty()
+        .withMessage('Collection is required.')
+    ],
     wrapAsync(async (req, res) => {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        const equalizeErrors = errors.array().reduce((acc, err) => {
+          acc[err.param] = { message: err.msg };
+          return acc;
+        }, {});
+
+        return { error: equalizeErrors };
+      }
+
       const imageSizes = { big: 900, medium: 300, thumb: 92 };
 
       const {
@@ -162,7 +191,7 @@ module.exports = (db, upload) => {
         // current images + how many adding - how many deleting
         if (Number(imageCount) + files.length - imagesForRemoval.length < 1) {
           return {
-            errors: { images: 'Piece must have at least one image.' }
+            error: { images: 'Piece must have at least one image.' }
           };
         }
 
@@ -189,7 +218,7 @@ module.exports = (db, upload) => {
           serverUtils.removeImagesFromDisk(imagesToRemoveOnError);
         }
 
-        return error;
+        return { error: error.errors, work };
       }
 
       if (files.length > 0) {
@@ -284,9 +313,9 @@ module.exports = (db, upload) => {
         const imagesToRemoveOnError = images.map(image => image.thumb);
 
         // remove already uploaded images (not elegant but rarely will happen irl
-        serverUtils.removeImagesFromDisk(imagesToRemoveOnError);
+        serverUtils.removeImagesFromDiskOnError(imagesToRemoveOnError);
 
-        return res.json(error);
+        return { error: error.errors, work };
       }
 
       await db.collection('works').insertOne(work);

@@ -55,6 +55,12 @@ module.exports = {
       await asyncUnlink(`static/uploads/${image.replace(/92(\.\w+)/, '$1')}`);
     });
   },
+  removeImagesFromDiskOnError: function removeImagesFromDisk(imagesToRemove) {
+    imagesToRemove.forEach(async image => {
+      // removes big image 900x900, which will not have '92' in its file name
+      await asyncUnlink(`static/uploads/${image.replace(/92(\.\w+)/, '$1')}`);
+    });
+  },
   postageForCountry: function postageForCountry(country) {
     if (country === 'GB') {
       return shippingPriceGB;

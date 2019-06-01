@@ -107,7 +107,7 @@ class AdminForm extends Component {
     materials: '',
     collection: '',
     available: 'available',
-    madeToOrder: '',
+    madeToOrder: false,
     producingTime: '',
     updating: false,
     errors: null,
@@ -189,6 +189,24 @@ class AdminForm extends Component {
     });
   };
 
+  handleErrors = error => {
+    const keys = error ? Object.keys(error) : [];
+    const err = keys.reduce((acc, k) => {
+      if (Object.prototype.hasOwnProperty.call(error[k], 'message')) {
+        acc[k] = error[k].message;
+        return acc;
+      }
+      return acc;
+    }, {});
+
+    if (error) {
+      return this.setState({
+        errors: err,
+        updating: false
+      });
+    }
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     this.setState(() => ({ updating: true }));
@@ -254,22 +272,9 @@ class AdminForm extends Component {
       axios
         .patch(`${appUrl}/api/update`, formData)
         .then(response => {
-          const { errors } = response.data;
+          const { error } = response.data;
 
-          if (
-            errors &&
-            Object.prototype.hasOwnProperty.call(errors, 'images')
-          ) {
-            return this.setState({ errors, updating: false });
-          }
-          const keys = errors ? Object.keys(errors) : [];
-          const err = keys.reduce((acc, k) => {
-            if (Object.prototype.hasOwnProperty.call(errors[k], 'message')) {
-              acc[k] = errors[k].message;
-              return acc;
-            }
-            return acc;
-          }, {});
+          if (error) return this.handleErrors(error);
 
           const {
             _id: id,
@@ -278,7 +283,7 @@ class AdminForm extends Component {
           } = response.data.work;
 
           this.setState({
-            errors: err,
+            errors: null,
             updating: false,
             work: {
               id,
@@ -300,22 +305,15 @@ class AdminForm extends Component {
       axios
         .post(`${appUrl}/api/update`, formData)
         .then(response => {
-          const { errors } = response.data;
+          const { error } = response.data;
 
-          const keys = errors ? Object.keys(errors) : [];
-          const err = keys.reduce((acc, k) => {
-            if (Object.prototype.hasOwnProperty.call(errors[k], 'message')) {
-              acc[k] = errors[k].message;
-              return acc;
-            }
-            return acc;
-          }, {});
+          if (error) return this.handleErrors(error);
 
           const { _id: id, group } = response.data.work;
 
           this.setState(
             () => ({
-              errors: err,
+              errors: null,
               updating: false,
               work: {
                 id,
@@ -698,13 +696,19 @@ class AdminForm extends Component {
               }
               label="Made To Order Item"
             />
+            {errors && errors.madeToOrder ? (
+              <Error>{errors.madeToOrder}</Error>
+            ) : null}
             <TextField
               className={classes.producingTime}
               id="producingTime"
-              label='Producing Time (optional, default: "2 weeks")'
+              label='Producing Time (required if "Made To Order" is checked, default: "2 weeks")'
               value={producingTime}
               onChange={e => this.handleChange('producingTime', e)}
               margin="dense"
+              required={!!madeToOrder}
+              error={errors ? !!errors.producingTime : false}
+              helperText={errors && errors.producingTime}
             />
           </FormGroup>
           <Button
