@@ -13,6 +13,7 @@ import customItem from '../components/ItemCard/customRenderItem';
 import customThumb from '../components/ItemCard/customRenderThumb';
 import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
+import PieceGallery from '../components/Gallery/PieceGallery';
 import {
   Wrapper,
   Images,
@@ -55,7 +56,8 @@ const Piece = ({
   collections,
   user,
   addToCart: addToCartRedux,
-  buyItNow: buyItNowRedux
+  buyItNow: buyItNowRedux,
+  data
 }) => {
   const handleBuyItNow = item => {
     gtag.event({
@@ -68,14 +70,14 @@ const Piece = ({
     Router.push('/checkout');
   };
 
-  const handleAddToCart = data => {
+  const handleAddToCart = cartData => {
     gtag.event({
       action: 'click_addToCart',
       category: 'Purchase',
       label: 'AddToCart'
     });
 
-    addToCartRedux(data);
+    addToCartRedux(cartData);
   };
 
   if (onePieceData.length < 1 || onePieceData[0] === null) {
@@ -287,6 +289,7 @@ const Piece = ({
           </Text>
         </Info>
       </Wrapper>
+      <PieceGallery data={data} currentItem={onePieceData[0]} />
     </Layout>
   );
 };
@@ -297,7 +300,8 @@ Piece.propTypes = {
   onePieceData: PropTypes.arrayOf(PropTypes.object),
   user: PropTypes.string,
   buyItNow: PropTypes.func,
-  addToCart: PropTypes.func
+  addToCart: PropTypes.func,
+  data: PropTypes.array
 };
 
 Piece.getInitialProps = async ({ pathname, req, query }) => {
