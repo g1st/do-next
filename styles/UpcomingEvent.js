@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   max-width: 100%;
-  min-height: 252px;
-  margin: 0 auto 80px;
+  min-height: 186px;
+  margin: 20px auto 80px;
   display: flex;
   align-items: center;
   background-image: url('/static/images/bg1.JPG');
@@ -12,34 +12,15 @@ export const Wrapper = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 
-  @media (min-width: 960px) {
-    margin: 140px auto;
+  @media (min-width: 700px) {
+    margin: 20px auto 140px;
   }
 `;
 Wrapper.displayName = 'Wrapper';
 
-export const ButtonWrapper = styled.div`
-  display: flex;
-  @media (min-width: 960px) {
-    align-self: flex-end;
-  }
-`;
-ButtonWrapper.displayName = 'ButtonWrapper';
-
 export const Data = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-
-  @media (min-width: 700px) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  @media (min-width: 960px) {
-    margin-bottom: 0;
-    flex-direction: column;
-  }
 `;
 Data.displayName = 'Data';
 
@@ -48,16 +29,16 @@ export const Content = styled.div`
   flex-direction: column;
   display: flex;
   justify-content: center;
-  @media (min-width: 960px) {
-    height: 96px;
-    display: flex;
-    margin: 0 20px;
+
+  @media (min-width: 700px) {
+    margin: 30px auto 0 auto;
     align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
   }
-  @media (min-width: 1200px) {
-    height: 130px;
+  @media (min-width: 800px) {
+    margin-top: 26px;
+  }
+  @media (min-width: 900px) {
+    margin-top: 0;
   }
 `;
 Content.displayName = 'Content';
@@ -65,8 +46,43 @@ Content.displayName = 'Content';
 export const FlexItem = styled.div`
   @media (min-width: 700px) {
     display: flex;
-    justify-content: center;
-    width: 100%;
   }
 `;
 FlexItem.displayName = 'FlexItem';
+
+export const AnchorLink = styled.a`
+  text-decoration: none;
+`;
+AnchorLink.displayName = 'AnchorLink';
+
+export const WrapData = styled.div`
+  @media (min-width: 700px) {
+    display: flex;
+  }
+`;
+WrapData.displayName = 'WrapData';
+
+export const DataInner = styled.div`
+  @media (min-width: 700px) {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    height: 70px;
+  }
+  @media (min-width: 800px) {
+    margin-top: 6px;
+    height: 80px;
+  }
+`;
+DataInner.displayName = 'DataInner';
+
+export const ForBiggerScreens = styled.div`
+  display: none;
+  @media (min-width: 900px) {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+  }
+`;
+ForBiggerScreens.displayName = 'ForBiggerScreens';
