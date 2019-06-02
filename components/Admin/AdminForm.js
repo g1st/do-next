@@ -184,7 +184,7 @@ class AdminForm extends Component {
       collection: '',
       existingCollection: '',
       available: 'available',
-      madeToOrder: '',
+      madeToOrder: false,
       producingTime: ''
     });
   };
