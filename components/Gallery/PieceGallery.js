@@ -22,6 +22,12 @@ const styles = () => ({
   gridItem: {
     display: 'flex',
     justifyContent: 'center'
+  },
+  light: {
+    fontWeight: 300
+  },
+  buttonBase: {
+    flexDirection: 'column'
   }
 });
 
@@ -72,12 +78,16 @@ const PieceGallery = ({ data, currentItem, classes }) => {
                 className={classes.gridItem}
               >
                 <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
-                  <ButtonBase>
+                  <ButtonBase className={classes.buttonBase}>
                     <img
                       src={`/static/uploads/${item.frontImage}`}
                       alt={item.description}
                       className={classes.image}
                     />
+                    <Typography>{item.name}</Typography>
+                    <Typography className={classes.light}>
+                      £{item.price.toFixed(2)}
+                    </Typography>
                   </ButtonBase>
                 </Link>
               </Grid>
