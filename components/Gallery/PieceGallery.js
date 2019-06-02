@@ -12,9 +12,8 @@ const styles = () => ({
     }
   },
   gridWrapper: {
-    '@media (min-width: 960px)': {
-      margin: '-26px'
-    }
+    margin: 0,
+    width: '100%'
   },
   image: {
     width: '100%',
