@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, Button, ButtonBase, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import Link from 'next/link';
 
 import { increaseLoadedItems } from '../../store/actions';
 import Filter from './Filter';
-import ItemCard from '../ItemCard/ItemCard';
 import { ITEMS_PER_PAGE } from '../../config';
 import { FilterWrapper } from '../../styles/Gallery';
 
@@ -32,6 +32,23 @@ const styles = () => ({
   collection: {
     lineHeight: '48px',
     textTransform: 'uppercase'
+  },
+  gridWrapper: {
+    margin: 0,
+    width: '100%'
+  },
+  gridItem: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  image: {
+    width: '100%'
+  },
+  buttonBase: {
+    flexDirection: 'column'
+  },
+  light: {
+    fontWeight: 300
   }
 });
 
@@ -84,6 +101,14 @@ class Gallery extends React.Component {
         [showCollection]: { filter: value, category: value }
       }
     });
+  };
+
+  onCardMediaError = e => {
+    const fallbackImage = '../../static/images/fallback.png';
+
+    if (e.target.src.indexOf('/static/images/fallback.png') === -1) {
+      e.target.src = fallbackImage;
+    }
   };
 
   render() {
@@ -152,19 +177,31 @@ class Gallery extends React.Component {
       <div>
         {filter}
         <div className={classes.root}>
-          <Grid className={classes.grid} container spacing={8}>
+          <Grid container spacing={32} className={classes.gridWrapper}>
             {filtered.map(item => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
-                <ItemCard
-                  id={item._id.toString()}
-                  price={item.price}
-                  name={item.name}
-                  img={
-                    item.frontImage
-                      ? `/static/uploads/${item.frontImage}`
-                      : `/static/uploads/${item.images[0].medium}`
-                  }
-                />
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                key={item._id}
+                className={classes.gridItem}
+              >
+                <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
+                  <ButtonBase classes={{ root: classes.buttonBase }}>
+                    <img
+                      src={`/static/uploads/${item.frontImage}`}
+                      alt={item.description}
+                      className={classes.image}
+                      onError={e => this.onCardMediaError(e)}
+                    />
+                    <Typography>{item.name}</Typography>
+                    <Typography className={classes.light}>
+                      £{item.price.toFixed(2)}
+                    </Typography>
+                  </ButtonBase>
+                </Link>
               </Grid>
             ))}
           </Grid>
