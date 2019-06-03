@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
 Wrapper.displayName = 'Wrapper';
 
 export const Stockist = styled.div`
+  margin: 0 auto;
   div > p {
     margin-bottom: 12px;
   }
@@ -26,16 +27,15 @@ Stockist.displayName = 'Stockist';
 
 export const StockistText = styled.div`
   @media (min-width: 960px) {
-    max-width: 540px;
+    margin: 0 auto;
+    max-width: 480px;
     margin-top: 16px;
   }
 `;
 StockistText.displayName = 'StockistText';
 
 export const Events = styled.div`
-  margin-bottom: 50px;
   @media (min-width: 960px) {
-    margin-bottom: 0;
     width: 50%;
     padding-left: 30px;
   }
@@ -44,6 +44,8 @@ Events.displayName = 'Events';
 
 export const UpcomingEvents = styled.div`
   margin-bottom: 3rem;
+  max-width: 480px;
+  margin: 0 auto;
 `;
 UpcomingEvents.displayName = 'UpcomingEvents';
 
@@ -53,7 +55,8 @@ export const ImageWrapper = styled.div`
 
   @media (min-width: 960px) {
     max-width: 480px;
-    margin-bottom: 60px;
+    /* margin-bottom: 60px; */
+    margin: 0 auto 60px auto;
   }
 `;
 ImageWrapper.displayName = 'ImageWrapper';

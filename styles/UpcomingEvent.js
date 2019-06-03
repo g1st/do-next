@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   max-width: 100%;
   min-height: 186px;
-  margin: 20px auto 80px;
+  margin: 20px auto 60px;
   display: flex;
   align-items: center;
   background-image: url('/static/images/bg1.JPG');
@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   background-size: cover;
 
   @media (min-width: 700px) {
-    margin: 20px auto 140px;
+    margin: 20px auto 80px;
   }
 `;
 Wrapper.displayName = 'Wrapper';
