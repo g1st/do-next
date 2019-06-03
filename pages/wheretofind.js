@@ -39,7 +39,7 @@ const WhereToFind = ({ pathname, collections, classes }) => (
           <Image src="/static/images/wheretofind1.JPG" alt="dovile jewellery" />
         </ImageWrapper>
         <Typography variant="body1" gutterBottom className={classes.fontSize}>
-          STOCKIST
+            STOCKISTS
         </Typography>
         <StockistText>
           <Typography variant="body2">
