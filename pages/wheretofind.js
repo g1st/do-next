@@ -14,6 +14,7 @@ import {
   Image,
   Data
 } from '../styles/WhereToFind';
+import UpcomingEvent from '../components/UpcomingEvent/UpcomingEvent';
 import { AnchorLink, Table, Row } from '../styles/Shared';
 
 const styles = () => ({
@@ -31,6 +32,7 @@ const WhereToFind = ({ pathname, collections, classes }) => (
     collections={collections}
     title="Where To Find | Dovile Jewellery"
   >
+    <UpcomingEvent />
     <Wrapper>
       <Stockist>
         <ImageWrapper>
