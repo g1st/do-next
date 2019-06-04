@@ -11,6 +11,7 @@ export const attemptPayment = ({
   address2,
   city,
   country,
+  full_country_name,
   email,
   phone,
   additional_info,
@@ -75,6 +76,7 @@ export const attemptPayment = ({
           city,
           additional_info,
           country,
+          full_country_name,
           postal_code,
           purchaseDetails
         }
