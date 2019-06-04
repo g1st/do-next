@@ -525,7 +525,7 @@ module.exports = (db, upload) => {
         stripe_result = await stripe.charges.create({
           amount: amount * 100, // stripe needs cents
           currency: 'gbp',
-          description: `Charge for purchase at dovilejewellery.com`,
+          description: `Purchase at dovilejewellery.com`,
           source: req.body.token
         });
       } else {
@@ -581,7 +581,7 @@ module.exports = (db, upload) => {
         address2,
         city,
         additional_info,
-        country,
+        full_country_name,
         postal_code,
         purchaseDetails
       } = req.body.additional;
@@ -627,7 +627,7 @@ module.exports = (db, upload) => {
             address1,
             address2,
             city,
-            country,
+            country: full_country_name,
             postal_code,
             client_ip
           },

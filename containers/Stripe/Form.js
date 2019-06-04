@@ -56,6 +56,7 @@ class StripeForm extends Component {
     city: '',
     additional_info: '',
     country: 'GB',
+    full_country_name: 'United Kingdom',
     card_number: { complete: false, error: null, empty: true },
     card_expiration: {
       complete: false,
@@ -105,6 +106,12 @@ class StripeForm extends Component {
   }
 
   handleChange = name => event => {
+    if (name === 'country') {
+      const full_country_name = [...event.target.options]
+        .filter(option => option.selected)
+        .map(option => option.textContent)[0];
+      this.setState({ full_country_name });
+    }
     this.setState({
       [name]: event.target.value
     });
