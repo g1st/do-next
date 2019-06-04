@@ -12,10 +12,11 @@ module.exports = function emailForClient(
     additional_info,
     address2,
     city,
-    country,
+    full_country_name,
     email,
     first_name,
     last_name,
+    postal_code,
     phone
   } = clientInfo;
 
@@ -53,7 +54,8 @@ module.exports = function emailForClient(
       <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Address2: ${address2 ||
         'Not provided'}</p>
       <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">City: ${city}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">Country: ${country}</p>
+      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">ZIP / Postal code: ${postal_code}</p>
+      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">Country: ${full_country_name}</p>
       <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Additional order information: ${additional_info ||
         'Not provided'}</p>
   `;

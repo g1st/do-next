@@ -51,13 +51,13 @@ module.exports = data => {
   Promise.all([
     // mail for business owner
     axios.post(`${APP_URL}/api/send`, {
-      subject: 'Successful order @ dovilejewellery.com',
+      subject: 'New order @dovilejewellery.com',
       email: 'gintstan@gmail.com', // dovile jewellery email
       message: adminHTML
     }),
     // mail to client
     axios.post(`${APP_URL}/api/send`, {
-      subject: 'Successful purchase from dovilejewellery.com!',
+      subject: 'Purchase at dovilejewellery.com',
       email,
       message: clientHTML
     })
