@@ -13,12 +13,19 @@ const asyncUnlink = promisify(fs.unlink);
 
 module.exports = {
   writeFile: function writeFile(file, size) {
+    let quality = 80;
+    if (size === 300) {
+      quality = 100;
+    }
+    if (size === 900) {
+      quality = 90;
+    }
     // default image size
     const big = 900;
     let sizeString = size;
     return new Promise((resolve, reject) => {
       sharp(file)
-        .jpeg({ quality: 90, progressive: true })
+        .jpeg({ quality, progressive: true })
         .resize(sizeString, sizeString)
         .toBuffer(async function(err, buffer) {
           const dot = file.indexOf('.');
