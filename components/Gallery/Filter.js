@@ -4,8 +4,10 @@ import { Menu, MenuItem, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import { ArrowDropDown, ArrowRight } from '@material-ui/icons';
+import Link from 'next/link';
 
 import { pluralise } from '../../util/helpers';
+import { AnchorLink } from '../../styles/Piece';
 
 const styles = () => ({
   root: {
@@ -79,6 +81,22 @@ class Filter extends React.Component {
     return (
       <div>
         <div>
+          {collection !== 'all' ? (
+            <>
+              <Link href="/gallery">
+                <AnchorLink>
+                  <Typography
+                    inline
+                    variant="body2"
+                    className={classes.filterLine}
+                  >
+                    gallery
+                  </Typography>
+                </AnchorLink>
+              </Link>
+              <ArrowRight fontSize="small" className={classes.svg} />
+            </>
+          ) : null}
           <Typography inline variant="body2" className={classes.filterLine}>
             {collection === 'all' ? 'all collections' : collection}
           </Typography>
