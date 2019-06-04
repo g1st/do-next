@@ -51,7 +51,6 @@ const buyItNow = (state = initialState.buyItNow, action) => {
 
 const shippingCost = (state = initialState.shippingCost, action) => {
   if (COUNT_SHIPPING_COST === action.type) {
-    console.log('countinu');
     return postageForCountry(action.country);
   }
   return state;
