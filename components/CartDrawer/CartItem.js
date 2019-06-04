@@ -52,17 +52,7 @@ const CartItem = ({
             </a>
           </Link>
           <ItemInfo>
-            <Typography
-              variant="body2"
-              style={{
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                width: '98px',
-                textOverflow: 'ellipsis'
-              }}
-            >
-              {item.name}
-            </Typography>
+            <Typography variant="body2">{item.name}</Typography>
             <Typography variant="body2" style={{ fontWeight: 300 }}>
               £{item.price.toFixed(2)}
             </Typography>
