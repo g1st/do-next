@@ -38,7 +38,7 @@ const Index = ({ pathname, collections, classes }) => (
       GALLERY
     </Button>
     <Newsletter />
-    <InView triggerOnce rootMargin="450px">
+    <InView triggerOnce rootMargin="275px">
       {({ inView, ref }) => (
         <div ref={ref}>
           {inView ? (
