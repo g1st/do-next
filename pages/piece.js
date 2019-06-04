@@ -21,7 +21,8 @@ import {
   ButtonsWrapper,
   Text,
   AnchorLink,
-  ListInfo
+  ListInfo,
+  AdminLink
 } from '../styles/Piece';
 import { Mail, Strong } from '../styles/Shared';
 import DialogForm from '../components/DialogForm/DialogForm';
@@ -40,7 +41,7 @@ const styles = {
   filterLine: {
     color: '#595959',
     letterSpacing: '1px',
-    lineHeight: '44px'
+    lineHeight: '43px'
   },
   svg: {
     top: '.3em',
@@ -134,7 +135,18 @@ const Piece = ({
   const edit = (
     <div>
       <Link href={`/edit?id=${_id}`} as={`/edit/${_id}`}>
-        <a>Edit</a>
+        <AdminLink>
+          <Typography inline variant="body1">
+            Edit
+          </Typography>
+        </AdminLink>
+      </Link>
+      <Link href="/admin">
+        <AdminLink>
+          <Typography inline variant="body1">
+            Add new
+          </Typography>
+        </AdminLink>
       </Link>
     </div>
   );
@@ -196,10 +208,8 @@ const Piece = ({
         </Images>
         <Info>
           <Text>
-            <Typography variant="h4">
-              {name}
-              {user && edit}
-            </Typography>
+            {user && edit}
+            <Typography variant="h4">{name}</Typography>
             <Typography variant="h5" classes={{ h5: classes.marginBottomBig }}>
               £{price}
             </Typography>
