@@ -56,3 +56,10 @@ export const ListInfo = styled.ul`
   list-style: square;
 `;
 ListInfo.displayName = 'ListInfo';
+
+export const AdminLink = styled.a`
+  cursor: pointer;
+  text-decoration: underline;
+  margin-right: 10px;
+`;
+AdminLink.displayName = 'AdminLink';
