@@ -101,7 +101,43 @@ export const Cart = styled.div`
 Cart.displayName = 'Cart';
 
 export const FormWrapper = styled.div`
-  /* max-width: 630px; */
   margin: 0 auto;
 `;
 FormWrapper.displayName = 'FormWrapper';
+
+export const PaymentIcons = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  @media (min-width: 380px) {
+    height: 50px;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+`;
+PaymentIcons.displayName = 'PaymentIcons';
+
+export const IconImage = styled.img`
+  @media (min-width: 380px) {
+    margin-right: 6px;
+  }
+`;
+IconImage.displayName = 'IconImage';
+
+export const AcceptedCards = styled.div`
+  min-width: 180px;
+  margin: 0 auto;
+  @media (min-width: 380px) {
+    margin: 0;
+  }
+`;
+AcceptedCards.displayName = 'AcceptedCards';
+
+export const StripeIcon = styled.img``;
+StripeIcon.displayName = 'StripeIcon';
+
+export const StripeIconLink = styled.a`
+  height: 26px;
+  align-self: center;
+`;
+StripeIconLink.displayName = 'StripeIconLink';
