@@ -14,6 +14,9 @@ class MyDocument extends Document {
     return (
       <html lang="en" dir="ltr">
         <Head>
+          <link rel="preconnect" href="https://www.googletagmanager.com" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://www.google-analytics.com" />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async
