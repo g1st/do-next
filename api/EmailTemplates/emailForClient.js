@@ -22,7 +22,7 @@ module.exports = function emailForClient(
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hello ${first_name},</p>
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">THANK YOU for your purchase, this e-mail confirms your order.</p>
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">You will be contacted when the order will be shipped providing you with a tracking number.</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">PLEASE NOTE, that <i>made to order</i> items producing times are indicated at each piece's description. Producing times and delivery options for commissions are discussed individually by e-mail.</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">PLEASE NOTE that <i>made to order</i> items producing times are indicated at each piece's description. Producing times and delivery options for commissions are discussed individually by e-mail.</p>
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Delivery times will vary but usually, it is 1-2 days for UK, 3-7 days for Europe and 5-10 days worldwide. Delivery times may be extended during particularly busy periods such as Christmas.</p>
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Your order:</p>
       ${data

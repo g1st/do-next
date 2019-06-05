@@ -281,7 +281,7 @@ const Piece = ({
               notAvailable
             )}
             <Typography variant="body2" paragraph>
-              Please note, most of the pieces are ONE OF A KIND, therefore,
+              Please note most of the pieces are ONE OF A KIND, therefore,
               commissions are welcome in related designs to meet your personal
               needs.
             </Typography>

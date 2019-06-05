@@ -90,7 +90,7 @@ const TermsAndConditions = ({ collections, classes }) => (
           3 business days of purchase and payment.
         </Typography>
         <Typography variant="body2" align="justify" paragraph color="secondary">
-          PLEASE NOTE, that <i>made to order</i> items producing times are
+          PLEASE NOTE that <i>made to order</i> items producing times are
           indicated at each piece’s description. Producing times and delivery
           options for commissions are discussed individually by{' '}
           <Link href="/contact">

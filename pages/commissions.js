@@ -55,8 +55,8 @@ const Commissions = ({ collections, classes }) => (
           etc.
         </Typography>
         <Typography align="justify" paragraph variant="body2">
-          Please note, I do not make any other designs taken from other makers.
-          I am accepting the idea for the customised item only fitting my vision
+          Please note I do not make any other designs taken from other makers. I
+          am accepting the idea for the customised item only fitting my vision
           and my aesthetics, work principles.
         </Typography>
         <Typography align="justify" paragraph variant="body2">
