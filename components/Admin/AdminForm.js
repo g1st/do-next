@@ -702,7 +702,7 @@ class AdminForm extends Component {
             <TextField
               className={classes.producingTime}
               id="producingTime"
-              label='Producing Time (required if "Made To Order" is checked, default: "2 weeks")'
+              label='required if "Made To Order" is checked, ...producing time for this item is [your input].'
               value={producingTime}
               onChange={e => this.handleChange('producingTime', e)}
               margin="dense"
