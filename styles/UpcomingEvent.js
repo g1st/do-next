@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   background-size: cover;
 
   @media (min-width: 700px) {
-    margin: 20px auto 80px;
+    margin: 40px auto 80px;
   }
 `;
 Wrapper.displayName = 'Wrapper';

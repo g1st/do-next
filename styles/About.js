@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   @media (min-width: 960px) {
     display: flex;
+    margin-top: 40px;
   }
 `;
 Wrapper.displayName = 'Wrapper';
