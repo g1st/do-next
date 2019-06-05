@@ -184,7 +184,6 @@ class Gallery extends React.Component {
                 xs={12}
                 sm={6}
                 md={4}
-                lg={3}
                 key={item._id}
                 className={classes.gridItem}
               >
