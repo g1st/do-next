@@ -16,6 +16,13 @@ import { withStyles } from '@material-ui/core/styles';
 
 import CartItem from './CartItem';
 import { cartHelper } from '../../util/helpers';
+import {
+  PaymentIcons,
+  IconImage,
+  StripeIcon,
+  AcceptedCards,
+  StripeIconLink
+} from '../../styles/Checkout';
 
 const styles = {
   button: {
@@ -30,6 +37,7 @@ const styles = {
     padding: 0
   },
   list: {
+    paddingBottom: 0,
     '& > li': {
       '&:nth-child(even)': {
         backgroundColor: 'rgba(0, 0, 0, 0.02)'
@@ -38,6 +46,9 @@ const styles = {
   },
   marginTop: {
     marginTop: '20px'
+  },
+  cardIcons: {
+    padding: '6px 16px'
   }
 };
 
@@ -148,6 +159,34 @@ const CartDrawerContent = ({
               </Typography>
             </ListItemText>
           </ListItem>
+          {inForm ? (
+            <ListItem className={classes.cardIcons}>
+              <PaymentIcons>
+                <AcceptedCards>
+                  <IconImage src="/static/images/visa.png" alt="VISA logo" />
+                  <IconImage
+                    src="/static/images/mastercard.png"
+                    alt="Mastercard logo"
+                  />
+                  <IconImage
+                    src="/static/images/americanexpress.png"
+                    alt="American Express logo"
+                  />
+                </AcceptedCards>
+                <StripeIconLink
+                  href="https://www.stripe.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="To Stripe homepage"
+                >
+                  <StripeIcon
+                    src="/static/images/stripe.png"
+                    alt="Stripe logo"
+                  />
+                </StripeIconLink>
+              </PaymentIcons>
+            </ListItem>
+          ) : null}
         </List>
       </div>
     );
