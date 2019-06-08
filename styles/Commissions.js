@@ -8,7 +8,7 @@ Wrapper.displayName = 'Wrapper';
 
 export const Text = styled.div`
   max-width: 700px;
-  margin: 0 auto;
+  margin: 30px auto 0 auto;
 `;
 Text.displayName = 'Text';
 
@@ -27,5 +27,9 @@ ImageWrapper.displayName = 'ImageWrapper';
 export const Image = styled.img`
   width: 100%;
   max-width: 500px;
+  margin: 50px auto 30px auto;
+  @media (min-width: 960px) {
+    margin-top: 100px;
+  }
 `;
 Image.displayName = 'Image';

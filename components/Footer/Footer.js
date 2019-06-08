@@ -26,10 +26,7 @@ const styles = {
     }
   },
   root: {
-    textAlign: 'center',
-    '@media (min-width: 960px)': {
-      marginTop: '24px'
-    }
+    textAlign: 'center'
   }
 };
 

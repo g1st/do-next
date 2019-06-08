@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   position: relative;
   flex-shrink: 0;
   @media (min-width: 960px) {
-    padding: 80px 0 40px 0;
+    padding: 80px 0 20px 0;
     margin-top: 100px;
   }
 `;
@@ -19,7 +19,7 @@ export const BrandLogo = styled.div`
 
   @media (min-width: 960px) {
     position: absolute;
-    top: 120px;
+    top: 124px;
     left: 60px;
   }
 `;
@@ -93,6 +93,7 @@ export const FooterLink = styled.li`
   }
   @media (min-width: 960px) {
     display: inline-block;
+    margin-bottom: 16px;
     margin-right: 20px;
     &:last-child {
       margin-right: 0;

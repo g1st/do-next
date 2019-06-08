@@ -11,7 +11,7 @@ export const ImagesWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
 
   div:nth-child(2) {
     margin: 0 20px;

@@ -32,7 +32,10 @@ ImageWrapper.displayName = 'ImageWrapper';
 export const Image = styled.img`
   max-width: 100%;
   max-height: 100%;
-  margin: 0 auto;
+  margin: 50px auto 30px auto;
+  @media (min-width: 960px) {
+    margin-top: 100px;
+  }
 `;
 Image.displayName = 'Image';
 

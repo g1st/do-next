@@ -55,7 +55,6 @@ export const ImageWrapper = styled.div`
 
   @media (min-width: 960px) {
     max-width: 480px;
-    /* margin-bottom: 60px; */
     margin: 0 auto 60px auto;
   }
 `;
