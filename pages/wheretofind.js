@@ -121,7 +121,7 @@ const WhereToFind = ({ pathname, collections, classes }) => (
                       SUMMER SHOWCASE
                     </Typography>
                   </AnchorLink>
-                  <Typography cariant="body2" gutterBottom inline>
+                  <Typography variant="body2" gutterBottom inline>
                     {' '}
                     at Llantarnam Grange Arts Centre, Wales, UK
                   </Typography>
@@ -142,7 +142,7 @@ const WhereToFind = ({ pathname, collections, classes }) => (
                       JOYA Barcelona Art Jewellery & Objects
                     </Typography>
                   </AnchorLink>
-                  <Typography cariant="body2" gutterBottom inline>
+                  <Typography variant="body2" gutterBottom inline>
                     , Barcelona, Spain
                   </Typography>
                 </Data>
