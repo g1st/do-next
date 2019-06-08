@@ -16,13 +16,13 @@ const Contact = ({ pathname, collections }) => (
     <Wrapper>
       <ImagesWrapper>
         <ImageWrapper>
-          <Image src="/static/images/d-4.JPG" />
+          <Image src="/static/images/d-4.JPG" alt="Wooden materials" />
         </ImageWrapper>
         <ImageWrapper>
-          <Image src="/static/images/cx-10.JPG" />
+          <Image src="/static/images/cx-10.JPG" alt="Bench peg" />
         </ImageWrapper>
         <ImageWrapper>
-          <Image src="/static/images/a-6.JPG" />
+          <Image src="/static/images/a-6.JPG" alt="Process" />
         </ImageWrapper>
       </ImagesWrapper>
       <div
