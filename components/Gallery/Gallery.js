@@ -195,8 +195,8 @@ class Gallery extends React.Component {
                       className={classes.image}
                       onError={e => this.onCardMediaError(e)}
                     />
-                    <Typography>{item.name}</Typography>
-                    <Typography className={classes.light}>
+                    <Typography component="span">{item.name}</Typography>
+                    <Typography component="span" className={classes.light}>
                       £{item.price.toFixed(2)}
                     </Typography>
                   </ButtonBase>
