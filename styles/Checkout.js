@@ -127,7 +127,10 @@ IconImage.displayName = 'IconImage';
 export const AcceptedCards = styled.div`
   min-width: 180px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
   @media (min-width: 380px) {
+    justify-content: left;
     margin: 0;
   }
 `;
