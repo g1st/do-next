@@ -163,13 +163,13 @@ const CartDrawerContent = ({
             <ListItem className={classes.cardIcons}>
               <PaymentIcons>
                 <AcceptedCards>
-                  <IconImage src="/static/images/visa.png" alt="VISA logo" />
+                  <IconImage src="/static/images/visa.svg" alt="VISA logo" />
                   <IconImage
-                    src="/static/images/mastercard.png"
+                    src="/static/images/mastercard.svg"
                     alt="Mastercard logo"
                   />
                   <IconImage
-                    src="/static/images/americanexpress.png"
+                    src="/static/images/american-express.svg"
                     alt="American Express logo"
                   />
                 </AcceptedCards>
@@ -180,7 +180,7 @@ const CartDrawerContent = ({
                   aria-label="To Stripe homepage"
                 >
                   <StripeIcon
-                    src="/static/images/stripe.png"
+                    src="/static/images/stripe.svg"
                     alt="Stripe logo"
                   />
                 </StripeIconLink>
