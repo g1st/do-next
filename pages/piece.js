@@ -121,7 +121,7 @@ const Piece = ({
       srcSet: `/static/uploads/${image.medium} 300w, /static/uploads/${
         image.big
       } 900w`,
-      sizes: '(max-width: 800px) 300w, (max-width: 960px) 65vw, 45vw'
+      sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw'
     };
     if (image.medium === frontImage) {
       // add in front of array to be first in gallery
