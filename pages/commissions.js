@@ -29,8 +29,17 @@ const Commissions = ({ collections, classes }) => (
     <Wrapper>
       <ImageWrapper>
         <Figure>
-          <Image src="../static/images/ffffr-12.JPG" alt="Cufflinks" />
+          <Image src="../static/images/commissions.JPG" alt="Cufflinks" />
         </Figure>
+        <figcaption>
+          <Typography
+            align="center"
+            variant="subtitle2"
+            style={{ fontWeight: 300 }}
+          >
+            FLOW rings | handcarved ebony and Baltic amber
+          </Typography>
+        </figcaption>
       </ImageWrapper>
       <Text>
         <Typography

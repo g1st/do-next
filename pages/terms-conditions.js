@@ -31,11 +31,15 @@ const TermsAndConditions = ({ collections, classes }) => (
       <ImageWrapper>
         <Figure>
           <Image
-            src="../static/images/Dovile-Jewellery-5.JPG"
+            src="../static/images/terms-conditions.JPG"
             alt="Jewellery packaging boxes"
           />
           <figcaption>
-            <Typography align="left" variant="body2">
+            <Typography
+              align="center"
+              variant="subtitle2"
+              style={{ fontWeight: 300 }}
+            >
               FLOW n°B13 and n°B12 | brooches | handcarved ebony
             </Typography>
           </figcaption>
