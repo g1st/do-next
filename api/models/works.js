@@ -39,6 +39,8 @@ const worksSchema = new mongoose.Schema(
     available: { type: Boolean, default: true, required: true },
     madeToOrder: { type: Boolean, default: false },
     producingTime: { type: String, default: '2 weeks' },
+    galleryIndex: { type: Number, required: true },
+    collectionIndex: { type: Number, required: true },
     created: { type: Date, default: Date.now }
   },
   { timestamps: true }
