@@ -10,6 +10,7 @@ const Work = require('./models/works');
 const Order = require('./models/orders');
 const Client = require('./models/clients');
 const Subscriber = require('./models/subscribers');
+const Counter = require('./models/counters');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const serverUtils = require('../util/serverHelper');
@@ -245,6 +246,26 @@ module.exports = (db, upload) => {
     })
   );
 
+  router.post(
+    '/update-grid',
+    wrapAsync(async (req, res) => {
+      const { data, index } = req.body;
+
+      const promises = data.map(item =>
+        Work.findByIdAndUpdate(
+          { _id: item._id },
+          { $set: { [index]: item[index] } }
+        )
+      );
+
+      await Promise.all(promises);
+
+      return {
+        msg: 'Updated'
+      };
+    })
+  );
+
   // creating new item
   router.post(
     '/update',
@@ -287,6 +308,18 @@ module.exports = (db, upload) => {
 
       const frontImage = images[0].medium;
 
+      const getNextSequenceValue = async sequenceName => {
+        const sequenceDocument = await Counter.findOneAndUpdate(
+          { sequence_name: sequenceName },
+          { $inc: { sequence_value: 1 } },
+          { new: true }
+        );
+
+        return Number(sequenceDocument.sequence_value);
+      };
+
+      const galleryIndex = await getNextSequenceValue('galleryIndex');
+
       const piece = {
         name,
         slug: slugify(name),
@@ -301,7 +334,9 @@ module.exports = (db, upload) => {
         available: available === 'available',
         frontImage,
         madeToOrder,
-        producingTime
+        producingTime,
+        galleryIndex,
+        collectionIndex: galleryIndex
       };
 
       const work = new Work(piece);

@@ -9,3 +9,15 @@ export const FilterWrapper = styled.div`
   display: flex;
 `;
 FilterWrapper.displayName = 'FilterWrapper';
+
+export const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+FlexContainer.displayName = 'FlexContainer';
+
+export const ButtonIndicator = styled.div`
+  background-color: ${props => (props.swapWithMe ? 'lightgreen' : '')};
+  background-color: ${props => (props.activeSwap ? 'lightgrey' : '')};
+`;
+ButtonIndicator.displayName = 'ButtonIndicator';

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Layout from '../components/Layout';
 import GridGallery from '../components/Gallery/Gallery';
 
-const Gallery = ({ data, router, pathname, collections }) => {
+const Gallery = ({ data, router, pathname, collections, user }) => {
   let { collection } = router.query;
 
   if (!collections.includes(collection)) {
@@ -19,6 +19,7 @@ const Gallery = ({ data, router, pathname, collections }) => {
     >
       <div>
         <GridGallery
+          user={user}
           data={data}
           showCollection={collection}
           collectionsNames={collections}
@@ -33,7 +34,8 @@ Gallery.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.array,
-  router: PropTypes.object
+  router: PropTypes.object,
+  user: PropTypes.string
 };
 
 Gallery.getInitialProps = async ({ pathname }) => ({ pathname });
