@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   margin: 20px auto 60px;
   display: flex;
   align-items: center;
-  background-image: url('/static/images/bg1.JPG');
+  background-image: url('/static/images/bg1.jpeg');
   background-color: #eeeeee;
   background-position: center;
   background-repeat: no-repeat;
