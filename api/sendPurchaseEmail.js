@@ -1,16 +1,15 @@
+/* eslint-disable camelcase */
 const axios = require('axios');
 
-const { APP_URL } = process.env;
+const { appUrl } = require('../config');
 const emailForClient = require('./EmailTemplates/emailForClient');
 const emailForAdmin = require('./EmailTemplates/emailForAdmin');
 
-/* eslint-disable camelcase */
-
 module.exports = data => {
   const { boughtFrom } = data.additional.purchaseDetails;
-
-  const baseUrl = `${APP_URL}/piece/`;
+  const baseUrl = `${appUrl}/piece/`;
   const purchaseData = [];
+
   if (boughtFrom === 'buyItNow') {
     purchaseData.push({
       link: `${baseUrl}${data.additional.purchaseDetails._id}`,
@@ -50,18 +49,16 @@ module.exports = data => {
 
   Promise.all([
     // mail for business owner
-    axios.post(`${APP_URL}/api/send`, {
+    axios.post(`${appUrl}/api/send`, {
       subject: 'New order @dovilejewellery.com',
       email: 'gintstan@gmail.com', // dovile jewellery email
       message: adminHTML
     }),
     // mail to client
-    axios.post(`${APP_URL}/api/send`, {
+    axios.post(`${appUrl}/api/send`, {
       subject: 'Purchase at dovilejewellery.com',
       email,
       message: clientHTML
     })
   ]).catch(err => console.log(err));
 };
-
-/* eslint-enable camelcase */
