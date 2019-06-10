@@ -65,7 +65,7 @@ npm run build
 npm start
 ```
 
-Note that app use external authentication server for admin's logins. You would need to run [this](https://github.com/g1st/express-server-jwt) server or use your own in order to login as admin. Server address for development is `http://localhost:3030` and can be changed in `config.js`.
+> Note that app use external authentication server for admin's logins. You would need to run [this](https://github.com/g1st/express-server-jwt) server or use your own in order to login as admin. Server address for development is `http://localhost:3030` and can be changed in `config.js`.
 
 ## Built With
 
