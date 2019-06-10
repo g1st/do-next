@@ -118,9 +118,7 @@ const Piece = ({
       thumbnail: `/static/uploads/${image.thumb}`,
       originalAlt: description,
       thumbnailAlt: name,
-      srcSet: `/static/uploads/${image.medium} 300w, /static/uploads/${
-        image.big
-      } 900w`,
+      srcSet: `/static/uploads/${image.medium} 300w, /static/uploads/${image.big} 900w`,
       sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw'
     };
     if (image.medium === frontImage) {
