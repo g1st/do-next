@@ -1,6 +1,6 @@
 # Contemporary jewellery artist's portfolio and shop.
 
-[![Known Vulnerabilities](https://snyk.io/test/github/g1st/do-next/badge.svg)](https://snyk.io/test/github/g1st/do-next)
+[![Known Vulnerabilities](https://snyk.io/test/github/g1st/do-next/badge.svg?targetFile=package.json)](https://snyk.io/test/github/g1st/do-next?targetFile=package.json)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#contributing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
