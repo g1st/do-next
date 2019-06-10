@@ -81,7 +81,7 @@ module.exports = function emailTemplate(body, title) {
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td align="center">
-                        <img src="https://dovile-jewellery.gstankus.com/static/images/Dovile-Jewellery-5.JPG" alt="Dovile Jewellery FLOW brooch" style="max-width: 400px">
+                        <img src="https://dovilejewellery.com/static/images/terms-conditions.JPG" alt="Dovile Jewellery FLOW brooch" style="max-width: 400px">
                     </td>
                 </tr>
               </table>
