@@ -29,6 +29,7 @@ export const Content = styled.div`
   flex-direction: column;
   display: flex;
   justify-content: center;
+  user-select: none;
 
   @media (min-width: 700px) {
     margin: 30px auto 0 auto;
