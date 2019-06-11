@@ -32,6 +32,9 @@ const Edit = ({
             <Link href="/">
               <Button>Home</Button>
             </Link>
+            <Link href="/admin">
+              <Button>Add new</Button>
+            </Link>
             <Button onClick={reduxPropDeauthenticate}>Logout</Button>
           </div>
         </div>
