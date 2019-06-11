@@ -12,7 +12,8 @@ import {
   AUTHENTICATE_ERROR,
   DEAUTHENTICATE,
   INCREASE_LOADED_ITEMS,
-  COUNT_SHIPPING_COST
+  COUNT_SHIPPING_COST,
+  ADD_INSTAGRAM_DATA
 } from '../constants/action-types';
 
 export const initialState = {
@@ -20,7 +21,8 @@ export const initialState = {
   buyItNow: {},
   shippingCost: postageForCountry('GB'),
   authenticate: { token: null, error: false },
-  loadMore: { all: ITEMS_PER_PAGE }
+  loadMore: { all: ITEMS_PER_PAGE },
+  instagramData: { data: [], nextPage: null }
 };
 
 const cart = (state = initialState.cart, action) => {
@@ -80,12 +82,23 @@ const loadMore = (state = initialState.loadMore, action) => {
   return state;
 };
 
+const instagramData = (state = initialState.instagramData, action) => {
+  if (ADD_INSTAGRAM_DATA === action.type) {
+    return {
+      data: state.data.concat(action.payload.data),
+      nextPage: action.payload.nextPage
+    };
+  }
+  return state;
+};
+
 const dovile = combineReducers({
   cart,
   buyItNow,
   shippingCost,
   loadMore,
-  authenticate
+  authenticate,
+  instagramData
 });
 
 export default dovile;

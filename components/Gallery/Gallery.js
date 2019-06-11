@@ -88,13 +88,12 @@ class Gallery extends React.Component {
     };
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     const {
       toSwap: { collection }
     } = this.state;
     const { user, showCollection } = this.props;
     if (user && collection && showCollection !== collection) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ snapshots: {}, toSwap: {} });
     }
   }
