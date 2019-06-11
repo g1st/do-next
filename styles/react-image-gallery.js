@@ -28,9 +28,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .image-gallery-content.fullscreen {
-    .image-gallery-slide img {
-      width: auto;
-      height: calc(100vh - 106px);
+    .image-gallery-slide {
+      background: #fff;
+      img {
+        width: auto;
+        height: calc(100vh - 116px);
+      }
     }
   }
 
@@ -42,4 +45,7 @@ export const GlobalStyle = createGlobalStyle`
     border-color: #9e9e9e;
   } 
   
+  .image-gallery-thumbnails-wrapper.bottom {
+    background: #fff;
+  } 
 `;
