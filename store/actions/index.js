@@ -22,6 +22,11 @@ export const increaseLoadedItems = collection => ({
   collection
 });
 
+export const addInstagramData = (data, nextPage) => ({
+  type: actionTypes.ADD_INSTAGRAM_DATA,
+  payload: { data, nextPage }
+});
+
 // gets token from the api and stores it in the redux store and in cookie
 export const authenticate = ({ email, password }, type) => {
   if (type !== 'signin' && type !== 'signup') {
