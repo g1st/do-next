@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Router from 'next/router';
-import { InView } from 'react-intersection-observer';
 
 import Layout from '../components/Layout';
 import LandingPageGallery from '../components/LandingPageGallery/LandingPageGallery';
@@ -38,18 +37,7 @@ const Index = ({ pathname, collections, classes }) => (
       GALLERY
     </Button>
     <Newsletter />
-    <InView triggerOnce rootMargin="275px">
-      {({ inView, ref }) => (
-        <div ref={ref}>
-          {inView ? (
-            <InstagramGallery
-              account="dovilejewellery"
-              numberOfMediaElements={9}
-            />
-          ) : null}
-        </div>
-      )}
-    </InView>
+    <InstagramGallery />
   </Layout>
 );
 
