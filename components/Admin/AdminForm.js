@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import Router from 'next/router';
 import {
   TextField,
   FormControlLabel,
@@ -296,6 +297,8 @@ class AdminForm extends Component {
               ...justUpdatedImages.map(item => ({ [item.thumb]: false }))
             )
           });
+
+          Router.push(`/piece?id=${id}`, `/piece/${id}`);
         })
         .catch(err => {
           this.setState({ errors: err, updating: false });
