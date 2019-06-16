@@ -20,7 +20,6 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 
 import { appUrl } from '../../config';
-import { StyledAnchorLink } from '../../styles/Shared';
 import DangerZone from './DangerZone';
 import Error from '../Error/Error';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
@@ -423,15 +422,14 @@ class AdminForm extends Component {
         >
           {itemToEdit && (
             <div>
-              <Typography inline variant="body2">
-                Item's page:{' '}
-              </Typography>
               <Link
                 href={`/piece?id=${itemToEdit._id}`}
                 as={`/piece/${itemToEdit._id}`}
               >
-                <StyledAnchorLink>{itemToEdit.name}</StyledAnchorLink>
-              </Link>{' '}
+                <Button size="small" variant="contained" color="secondary">
+                  To {itemToEdit.name} page
+                </Button>
+              </Link>
             </div>
           )}
           <TextField
