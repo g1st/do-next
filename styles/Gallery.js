@@ -13,6 +13,7 @@ FilterWrapper.displayName = 'FilterWrapper';
 export const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
+  border: ${({ user }) => (user ? '1px solid lightgrey' : '')};
 `;
 FlexContainer.displayName = 'FlexContainer';
 

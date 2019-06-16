@@ -340,7 +340,7 @@ class Gallery extends React.Component {
                 key={item._id}
                 className={classes.gridItem}
               >
-                <FlexContainer>
+                <FlexContainer user={user}>
                   {user && (
                     <ButtonIndicator
                       activeSwap={toSwap.id === item._id}
