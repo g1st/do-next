@@ -101,5 +101,7 @@ Contributions are welcome.
 - [nikrb](https://github.com/nikrb)
 - [chingu](https://chingu.io/)
 - [fcc](https://www.freecodecamp.org/)
+- Red Pandas
+- BC Zalgiris
 - Friends
 - Family
