@@ -18,7 +18,7 @@ export const FlexContainer = styled.div`
 FlexContainer.displayName = 'FlexContainer';
 
 export const ButtonIndicator = styled.div`
-  background-color: ${props => (props.swapWithMe ? 'lightgreen' : '')};
-  background-color: ${props => (props.activeSwap ? 'lightgrey' : '')};
+  background-color: ${({ swapWithMe }) => (swapWithMe ? 'lightgreen' : '')};
+  background-color: ${({ activeSwap }) => (activeSwap ? 'lightgrey' : '')};
 `;
 ButtonIndicator.displayName = 'ButtonIndicator';
