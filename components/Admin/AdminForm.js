@@ -194,11 +194,11 @@ class AdminForm extends Component {
     const err = keys.reduce((acc, k) => {
       if (Object.prototype.hasOwnProperty.call(error[k], 'message')) {
         acc[k] = error[k].message;
-        return acc;
+      } else {
+        acc[k] = error[k];
       }
       return acc;
     }, {});
-
     if (error) {
       return this.setState({
         errors: err,
@@ -273,7 +273,6 @@ class AdminForm extends Component {
         .patch(`${appUrl}/api/update`, formData)
         .then(response => {
           const { error } = response.data;
-
           if (error) return this.handleErrors(error);
 
           const {
@@ -722,6 +721,9 @@ class AdminForm extends Component {
             {itemToEdit ? 'Edit item' : 'Add item'}
           </Button>
         </form>
+        {errors && (
+          <Typography align="center">There are errors in your form</Typography>
+        )}
         {itemToEdit ? (
           <DangerZone
             itemID={itemToEdit._id.toString()}
