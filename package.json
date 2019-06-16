@@ -1,21 +1,22 @@
 {
   "name": "do-next",
   "version": "1.0.0",
-  "description": "",
+  "description": "full stack MERN e-commerce app",
+  "keywords": ["react", "express", "mongodb", "nodejs", "e-commerce"],
+  "homepage": "https://github.com/g1st/do-next",
+  "author": "Gintaras Stankus, <gintstan@gmail.com>",
   "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/g1st/do-next/issues"
+  },
+  "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=production node server.js",
     "build": "next build",
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
-    "dev": "node server.js",
-    "db:populate": "cd util/seed && node seed.js",
-    "db:dropworks": "cd util/seed && node seed.js dropworks",
-    "db:dropall": "cd util/seed && node seed.js drop"
+    "dev": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
