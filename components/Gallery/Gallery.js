@@ -346,6 +346,23 @@ class Gallery extends React.Component {
                       activeSwap={toSwap.id === item._id}
                       swapWithMe={toSwap.id}
                     >
+                      {item.available ? (
+                        <Typography
+                          variant="body2"
+                          align="center"
+                          style={{ color: 'green' }}
+                        >
+                          Available to buy
+                        </Typography>
+                      ) : (
+                        <Typography
+                          variant="body2"
+                          align="center"
+                          style={{ color: 'red' }}
+                        >
+                          NOT available to buy
+                        </Typography>
+                      )}
                       <Button
                         onClick={() => this.swap(item)}
                         className={classes.swapButton}
