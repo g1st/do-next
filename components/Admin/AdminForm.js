@@ -324,6 +324,7 @@ class AdminForm extends Component {
             }),
             () => this.resetForm()
           );
+          Router.push(`/piece?id=${id}`, `/piece/${id}`);
         })
         .catch(err => {
           this.setState({ errors: err, updating: false });
