@@ -63,3 +63,14 @@ export const AdminLink = styled.a`
   margin-right: 10px;
 `;
 AdminLink.displayName = 'AdminLink';
+
+export const IconButtonWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+IconButtonWrapper.displayName = 'IconButtonWrapper';
+
+export const SizesWrapper = styled.div`
+  display: flex;
+`;
+SizesWrapper.displayName = 'SizesWrapper';
