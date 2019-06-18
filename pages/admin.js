@@ -6,7 +6,6 @@ import { Button } from '@material-ui/core';
 import { deauthenticate } from '../store/actions/index';
 import AdminForm from '../components/Admin/AdminForm';
 import SignIn from '../components/Admin/SignIn';
-import SignUp from '../components/Admin/SignUp';
 import Error from '../components/Error/Error';
 
 const styles = {
@@ -41,7 +40,6 @@ const Admin = ({
     ) : (
       <>
         <SignIn />
-        <SignUp />
         {authServerError ? (
           <Error>
             Sorry there was a problem connecting to authentication server.

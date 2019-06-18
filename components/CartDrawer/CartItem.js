@@ -55,6 +55,7 @@ const CartItem = ({
             <Typography variant="body2">{item.name}</Typography>
             <Typography variant="body2" style={{ fontWeight: 300 }}>
               £{item.price.toFixed(2)}
+              {item.ringSize ? `, size ${item.ringSize}` : null}
             </Typography>
           </ItemInfo>
           <IconButton
