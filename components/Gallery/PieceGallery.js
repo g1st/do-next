@@ -28,6 +28,12 @@ const styles = () => ({
   },
   buttonBase: {
     flexDirection: 'column'
+  },
+  textMargins: {
+    marginBottom: '20px',
+    '@media (min-width:960px)': {
+      marginBottom: '40px'
+    }
   }
 });
 
@@ -62,7 +68,7 @@ const PieceGallery = ({ data, currentItem, classes }) => {
     <div className={classes.wrapper}>
       {mightAlsoLikeData.length > 0 ? (
         <>
-          <div style={{ marginBottom: '40px' }}>
+          <div className={classes.textMargins}>
             <Typography variant="body1" color="secondary">
               YOU MIGHT ALSO LIKE
             </Typography>
