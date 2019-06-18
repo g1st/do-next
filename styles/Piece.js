@@ -31,7 +31,7 @@ Images.displayName = 'Images';
 
 export const Info = styled.div`
   @media (min-width: 960px) {
-    padding-left: 50px;
+    margin-left: 20px;
     width: 40%;
   }
 `;
