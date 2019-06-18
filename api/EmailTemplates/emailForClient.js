@@ -31,7 +31,7 @@ module.exports = function emailForClient(
             <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">
               <a href=${item.link}>${item.name}</a>, ${
             item.quantity > 1 ? `quantity: ${item.quantity}, ` : ''
-          }£${item.price}
+          }£${item.price}${item.ringSize ? `, size: ${item.ringSize}` : ''}
             </p>
             `
         )
