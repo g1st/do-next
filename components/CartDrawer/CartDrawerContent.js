@@ -134,7 +134,7 @@ const CartDrawerContent = ({
               >
                 <InfoIcon
                   fontSize="small"
-                  style={{ fill: 'rgba(0, 0, 0, 0.87)', marginLeft: '6px' }}
+                  style={{ fill: 'rgba(0, 0, 0, 0.54)', marginLeft: '6px' }}
                 />
               </Tooltip>
             </div>
