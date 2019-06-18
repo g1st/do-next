@@ -75,10 +75,12 @@ class Piece extends React.Component {
       label: 'BuyItNow'
     });
 
-    if (item.category === 'ring' && size === '') {
-      return this.setState({ error: true });
+    if (item.madeToOrder && item.category === 'ring') {
+      item.ringSize = size;
+      if (size === '') {
+        return this.setState({ error: true });
+      }
     }
-    item.ringSize = size;
     buyItNowRedux(item);
     Router.push('/checkout');
   };
@@ -93,10 +95,12 @@ class Piece extends React.Component {
       label: 'AddToCart'
     });
 
-    if (cartData.category === 'ring' && size === '') {
-      return this.setState({ error: true });
+    if (cartData.madeToOrder && cartData.category === 'ring') {
+      cartData.ringSize = size;
+      if (size === '') {
+        return this.setState({ error: true });
+      }
     }
-    cartData.ringSize = size;
     addToCartRedux(cartData);
   };
 
@@ -288,7 +292,7 @@ class Piece extends React.Component {
 
               {available ? (
                 <div>
-                  {category === 'ring' ? (
+                  {category === 'ring' && madeToOrder ? (
                     <SizesWrapper>
                       <SizeInput
                         handleChange={this.handleSizeChange}
