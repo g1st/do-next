@@ -2,7 +2,13 @@
   "name": "do-next",
   "version": "1.0.0",
   "description": "full stack MERN e-commerce app",
-  "keywords": ["react", "express", "mongodb", "nodejs", "e-commerce"],
+  "keywords": [
+    "react",
+    "express",
+    "mongodb",
+    "nodejs",
+    "e-commerce"
+  ],
   "homepage": "https://github.com/g1st/do-next",
   "author": "Gintaras Stankus, <gintstan@gmail.com>",
   "main": "index.js",
@@ -44,6 +50,7 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-image-gallery": "^0.8.17",
+    "react-intersection-observer": "^8.23.0",
     "react-jss": "^8.6.1",
     "react-redux": "^7.1.0",
     "react-stripe-elements": "^3.0.0",
