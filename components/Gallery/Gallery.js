@@ -379,10 +379,13 @@ class Gallery extends React.Component {
                   >
                     <ButtonBase classes={{ root: classes.buttonBase }}>
                       <img
-                        src={`/static/uploads/${item.frontImage.replace(
+                        src={`/static/uploads/${item.frontImage}`}
+                        srcSet={`/static/uploads/${
+                          item.frontImage
+                        } 1x, /static/uploads/${item.frontImage.replace(
                           /300\./,
                           '.'
-                        )}`}
+                        )} 2x`}
                         alt={item.description}
                         className={classes.image}
                         onError={e => this.onCardMediaError(e)}
