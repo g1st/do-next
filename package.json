@@ -10,6 +10,10 @@
     "url": "https://github.com/g1st/do-next/issues"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=10.16.0",
+    "npm": ">=6.0.0"
+  },
   "scripts": {
     "start": "NODE_ENV=production node server.js",
     "build": "next build",
