@@ -39,6 +39,7 @@ const styles = theme => ({
     maxWidth: '700px',
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
+    margin: `${theme.spacing.unit * 3}px auto ${theme.spacing.unit * 3}px auto`,
     padding: theme.spacing.unit * 2,
     paddingBottom: '20px',
     backgroundColor: '#fafafa',
