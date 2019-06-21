@@ -29,9 +29,11 @@ const styles = () => ({
   },
   buttonContainer: {
     textAlign: 'center',
+    marginTop: '40px',
     marginBottom: '20px',
     '@media (min-width: 960px)': {
       paddingBottom: '40px',
+      marginTop: '60px',
       paddingTop: '20px'
     }
   },
