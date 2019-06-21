@@ -48,7 +48,8 @@ const styles = () => ({
     justifyContent: 'center'
   },
   image: {
-    width: '100%'
+    width: '100%',
+    maxWidth: '300px'
   },
   buttonBase: {
     flexDirection: 'column'
@@ -378,7 +379,10 @@ class Gallery extends React.Component {
                   >
                     <ButtonBase classes={{ root: classes.buttonBase }}>
                       <img
-                        src={`/static/uploads/${item.frontImage}`}
+                        src={`/static/uploads/${item.frontImage.replace(
+                          /300\./,
+                          '.'
+                        )}`}
                         alt={item.description}
                         className={classes.image}
                         onError={e => this.onCardMediaError(e)}
