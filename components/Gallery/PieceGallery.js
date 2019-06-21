@@ -17,7 +17,7 @@ const styles = () => ({
   },
   image: {
     width: '100%',
-    height: '100%'
+    maxWidth: '300px'
   },
   gridItem: {
     display: 'flex',
