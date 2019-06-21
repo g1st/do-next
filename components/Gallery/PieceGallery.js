@@ -87,6 +87,12 @@ const PieceGallery = ({ data, currentItem, classes }) => {
                   <ButtonBase className={classes.buttonBase}>
                     <img
                       src={`/static/uploads/${item.frontImage}`}
+                      srcSet={`/static/uploads/${
+                        item.frontImage
+                      } 1x, /static/uploads/${item.frontImage.replace(
+                        /300\./,
+                        '.'
+                      )} 2x`}
                       alt={item.description}
                       className={classes.image}
                     />
