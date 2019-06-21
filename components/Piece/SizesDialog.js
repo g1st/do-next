@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, Dialog, DialogActions } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 
@@ -20,16 +21,18 @@ class SizesDialog extends React.Component {
 
   render() {
     const { open } = this.state;
+    const { forDimensions } = this.props;
 
     return (
-      <IconButtonWrapper>
+      <IconButtonWrapper forDimensions={forDimensions}>
         <div>
           <InfoIcon
             fontSize="small"
             style={{
-              marginLeft: '12px',
+              marginLeft: forDimensions ? '6px' : '12px',
               fill: 'rgba(0,0,0,0.54)',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              transform: `translateY(${forDimensions ? '3px' : ''})`
             }}
             onClick={this.handleClickOpen}
           />
@@ -46,5 +49,9 @@ class SizesDialog extends React.Component {
     );
   }
 }
+
+SizesDialog.propTypes = {
+  forDimensions: PropTypes.bool
+};
 
 export default SizesDialog;
