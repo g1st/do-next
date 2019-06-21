@@ -16,9 +16,9 @@
 - Image processing and resizing on upload with [sharp](https://github.com/lovell/sharp).
 - Admin's features:
 
-  - add, edit, delete items or whole collections.
-  - change item's availabilities and producing times for _made to order_ items.
-  - change front image for item gallery.
+  - add, edit, delete items or whole collections;
+  - change item's availabilities and producing times for _made to order_ items;
+  - change front image for item gallery;
   - sort gallery items on a grid for desired looks.
 
 ## To run locally
