@@ -14,11 +14,11 @@
 - Instant emails with order details for client and owner after successful purchase.
 - Subscription to newsletter.
 - Image processing and resizing on upload with [sharp](https://github.com/lovell/sharp).
-- admin can:
+- Admin's features:
 
-  - add, edit, delete items or whole collections.
-  - change item's availabilities and producing times for _made to order_ items.
-  - change front image for item gallery.
+  - add, edit, delete items or whole collections;
+  - change item's availabilities and producing times for _made to order_ items;
+  - change front image for item gallery;
   - sort gallery items on a grid for desired looks.
 
 ## To run locally
