@@ -82,8 +82,7 @@ class InstagramGallery extends React.Component {
         } = res.data;
 
         const mappedData = data.map(post => ({
-          // image: post.images.standard_resolution.url,
-          image: post.images.low_resolution.url,
+          image: post.images.standard_resolution.url,
           link: post.link,
           caption: post.caption.text
         }));
