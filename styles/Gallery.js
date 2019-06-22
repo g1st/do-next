@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const ItemsContainer = styled.ul`
   list-style: none;
@@ -22,3 +22,34 @@ export const ButtonIndicator = styled.div`
   background-color: ${({ activeSwap }) => (activeSwap ? 'lightgrey' : '')};
 `;
 ButtonIndicator.displayName = 'ButtonIndicator';
+
+export const Image = styled.img`
+  display: ${({ loaded }) => (loaded ? 'block' : 'none')};
+  width: 100%;
+  max-width: 300px;
+`;
+Image.displayName = 'Image';
+
+const loading = keyframes`
+  0% {
+    background-position: -100px
+  }
+  60%, 100% {
+    background-position: 320px
+  }
+`;
+
+export const Skeleton = styled.div`
+  height: 300px;
+  width: 300px;
+  background-color: #f4f4f4;
+  background-image: linear-gradient(
+    90deg,
+    #f4f4f4 0px,
+    rgba(229, 229, 229, 0.8) 60px,
+    #f4f4f4 100px
+  );
+  background-size: 500px;
+  animation: ${loading} 2s infinite;
+`;
+Skeleton.displayName = 'Skeleton';

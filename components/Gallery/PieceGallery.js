@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import { Grid, ButtonBase, Typography } from '@material-ui/core';
 
+import ImageWithLoading from './ImageWithLoading';
+
 const styles = () => ({
   wrapper: {
     marginTop: '30px',
@@ -14,10 +16,6 @@ const styles = () => ({
   gridWrapper: {
     margin: 0,
     width: '100%'
-  },
-  image: {
-    width: '100%',
-    maxWidth: '300px'
   },
   gridItem: {
     display: 'flex',
@@ -85,7 +83,7 @@ const PieceGallery = ({ data, currentItem, classes }) => {
               >
                 <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
                   <ButtonBase className={classes.buttonBase}>
-                    <img
+                    <ImageWithLoading
                       src={`/static/uploads/${item.frontImage}`}
                       srcSet={`/static/uploads/${
                         item.frontImage
@@ -94,7 +92,6 @@ const PieceGallery = ({ data, currentItem, classes }) => {
                         '.'
                       )} 2x`}
                       alt={item.description}
-                      className={classes.image}
                     />
                     <Typography>{item.name}</Typography>
                     <Typography className={classes.light}>
