@@ -74,7 +74,7 @@ const About = ({ pathname, collections, classes }) => (
             Dovile Kondrasovaite
           </Typography>
           <Typography variant="body2" gutterBottom>
-            Born 19/3/1989 in Dusetos, Lithuania
+            Born 1989, Dusetos, Lithuania
           </Typography>
         </AuthorNameText>
         <WrapLink>
@@ -109,7 +109,7 @@ const About = ({ pathname, collections, classes }) => (
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
-                  Study exchange Escola Massana, Barcelona, Spain
+                  Study exchange at Escola Massana, Barcelona, Spain
                 </Typography>
               </Data>
             </Row>
