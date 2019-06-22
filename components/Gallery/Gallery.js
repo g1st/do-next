@@ -15,6 +15,7 @@ import {
   ButtonIndicator
 } from '../../styles/Gallery';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
+import ImageWithLoading from './ImageWithLoading';
 
 const styles = () => ({
   root: {
@@ -48,10 +49,6 @@ const styles = () => ({
   gridItem: {
     display: 'flex',
     justifyContent: 'center'
-  },
-  image: {
-    width: '100%',
-    maxWidth: '300px'
   },
   buttonBase: {
     flexDirection: 'column'
@@ -126,14 +123,6 @@ class Gallery extends React.Component {
         [showCollection]: { filter: value, category: value }
       }
     });
-  };
-
-  onCardMediaError = e => {
-    const fallbackImage = '../../static/images/fallback.png';
-
-    if (e.target.src.indexOf('/static/images/fallback.png') === -1) {
-      e.target.src = fallbackImage;
-    }
   };
 
   swapItemsIndexes = (itemId, collection) => {
@@ -380,7 +369,7 @@ class Gallery extends React.Component {
                     as={`/piece/${item._id}`}
                   >
                     <ButtonBase classes={{ root: classes.buttonBase }}>
-                      <img
+                      <ImageWithLoading
                         src={`/static/uploads/${item.frontImage}`}
                         srcSet={`/static/uploads/${
                           item.frontImage
@@ -389,8 +378,6 @@ class Gallery extends React.Component {
                           '.'
                         )} 2x`}
                         alt={item.description}
-                        className={classes.image}
-                        onError={e => this.onCardMediaError(e)}
                       />
                       <Typography component="span">{item.name}</Typography>
                       <Typography component="span" className={classes.light}>
