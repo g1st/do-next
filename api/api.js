@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const slugify = require('slugify');
-const { check, oneOf, validationResult } = require('express-validator/check');
+const { check, oneOf, validationResult } = require('express-validator');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const mongoose = require('mongoose');
 const axios = require('axios');
