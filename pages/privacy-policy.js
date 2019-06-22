@@ -39,7 +39,8 @@ const TermsAndConditions = ({ collections, classes }) => (
               variant="subtitle2"
               style={{ fontWeight: 300 }}
             >
-              FLOW n°B13 and n°B12 | brooches | handcarved ebony
+              FLOW earrings, ring, brooch, cufflinks | handcarved ebony, gold
+              plated silver
             </Typography>
           </figcaption>
         </Figure>
