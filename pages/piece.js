@@ -344,7 +344,8 @@ class Piece extends React.Component {
                   target="_top"
                 >
                   &#104;&#101;&#108;&#108;&#111;&#064;&#100;&#111;&#118;&#105;&#108;&#101;&#106;&#101;&#119;&#101;&#108;&#108;&#101;&#114;&#121;&#046;&#099;&#111;&#109;
-                </Mail>
+                </Mail>{' '}
+                or open contact form below.
               </Typography>
               <DialogForm />
             </Text>
