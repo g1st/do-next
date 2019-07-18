@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 
 import {
   CardExpiryElement,
-  CardCVCElement,
+  CardCvcElement,
   CardNumberElement
 } from 'react-stripe-elements';
 
@@ -68,7 +68,7 @@ const StripeDetailForm = ({
       <Grid item xs={6}>
         <StripeElementWrapper
           label="CVC"
-          component={CardCVCElement}
+          component={CardCvcElement}
           name="CVC_number"
           onChange={handleStripeChange}
           error={cvcError}
