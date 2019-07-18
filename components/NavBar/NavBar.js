@@ -35,14 +35,6 @@ const styles = theme => ({
     fontSize: '1.2rem',
     textTransform: 'uppercase'
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
-  iconButton: {
-    marginLeft: 20,
-    marginRight: 0
-  },
   toggleNav: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
@@ -154,7 +146,7 @@ class NavBar extends React.Component {
 
     const smallMenu = (
       <IconButton
-        className={[classes.menuButton, classes.toggleNavMenu].join(' ')}
+        className={classes.toggleNavMenu}
         color="inherit"
         aria-label="Menu"
         onClick={this.toggleDrawer('drawerNav', true)}
@@ -211,7 +203,6 @@ class NavBar extends React.Component {
               ))}
             </Menu>
             <IconButton
-              className={classes.iconButton}
               color="inherit"
               aria-label="Shopping Basket"
               onClick={this.toggleDrawer('drawerCart', true)}
