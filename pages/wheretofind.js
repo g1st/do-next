@@ -109,27 +109,6 @@ const WhereToFind = ({ pathname, collections, classes }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">May - July</Typography>
-                </Data>
-                <Data>
-                  <AnchorLink
-                    href="http://www.lgac.org.uk/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Typography variant="body2" gutterBottom inline>
-                      SUMMER SHOWCASE
-                    </Typography>
-                  </AnchorLink>
-                  <Typography variant="body2" gutterBottom inline>
-                    {' '}
-                    at Llantarnam Grange Arts Centre, Wales, UK
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
                   <Typography variant="body2">10-12 Oct</Typography>
                 </Data>
                 <Data>
