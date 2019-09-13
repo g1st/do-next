@@ -143,6 +143,26 @@ const About = ({ pathname, collections, classes }) => (
             <Row>
               <Data>
                 <Typography variant="body2" gutterBottom>
+                  2019 - 2020
+                </Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  Artist in Residence,{' '}
+                  <AnchorLink
+                    href="https://www.bcu.ac.uk/jewellery"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Birmingham School of Jewellery
+                  </AnchorLink>
+                  , UK
+                </Typography>{' '}
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                <Typography variant="body2" gutterBottom>
                   2013 - 2015
                 </Typography>
               </Data>
