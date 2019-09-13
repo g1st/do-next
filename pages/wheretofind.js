@@ -109,7 +109,7 @@ const WhereToFind = ({ pathname, collections, classes }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">10-12 Oct</Typography>
+                  <Typography variant="body2">10 - 12 Oct</Typography>
                 </Data>
                 <Data>
                   <AnchorLink
@@ -123,6 +123,26 @@ const WhereToFind = ({ pathname, collections, classes }) => (
                   </AnchorLink>
                   <Typography variant="body2" gutterBottom inline>
                     , Barcelona, Spain
+                  </Typography>
+                </Data>
+              </Row>
+              <Row>
+                <Data>
+                  {' '}
+                  <Typography variant="body2">4 Nov - 23 Feb</Typography>
+                </Data>
+                <Data>
+                  <AnchorLink
+                    href="https://ysp.org.uk/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Typography variant="body2" gutterBottom inline>
+                      MADE Showcase
+                    </Typography>
+                  </AnchorLink>
+                  <Typography variant="body2" gutterBottom inline>
+                    , Yorkshire Sculpture Park
                   </Typography>
                 </Data>
               </Row>
