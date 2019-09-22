@@ -40,7 +40,8 @@ co(function*() {
   mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
     useFindAndModify: false,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useUnifiedTopology: true
   });
   const db = yield mongoose.connection;
 
