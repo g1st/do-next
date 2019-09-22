@@ -22,36 +22,56 @@ export const attemptPayment = ({
   postal_code
 }) =>
   stripe
-    .createToken({
-      name: `${first_name} ${last_name}`,
-      address_line1: address1,
-      address_line2: address2,
-      address_city: city,
-      address_country: country,
-      address_zip: postal_code
+    .createPaymentMethod('card', {
+      billing_details: {
+        name: `${first_name} ${last_name}`,
+        email,
+        phone,
+        address: {
+          line1: address1,
+          line2: address2,
+          city,
+          country,
+          postal_code
+        }
+      }
     })
     .then(payload => {
       const purchaseDetails = getPurchaseDetails(
         buyItNowItem,
-          shippingCost,
+        shippingCost,
         cart
       );
 
-      const { token, error } = payload;
+      const { paymentMethod, error } = payload;
       if (error && error.code === 'postal_code_invalid') {
         return {
           data: {
-            errors: {
-              msg: 'The postal code provided was incorrect.',
-              param: 'additional.postal_code'
-            }
+            errors: [
+              {
+                msg: 'The postal code provided was incorrect.',
+                param: 'additional.postal_code'
+              }
+            ]
+          }
+        };
+      }
+
+      if (error) {
+        return {
+          data: {
+            errors: [
+              {
+                msg: error.message,
+                param: '_error'
+              }
+            ]
           }
         };
       }
 
       return axios.post(`${appUrl}/api/charge`, {
-        token: token.id,
-        payload,
+        payment_method_id: paymentMethod.id,
         additional: {
           email,
           first_name,
@@ -70,4 +90,14 @@ export const attemptPayment = ({
     })
     .catch(err => {
       console.log(err);
+      return {
+        data: {
+          errors: [
+            {
+              msg: 'error from stripe.js',
+              param: '_error'
+            }
+          ]
+        }
+      };
     });

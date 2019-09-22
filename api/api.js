@@ -14,6 +14,7 @@ const Counter = require('./models/counters');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const serverUtils = require('../util/serverHelper');
+const { generate_payment_response } = require('../util/helpers');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
 
 module.exports = (db, upload) => {
@@ -555,136 +556,138 @@ module.exports = (db, upload) => {
       }
 
       /* eslint-disable camelcase */
-      let stripe_result;
-      if (process.env.NODE_ENV === 'production') {
-        stripe_result = await stripe.charges.create({
+      let intent;
+      if (req.body.payment_method_id) {
+        intent = await stripe.paymentIntents.create({
           amount: amount * 100, // stripe needs cents
           currency: 'gbp',
           description: `Purchase at dovilejewellery.com`,
-          source: req.body.token
+          payment_method: req.body.payment_method_id,
+          confirmation_method: 'manual',
+          confirm: true
         });
-      } else {
-        stripe_result = {
-          status: 200,
-          id: `paymentId${Date.now()}`,
-          amount: amount * 100,
-          source: `sourceToken${Date.now()}`,
-          receipt_url: `receipt_url_${Date.now()}`
-        };
+      } else if (req.body.payment_intent_id) {
+        intent = await stripe.paymentIntents.confirm(
+          req.body.payment_intent_id
+        );
       }
-      const {
-        status,
-        id,
-        amount: amount_paid,
-        source,
-        receipt_url
-      } = stripe_result;
 
-      // send confirmation email to seller and buyer
-      await sendPurchaseEmail(req.body);
+      const paymentStatus = generate_payment_response(intent);
+      paymentStatus.additional = { ...req.body.additional };
 
-      if (boughtFrom === 'buyItNow') {
-        const { madeToOrder } = req.body.additional.purchaseDetails;
-        if (madeToOrder === false) {
-          await Work.findByIdAndUpdate({ _id }, { $set: { available: false } });
+      if (paymentStatus.success === true) {
+        if (process.env.NODE_ENV === 'production') {
+          // send confirmation email to seller and buyer
+          await sendPurchaseEmail(req.body);
         }
-      } else {
-        // bought from cart - might be multiple
-        const ids = req.body.additional.purchaseDetails.selectedItems
-          .filter(item => item.madeToOrder === false)
-          .map(item => ({
-            id: item._id
-          }));
+        const [
+          { id, amount: amount_paid, receipt_url, payment_method: source }
+        ] = intent.charges.data;
 
-        const promises = ids.map(item =>
-          Work.findByIdAndUpdate(
-            { _id: item.id },
-            { $set: { available: false } }
-          )
-        );
+        if (boughtFrom === 'buyItNow') {
+          const { madeToOrder } = req.body.additional.purchaseDetails;
+          if (madeToOrder === false) {
+            await Work.findByIdAndUpdate(
+              { _id },
+              { $set: { available: false } }
+            );
+          }
+        } else {
+          // bought from cart - might be multiple
+          const ids = req.body.additional.purchaseDetails.selectedItems
+            .filter(item => item.madeToOrder === false)
+            .map(item => ({
+              id: item._id
+            }));
 
-        await Promise.all(promises);
-      }
+          const promises = ids.map(item =>
+            Work.findByIdAndUpdate(
+              { _id: item.id },
+              { $set: { available: false } }
+            )
+          );
 
-      const { client_ip } = req.body.payload.token;
-      const {
-        email,
-        first_name,
-        last_name,
-        phone,
-        address1,
-        address2,
-        city,
-        additional_info,
-        full_country_name,
-        postal_code,
-        purchaseDetails
-      } = req.body.additional;
-      /* eslint-enable camelcase */
+          await Promise.all(promises);
+        }
 
-      let client;
-
-      // check if client already exists
-      client = await db
-        .collection('clients')
-        .findOne({ email: email.toLowerCase().trim() });
-
-      // client exists
-      if (client) {
-        const order = new Order({
-          _id: mongoose.Types.ObjectId(),
-          transaction_id: id,
-          receipt_url,
-          amount_paid,
-          source,
-          purchaseDetails,
-          additional_info,
-          client: client._id
-        });
-
-        await db.collection('orders').insertOne(order);
-
-        await Client.findOneAndUpdate(
-          { _id: client._id },
-          { $push: { orders: order._id } }
-        );
-      } else {
-        // new client
-        const orderId = mongoose.Types.ObjectId();
-
-        client = new Client({
-          _id: mongoose.Types.ObjectId(),
+        const {
+          email,
           first_name,
           last_name,
-          email,
           phone,
-          address: {
-            address1,
-            address2,
-            city,
-            country: full_country_name,
-            postal_code,
-            client_ip
-          },
-          orders: [orderId]
-        });
-
-        const order = new Order({
-          _id: orderId,
-          transaction_id: id,
-          receipt_url,
-          amount_paid,
-          source,
-          purchaseDetails,
+          address1,
+          address2,
+          city,
           additional_info,
-          client: client._id
-        });
+          full_country_name,
+          postal_code,
+          purchaseDetails
+        } = req.body.additional;
+        /* eslint-enable camelcase */
 
-        await db.collection('orders').insertOne(order);
-        await db.collection('clients').insertOne(client);
+        let client;
+
+        // check if client already exists
+        client = await db
+          .collection('clients')
+          .findOne({ email: email.toLowerCase().trim() });
+
+        // client exists
+        if (client) {
+          const order = new Order({
+            _id: mongoose.Types.ObjectId(),
+            transaction_id: id,
+            receipt_url,
+            amount_paid,
+            source,
+            purchaseDetails,
+            additional_info,
+            client: client._id
+          });
+
+          await db.collection('orders').insertOne(order);
+
+          await Client.findOneAndUpdate(
+            { _id: client._id },
+            { $push: { orders: order._id } }
+          );
+        } else {
+          // new client
+          const orderId = mongoose.Types.ObjectId();
+
+          client = new Client({
+            _id: mongoose.Types.ObjectId(),
+            first_name,
+            last_name,
+            email,
+            phone,
+            address: {
+              address1,
+              address2,
+              city,
+              country: full_country_name,
+              postal_code
+            },
+            orders: [orderId]
+          });
+
+          const order = new Order({
+            _id: orderId,
+            transaction_id: id,
+            receipt_url,
+            amount_paid,
+            source,
+            purchaseDetails,
+            additional_info,
+            client: client._id
+          });
+
+          await db.collection('orders').insertOne(order);
+          await db.collection('clients').insertOne(client);
+        }
       }
 
-      return status;
+      return paymentStatus;
     })
   );
 

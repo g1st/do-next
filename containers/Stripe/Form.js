@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Typography, Paper, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
+import { appUrl } from '../../config';
 import { clearCart, clearBuyItNow } from '../../store/actions';
 import CartDrawerContent from '../../components/CartDrawer/CartDrawerContent';
 import Error from '../../components/Error/Error';
@@ -155,11 +157,100 @@ class StripeForm extends Component {
     return false;
   };
 
+  handleServerResponse = response => {
+    const {
+      clearCart: clearCartRedux,
+      clearBuyItNow: clearBuyItNowRedux
+    } = this.props;
+
+    if (response.data.errors) {
+      // Show error from server on payment form
+      window.scrollTo(0, 0);
+
+      this.setState({
+        backend_validation_errors: response.data.errors,
+        processing: false
+      });
+    } else if (response.data.requires_action) {
+      // Use Stripe.js to handle required card action
+      this.handleAction(response.data);
+    } else {
+      // Show success message
+      this.setState(() => ({ orderComplete: true, processing: false }));
+      clearCartRedux();
+      clearBuyItNowRedux();
+      window.scrollTo(0, 0);
+    }
+  };
+
+  handleAction = response => {
+    const { stripe, shippingCost, buyItNowItem, cart } = this.props;
+    const {
+      first_name,
+      last_name,
+      email,
+      phone,
+      address1,
+      address2,
+      country,
+      city,
+      postal_code,
+      full_country_name,
+      additional_info
+    } = this.state;
+
+    stripe
+      .handleCardAction(response.payment_intent_client_secret)
+      .then(result => {
+        if (result.error) {
+          // Show error in payment form
+          window.scrollTo(0, 0);
+
+          this.setState({
+            backend_validation_errors: [
+              {
+                msg: result.error.message,
+                param: '_error'
+              }
+            ],
+            processing: false
+          });
+        } else {
           const purchaseDetails = getPurchaseDetails(
             buyItNowItem,
             shippingCost,
             cart
           );
+          // The card action has been handled
+          // The PaymentIntent can be confirmed again on the server
+          axios
+            .post(`${appUrl}/api/charge`, {
+              payment_intent_id: result.paymentIntent.id,
+              additional: {
+                email,
+                first_name,
+                last_name,
+                phone,
+                address1,
+                address2,
+                city,
+                additional_info,
+                country,
+                full_country_name,
+                postal_code,
+                purchaseDetails
+              }
+            })
+            .then(res => {
+              this.handleServerResponse(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      });
+  };
+
   handleSubmit = ev => {
     ev.preventDefault();
 
@@ -170,11 +261,7 @@ class StripeForm extends Component {
     });
 
     const { stripe_errors } = this.state;
-    const {
-      stripe,
-      clearCart: clearCartRedux,
-      clearBuyItNow: clearBuyItNowRedux
-    } = this.props;
+    const { stripe } = this.props;
 
     if (!this.isStripesInputsOk() || stripe_errors) return;
     this.setState(() => ({ processing: true }));
@@ -182,27 +269,21 @@ class StripeForm extends Component {
     if (stripe) {
       attemptPayment({ ...this.state, ...this.props })
         .then(res => {
-          // backend did not validate form
-          if (res.data.errors) {
-            window.scrollTo(0, 0);
-
-            this.setState({
-              backend_validation_errors: res.data.errors,
-              processing: false
-            });
-
-            return;
-          }
-          if (res.status === 200) {
-            this.setState(() => ({ orderComplete: true, processing: false }));
-            clearCartRedux();
-            clearBuyItNowRedux();
-            window.scrollTo(0, 0);
-          }
+          this.handleServerResponse(res);
         })
         .catch(err => {
           window.scrollTo(0, 0);
-          this.setState(() => ({ error: true, processing: false }));
+          this.setState({
+            // actually error from stripe.js
+            backend_validation_errors: [
+              {
+                msg:
+                  'We cannot process your payment. Please check your payment details and try again.',
+                param: '_error'
+              }
+            ],
+            processing: false
+          });
         });
     } else {
       console.log('Form submitted before Stripe.js loaded.');
