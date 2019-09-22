@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 import { appUrl } from '../../config';
-import { cartHelper } from '../../util/helpers';
+import { getPurchaseDetails } from '../../util/helpers';
 
 export const attemptPayment = ({
   first_name,
@@ -31,25 +31,11 @@ export const attemptPayment = ({
       address_zip: postal_code
     })
     .then(payload => {
-      let purchaseDetails;
-      if (Object.prototype.hasOwnProperty.call(buyItNowItem, 'name')) {
-        purchaseDetails = {
-          ...buyItNowItem,
+      const purchaseDetails = getPurchaseDetails(
+        buyItNowItem,
           shippingCost,
-          boughtFrom: 'buyItNow'
-        };
-      } else {
-        const selectedItems = cart;
-        const totalItems = cartHelper.totalItems(cart);
-        const totalPrice = cartHelper.totalPrice(cart);
-        purchaseDetails = {
-          selectedItems,
-          totalItems,
-          totalPrice,
-          boughtFrom: 'cart',
-          shippingCost
-        };
-      }
+        cart
+      );
 
       const { token, error } = payload;
       if (error && error.code === 'postal_code_invalid') {

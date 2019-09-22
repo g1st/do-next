@@ -13,6 +13,7 @@ import CustomerOrderDetailForm from './CustomerOrderDetailForm';
 import StripeDetailForm from './StripeDetailForm';
 import PaymentFailureSegment from './PaymentFailureSegment';
 import { attemptPayment } from './actions';
+import { getPurchaseDetails } from '../../util/helpers';
 import BuyButton from './BuyButton';
 import ModalLoader from '../../components/UI/ModalLoader/ModalLoader';
 import * as gtag from '../../lib/gtag';
@@ -154,6 +155,11 @@ class StripeForm extends Component {
     return false;
   };
 
+          const purchaseDetails = getPurchaseDetails(
+            buyItNowItem,
+            shippingCost,
+            cart
+          );
   handleSubmit = ev => {
     ev.preventDefault();
 

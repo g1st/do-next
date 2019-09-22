@@ -65,3 +65,24 @@ export const pluralise = category => {
       return 'all types';
   }
 };
+
+exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart) => {
+  if (Object.prototype.hasOwnProperty.call(buyItNowItem, 'name')) {
+    return {
+      ...buyItNowItem,
+      shippingCost,
+      boughtFrom: 'buyItNow'
+    };
+  } else {
+    const selectedItems = cart;
+    const totalItems = this.cartHelper.totalItems(cart);
+    const totalPrice = this.cartHelper.totalPrice(cart);
+    return {
+      selectedItems,
+      totalItems,
+      totalPrice,
+      boughtFrom: 'cart',
+      shippingCost
+    };
+  }
+};
