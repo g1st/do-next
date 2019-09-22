@@ -39,6 +39,14 @@ const styles = {
     '@media (min-width: 960px)': {
       margin: '60px 0 40px 0'
     }
+  },
+  headerWrapper: {
+    marginBottom: '2em',
+    marginTop: '4em',
+    '@media (min-width: 960px)': {
+      marginBottom: '3em',
+      marginTop: '9em'
+  }
   }
 };
 
@@ -118,7 +126,7 @@ class InstagramGallery extends React.Component {
         )}
         {data.length > 0 ? (
           <>
-            <div style={{ marginBottom: '40px' }}>
+            <div className={classes.headerWrapper}>
               <Typography variant="h5" align="center" color="secondary">
                 INSTAGRAM GALLERY
               </Typography>
