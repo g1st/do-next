@@ -39,12 +39,12 @@ const Index = ({ pathname, collections, classes }) => (
       GALLERY
     </Button>
     <JOYA />
-    <Newsletter />
     <InView triggerOnce rootMargin="400px">
       {({ inView, ref }) => (
         <div ref={ref}>{inView ? <InstagramGallery /> : null}</div>
       )}
     </InView>
+    <Newsletter />
   </Layout>
 );
 
