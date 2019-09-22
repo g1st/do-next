@@ -41,6 +41,14 @@ const styles = () => ({
 });
 
 class Filter extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    data: PropTypes.arrayOf(PropTypes.object),
+    option: PropTypes.string,
+    handleChange: PropTypes.func,
+    collection: PropTypes.string
+  };
+
   state = {
     anchorEl: null
   };
@@ -141,13 +149,5 @@ class Filter extends React.Component {
     );
   }
 }
-
-Filter.propTypes = {
-  classes: PropTypes.object.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object),
-  option: PropTypes.string,
-  handleChange: PropTypes.func,
-  collection: PropTypes.string
-};
 
 export default withStyles(styles)(Filter);

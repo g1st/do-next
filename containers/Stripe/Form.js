@@ -46,6 +46,16 @@ const styles = theme => ({
 });
 
 class StripeForm extends Component {
+  static propTypes = {
+    buyItNowItem: PropTypes.object,
+    cart: PropTypes.array,
+    classes: PropTypes.object.isRequired,
+    clearBuyItNow: PropTypes.func,
+    clearCart: PropTypes.func,
+    shippingCost: PropTypes.number,
+    stripe: PropTypes.object
+  };
+
   state = {
     orderComplete: false,
     error: false,
@@ -401,18 +411,6 @@ const mapDispatchToProps = dispatch => ({
   clearBuyItNow: () => dispatch(clearBuyItNow()),
   clearCart: () => dispatch(clearCart())
 });
-
-StripeForm.propTypes = {
-  buyItNowItem: PropTypes.object,
-  cart: PropTypes.array,
-  classes: PropTypes.object.isRequired,
-  clearBuyItNow: PropTypes.func,
-  // eslint-disable-next-line react/no-unused-prop-types
-  clearCart: PropTypes.func,
-  // eslint-disable-next-line react/no-unused-prop-types
-  shippingCost: PropTypes.number,
-  stripe: PropTypes.object
-};
 
 export default withStyles(styles)(
   connect(

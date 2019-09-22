@@ -62,6 +62,17 @@ const styles = () => ({
 });
 
 class Gallery extends React.Component {
+  static propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object),
+    showCollection: PropTypes.string,
+    classes: PropTypes.object,
+    collectionsNames: PropTypes.arrayOf(PropTypes.string),
+    reduxLoadedItems: PropTypes.object,
+    increaseLoadedItems: PropTypes.func,
+    showFilter: PropTypes.bool,
+    user: PropTypes.string
+  };
+
   constructor(props) {
     super(props);
     const { data, collectionsNames, reduxLoadedItems } = props;
@@ -395,17 +406,6 @@ class Gallery extends React.Component {
     );
   }
 }
-
-Gallery.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
-  showCollection: PropTypes.string,
-  classes: PropTypes.object,
-  collectionsNames: PropTypes.arrayOf(PropTypes.string),
-  reduxLoadedItems: PropTypes.object,
-  increaseLoadedItems: PropTypes.func,
-  showFilter: PropTypes.bool,
-  user: PropTypes.string
-};
 
 const mapStateToProps = state => ({
   reduxLoadedItems: state.loadMore

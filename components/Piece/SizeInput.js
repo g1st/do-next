@@ -46,7 +46,7 @@ const SelectSize = ({ error, errorText, handleChange, classes }) => {
           }
         }}
       >
-        <option value="" />
+        <option value="" aria-label="default blank" />
         <option value="13.3 | D">13.3 | D</option>
         <option value="13.5 | D 1/2">13.5 | D 1/2</option>
         <option value="13.7 | E">13.7 | E </option>

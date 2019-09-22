@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 import { authenticate } from '../../store/actions/index';
 
 class Signup extends Component {
+  static propTypes = {
+    authenticate: PropTypes.func
+  };
+
   state = {
     email: '',
     password: ''
@@ -47,10 +51,6 @@ class Signup extends Component {
     );
   }
 }
-
-Signup.propTypes = {
-  authenticate: PropTypes.func
-};
 
 export default connect(
   null,

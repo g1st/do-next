@@ -14,7 +14,7 @@ const Counter = require('./models/counters');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const serverUtils = require('../util/serverHelper');
-const { generate_payment_response } = require('../util/helpers');
+const { generatePaymentResponse } = require('../util/helpers');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
 
 module.exports = (db, upload) => {
@@ -572,7 +572,7 @@ module.exports = (db, upload) => {
         );
       }
 
-      const paymentStatus = generate_payment_response(intent);
+      const paymentStatus = generatePaymentResponse(intent);
       paymentStatus.additional = { ...req.body.additional };
 
       if (paymentStatus.success === true) {

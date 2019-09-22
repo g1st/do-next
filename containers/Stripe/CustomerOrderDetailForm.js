@@ -18,7 +18,7 @@ const CustomerOrderDetailForm = ({
   handleChange,
   isNotValid
 }) => (
-  <React.Fragment>
+  <>
     <Grid item xs={12} sm={6}>
       <FirstNameField
         backend_validation_errors={backend_validation_errors}
@@ -69,7 +69,7 @@ const CustomerOrderDetailForm = ({
         isNotValid={isNotValid}
       />
     </Grid>
-  </React.Fragment>
+  </>
 );
 
 CustomerOrderDetailForm.propTypes = {

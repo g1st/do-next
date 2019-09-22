@@ -55,6 +55,16 @@ const styles = {
 };
 
 class Piece extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    collections: PropTypes.arrayOf(PropTypes.string),
+    onePieceData: PropTypes.arrayOf(PropTypes.object),
+    user: PropTypes.string,
+    buyItNow: PropTypes.func,
+    addToCart: PropTypes.func,
+    data: PropTypes.array
+  };
+
   state = {
     size: '',
     error: false
@@ -356,16 +366,6 @@ class Piece extends React.Component {
     );
   }
 }
-
-Piece.propTypes = {
-  classes: PropTypes.object.isRequired,
-  collections: PropTypes.arrayOf(PropTypes.string),
-  onePieceData: PropTypes.arrayOf(PropTypes.object),
-  user: PropTypes.string,
-  buyItNow: PropTypes.func,
-  addToCart: PropTypes.func,
-  data: PropTypes.array
-};
 
 Piece.getInitialProps = async ({ pathname, req, query }) => {
   if (req) {

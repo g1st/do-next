@@ -46,7 +46,7 @@ const StripeDetailForm = ({
   }
 
   return (
-    <React.Fragment>
+    <>
       <Grid item xs={12} sm={6}>
         <StripeElementWrapper
           label="Card Number"
@@ -81,7 +81,7 @@ const StripeDetailForm = ({
           isNotValid={isNotValid}
         />
       </Grid>
-    </React.Fragment>
+    </>
   );
 };
 

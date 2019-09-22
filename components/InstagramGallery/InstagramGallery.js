@@ -46,7 +46,7 @@ const styles = {
     '@media (min-width: 960px)': {
       marginBottom: '3em',
       marginTop: '9em'
-  }
+    }
   }
 };
 

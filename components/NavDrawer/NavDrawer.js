@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/SwipeableDrawer';
@@ -13,18 +13,23 @@ const styles = {
 };
 
 class NavDrawer extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    collections: PropTypes.arrayOf(PropTypes.string)
+  };
+
   static contextType = DrawerContext;
 
   render() {
     const { classes, collections } = this.props;
     const { drawerNav, toggleDrawer } = this.context;
     const sideNavList = (
-      <Fragment>
+      <>
         <NavDrawerContent
           collections={collections}
           closingDrawer={toggleDrawer('drawerNav', false)}
         />
-      </Fragment>
+      </>
     );
 
     return (
@@ -43,10 +48,5 @@ class NavDrawer extends Component {
     );
   }
 }
-
-NavDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  collections: PropTypes.arrayOf(PropTypes.string)
-};
 
 export default withStyles(styles)(NavDrawer);

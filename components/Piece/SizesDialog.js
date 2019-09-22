@@ -7,6 +7,10 @@ import Table from './Table';
 import { IconButtonWrapper } from '../../styles/Piece';
 
 class SizesDialog extends React.Component {
+  static propTypes = {
+    forDimensions: PropTypes.bool
+  };
+
   state = {
     open: false
   };
@@ -49,9 +53,5 @@ class SizesDialog extends React.Component {
     );
   }
 }
-
-SizesDialog.propTypes = {
-  forDimensions: PropTypes.bool
-};
 
 export default SizesDialog;

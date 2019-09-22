@@ -24,6 +24,12 @@ const styles = {
 };
 
 class CartDrawer extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    uniqueCartItems: PropTypes.number,
+    clearBuyItNow: PropTypes.func
+  };
+
   static contextType = DrawerContext;
 
   handleCheckout = () => {
@@ -87,12 +93,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   clearBuyItNow: () => dispatch(clearBuyItNow())
 });
-
-CartDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  uniqueCartItems: PropTypes.number,
-  clearBuyItNow: PropTypes.func
-};
 
 export default connect(
   mapStateToProps,

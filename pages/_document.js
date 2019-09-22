@@ -1,4 +1,6 @@
-/* eslint-disable prefer-destructuring */
+/* eslint-disable prefer-destructuring  */
+/* eslint-disable react/jsx-props-no-spreading */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import Document, { Head, Main, NextScript } from 'next/document';
@@ -117,7 +119,7 @@ MyDocument.getInitialProps = async ctx => {
       ...page,
       pageContext,
       styles: (
-        <React.Fragment>
+        <>
           <style
             id="jss-server-side"
             // eslint-disable-next-line react/no-danger
@@ -126,7 +128,7 @@ MyDocument.getInitialProps = async ctx => {
           {initialProps.styles}
           {sheet.getStyleElement()}
           {flush() || null}
-        </React.Fragment>
+        </>
       )
     };
   } finally {

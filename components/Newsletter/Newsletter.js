@@ -58,6 +58,10 @@ const styles = () => ({
 });
 
 class Newsletter extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired
+  };
+
   state = {
     subscribed: false,
     email: '',
@@ -173,9 +177,5 @@ class Newsletter extends React.Component {
     );
   }
 }
-
-Newsletter.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(Newsletter);

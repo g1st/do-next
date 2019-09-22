@@ -55,6 +55,13 @@ const styles = theme => ({
 });
 
 class NavBar extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    collections: PropTypes.arrayOf(PropTypes.string),
+    pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    uniqueCartItems: PropTypes.number
+  };
+
   constructor(props) {
     super(props);
     this.toggleDrawer = (type, open) => () => {
@@ -219,12 +226,5 @@ class NavBar extends React.Component {
 const mapStateToProps = state => ({
   uniqueCartItems: state.cart.length
 });
-
-NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  collections: PropTypes.arrayOf(PropTypes.string),
-  pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  uniqueCartItems: PropTypes.number
-};
 
 export default connect(mapStateToProps)(withRouter(withStyles(styles)(NavBar)));

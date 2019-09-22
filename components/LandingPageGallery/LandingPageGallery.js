@@ -70,6 +70,10 @@ const styles = theme => ({
 });
 
 class LandingPageGallery extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired
+  };
+
   state = { open: false };
 
   onImageClick = ({ target: { src } }, figcaption) => {
@@ -208,9 +212,5 @@ class LandingPageGallery extends React.Component {
     );
   }
 }
-
-LandingPageGallery.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(LandingPageGallery);

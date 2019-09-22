@@ -6,6 +6,11 @@ import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 
 class NavDrawerContent extends React.Component {
+  static propTypes = {
+    collections: PropTypes.arrayOf(PropTypes.string),
+    closingDrawer: PropTypes.func
+  };
+
   state = {
     open: true
   };
@@ -115,10 +120,5 @@ class NavDrawerContent extends React.Component {
     );
   }
 }
-
-NavDrawerContent.propTypes = {
-  collections: PropTypes.arrayOf(PropTypes.string),
-  closingDrawer: PropTypes.func
-};
 
 export default NavDrawerContent;

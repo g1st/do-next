@@ -96,6 +96,14 @@ const styles = theme => ({
 });
 
 class AdminForm extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    collections: PropTypes.arrayOf(PropTypes.string),
+    itemToEdit: PropTypes.object
+  };
+
+  imageInputRef = React.createRef();
+
   state = {
     name: '',
     description: '',
@@ -116,8 +124,6 @@ class AdminForm extends Component {
     deletedCollection: null,
     imageFiles: []
   };
-
-  imageInputRef = React.createRef();
 
   componentDidMount = () => {
     const { collections, itemToEdit } = this.props;
@@ -472,9 +478,13 @@ class AdminForm extends Component {
                 value={existingCollection}
                 onChange={e => this.handleChange('existingCollection', e)}
               >
-                <option value="default" key="empty" />
+                <option
+                  value="default"
+                  key="empty"
+                  aria-label="default collection"
+                />
                 {collections.map((c, i) => (
-                  <option value={c} key={i}>
+                  <option value={c} key={i} aria-label={c}>
                     {c}
                   </option>
                 ))}
@@ -738,11 +748,5 @@ class AdminForm extends Component {
     );
   }
 }
-
-AdminForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-  collections: PropTypes.arrayOf(PropTypes.string),
-  itemToEdit: PropTypes.object
-};
 
 export default withStyles(styles)(AdminForm);

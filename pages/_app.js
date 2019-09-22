@@ -134,7 +134,7 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, reduxStore } = this.props;
     return (
-      <React.Fragment>
+      <>
         <Container>
           <Head>
             <title>
@@ -162,12 +162,13 @@ class MyApp extends App {
               <Provider store={reduxStore}>
                 {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
                 <Component pageContext={this.pageContext} {...pageProps} />
               </Provider>
             </MuiThemeProvider>
           </JssProvider>
         </Container>
-      </React.Fragment>
+      </>
     );
   }
 }

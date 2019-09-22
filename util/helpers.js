@@ -66,7 +66,7 @@ exports.pluralise = category => {
   }
 };
 
-exports.generate_payment_response = intent => {
+exports.generatePaymentResponse = intent => {
   if (
     (intent.status === 'requires_action' ||
       intent.status === 'requires_source_action') &&
@@ -77,18 +77,20 @@ exports.generate_payment_response = intent => {
       requires_action: true,
       payment_intent_client_secret: intent.client_secret
     };
-  } else if (intent.status === 'succeeded') {
+  }
+
+  if (intent.status === 'succeeded') {
     // The payment didn’t need any additional actions and completed!
     // Handle post-payment fulfillment
     return {
       success: true
     };
-  } else {
-    // Invalid status
-    return {
-      errors: [{ msg: 'Invalid PaymentIntent status', param: '_error' }]
-    };
   }
+
+  // Invalid status
+  return {
+    errors: [{ msg: 'Invalid PaymentIntent status', param: '_error' }]
+  };
 };
 
 exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart) => {
@@ -98,16 +100,17 @@ exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart) => {
       shippingCost,
       boughtFrom: 'buyItNow'
     };
-  } else {
-    const selectedItems = cart;
-    const totalItems = this.cartHelper.totalItems(cart);
-    const totalPrice = this.cartHelper.totalPrice(cart);
-    return {
-      selectedItems,
-      totalItems,
-      totalPrice,
-      boughtFrom: 'cart',
-      shippingCost
-    };
   }
+
+  const selectedItems = cart;
+  const totalItems = this.cartHelper.totalItems(cart);
+  const totalPrice = this.cartHelper.totalPrice(cart);
+
+  return {
+    selectedItems,
+    totalItems,
+    totalPrice,
+    boughtFrom: 'cart',
+    shippingCost
+  };
 };

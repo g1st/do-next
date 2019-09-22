@@ -60,6 +60,10 @@ const styles = theme => ({
 });
 
 class ContactForm extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired
+  };
+
   state = {
     subject: '',
     email: '',
@@ -209,9 +213,5 @@ class ContactForm extends Component {
     );
   }
 }
-
-ContactForm.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(ContactForm);
