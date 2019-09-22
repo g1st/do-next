@@ -9,6 +9,7 @@ import Layout from '../components/Layout';
 import LandingPageGallery from '../components/LandingPageGallery/LandingPageGallery';
 import Newsletter from '../components/Newsletter/Newsletter';
 import InstagramGallery from '../components/InstagramGallery/InstagramGallery';
+import JOYA from '../components/UpcomingEvent/JOYA';
 
 const styles = () => ({
   button: {
@@ -37,6 +38,7 @@ const Index = ({ pathname, collections, classes }) => (
     >
       GALLERY
     </Button>
+    <JOYA />
     <Newsletter />
     <InView triggerOnce rootMargin="400px">
       {({ inView, ref }) => (
