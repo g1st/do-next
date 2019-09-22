@@ -1,4 +1,4 @@
-export const cartHelper = {
+exports.cartHelper = {
   totalItems: cart =>
     cart.reduce((acc, item) => {
       const items = acc + item.quantity;
@@ -15,7 +15,7 @@ export const cartHelper = {
   }
 };
 
-export const loadState = () => {
+exports.loadState = () => {
   try {
     const serializedState = localStorage.getItem('cart');
 
@@ -29,7 +29,7 @@ export const loadState = () => {
   }
 };
 
-export const saveCart = state => {
+exports.saveCart = state => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('cart', serializedState);
@@ -38,7 +38,7 @@ export const saveCart = state => {
   }
 };
 
-export const onImageError = event => {
+exports.onImageError = event => {
   const defaultImage = '/static/images/fallback.png';
 
   if (event.target.src.indexOf('/static/images/fallback.png') === -1) {
@@ -47,7 +47,7 @@ export const onImageError = event => {
   }
 };
 
-export const pluralise = category => {
+exports.pluralise = category => {
   switch (category) {
     case 'brooch':
       return 'brooches';
