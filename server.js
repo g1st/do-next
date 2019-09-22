@@ -37,7 +37,11 @@ co(function*() {
   yield app.prepare();
 
   console.log(`Connecting to ${MONGO_URL}`);
-  mongoose.connect(MONGO_URL, { useNewUrlParser: true });
+  mongoose.connect(MONGO_URL, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+  });
   const db = yield mongoose.connection;
 
   // Configure express to expose a REST API
