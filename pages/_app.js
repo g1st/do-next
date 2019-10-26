@@ -115,13 +115,7 @@ class MyApp extends App {
       jssStyles.parentNode.removeChild(jssStyles);
     }
 
-    if (
-      !localStorage.getItem('data') ||
-      localStorage.getItem('data') !== JSON.stringify(this.props.pageProps.data)
-    ) {
-      localStorage.setItem('data', JSON.stringify(this.props.pageProps.data));
-      localStorage.setItem('collections', this.props.pageProps.collections);
-    }
+    localStorage.setItem('data', JSON.stringify(this.props.pageProps.data));
   }
 
   render() {
