@@ -12,7 +12,7 @@ import * as gtag from '../lib/gtag';
 import withReduxStore from '../lib/with-redux-store';
 import getPageContext from '../src/getPageContext';
 import { authUrl } from '../config';
-import { saveCart } from '../util/helpers';
+import { saveCart, filterCollections } from '../util/helpers';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '../styles/emptyFileToFixNextjsBug.css';
 
@@ -54,11 +54,7 @@ class MyApp extends App {
         .collection('works')
         .find()
         .toArray();
-      const collectionsFromServer = data.reduce((acc, next) => {
-        if (!acc.includes(next.group)) acc.push(next.group.toLowerCase());
-        return acc;
-      }, []);
-
+      const collectionsFromServer = filterCollections(data, user);
       pageProps = {
         ...pageProps,
         data,
@@ -67,16 +63,16 @@ class MyApp extends App {
         router,
         user
       };
-
       return { pageProps };
     }
 
     // we are on a client and can access localStorage - no need for api call
     if (localStorage.getItem('data')) {
+      const parsedData = JSON.parse(localStorage.getItem('data'));
       pageProps = {
         ...pageProps,
-        data: JSON.parse(localStorage.getItem('data')),
-        collections: localStorage.getItem('collections').split(','),
+        data: parsedData,
+        collections: filterCollections(parsedData, user),
         from: 'rest api',
         router,
         user
@@ -88,10 +84,7 @@ class MyApp extends App {
     const works = await axios.get('/api').then(res => res.data);
 
     // To populate menu for user's created collections(works in frontend)
-    const collections = works.reduce((acc, next) => {
-      if (!acc.includes(next.group)) acc.push(next.group.toLowerCase());
-      return acc;
-    }, []);
+    const collections = filterCollections(works, user);
 
     pageProps = {
       ...pageProps,
