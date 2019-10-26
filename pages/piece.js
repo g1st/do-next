@@ -233,6 +233,7 @@ class Piece extends React.Component {
         title={`${name} | Dovile Jewellery`}
         description={`Materials: ${materials}
       ${description}`}
+        user={user}
       >
         {pathLine}
         <Wrapper>

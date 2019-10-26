@@ -11,7 +11,8 @@ const Layout = ({
   collections,
   pathname,
   title = 'Jewellery artist Dovile Kondrasovaite | Dovile Jewellery',
-  description = 'Contemporary amber jewellery with a delicate and modern touch by Dovile Kondrasovaite. Shop authentic handmade jewelry made by independent artist.'
+  description = 'Contemporary amber jewellery with a delicate and modern touch by Dovile Kondrasovaite. Shop authentic handmade jewelry made by independent artist.',
+  user
 }) => (
   <LayoutWrapper>
     <Head>
@@ -19,7 +20,7 @@ const Layout = ({
       <meta name="Description" content={description} />
     </Head>
     <div>
-      <NavBar pathname={pathname} collections={collections} />
+      <NavBar pathname={pathname} collections={collections} user={user} />
     </div>
     <Main>{children}</Main>
     <Footer />
@@ -31,7 +32,8 @@ Layout.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.node,
   title: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
+  user: PropTypes.string
 };
 
 export default Layout;

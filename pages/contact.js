@@ -7,11 +7,12 @@ import Form from '../components/ContactForm';
 import { Wrapper, ImagesWrapper, ImageWrapper, Image } from '../styles/Contact';
 import { Mail } from '../styles/Shared';
 
-const Contact = ({ pathname, collections }) => (
+const Contact = ({ pathname, collections, user }) => (
   <Layout
     pathname={pathname}
     collections={collections}
     title="Contact | Dovile Jewellery"
+    user={user}
   >
     <Wrapper>
       <ImagesWrapper>
@@ -56,7 +57,8 @@ const Contact = ({ pathname, collections }) => (
 
 Contact.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  user: PropTypes.string
 };
 
 Contact.getInitialProps = async ({ pathname }) => ({ pathname });

@@ -26,11 +26,12 @@ const styles = () => ({
   }
 });
 
-const WhereToFind = ({ pathname, collections, classes }) => (
+const WhereToFind = ({ pathname, collections, classes, user }) => (
   <Layout
     pathname={pathname}
     collections={collections}
     title="Where To Find | Dovile Jewellery"
+    user={user}
   >
     <JOYA />
     <Wrapper>
@@ -157,7 +158,8 @@ const WhereToFind = ({ pathname, collections, classes }) => (
 WhereToFind.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.string
 };
 
 WhereToFind.getInitialProps = async ({ pathname }) => ({ pathname });

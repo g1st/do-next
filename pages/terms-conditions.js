@@ -20,12 +20,13 @@ const styles = () => ({
   }
 });
 
-const TermsAndConditions = ({ collections, classes }) => (
+const TermsAndConditions = ({ collections, classes, user }) => (
   // For Material UI Tabs to know this endpoint not needed
   <Layout
     pathname={false}
     collections={collections}
     title="Terms and Conditions | Dovile Jewellery"
+    user={user}
   >
     <Wrapper>
       <ImageWrapper>
@@ -177,7 +178,8 @@ const TermsAndConditions = ({ collections, classes }) => (
 
 TermsAndConditions.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.string
 };
 
 TermsAndConditions.getInitialProps = async ({ pathname }) => ({ pathname });

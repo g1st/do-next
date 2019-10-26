@@ -14,11 +14,12 @@ const styles = theme => ({
   }
 });
 
-const Checkout = ({ classes, collections }) => (
+const Checkout = ({ classes, collections, user }) => (
   <Layout
     pathname={false}
     collections={collections}
     title="Checkout | Dovile Jewellery"
+    user={user}
   >
     <Typography component="h1" variant="h5" className={classes.h6}>
       Checkout
@@ -29,7 +30,8 @@ const Checkout = ({ classes, collections }) => (
 
 Checkout.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.string
 };
 
 export default withStyles(styles)(Checkout);

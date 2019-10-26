@@ -16,6 +16,7 @@ const Gallery = ({ data, router, pathname, collections, user }) => {
       pathname={pathname}
       collections={collections}
       title="Gallery | Dovile Jewellery"
+      user={user}
     >
       <div>
         <GridGallery

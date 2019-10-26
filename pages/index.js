@@ -26,8 +26,8 @@ const styles = () => ({
 const handleButton = () => {
   Router.push('/gallery');
 };
-const Index = ({ pathname, collections, classes }) => (
-  <Layout pathname={pathname} collections={collections}>
+const Index = ({ pathname, collections, classes, user }) => (
+  <Layout pathname={pathname} collections={collections} user={user}>
     <LandingPageGallery />
     <Button
       variant="contained"
@@ -51,7 +51,8 @@ const Index = ({ pathname, collections, classes }) => (
 Index.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.string
 };
 
 Index.getInitialProps = async ({ pathname, user }) => ({ pathname, user });

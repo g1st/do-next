@@ -20,12 +20,13 @@ const styles = () => ({
   }
 });
 
-const CareGuide = ({ collections, classes }) => (
+const CareGuide = ({ collections, classes, user }) => (
   // false for Material UI Tabs to know this endpoint not needed
   <Layout
     pathname={false}
     collections={collections}
     title="Care Guide | Dovile Jewellery"
+    user={user}
   >
     <Wrapper>
       <ImageWrapper>
@@ -222,7 +223,8 @@ const CareGuide = ({ collections, classes }) => (
 
 CareGuide.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.string
 };
 
 export default withStyles(styles)(CareGuide);

@@ -47,11 +47,12 @@ const styles = () => ({
   }
 });
 
-const About = ({ pathname, collections, classes }) => (
+const About = ({ pathname, collections, classes, user }) => (
   <Layout
     pathname={pathname}
     collections={collections}
     title="About | Dovile Jewellery"
+    user={user}
   >
     <Wrapper>
       <Left>
@@ -490,7 +491,8 @@ const About = ({ pathname, collections, classes }) => (
 About.propTypes = {
   classes: PropTypes.object.isRequired,
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  collections: PropTypes.arrayOf(PropTypes.string)
+  collections: PropTypes.arrayOf(PropTypes.string),
+  user: PropTypes.string
 };
 
 About.getInitialProps = async ({ pathname }) => ({ pathname });

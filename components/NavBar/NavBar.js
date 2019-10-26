@@ -59,7 +59,8 @@ class NavBar extends React.Component {
     classes: PropTypes.object.isRequired,
     collections: PropTypes.arrayOf(PropTypes.string),
     pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    uniqueCartItems: PropTypes.number
+    uniqueCartItems: PropTypes.number,
+    user: PropTypes.string
   };
 
   constructor(props) {
@@ -99,7 +100,13 @@ class NavBar extends React.Component {
   };
 
   render() {
-    const { classes, collections, pathname, uniqueCartItems } = this.props;
+    const {
+      classes,
+      collections,
+      pathname,
+      uniqueCartItems,
+      user
+    } = this.props;
     const { anchorEl } = this.state;
 
     Router.events.on('routeChangeComplete', () => {
@@ -115,7 +122,15 @@ class NavBar extends React.Component {
         centered
         className={classes.toggleNav}
       >
-        {/* <Tab label="Home" value="/" to="/" /> */}
+        {user ? (
+          <Tab
+            label="Admin"
+            value="/admin"
+            classes={{ textColorSecondary: classes.textColor }}
+          />
+        ) : (
+          ''
+        )}
         <Tab
           classes={{ textColorSecondary: classes.textColor }}
           label={

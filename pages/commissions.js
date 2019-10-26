@@ -20,11 +20,12 @@ const styles = () => ({
   }
 });
 
-const Commissions = ({ collections, classes }) => (
+const Commissions = ({ collections, classes, user }) => (
   <Layout
     pathname={false}
     collections={collections}
     title="Commissions | Dovile Jewellery"
+    user={user}
   >
     <Wrapper>
       <ImageWrapper>
@@ -88,7 +89,8 @@ const Commissions = ({ collections, classes }) => (
 
 Commissions.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.string
 };
 
 export default withStyles(styles)(Commissions);
