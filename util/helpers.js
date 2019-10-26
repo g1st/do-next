@@ -114,3 +114,26 @@ exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart) => {
     shippingCost
   };
 };
+
+exports.filterCollections = (data, user) => {
+  let collections;
+  if (user) {
+    collections = data.reduce((acc, next) => {
+      if (!acc.includes(next.group)) {
+        acc.push(next.group.toLowerCase());
+      }
+      return acc;
+    }, []);
+  } else {
+    collections = data.reduce((acc, next) => {
+      if (
+        !acc.includes(next.group) &&
+        (next.display || next.display === undefined)
+      ) {
+        acc.push(next.group.toLowerCase());
+      }
+      return acc;
+    }, []);
+  }
+  return collections;
+};
