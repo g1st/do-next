@@ -133,6 +133,7 @@ module.exports = (db, upload) => {
         imagesToRemove,
         frontImage,
         madeToOrder,
+        display,
         producingTime
       } = req.body;
 
@@ -151,6 +152,7 @@ module.exports = (db, upload) => {
         group: collection,
         frontImage,
         madeToOrder,
+        display,
         producingTime
       };
 
@@ -286,6 +288,7 @@ module.exports = (db, upload) => {
         category,
         available,
         madeToOrder,
+        display,
         producingTime
       } = req.body;
 
@@ -335,6 +338,7 @@ module.exports = (db, upload) => {
         available: available === 'available',
         frontImage,
         madeToOrder,
+        display,
         producingTime,
         galleryIndex,
         collectionIndex: galleryIndex

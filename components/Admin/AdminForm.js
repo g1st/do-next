@@ -116,6 +116,7 @@ class AdminForm extends Component {
     materials: '',
     collection: '',
     available: 'available',
+    display: true,
     madeToOrder: false,
     producingTime: '',
     updating: false,
@@ -159,6 +160,9 @@ class AdminForm extends Component {
     if (name === 'madeToOrder') {
       return this.setState({ [name]: checked });
     }
+    if (name === 'display') {
+      return this.setState({ [name]: checked });
+    }
     if (name === 'selectedImages')
       return this.setState(({ selectedImages }) => ({
         selectedImages: {
@@ -191,6 +195,7 @@ class AdminForm extends Component {
       collection: '',
       existingCollection: '',
       available: 'available',
+      display: true,
       madeToOrder: false,
       producingTime: ''
     });
@@ -229,6 +234,7 @@ class AdminForm extends Component {
       price,
       category,
       available,
+      display,
       selectedImages,
       imageFiles,
       collection,
@@ -265,6 +271,7 @@ class AdminForm extends Component {
     formData.append('price', price);
     formData.append('category', category);
     formData.append('available', available);
+    formData.append('display', display);
     formData.append('imagesToRemove', imagesToRemove);
     formData.append('imageCount', images.length);
     formData.append('frontImage', frontImage);
@@ -343,6 +350,7 @@ class AdminForm extends Component {
     const { classes, collections, itemToEdit } = this.props;
     const {
       available,
+      display,
       category,
       collection,
       description,
@@ -721,6 +729,19 @@ class AdminForm extends Component {
               required={!!madeToOrder}
               error={errors ? !!errors.producingTime : false}
               helperText={errors && errors.producingTime}
+            />
+          </FormGroup>
+          <FormGroup className={classes.root}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={display}
+                  onChange={e => this.handleChange('display', e)}
+                  value="display"
+                  color="secondary"
+                />
+              }
+              label="Display item to the world"
             />
           </FormGroup>
           <Button
