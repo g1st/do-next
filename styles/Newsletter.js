@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url('/static/images/bg2.JPG');
+  background-image: url('/images/bg2.JPG');
   background-color: #eeeeee;
   background-position: center;
   background-repeat: no-repeat;

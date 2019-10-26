@@ -31,7 +31,7 @@ const CareGuide = ({ collections, classes, user }) => (
     <Wrapper>
       <ImageWrapper>
         <Figure>
-          <Image src="../static/images/f-5.JPG" alt="Crafts market" />
+          <Image src="../images/f-5.JPG" alt="Crafts market" />
         </Figure>
       </ImageWrapper>
       <Text>

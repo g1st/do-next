@@ -53,19 +53,19 @@ module.exports = {
     imagesToRemove.forEach(async image => {
       // image comes as a thumb ...92.jpg
       // removes thumb image
-      await asyncUnlink(`static/uploads/${image}`);
+      await asyncUnlink(`public/uploads/${image}`);
       // removes medium image 300x300
       await asyncUnlink(
-        `static/uploads/${image.replace(/92(\.\w+)/, '300$1')}`
+        `public/uploads/${image.replace(/92(\.\w+)/, '300$1')}`
       );
       // removes big image 900x900, which will not have '92' in its file name
-      await asyncUnlink(`static/uploads/${image.replace(/92(\.\w+)/, '$1')}`);
+      await asyncUnlink(`public/uploads/${image.replace(/92(\.\w+)/, '$1')}`);
     });
   },
   removeImagesFromDiskOnError: function removeImagesFromDisk(imagesToRemove) {
     imagesToRemove.forEach(async image => {
       // removes big image 900x900, which will not have '92' in its file name
-      await asyncUnlink(`static/uploads/${image.replace(/92(\.\w+)/, '$1')}`);
+      await asyncUnlink(`public/uploads/${image.replace(/92(\.\w+)/, '$1')}`);
     });
   },
   postageForCountry: function postageForCountry(country) {

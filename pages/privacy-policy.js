@@ -31,7 +31,7 @@ const TermsAndConditions = ({ collections, classes, user }) => (
       <ImageWrapper>
         <Figure>
           <Image
-            src="../static/images/privacy-policy.JPG"
+            src="../images/privacy-policy.JPG"
             alt="Jewellery packaging boxes"
           />
           <figcaption>

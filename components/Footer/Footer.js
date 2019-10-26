@@ -36,7 +36,7 @@ const Footer = props => {
     <Wrapper>
       <Divider />
       <BrandLogo>
-        <Logo src="../../static/images/logo.svg" alt="Dovile Jewellery logo" />
+        <Logo src="../../images/logo.svg" alt="Dovile Jewellery logo" />
       </BrandLogo>
       <FlexContainer>
         <Social>
@@ -46,10 +46,7 @@ const Footer = props => {
             rel="noopener noreferrer"
             aria-label="Go to Dovile's facebook page"
           >
-            <Facebook
-              src="/static/images/facebook-box.png"
-              alt="Facebook logo"
-            />
+            <Facebook src="/images/facebook-box.png" alt="Facebook logo" />
           </AnchorLink>
           <AnchorLink
             href="https://www.instagram.com/dovilejewellery/"
@@ -57,10 +54,7 @@ const Footer = props => {
             rel="noopener noreferrer"
             aria-label="Go to Dovile's instagram page"
           >
-            <Instagram
-              src="/static/images/instagram.png"
-              alt="Instagram logo"
-            />
+            <Instagram src="/images/instagram.png" alt="Instagram logo" />
           </AnchorLink>
           <AnchorLink
             href="https://www.pinterest.com/dovilejewellery/"
@@ -68,10 +62,7 @@ const Footer = props => {
             rel="noopener noreferrer"
             aria-label="Go to Dovile's pinterest page"
           >
-            <Pinterest
-              src="/static/images/pinterest-box.png"
-              alt="Pinterest logo"
-            />
+            <Pinterest src="/images/pinterest-box.png" alt="Pinterest logo" />
           </AnchorLink>
         </Social>
         <FooterLinks>

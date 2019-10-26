@@ -158,11 +158,11 @@ class Piece extends React.Component {
 
     const gallery = images.reduce((acc, image) => {
       const galleryFormatted = {
-        original: `/static/uploads/${image.medium}`,
-        thumbnail: `/static/uploads/${image.thumb}`,
+        original: `/uploads/${image.medium}`,
+        thumbnail: `/uploads/${image.thumb}`,
         originalAlt: description,
         thumbnailAlt: name,
-        srcSet: `/static/uploads/${image.medium} 300w, /static/uploads/${image.big} 900w`,
+        srcSet: `/uploads/${image.medium} 300w, /uploads/${image.big} 900w`,
         sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw'
       };
       if (image.medium === frontImage) {
@@ -344,11 +344,11 @@ class Piece extends React.Component {
                 notAvailable
               )}
               {oneOfAKind ? (
-              <Typography variant="body2" paragraph>
+                <Typography variant="body2" paragraph>
                   Please note this is ONE OF A KIND piece, therefore,
                   commissions are welcome in related designs to meet your
                   personal needs.
-              </Typography>
+                </Typography>
               ) : (
                 ''
               )}

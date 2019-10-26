@@ -9,7 +9,7 @@ const JOYA = () => (
       aria-label="Official JOYA website"
     >
       <Image
-        src="../../static/images/joya_banner.jpg"
+        src="../../images/joya_banner.jpg"
         alt="JOYA banner"
         sizes=""
         srcSet=""
