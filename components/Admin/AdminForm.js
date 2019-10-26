@@ -31,7 +31,8 @@ const styles = theme => ({
     margin: theme.spacing.unit
   },
   button: {
-    margin: theme.spacing.unit
+    marginTop: '4em',
+    marginBottom: '8em'
   },
   form: {
     backgroundColor: 'white',
