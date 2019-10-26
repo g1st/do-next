@@ -117,6 +117,7 @@ class AdminForm extends Component {
     collection: '',
     available: 'available',
     display: true,
+    oneOfAKind: false,
     madeToOrder: false,
     producingTime: '',
     updating: false,
@@ -163,6 +164,9 @@ class AdminForm extends Component {
     if (name === 'display') {
       return this.setState({ [name]: checked });
     }
+    if (name === 'oneOfAKind') {
+      return this.setState({ [name]: checked });
+    }
     if (name === 'selectedImages')
       return this.setState(({ selectedImages }) => ({
         selectedImages: {
@@ -196,6 +200,7 @@ class AdminForm extends Component {
       existingCollection: '',
       available: 'available',
       display: true,
+      oneOfAKind: false,
       madeToOrder: false,
       producingTime: ''
     });
@@ -235,6 +240,7 @@ class AdminForm extends Component {
       category,
       available,
       display,
+      oneOfAKind,
       selectedImages,
       imageFiles,
       collection,
@@ -272,6 +278,7 @@ class AdminForm extends Component {
     formData.append('category', category);
     formData.append('available', available);
     formData.append('display', display);
+    formData.append('oneOfAKind', oneOfAKind);
     formData.append('imagesToRemove', imagesToRemove);
     formData.append('imageCount', images.length);
     formData.append('frontImage', frontImage);
@@ -351,6 +358,7 @@ class AdminForm extends Component {
     const {
       available,
       display,
+      oneOfAKind,
       category,
       collection,
       description,
@@ -742,6 +750,19 @@ class AdminForm extends Component {
                 />
               }
               label="Display item to the world"
+            />
+          </FormGroup>
+          <FormGroup className={classes.root}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={oneOfAKind}
+                  onChange={e => this.handleChange('oneOfAKind', e)}
+                  value="oneOfAKind"
+                  color="secondary"
+                />
+              }
+              label="ONE OF A KIND item."
             />
           </FormGroup>
           <Button

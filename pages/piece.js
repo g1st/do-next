@@ -140,7 +140,8 @@ class Piece extends React.Component {
       category,
       frontImage,
       madeToOrder,
-      producingTime
+      producingTime,
+      oneOfAKind
     } = onePieceData[0];
 
     const dataForCart = {
@@ -342,11 +343,15 @@ class Piece extends React.Component {
               ) : (
                 notAvailable
               )}
+              {oneOfAKind ? (
               <Typography variant="body2" paragraph>
-                Please note most of the pieces are ONE OF A KIND, therefore,
-                commissions are welcome in related designs to meet your personal
-                needs.
+                  Please note this is ONE OF A KIND piece, therefore,
+                  commissions are welcome in related designs to meet your
+                  personal needs.
               </Typography>
+              ) : (
+                ''
+              )}
               <Typography variant="body2" paragraph>
                 If interested in ordering customized design please contact me
                 directly to{' '}

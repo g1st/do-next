@@ -42,7 +42,8 @@ const worksSchema = new mongoose.Schema(
     galleryIndex: { type: Number, required: true },
     collectionIndex: { type: Number, required: true },
     created: { type: Date, default: Date.now },
-    display: { type: Boolean, default: true }
+    display: { type: Boolean, default: true },
+    oneOfAKind: { type: Boolean, default: false }
   },
   { timestamps: true }
 );
