@@ -363,6 +363,9 @@ class Gallery extends React.Component {
                           style={{ color: 'green' }}
                         >
                           Available to buy
+                          {item.display || item.display === undefined
+                            ? ''
+                            : ' | This item is HIDDEN'}
                         </Typography>
                       ) : (
                         <Typography
@@ -371,6 +374,9 @@ class Gallery extends React.Component {
                           style={{ color: 'red' }}
                         >
                           NOT available to buy
+                          {item.display || item.display === undefined
+                            ? ''
+                            : ' | This item is HIDDEN'}
                         </Typography>
                       )}
                       <Button
