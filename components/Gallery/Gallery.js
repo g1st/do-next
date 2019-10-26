@@ -271,7 +271,14 @@ class Gallery extends React.Component {
 
     const { itemsLoaded } = collections[showCollection];
 
-    const originalData = collections[showCollection].data;
+    let originalData;
+    if (user) {
+      originalData = collections[showCollection].data;
+    } else {
+      originalData = collections[showCollection].data.filter(
+        obj => obj.display || obj.display === undefined
+      );
+    }
 
     const sorted = this.sort(originalData);
 
