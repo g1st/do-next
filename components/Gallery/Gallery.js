@@ -394,10 +394,10 @@ class Gallery extends React.Component {
                   >
                     <ButtonBase classes={{ root: classes.buttonBase }}>
                       <ImageWithLoading
-                        src={`/uploads/${item.frontImage}`}
-                        srcSet={`/uploads/${
+                        src={`/static/uploads/${item.frontImage}`}
+                        srcSet={`/static/uploads/${
                           item.frontImage
-                        } 1x, /uploads/${item.frontImage.replace(
+                        } 1x, /static/uploads/${item.frontImage.replace(
                           /300\./,
                           '.'
                         )} 2x`}

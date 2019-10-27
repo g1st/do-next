@@ -37,7 +37,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
     <Wrapper>
       <Stockist>
         <ImageWrapper>
-          <Image src="/images/wheretofind1.JPG" alt="dovile jewellery" />
+          <Image src="/static/images/wheretofind1.JPG" alt="dovile jewellery" />
         </ImageWrapper>
         <StockistText>
           <Typography variant="body1" gutterBottom className={classes.fontSize}>
@@ -97,7 +97,10 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
       <Events>
         <UpcomingEvents>
           <ImageWrapper>
-            <Image src="/images/wheretofind2.JPG" alt="dovile jewellery" />
+            <Image
+              src="/static/images/wheretofind2.JPG"
+              alt="dovile jewellery"
+            />
           </ImageWrapper>
           <Typography variant="body1" gutterBottom className={classes.fontSize}>
             UPCOMING EVENTS

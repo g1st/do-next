@@ -58,7 +58,7 @@ const About = ({ pathname, collections, classes, user }) => (
       <Left>
         <PortraitWrapper>
           <Image
-            src="/images/Dovile-Kondrasovaite.jpeg"
+            src="/static/images/Dovile-Kondrasovaite.jpeg"
             alt="Portrait photo of Dovile Kondrasovaite"
           />
           <Caption>
@@ -467,7 +467,7 @@ const About = ({ pathname, collections, classes, user }) => (
         </ArtistStatement>
         <ImageWrapper>
           <Image
-            src="/images/s-1.jpeg"
+            src="/static/images/s-1.jpeg"
             alt="A man wearing FLOW silver brooch"
           />
           <Caption>

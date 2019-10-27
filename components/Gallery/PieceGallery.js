@@ -84,10 +84,10 @@ const PieceGallery = ({ data, currentItem, classes }) => {
                 <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
                   <ButtonBase className={classes.buttonBase}>
                     <ImageWithLoading
-                      src={`/uploads/${item.frontImage}`}
-                      srcSet={`/uploads/${
+                      src={`/static/uploads/${item.frontImage}`}
+                      srcSet={`/static/uploads/${
                         item.frontImage
-                      } 1x, /uploads/${item.frontImage.replace(
+                      } 1x, /static/uploads/${item.frontImage.replace(
                         /300\./,
                         '.'
                       )} 2x`}

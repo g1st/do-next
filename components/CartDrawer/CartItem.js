@@ -27,9 +27,9 @@ const CartItem = ({
 
   const getItemImage = item => {
     if (item && item.images && item.images.length) {
-      return `/uploads/${item.images[0].thumb}`;
+      return `/static/uploads/${item.images[0].thumb}`;
     }
-    return '/images/fallback.png';
+    return '/static/images/fallback.png';
   };
 
   return (

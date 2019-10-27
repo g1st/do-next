@@ -30,7 +30,7 @@ const Commissions = ({ collections, classes, user }) => (
     <Wrapper>
       <ImageWrapper>
         <Figure>
-          <Image src="../images/commissions.JPG" alt="Cufflinks" />
+          <Image src="../static/images/commissions.JPG" alt="Cufflinks" />
         </Figure>
         <figcaption>
           <Typography

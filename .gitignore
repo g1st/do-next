@@ -1,5 +1,5 @@
 /.next
 node_modules/
 .env
-public/uploads
+static/uploads
 

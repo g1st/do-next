@@ -563,7 +563,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`/uploads/${item}`}
+                          src={`/static/uploads/${item}`}
                         />
                       }
                     />
@@ -592,7 +592,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`/uploads/${image.thumb}`}
+                          src={`/static/uploads/${image.thumb}`}
                         />
                       }
                     />
