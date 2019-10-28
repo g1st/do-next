@@ -5,6 +5,7 @@ export const EventWrapper = styled.div`
 `;
 
 export const Image = styled.img`
+  cursor: pointer;
   height: 100%;
   width: 100%;
 `;
