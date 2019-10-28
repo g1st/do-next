@@ -271,6 +271,17 @@ const About = ({ pathname, collections, classes, user }) => (
               </Data>
               <Data>
                 <Typography variant="body2" gutterBottom>
+                  JOYA Barcelona Art Jewellery & Objects, Barcelona, Spain.
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2019</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
                   AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
                   Vilnius, Lithuania
                 </Typography>
