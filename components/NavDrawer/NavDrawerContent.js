@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
+import { deslugify } from '../../util/helpers';
 
 class NavDrawerContent extends React.Component {
   static propTypes = {
@@ -76,7 +77,7 @@ class NavDrawerContent extends React.Component {
               >
                 <ListItemText
                   inset
-                  primary={collection.toUpperCase()}
+                  primary={deslugify(collection).toUpperCase()}
                   style={{ paddingLeft: '16px' }}
                   onClick={() =>
                     this.handleClick(

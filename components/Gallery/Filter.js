@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { ArrowDropDown, ArrowRight } from '@material-ui/icons';
 import Link from 'next/link';
 
-import { pluralise } from '../../util/helpers';
+import { pluralise, deslugify } from '../../util/helpers';
 import { AnchorLink } from '../../styles/Piece';
 
 const styles = () => ({
@@ -106,7 +106,7 @@ class Filter extends React.Component {
             </>
           ) : null}
           <Typography inline variant="body2" className={classes.filterLine}>
-            {collection === 'all' ? 'all collections' : collection}
+            {collection === 'all' ? 'all collections' : deslugify(collection)}
           </Typography>
           <ArrowRight fontSize="small" className={classes.svg} />
           <Typography inline variant="body2" className={classes.filterLine}>
