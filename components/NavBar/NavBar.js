@@ -24,6 +24,7 @@ import { DrawerContext } from '../DrawerContext';
 import ShoppingBasket from './ShoppingBasket';
 import { Wrapper, WrapSpan, Span } from '../../styles/NavBar';
 import { AnchorLink } from '../../styles/Shared';
+import { deslugify } from '../../util/helpers';
 
 const styles = theme => ({
   flex: {
@@ -220,7 +221,7 @@ class NavBar extends React.Component {
                   )}
                   className={classes.menuItem}
                 >
-                  {collection.toUpperCase()}
+                  {deslugify(collection).toUpperCase()}
                 </MenuItem>
               ))}
             </Menu>

@@ -29,7 +29,7 @@ import { Mail, Strong } from '../styles/Shared';
 import DialogForm from '../components/DialogForm/DialogForm';
 import SizeInput from '../components/Piece/SizeInput';
 import SizesInfo from '../components/Piece/SizesDialog';
-import { pluralise } from '../util/helpers';
+import { pluralise, deslugify } from '../util/helpers';
 import * as gtag from '../lib/gtag';
 
 const styles = {
@@ -216,7 +216,7 @@ class Piece extends React.Component {
         >
           <AnchorLink>
             <Typography inline variant="body2" className={classes.filterLine}>
-              {collection}
+              {deslugify(collection)}
             </Typography>
           </AnchorLink>
         </Link>
