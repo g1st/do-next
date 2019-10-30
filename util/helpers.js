@@ -137,3 +137,5 @@ exports.filterCollections = (data, user) => {
   }
   return collections;
 };
+
+exports.deslugify = slug => slug.split('-').join(' ');
