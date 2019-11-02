@@ -2,5 +2,5 @@ module.exports = {
   authUrl: 'https://auth-server.dovilejewellery.com',
   appUrl: 'https://dovilejewellery.com',
   ITEMS_PER_PAGE: 30,
-  instagramToken: '1759380932.1677ed0.a61e137a154c4c4399b3f1607fe7715a'
+  instagramToken: '1759380932.563a814.3e0080c9dd354f678a841b71fa9de82c'
 };
