@@ -15,6 +15,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { withStyles } from '@material-ui/core/styles';
 
 import CartItem from './CartItem';
+import PromoCode from '../PromoCode/PromoCode';
 import { cartHelper } from '../../util/helpers';
 import {
   PaymentIcons,
@@ -49,6 +50,9 @@ const styles = {
   },
   cardIcons: {
     padding: '6px 16px'
+  },
+  discounted: {
+    textDecoration: 'line-through'
   }
 };
 
@@ -59,7 +63,8 @@ const CartDrawerContent = ({
   cart,
   buyItNow,
   buyItNowItem,
-  shippingCost
+  shippingCost,
+  discount
 }) => {
   const buttonClickHandler = () => {
     Router.push('/gallery');
@@ -70,6 +75,19 @@ const CartDrawerContent = ({
     if (key === 'Enter') {
       buttonClickHandler();
     }
+  };
+
+  const priceToPay = withDiscount => {
+    let price = buyItNow
+      ? cartHelper.totalPrice([buyItNowItem], shippingCost).toFixed(2)
+      : cartHelper.totalPrice(cart, shippingCost).toFixed(2);
+
+    if (withDiscount) {
+      price *= (100 - withDiscount) / 100;
+      price = price.toFixed(2);
+    }
+
+    return price;
   };
 
   let content = (
@@ -149,16 +167,23 @@ const CartDrawerContent = ({
               <Typography variant="body2">Total</Typography>
             </ListItemText>
             <ListItemText className={classes.textRight}>
-              <Typography variant="body2">
-                £
-                {buyItNow
-                  ? cartHelper
-                      .totalPrice([buyItNowItem], shippingCost)
-                      .toFixed(2)
-                  : cartHelper.totalPrice(cart, shippingCost).toFixed(2)}
+              <Typography
+                variant="body2"
+                className={discount ? classes.discounted : ''}
+                color={discount ? 'textSecondary' : 'textPrimary'}
+                inline
+              >
+                £{priceToPay()}
               </Typography>
+              {discount ? (
+                <Typography variant="body2" inline>
+                  {' '}
+                  £{priceToPay(discount)}
+                </Typography>
+              ) : null}
             </ListItemText>
           </ListItem>
+          <PromoCode />
           {inForm ? (
             <ListItem className={classes.cardIcons}>
               <PaymentIcons>
@@ -202,7 +227,8 @@ const CartDrawerContent = ({
 const mapStateToProps = state => ({
   cart: state.cart,
   buyItNowItem: state.buyItNow,
-  shippingCost: state.shippingCost
+  shippingCost: state.shippingCost,
+  discount: state.promo.discount
 });
 
 CartDrawerContent.propTypes = {

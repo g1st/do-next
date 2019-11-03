@@ -16,6 +16,7 @@ const sendPurchaseEmail = require('./sendPurchaseEmail');
 const serverUtils = require('../util/serverHelper');
 const { generatePaymentResponse } = require('../util/helpers');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
+const codes = require('../util/promoCodes');
 
 module.exports = (db, upload) => {
   const router = express.Router();
@@ -511,7 +512,8 @@ module.exports = (db, upload) => {
         boughtFrom,
         price,
         _id,
-        quantity
+        quantity,
+        promo
       } = req.body.additional.purchaseDetails;
 
       const { country: countryISO } = req.body.additional;
@@ -556,6 +558,12 @@ module.exports = (db, upload) => {
           amountFromFrontEnd === amountFromBackend
             ? totalPrice + shippingPrice // totalPrice includes quantity multipliers (checked in validation)
             : false;
+        console.log('amount before disocunt', amount);
+
+        // surasti discount pagal promo code ir ismesti promocode is arrayjaus
+
+        // const discount =
+        amount *= discount;
       }
 
       // if frontend price doesn't match with backend's throw an error
@@ -749,6 +757,20 @@ module.exports = (db, upload) => {
         email,
         err: error
       };
+    })
+  );
+
+  router.get(
+    '/promo',
+    wrapAsync(async function(req, res) {
+      const { code } = req.query;
+      if (codes.some(x => x.code === code)) {
+        console.log('includes');
+        // codes.splice(codes.indexOf(code), 1);
+        return { validCode: true };
+      }
+      console.log("don't include");
+      return { validCode: false };
     })
   );
 
