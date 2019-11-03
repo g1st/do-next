@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { postageForCountry } from '../../util/globals';
+import promoCodes from '../../util/promoCodes';
 import { ITEMS_PER_PAGE } from '../../config';
 
 import {
@@ -13,7 +14,8 @@ import {
   DEAUTHENTICATE,
   INCREASE_LOADED_ITEMS,
   COUNT_SHIPPING_COST,
-  ADD_INSTAGRAM_DATA
+  ADD_INSTAGRAM_DATA,
+  ADD_DISCOUNT
 } from '../constants/action-types';
 
 export const initialState = {
@@ -22,7 +24,8 @@ export const initialState = {
   shippingCost: postageForCountry('GB'),
   authenticate: { token: null, error: false },
   loadMore: { all: ITEMS_PER_PAGE },
-  instagramData: { data: [], nextPage: null }
+  instagramData: { data: [], nextPage: null },
+  promo: {}
 };
 
 const cart = (state = initialState.cart, action) => {
@@ -92,13 +95,24 @@ const instagramData = (state = initialState.instagramData, action) => {
   return state;
 };
 
+const promo = (state = initialState.promo, action) => {
+  if (ADD_DISCOUNT === action.type) {
+    return {
+      code: action.code,
+      discount: promoCodes.filter(obj => obj.code === action.code)[0].discount
+    };
+  }
+  return state;
+};
+
 const dovile = combineReducers({
   cart,
   buyItNow,
   shippingCost,
   loadMore,
   authenticate,
-  instagramData
+  instagramData,
+  promo
 });
 
 export default dovile;

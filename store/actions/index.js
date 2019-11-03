@@ -69,3 +69,8 @@ export const countShippingCost = country => ({
   type: actionTypes.COUNT_SHIPPING_COST,
   country
 });
+
+export const addDiscount = code => ({
+  type: actionTypes.ADD_DISCOUNT,
+  code
+});
