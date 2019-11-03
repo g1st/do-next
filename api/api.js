@@ -563,7 +563,7 @@ module.exports = (db, upload) => {
         // surasti discount pagal promo code ir ismesti promocode is arrayjaus
 
         // const discount =
-        amount *= discount;
+        amount *= promo.discount;
       }
 
       // if frontend price doesn't match with backend's throw an error
