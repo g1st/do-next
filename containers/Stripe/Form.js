@@ -53,7 +53,8 @@ class StripeForm extends Component {
     clearBuyItNow: PropTypes.func,
     clearCart: PropTypes.func,
     shippingCost: PropTypes.number,
-    stripe: PropTypes.object
+    stripe: PropTypes.object,
+    promo: PropTypes.object
   };
 
   state = {
@@ -194,7 +195,7 @@ class StripeForm extends Component {
   };
 
   handleAction = response => {
-    const { stripe, shippingCost, buyItNowItem, cart } = this.props;
+    const { stripe, shippingCost, buyItNowItem, cart, promo } = this.props;
     const {
       first_name,
       last_name,
@@ -229,7 +230,8 @@ class StripeForm extends Component {
           const purchaseDetails = getPurchaseDetails(
             buyItNowItem,
             shippingCost,
-            cart
+            cart,
+            promo
           );
           // The card action has been handled
           // The PaymentIntent can be confirmed again on the server
@@ -404,7 +406,8 @@ class StripeForm extends Component {
 const mapStateToProps = state => ({
   buyItNowItem: state.buyItNow,
   cart: state.cart,
-  shippingCost: state.shippingCost
+  shippingCost: state.shippingCost,
+  promo: state.promo
 });
 
 const mapDispatchToProps = dispatch => ({
