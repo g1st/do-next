@@ -9,3 +9,4 @@ export const DEAUTHENTICATE = 'deauthenticate';
 export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';
 export const COUNT_SHIPPING_COST = 'COUNT_SHIPPING_COST';
 export const ADD_INSTAGRAM_DATA = 'ADD_INSTAGRAM_DATA';
+export const ADD_DISCOUNT = 'ADD_DISCOUNT';

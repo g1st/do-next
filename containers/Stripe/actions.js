@@ -19,7 +19,8 @@ export const attemptPayment = ({
   shippingCost,
   cart,
   stripe,
-  postal_code
+  postal_code,
+  promo
 }) =>
   stripe
     .createPaymentMethod('card', {
@@ -40,7 +41,8 @@ export const attemptPayment = ({
       const purchaseDetails = getPurchaseDetails(
         buyItNowItem,
         shippingCost,
-        cart
+        cart,
+        promo
       );
 
       const { paymentMethod, error } = payload;
