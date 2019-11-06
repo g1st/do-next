@@ -12,7 +12,6 @@ import {
   CircularProgress
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import CheckIcon from '@material-ui/icons/Check';
 import { withStyles } from '@material-ui/core/styles';
 
 import Error from '../Error/Error';
@@ -44,12 +43,6 @@ const styles = {
   wrapper: {
     position: 'relative'
   },
-  buttonSuccess: {
-    backgroundColor: '#9E9E9E',
-    '&:hover': {
-      backgroundColor: '#212121'
-    }
-  },
   buttonProgress: {
     color: '#4CAF50',
     position: 'absolute',
@@ -58,19 +51,17 @@ const styles = {
     marginTop: -12,
     marginLeft: -12
   },
-  newsletter: {
-    textShadow: '2px 2px #333',
-    alignItems: 'center',
-    marginBottom: '10px',
-    letterSpacing: '2px'
+  inputWrapper: {
+    display: 'inline-block',
+    position: 'relative'
   },
-  discover: {
-    textShadow: '1px 1px #333',
-    alignItems: 'center',
-    marginBottom: '20px'
+  errorWrapper: {
+    position: 'absolute',
+    top: '1.5em'
   },
-  checkIcon: {
-    color: '#4CAF50'
+  iconButton: {
+    color: 'rgba(0, 0, 0, 0.26)',
+    marginLeft: '4px'
   }
 };
 
@@ -78,7 +69,6 @@ const PromoCode = ({ classes }) => {
   const [inputVisible, setInputVisible] = useState(false);
   const [code, setCode] = useState('');
   const [submit, setSubmit] = useState('');
-  const [promoCodeApplied, setPromoCodeApplied] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const firstLoad = useRef();
@@ -86,8 +76,6 @@ const PromoCode = ({ classes }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('useEffect hook');
-    console.log('firstLoad', firstLoad);
     const checkPromoCode = async () => {
       setError(false);
       setIsLoading(true);
@@ -95,13 +83,11 @@ const PromoCode = ({ classes }) => {
         const result = await axios(`${appUrl}/api/promo`, {
           params: { code: submit }
         });
-
         const { validCode } = result.data;
-        console.log(validCode);
+
         setIsLoading(false);
-        setPromoCodeApplied(validCode);
+
         if (validCode) {
-          console.log('dispatchina');
           dispatch(addDiscount(submit));
         } else {
           setError(true);
@@ -109,18 +95,16 @@ const PromoCode = ({ classes }) => {
       } catch (err) {
         setError(err);
       }
-      // console.log('data = ', data);
     };
-    // don't run on initial render
+    // don't run on first load
     if (firstLoad.current) {
       checkPromoCode();
     }
-  }, [dispatch, firstLoad, submit]);
+  }, [dispatch, submit]);
 
   const handleSubmit = e => {
     e.preventDefault();
     setSubmit(code);
-    console.log('submit');
   };
 
   const handleKeyDown = ({ key }) => {
@@ -133,7 +117,9 @@ const PromoCode = ({ classes }) => {
     <ListItem>
       <ListItemText className={classes.textRight}>
         {discount ? (
-          <Typography variant="body2">-{discount}% off applied</Typography>
+          <Typography variant="body2" inline>
+            -{discount}% off applied
+          </Typography>
         ) : (
           <>
             {!inputVisible && (
@@ -149,22 +135,20 @@ const PromoCode = ({ classes }) => {
                 </Typography>
               </button>
             )}
-            {inputVisible &&
-              (promoCodeApplied ? null : (
-                <form onSubmit={handleSubmit}>
-                  <IconButton
-                    style={{
-                      color: 'rgba(0, 0, 0, 0.26)',
-                      marginLeft: '4px'
-                    }}
-                    aria-label="Toggle promo code input"
-                    onClick={() => {
-                      setInputVisible(!inputVisible);
-                      setCode('');
-                    }}
-                  >
-                    <ClearIcon fontSize="small" />
-                  </IconButton>
+            {inputVisible && (
+              <form onSubmit={handleSubmit}>
+                <IconButton
+                  className={classes.IconButton}
+                  aria-label="Toggle promo code input"
+                  onClick={() => {
+                    setInputVisible(!inputVisible);
+                    setCode('');
+                    setError(false);
+                  }}
+                >
+                  <ClearIcon fontSize="small" />
+                </IconButton>
+                <div className={classes.inputWrapper}>
                   <Input
                     ref={firstLoad}
                     value={code}
@@ -177,39 +161,35 @@ const PromoCode = ({ classes }) => {
                     disableUnderline
                     className={classes.inputRoot}
                     onChange={e => setCode(e.target.value)}
-                    error={error}
+                    error={!!error}
                     placeholder="Promo code"
                     disabled={isLoading}
                   />
-                  <div className={classes.root}>
-                    <div className="wrapper">
-                      {promoCodeApplied ? (
-                        <CheckIcon classes={{ root: classes.checkIcon }} />
-                      ) : (
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                          size="small"
-                          className={
-                            promoCodeApplied ? classes.buttonSuccess : ''
-                          }
-                          disabled={isLoading}
-                        >
-                          Apply
-                          {isLoading && (
-                            <CircularProgress
-                              size={24}
-                              className={classes.buttonProgress}
-                            />
-                          )}
-                        </Button>
-                      )}
-                    </div>
+                  <div className={classes.errorWrapper}>
+                    {error && <Error>Wrong code</Error>}
                   </div>
-                  {error && <Error>Wrong code</Error>}
-                </form>
-              ))}
+                </div>
+                <div className={classes.root}>
+                  <div className={classes.wrapper}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      size="small"
+                      disabled={isLoading}
+                    >
+                      Apply
+                      {isLoading && (
+                        <CircularProgress
+                          size={24}
+                          className={classes.buttonProgress}
+                        />
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              </form>
+            )}
           </>
         )}
       </ListItemText>
