@@ -2,7 +2,9 @@
 const promoCodes = [
   { code: 'dovile10', discount: 10 },
   { code: 'jewellery15', discount: 15 },
-  { code: 'silver20', discount: 20 }
+  { code: 'silver20', discount: 20 },
+  { code: 'gold25', discount: 25 },
+  { code: 'amber30', discount: 30 }
 ];
 
 const findDiscountMultiplier = code => {
