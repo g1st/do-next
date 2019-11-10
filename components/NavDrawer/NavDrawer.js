@@ -43,7 +43,6 @@ class NavDrawer extends Component {
             {sideNavList}
           </div>
         </Drawer>
-        );
       </div>
     );
   }
