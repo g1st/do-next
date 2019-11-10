@@ -15,7 +15,7 @@ import CustomerOrderDetailForm from './CustomerOrderDetailForm';
 import StripeDetailForm from './StripeDetailForm';
 import PaymentFailureSegment from './PaymentFailureSegment';
 import { attemptPayment } from './actions';
-import { getPurchaseDetails } from '../../util/helpers';
+import { getPurchaseDetails, cartHelper } from '../../util/helpers';
 import BuyButton from './BuyButton';
 import ModalLoader from '../../components/UI/ModalLoader/ModalLoader';
 import * as gtag from '../../lib/gtag';
@@ -323,7 +323,15 @@ class StripeForm extends Component {
       orderComplete
     } = this.state;
 
-    const { cart, classes, stripe } = this.props;
+    const {
+      cart,
+      classes,
+      stripe,
+      buyItNowItem,
+      shippingCost,
+      promo
+    } = this.props;
+    const buyItNow = Object.prototype.hasOwnProperty.call(buyItNowItem, 'name');
 
     const purchase = orderComplete ? (
       <p>Purchase Complete.</p>
@@ -356,7 +364,17 @@ class StripeForm extends Component {
               </Grid>
               <br />
               <CenterButton>
-                <BuyButton disabled={!stripe || processing} fullWidth />
+                <BuyButton
+                  disabled={!stripe || processing}
+                  fullWidth
+                  priceToPay={cartHelper.priceToPay(
+                    buyItNow,
+                    buyItNowItem,
+                    cart,
+                    shippingCost,
+                    promo.discount
+                  )}
+                />
               </CenterButton>
             </form>
           </FormWrapper>
@@ -374,8 +392,6 @@ class StripeForm extends Component {
         </>
       );
     }
-    const { buyItNowItem } = this.props;
-    const buyItNow = Object.prototype.hasOwnProperty.call(buyItNowItem, 'name');
 
     const checkoutPossible = buyItNow || (isClient && cart.length > 0);
     if (checkoutPossible) {
