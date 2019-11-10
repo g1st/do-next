@@ -77,19 +77,6 @@ const CartDrawerContent = ({
     }
   };
 
-  const priceToPay = withDiscount => {
-    let price = buyItNow
-      ? cartHelper.totalPrice([buyItNowItem], shippingCost).toFixed(2)
-      : cartHelper.totalPrice(cart, shippingCost).toFixed(2);
-
-    if (withDiscount) {
-      price *= (100 - withDiscount) / 100;
-      price = price.toFixed(2);
-    }
-
-    return price;
-  };
-
   let content = (
     <>
       <Typography variant="body2" align="center" className={classes.marginTop}>
@@ -173,12 +160,25 @@ const CartDrawerContent = ({
                 color={discount ? 'textSecondary' : 'textPrimary'}
                 inline
               >
-                £{priceToPay()}
+                £
+                {cartHelper.priceToPay(
+                  buyItNow,
+                  buyItNowItem,
+                  cart,
+                  shippingCost
+                )}
               </Typography>
               {discount ? (
                 <Typography variant="body2" inline>
                   {' '}
-                  £{priceToPay(discount)}
+                  £
+                  {cartHelper.priceToPay(
+                    buyItNow,
+                    buyItNowItem,
+                    cart,
+                    shippingCost,
+                    discount
+                  )}
                 </Typography>
               ) : null}
             </ListItemText>

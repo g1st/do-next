@@ -1,17 +1,31 @@
 exports.cartHelper = {
-  totalItems: cart =>
-    cart.reduce((acc, item) => {
+  totalItems(cart) {
+    return cart.reduce((acc, item) => {
       const items = acc + item.quantity;
       return items;
-    }, 0),
+    }, 0);
+  },
 
-  totalPrice: (cart, shippingCost = 0) => {
+  totalPrice(cart, shippingCost = 0) {
     const basePrice = cart.reduce((acc, item) => {
       const price = acc + item.price * item.quantity;
       return price;
     }, 0);
     const totalPrice = basePrice + shippingCost;
     return totalPrice;
+  },
+
+  priceToPay(buyItNow, buyItNowItem, cart, shippingCost, discount) {
+    let price = buyItNow
+      ? this.totalPrice([buyItNowItem], shippingCost).toFixed(2)
+      : this.totalPrice(cart, shippingCost).toFixed(2);
+
+    if (discount) {
+      price *= (100 - discount) / 100;
+      price = price.toFixed(2);
+    }
+
+    return price;
   }
 };
 
