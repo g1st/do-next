@@ -131,7 +131,7 @@ const PromoCode = ({ classes }) => {
                   tabIndex={0}
                   role="button"
                 >
-                  Got promo code?
+                  Have coupon?
                 </Typography>
               </button>
             )}
@@ -154,7 +154,7 @@ const PromoCode = ({ classes }) => {
                     value={code}
                     id="promocode"
                     inputProps={{
-                      'aria-label': 'Promotional code',
+                      'aria-label': 'Coupon code',
                       required: true
                     }}
                     type="text"
@@ -162,7 +162,7 @@ const PromoCode = ({ classes }) => {
                     className={classes.inputRoot}
                     onChange={e => setCode(e.target.value)}
                     error={!!error}
-                    placeholder="Promo code"
+                    placeholder="Coupon code"
                     disabled={isLoading}
                   />
                   <div className={classes.errorWrapper}>
