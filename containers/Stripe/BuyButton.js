@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Button } from '@material-ui/core';
+import LockIcon from '@material-ui/icons/Lock';
 
-const BuyButton = ({ disabled, fullWidth }) => (
+const BuyButton = ({ disabled, fullWidth, priceToPay }) => (
   <Button
     color="secondary"
     disabled={disabled}
@@ -11,13 +11,17 @@ const BuyButton = ({ disabled, fullWidth }) => (
     size="large"
     type="submit"
     variant="contained"
+    style={{ position: 'relative' }}
   >
-    Buy
+    Pay £{priceToPay}
+    <LockIcon style={{ position: 'absolute', right: '0.75em' }} />
   </Button>
 );
+
 BuyButton.propTypes = {
   disabled: PropTypes.bool,
-  fullWidth: PropTypes.bool
+  fullWidth: PropTypes.bool,
+  priceToPay: PropTypes.string
 };
 
 export default BuyButton;
