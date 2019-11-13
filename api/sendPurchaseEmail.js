@@ -4,6 +4,7 @@ const axios = require('axios');
 const { appUrl } = require('../config');
 const emailForClient = require('./EmailTemplates/emailForClient');
 const emailForAdmin = require('./EmailTemplates/emailForAdmin');
+const { cartHelper } = require('../util/helpers');
 
 module.exports = data => {
   const { boughtFrom } = data.additional.purchaseDetails;
@@ -27,10 +28,39 @@ module.exports = data => {
       })
     );
   }
-
-  const { totalPrice, shippingCost } = data.additional.purchaseDetails;
+  const { totalPrice, shippingCost, promo } = data.additional.purchaseDetails;
   const totalPriceBuyItNow = purchaseData[0].price * purchaseData[0].quantity;
   const price = boughtFrom === 'buyItNow' ? totalPriceBuyItNow : totalPrice;
+  let withDiscount;
+
+  if (promo.discount) {
+    withDiscount = {};
+    const { discount } = promo;
+    withDiscount.discountPercentage = discount;
+    withDiscount.code = promo.code;
+    let discountedPrice;
+    if (boughtFrom === 'buyItNow') {
+      discountedPrice = cartHelper.priceToPay(
+        true,
+        data.additional.purchaseDetails,
+        null,
+        shippingCost,
+        discount
+      );
+    } else {
+      discountedPrice = cartHelper.priceToPay(
+        false,
+        null,
+        data.additional.purchaseDetails.selectedItems,
+        shippingCost,
+        discount
+      );
+    }
+
+    const discountAmount = (price - parseFloat(discountedPrice)).toFixed(2);
+    withDiscount.discountedPrice = discountedPrice;
+    withDiscount.discountAmount = discountAmount;
+  }
   const clientInfo = data.additional;
   const { email } = data.additional;
 
@@ -38,14 +68,16 @@ module.exports = data => {
     purchaseData,
     price,
     shippingCost,
-    clientInfo
+    clientInfo,
+    withDiscount
   );
 
   const clientHTML = emailForClient(
     purchaseData,
     price,
     shippingCost,
-    clientInfo
+    clientInfo,
+    withDiscount
   );
 
   Promise.all([
