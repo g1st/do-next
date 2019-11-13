@@ -558,11 +558,11 @@ module.exports = (db, upload) => {
           amountFromFrontEnd === amountFromBackend
             ? totalPrice + shippingPrice // totalPrice includes quantity multipliers (checked in validation)
             : false;
+      }
 
-        if (promo.code) {
-          const discountMultiplier = findDiscountMultiplier(promo.code);
-          amount = (amount * discountMultiplier).toFixed(2);
-        }
+      if (promo.code) {
+        const discountMultiplier = findDiscountMultiplier(promo.code);
+        amount = Number((amount * discountMultiplier).toFixed(2));
       }
 
       // if frontend price doesn't match with backend's throw an error
