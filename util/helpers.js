@@ -17,15 +17,14 @@ exports.cartHelper = {
 
   priceToPay(buyItNow, buyItNowItem, cart, shippingCost, discount) {
     let price = buyItNow
-      ? this.totalPrice([buyItNowItem], shippingCost).toFixed(2)
-      : this.totalPrice(cart, shippingCost).toFixed(2);
+      ? this.totalPrice([buyItNowItem], shippingCost)
+      : this.totalPrice(cart, shippingCost);
 
     if (discount) {
       price *= (100 - discount) / 100;
-      price = price.toFixed(2);
     }
 
-    return price;
+    return price.toFixed(2);
   }
 };
 
