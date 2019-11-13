@@ -107,12 +107,13 @@ exports.generatePaymentResponse = intent => {
   };
 };
 
-exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart, promo) => {
+exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart, promo = 0) => {
   if (Object.prototype.hasOwnProperty.call(buyItNowItem, 'name')) {
     return {
       ...buyItNowItem,
       shippingCost,
-      boughtFrom: 'buyItNow'
+      boughtFrom: 'buyItNow',
+      promo
     };
   }
 
