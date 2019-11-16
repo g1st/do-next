@@ -75,7 +75,10 @@ class Filter extends React.Component {
     }, []);
 
     categories.push(
-      categories.splice(categories.findIndex(cat => cat === 'other'), 1)[0]
+      categories.splice(
+        categories.findIndex(cat => cat === 'other'),
+        1
+      )[0]
     );
 
     return categories;

@@ -432,8 +432,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withStyles(styles)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(StripeForm)
+  connect(mapStateToProps, mapDispatchToProps)(StripeForm)
 );

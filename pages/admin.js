@@ -64,7 +64,4 @@ const mapStateToProps = state => ({
   authServerError: state.authenticate.error
 });
 
-export default connect(
-  mapStateToProps,
-  { deauthenticate }
-)(Admin);
+export default connect(mapStateToProps, { deauthenticate })(Admin);

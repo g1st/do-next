@@ -92,7 +92,4 @@ CartItem.propTypes = {
   clearBuyItNow: PropTypes.func
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CartItem);
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);
