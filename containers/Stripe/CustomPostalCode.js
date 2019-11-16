@@ -10,6 +10,10 @@ const styles = {
   },
   labelRoot: {
     fontSize: '14px'
+  },
+  nativeInput: {
+    height: '16.8px',
+    paddingTop: '6px'
   }
 };
 
@@ -33,7 +37,9 @@ const CustomPostalCode = ({
         root: classes.labelRoot
       }
     }}
-    InputProps={{ classes: { root: classes.inputRoot } }}
+    InputProps={{
+      classes: { root: classes.inputRoot, input: classes.nativeInput }
+    }}
     error={backend_validation_errors.some(
       err => err.param === 'additional.postal_code'
     )}
