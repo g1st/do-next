@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Link from 'next/link';
 import Router from 'next/router';
 import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
+
 import { deslugify } from '../../util/helpers';
+import { clearOption } from '../../store/actions';
 
 class NavDrawerContent extends React.Component {
   static propTypes = {
     collections: PropTypes.arrayOf(PropTypes.string),
-    closingDrawer: PropTypes.func
+    closingDrawer: PropTypes.func,
+    clearOptionRedux: PropTypes.func
   };
 
   state = {
@@ -21,12 +25,15 @@ class NavDrawerContent extends React.Component {
   };
 
   handleClick = (href, as) => {
-    const { closingDrawer } = this.props;
+    const { closingDrawer, clearOptionRedux } = this.props;
     Router.push(href, as);
     closingDrawer();
+    clearOptionRedux();
   };
 
   handleKeyDown = ({ key }, collection, href) => {
+    const { clearOptionRedux } = this.props;
+
     if (key === 'Enter' || key === ' ') {
       if (collection) {
         this.handleClick(
@@ -36,6 +43,7 @@ class NavDrawerContent extends React.Component {
       } else {
         this.handleClick(href);
       }
+      clearOptionRedux();
     }
   };
 
@@ -122,4 +130,8 @@ class NavDrawerContent extends React.Component {
   }
 }
 
-export default NavDrawerContent;
+const mapDispatchToProps = dispatch => ({
+  clearOptionRedux: () => dispatch(clearOption())
+});
+
+export default connect(null, mapDispatchToProps)(NavDrawerContent);

@@ -25,6 +25,7 @@ import ShoppingBasket from './ShoppingBasket';
 import { Wrapper, WrapSpan, Span } from '../../styles/NavBar';
 import { AnchorLink } from '../../styles/Shared';
 import { deslugify } from '../../util/helpers';
+import { clearOption } from '../../store/actions';
 
 const styles = theme => ({
   flex: {
@@ -61,7 +62,8 @@ class NavBar extends React.Component {
     collections: PropTypes.arrayOf(PropTypes.string),
     pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     uniqueCartItems: PropTypes.number,
-    user: PropTypes.string
+    user: PropTypes.string,
+    clearOptionRedux: PropTypes.func
   };
 
   constructor(props) {
@@ -81,9 +83,11 @@ class NavBar extends React.Component {
   }
 
   handleNavBarChange = (event, value) => {
+    const { clearOptionRedux } = this.props;
     // on gallery click we just opening menu, not redirecting
     if (value !== '/gallery') {
       Router.push(value);
+      clearOptionRedux();
     }
   };
 
@@ -92,8 +96,10 @@ class NavBar extends React.Component {
   };
 
   handleMenuItemClick = (href, as) => () => {
+    const { clearOptionRedux } = this.props;
     this.closeMenu();
     Router.push(href, as);
+    clearOptionRedux();
   };
 
   closeMenu = () => {
@@ -243,4 +249,11 @@ const mapStateToProps = state => ({
   uniqueCartItems: state.cart.length
 });
 
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(NavBar)));
+const mapDispatchToProps = dispatch => ({
+  clearOptionRedux: () => dispatch(clearOption())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(withStyles(styles)(NavBar)));
