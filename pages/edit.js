@@ -76,7 +76,4 @@ Edit.propTypes = {
   onePieceData: PropTypes.array
 };
 
-export default connect(
-  null,
-  { deauthenticate }
-)(Edit);
+export default connect(null, { deauthenticate })(Edit);

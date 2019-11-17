@@ -5,7 +5,8 @@ module.exports = function emailForClient(
   data,
   price,
   shippingCost,
-  clientInfo
+  clientInfo,
+  withDiscount
 ) {
   const {
     first_name,
@@ -21,10 +22,10 @@ module.exports = function emailForClient(
   const body = `
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hello ${first_name},</p>
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">THANK YOU for your purchase, this e-mail confirms your order.</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">You will be contacted when the order will be shipped providing you with a tracking number.</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">I will contact you when the order will be shipped providing you with a tracking number.</p>
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">PLEASE NOTE that <i>made to order</i> items producing times are indicated at each piece's description. Producing times and delivery options for commissions are discussed individually by e-mail.</p>
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Delivery times will vary but usually, it is 1-2 days for UK, 3-7 days for Europe and 5-10 days worldwide. Delivery times may be extended during particularly busy periods such as Christmas.</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Your order:</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Order details:</p>
       ${data
         .map(
           item => `
@@ -40,9 +41,19 @@ module.exports = function emailForClient(
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Shipping cost: ${
       shippingCost === 0 ? 'Free' : `£${shippingCost}`
     }</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">Total amount: £${price +
-      shippingCost}</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Your address:</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">${
+      withDiscount ? 'Amount before discount:' : 'Total amount:'
+    } £${price + shippingCost}</p>
+    ${
+      withDiscount
+        ? `
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Discount: "${withDiscount.code}"  -${withDiscount.discountPercentage}% off
+    </p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Total amount paid: £${withDiscount.discountedPrice}
+    </p>`
+        : ''
+    }
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Shipping address:</p>
       <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">${address1}</p>
       ${
         address2

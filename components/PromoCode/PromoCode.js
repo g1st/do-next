@@ -71,6 +71,7 @@ const PromoCode = ({ classes }) => {
   const [submit, setSubmit] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('Wrong code');
   const firstLoad = useRef();
   const discount = useSelector(state => state.promo.discount);
   const dispatch = useDispatch();
@@ -86,14 +87,15 @@ const PromoCode = ({ classes }) => {
         const { validCode } = result.data;
 
         setIsLoading(false);
-
         if (validCode) {
           dispatch(addDiscount(submit));
         } else {
           setError(true);
         }
       } catch (err) {
-        setError(err);
+        setError(true);
+        setErrorMessage(err.message || 'Error occurred');
+        setIsLoading(false);
       }
     };
     // don't run on first load
@@ -144,6 +146,7 @@ const PromoCode = ({ classes }) => {
                     setInputVisible(!inputVisible);
                     setCode('');
                     setError(false);
+                    setIsLoading(false);
                   }}
                 >
                   <ClearIcon fontSize="small" />
@@ -166,7 +169,7 @@ const PromoCode = ({ classes }) => {
                     disabled={isLoading}
                   />
                   <div className={classes.errorWrapper}>
-                    {error && <Error>Wrong code</Error>}
+                    {error && <Error>{errorMessage}</Error>}
                   </div>
                 </div>
                 <div className={classes.root}>

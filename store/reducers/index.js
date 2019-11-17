@@ -15,7 +15,9 @@ import {
   INCREASE_LOADED_ITEMS,
   COUNT_SHIPPING_COST,
   ADD_INSTAGRAM_DATA,
-  ADD_DISCOUNT
+  ADD_DISCOUNT,
+  FILTER_OPTION,
+  CLEAR_FILTER_OPTION
 } from '../constants/action-types';
 
 export const initialState = {
@@ -25,7 +27,8 @@ export const initialState = {
   authenticate: { token: null, error: false },
   loadMore: { all: ITEMS_PER_PAGE },
   instagramData: { data: [], nextPage: null },
-  promo: {}
+  promo: {},
+  filter: {}
 };
 
 const cart = (state = initialState.cart, action) => {
@@ -105,6 +108,20 @@ const promo = (state = initialState.promo, action) => {
   return state;
 };
 
+const filter = (state = initialState.filter, action) => {
+  if (FILTER_OPTION === action.type) {
+    return {
+      option: action.option
+    };
+  }
+  if (CLEAR_FILTER_OPTION === action.type) {
+    return {
+      option: ''
+    };
+  }
+  return state;
+};
+
 const dovile = combineReducers({
   cart,
   buyItNow,
@@ -112,7 +129,8 @@ const dovile = combineReducers({
   loadMore,
   authenticate,
   instagramData,
-  promo
+  promo,
+  filter
 });
 
 export default dovile;

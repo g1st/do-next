@@ -5,7 +5,8 @@ module.exports = function emailForClient(
   data,
   price,
   shippingCost,
-  clientInfo
+  clientInfo,
+  withDiscount
 ) {
   const {
     address1,
@@ -40,8 +41,27 @@ module.exports = function emailForClient(
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Shipping cost: ${
       shippingCost === 0 ? 'Free' : `£${shippingCost}`
     }</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Total amount: £${price +
+    ${
+      withDiscount
+        ? `
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Discount code and percentage: "${
+      withDiscount.code
+    }"  -${withDiscount.discountPercentage}% off
+    </p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Discount      amount: -£${
+      withDiscount.discountAmount
+    }
+    </p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;"> Total amount before discount: £${price +
       shippingCost}</p>
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Discounted    and total price paid: £${
+      withDiscount.discountedPrice
+    }
+    </p>`
+        : `<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Total amount: £${price +
+            shippingCost}</p>`
+    }
+    
     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">
       Purchase time: ${new Date()}
     </p>

@@ -17,15 +17,14 @@ exports.cartHelper = {
 
   priceToPay(buyItNow, buyItNowItem, cart, shippingCost, discount) {
     let price = buyItNow
-      ? this.totalPrice([buyItNowItem], shippingCost).toFixed(2)
-      : this.totalPrice(cart, shippingCost).toFixed(2);
+      ? this.totalPrice([buyItNowItem], shippingCost)
+      : this.totalPrice(cart, shippingCost);
 
     if (discount) {
       price *= (100 - discount) / 100;
-      price = price.toFixed(2);
     }
 
-    return price;
+    return price.toFixed(2);
   }
 };
 
@@ -107,12 +106,13 @@ exports.generatePaymentResponse = intent => {
   };
 };
 
-exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart, promo) => {
+exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart, promo = 0) => {
   if (Object.prototype.hasOwnProperty.call(buyItNowItem, 'name')) {
     return {
       ...buyItNowItem,
       shippingCost,
-      boughtFrom: 'buyItNow'
+      boughtFrom: 'buyItNow',
+      promo
     };
   }
 

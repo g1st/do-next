@@ -39,6 +39,11 @@ const sendMail = ({ email, subject, message, contactForm }) => {
         return reject(error);
       }
       console.log('Message sent: %s', info.messageId);
+      console.log(
+        `Message sent ${
+          contactForm ? `via contact form. From: ${EMAIL}` : `to ${email}`
+        }`
+      );
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
       return resolve(info);
     });
