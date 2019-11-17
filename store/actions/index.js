@@ -74,3 +74,12 @@ export const addDiscount = code => ({
   type: actionTypes.ADD_DISCOUNT,
   code
 });
+
+export const changeOption = option => ({
+  type: actionTypes.FILTER_OPTION,
+  option
+});
+
+export const clearOption = () => ({
+  type: actionTypes.CLEAR_FILTER_OPTION
+});

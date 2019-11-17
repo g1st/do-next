@@ -5,7 +5,9 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import { ArrowDropDown, ArrowRight } from '@material-ui/icons';
 import Link from 'next/link';
+import { connect } from 'react-redux';
 
+import { changeOption } from '../../store/actions';
 import { pluralise, deslugify } from '../../util/helpers';
 import { AnchorLink } from '../../styles/Piece';
 
@@ -46,7 +48,8 @@ class Filter extends React.Component {
     data: PropTypes.arrayOf(PropTypes.object),
     option: PropTypes.string,
     handleChange: PropTypes.func,
-    collection: PropTypes.string
+    collection: PropTypes.string,
+    changeOptionRedux: PropTypes.func
   };
 
   state = {
@@ -62,8 +65,9 @@ class Filter extends React.Component {
   };
 
   handleItemClick = category => () => {
-    const { handleChange } = this.props;
+    const { handleChange, changeOptionRedux } = this.props;
     handleChange(category);
+    changeOptionRedux(category);
     this.setState({ anchorEl: null });
   };
 
@@ -153,4 +157,15 @@ class Filter extends React.Component {
   }
 }
 
-export default withStyles(styles)(Filter);
+const mapStateToProps = state => ({
+  option: state.filter.option
+});
+
+const mapDispatchToProps = dispatch => ({
+  changeOptionRedux: option => dispatch(changeOption(option))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Filter));

@@ -70,12 +70,19 @@ class Gallery extends React.Component {
     reduxLoadedItems: PropTypes.object,
     increaseLoadedItems: PropTypes.func,
     showFilter: PropTypes.bool,
-    user: PropTypes.string
+    user: PropTypes.string,
+    option: PropTypes.string
   };
 
   constructor(props) {
     super(props);
-    const { data, collectionsNames, reduxLoadedItems } = props;
+    const {
+      data,
+      collectionsNames,
+      reduxLoadedItems,
+      showCollection,
+      option
+    } = props;
     const collections = {
       all: { data, itemsLoaded: reduxLoadedItems.all }
     };
@@ -92,7 +99,7 @@ class Gallery extends React.Component {
 
     this.state = {
       collections: { ...collections },
-      withFilter: {},
+      withFilter: { [showCollection]: { filter: option, category: option } },
       toSwap: {},
       snapshots: {},
       updating: false
@@ -421,7 +428,8 @@ class Gallery extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  reduxLoadedItems: state.loadMore
+  reduxLoadedItems: state.loadMore,
+  option: state.filter.option
 });
 
 const mapDispatchToProps = dispatch => ({
