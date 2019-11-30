@@ -5,7 +5,7 @@ export const EventWrapper = styled.div`
 `;
 
 export const Image = styled.img`
-  cursor: pointer;
+  cursor: ${({ cursorDefault }) => (cursorDefault ? 'default' : 'pointer')};
   height: 100%;
   width: 100%;
 `;

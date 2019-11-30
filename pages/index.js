@@ -10,6 +10,7 @@ import LandingPageGallery from '../components/LandingPageGallery/LandingPageGall
 import Newsletter from '../components/Newsletter/Newsletter';
 import InstagramGallery from '../components/InstagramGallery/InstagramGallery';
 import UpcomingEvent from '../components/UpcomingEvent/UpcomingEvent';
+import UpcomingEventCentrePiece from '../components/UpcomingEvent/UpcomingEventCentrePiece';
 
 const styles = () => ({
   button: {
@@ -38,6 +39,7 @@ const Index = ({ pathname, collections, classes, user }) => (
     >
       GALLERY
     </Button>
+    <UpcomingEventCentrePiece />
     <UpcomingEvent />
     <InView triggerOnce rootMargin="400px">
       {({ inView, ref }) => (
