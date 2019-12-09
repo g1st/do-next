@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import { countShippingCost } from '../../store/actions';
-import Error from '../../components/Error/Error';
+import Error from '../Error/Error';
 
 const styles = {
   inputRoot: {

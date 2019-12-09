@@ -8,8 +8,8 @@ import axios from 'axios';
 
 import { appUrl } from '../../config';
 import { clearCart, clearBuyItNow } from '../../store/actions';
-import CartDrawerContent from '../../components/CartDrawer/CartDrawerContent';
-import Error from '../../components/Error/Error';
+import CartDrawerContent from '../CartDrawer/CartDrawerContent';
+import Error from '../Error/Error';
 import AdditionalInfoField from './AdditionalInfoField';
 import CustomerOrderDetailForm from './CustomerOrderDetailForm';
 import StripeDetailForm from './StripeDetailForm';
@@ -17,7 +17,7 @@ import PaymentFailureSegment from './PaymentFailureSegment';
 import { attemptPayment } from './actions';
 import { getPurchaseDetails, cartHelper } from '../../util/helpers';
 import BuyButton from './BuyButton';
-import ModalLoader from '../../components/UI/ModalLoader/ModalLoader';
+import ModalLoader from '../UI/ModalLoader/ModalLoader';
 import * as gtag from '../../lib/gtag';
 import {
   Wrapper,

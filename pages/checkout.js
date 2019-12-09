@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
-import Stripe from '../containers/Stripe/Stripe';
+import Stripe from '../components/Stripe/Stripe';
 
 const styles = theme => ({
   h6: {

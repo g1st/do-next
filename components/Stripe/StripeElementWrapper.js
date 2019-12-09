@@ -4,7 +4,7 @@ import { FormControl, Input, InputLabel } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import StripeInput from './StripeInput';
-import Error from '../../components/Error/Error';
+import Error from '../Error/Error';
 
 const styles = {
   inputRoot: {
