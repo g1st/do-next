@@ -15,6 +15,8 @@ const api = require('./api/api');
 const { appUrl } = require('./config');
 const getUrls = require('./util/getUrls');
 
+const { MONGO_URL } = process.env;
+const PORT = process.env.PORT || 3000;
 let sitemap;
 
 const storage = multer.diskStorage({
@@ -33,9 +35,6 @@ const upload = multer({ storage });
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
-const { MONGO_URL } = process.env;
-const PORT = process.env.PORT || 3000;
 
 // credits to http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
 co(function*() {
@@ -137,7 +136,6 @@ co(function*() {
     }
   });
 
-  // Everything that isn't '/api' gets passed along to Next.js
   server.get('*', (req, res) => handle(req, res));
 
   server.listen(PORT, () => console.log(`Server listening on ${PORT}`));
