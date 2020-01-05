@@ -125,46 +125,6 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
                   </Typography>
                 </Data>
               </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">23 - 24 Nov</Typography>
-                </Data>
-                <Data>
-                  <AnchorLink
-                    href="https://jqopenstudios.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Typography variant="body2" gutterBottom inline>
-                      OPEN STUDIOS
-                    </Typography>
-                  </AnchorLink>
-                  <Typography variant="body2" gutterBottom inline>
-                    , Jewellery Quarter, Birmingham
-                  </Typography>
-                </Data>
-              </Row>
-              <Row>
-                <Data>
-                  {' '}
-                  <Typography variant="body2">2 - 22 Dec</Typography>
-                </Data>
-                <Data>
-                  <AnchorLink
-                    href="http://www.centrepiece-jewellery.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Typography variant="body2" gutterBottom inline>
-                      CENTREPIECE
-                    </Typography>
-                  </AnchorLink>
-                  <Typography variant="body2" gutterBottom inline>
-                    , Birmingham
-                  </Typography>
-                </Data>
-              </Row>
             </tbody>
           </Table>
         </UpcomingEvents>
