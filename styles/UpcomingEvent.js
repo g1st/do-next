@@ -7,4 +7,8 @@ export const EventWrapper = styled.div`
 export const Image = styled.img`
   height: 100%;
   width: 100%;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
