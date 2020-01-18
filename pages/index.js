@@ -13,7 +13,6 @@ import GridGallery from '../components/Gallery/Gallery';
 
 const styles = () => ({
   button: {
-    maxWidth: '118px',
     display: 'block',
     margin: '60px auto 100px auto'
   }
