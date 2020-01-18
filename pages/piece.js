@@ -9,8 +9,6 @@ import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ArrowRight } from '@material-ui/icons';
 
-import customItem from '../components/ItemCard/customRenderItem';
-import customThumb from '../components/ItemCard/customRenderThumb';
 import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
 import PieceGallery from '../components/Gallery/PieceGallery';
@@ -29,7 +27,7 @@ import { Mail, Strong } from '../styles/Shared';
 import DialogForm from '../components/DialogForm/DialogForm';
 import SizeInput from '../components/Piece/SizeInput';
 import SizesInfo from '../components/Piece/SizesDialog';
-import { pluralise, deslugify } from '../util/helpers';
+import { pluralise, deslugify, onImageError } from '../util/helpers';
 import * as gtag from '../lib/gtag';
 
 const styles = {
@@ -245,8 +243,8 @@ class Piece extends React.Component {
               showNav
               showPlayButton={false}
               showFullscreenButton
-              renderItem={customItem}
-              renderThumbInner={customThumb}
+              onThumbnailError={onImageError}
+              onImageError={onImageError}
             />
           </Images>
           <Info>

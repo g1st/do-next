@@ -15,6 +15,7 @@ import { authUrl } from '../config';
 import { saveCart, filterCollections } from '../util/helpers';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import '../styles/emptyFileToFixNextjsBug.css';
+import { GlobalStyle } from '../styles/react-image-gallery';
 
 class MyApp extends App {
   constructor(props) {
@@ -149,6 +150,7 @@ class MyApp extends App {
               {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
               {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              <GlobalStyle />
               <Component pageContext={this.pageContext} {...pageProps} />
             </Provider>
           </MuiThemeProvider>
