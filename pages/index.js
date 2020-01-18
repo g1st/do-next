@@ -50,7 +50,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
                   onClick={handleButton}
                   size="medium"
                 >
-                  Show all
+                  Show more
                 </Button>
               </>
             ) : null}
