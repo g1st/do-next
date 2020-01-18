@@ -308,7 +308,7 @@ class Gallery extends React.Component {
             color="secondary"
             onClick={() => this.loadMore(showCollection)}
           >
-            Load More
+            Show More
           </Button>
         </div>
       );

@@ -180,7 +180,7 @@ class InstagramGallery extends React.Component {
                   color="secondary"
                   onClick={this.loadMore}
                 >
-                  Load More
+                  Show More
                 </Button>
               )}
             </div>
