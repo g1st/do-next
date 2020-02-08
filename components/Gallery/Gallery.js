@@ -258,8 +258,8 @@ class Gallery extends React.Component {
     const indexValue =
       showCollection === 'all' ? 'galleryIndex' : 'collectionIndex';
     const sorted = dataArray.sort((a, b) => {
-      if (a[indexValue] > b[indexValue]) return 1;
-      return -1;
+      if (a[indexValue] > b[indexValue]) return -1;
+      return 1;
     });
     return sorted;
   };
