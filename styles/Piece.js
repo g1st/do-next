@@ -72,5 +72,12 @@ IconButtonWrapper.displayName = 'IconButtonWrapper';
 
 export const SizesWrapper = styled.div`
   display: flex;
+  margin-bottom: 2rem;
 `;
 SizesWrapper.displayName = 'SizesWrapper';
+
+export const SilverFinishWrapper = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
+`;
+SilverFinishWrapper.displayName = 'SilverFinishWrapper';

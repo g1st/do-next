@@ -10,7 +10,12 @@ const styles = {
     fontSize: '14px'
   },
   labelRoot: {
-    fontSize: '14px'
+    fontSize: '14px',
+    color: 'rgba(0, 0, 0, 0.87)'
+  },
+  formControl: {
+    maxWidth: '11rem',
+    width: '100%'
   }
 };
 
@@ -30,7 +35,10 @@ const SelectSize = ({ error, errorText, handleChange, classes }) => {
   };
 
   return (
-    <FormControl error={error && sizeError}>
+    <FormControl
+      error={error && sizeError}
+      classes={{ root: classes.formControl }}
+    >
       <InputLabel htmlFor="size-native" classes={{ root: classes.labelRoot }}>
         Size
       </InputLabel>

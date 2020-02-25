@@ -136,6 +136,7 @@ module.exports = (db, upload) => {
         madeToOrder,
         display,
         oneOfAKind,
+        silverFinish,
         producingTime
       } = req.body;
 
@@ -156,6 +157,7 @@ module.exports = (db, upload) => {
         madeToOrder,
         display,
         oneOfAKind,
+        silverFinish,
         producingTime
       };
 
@@ -293,6 +295,7 @@ module.exports = (db, upload) => {
         madeToOrder,
         display,
         oneOfAKind,
+        silverFinish,
         producingTime
       } = req.body;
 
@@ -344,6 +347,7 @@ module.exports = (db, upload) => {
         madeToOrder,
         display,
         oneOfAKind,
+        silverFinish,
         producingTime,
         galleryIndex,
         collectionIndex: galleryIndex

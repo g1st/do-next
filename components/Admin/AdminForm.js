@@ -118,6 +118,7 @@ class AdminForm extends Component {
     available: 'available',
     display: true,
     oneOfAKind: false,
+    silverFinish: false,
     madeToOrder: false,
     producingTime: '',
     updating: false,
@@ -165,6 +166,9 @@ class AdminForm extends Component {
       return this.setState({ [name]: checked });
     }
     if (name === 'oneOfAKind') {
+      return this.setState({ [name]: checked });
+    }
+    if (name === 'silverFinish') {
       return this.setState({ [name]: checked });
     }
     if (name === 'selectedImages')
@@ -241,6 +245,7 @@ class AdminForm extends Component {
       available,
       display,
       oneOfAKind,
+      silverFinish,
       selectedImages,
       imageFiles,
       collection,
@@ -279,6 +284,7 @@ class AdminForm extends Component {
     formData.append('available', available);
     formData.append('display', display);
     formData.append('oneOfAKind', oneOfAKind);
+    formData.append('silverFinish', silverFinish);
     formData.append('imagesToRemove', imagesToRemove);
     formData.append('imageCount', images.length);
     formData.append('frontImage', frontImage);
@@ -359,6 +365,7 @@ class AdminForm extends Component {
       available,
       display,
       oneOfAKind,
+      silverFinish,
       category,
       collection,
       description,
@@ -763,6 +770,19 @@ class AdminForm extends Component {
                 />
               }
               label="ONE OF A KIND item."
+            />
+          </FormGroup>
+          <FormGroup className={classes.root}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={silverFinish}
+                  onChange={e => this.handleChange('silverFinish', e)}
+                  value="silverFinish"
+                  color="secondary"
+                />
+              }
+              label="Include option for silver finishing."
             />
           </FormGroup>
           <Button

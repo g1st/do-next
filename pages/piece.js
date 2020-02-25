@@ -21,11 +21,13 @@ import {
   AnchorLink,
   ListInfo,
   AdminLink,
-  SizesWrapper
+  SizesWrapper,
+  SilverFinishWrapper
 } from '../styles/Piece';
 import { Mail, Strong, StyledAnchorLink } from '../styles/Shared';
 import DialogForm from '../components/DialogForm/DialogForm';
 import SizeInput from '../components/Piece/SizeInput';
+import SilverFinishInput from '../components/Piece/SilverFinishInput';
 import SizesInfo from '../components/Piece/SizesDialog';
 import { pluralise, deslugify, onImageError } from '../util/helpers';
 import * as gtag from '../lib/gtag';
@@ -68,18 +70,21 @@ class Piece extends React.Component {
 
   state = {
     size: '',
+    silverFinishStyle: '',
     error: false
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { size } = this.state;
+    const { size, silverFinishStyle } = this.state;
     if (size !== nextState.size) return false;
+    if (silverFinishStyle !== nextState.silverFinishStyle) return false;
     return true;
   }
 
   handleBuyItNow = item => {
-    const { buyItNow: buyItNowRedux } = this.props;
-    const { size } = this.state;
+    const { buyItNow: buyItNowRedux, onePieceData } = this.props;
+    const silverFinishRequired = onePieceData[0].silverFinish;
+    const { size, silverFinishStyle } = this.state;
     gtag.event({
       action: 'click_buyitnow',
       category: 'Purchase',
@@ -92,13 +97,23 @@ class Piece extends React.Component {
         return this.setState({ error: true });
       }
     }
+
+    if (silverFinishRequired) {
+      item.silverFinishStyle = silverFinishStyle;
+      if (silverFinishStyle === '') {
+        return this.setState({ error: true });
+      }
+    }
+
     buyItNowRedux(item);
     Router.push('/checkout');
   };
 
   handleAddToCart = cartData => {
-    const { addToCart: addToCartRedux } = this.props;
-    const { size } = this.state;
+    const { addToCart: addToCartRedux, onePieceData } = this.props;
+    const silverFinishRequired = onePieceData[0].silverFinish;
+
+    const { size, silverFinishStyle } = this.state;
 
     gtag.event({
       action: 'click_addToCart',
@@ -112,6 +127,14 @@ class Piece extends React.Component {
         return this.setState({ error: true });
       }
     }
+
+    if (silverFinishRequired) {
+      cartData.silverFinishStyle = silverFinishStyle;
+      if (silverFinishStyle === '') {
+        return this.setState({ error: true });
+      }
+    }
+
     addToCartRedux(cartData);
   };
 
@@ -119,9 +142,13 @@ class Piece extends React.Component {
     this.setState({ size: value, error: false });
   };
 
+  handleSilverFinishChange = ({ target: { value } }) => {
+    this.setState({ silverFinishStyle: value, error: false });
+  };
+
   render() {
     const { onePieceData, classes, user, collections, data } = this.props;
-    const { error, size: ringSize } = this.state;
+    const { error, size: ringSize, silverFinishStyle } = this.state;
 
     if (onePieceData.length < 1 || onePieceData[0] === null) {
       return <p>Page doesn't exist</p>;
@@ -142,7 +169,8 @@ class Piece extends React.Component {
       frontImage,
       madeToOrder,
       producingTime,
-      oneOfAKind
+      oneOfAKind,
+      silverFinish
     } = onePieceData[0];
 
     const dataForCart = {
@@ -154,7 +182,8 @@ class Piece extends React.Component {
       quantity: 1,
       madeToOrder,
       category,
-      ringSize
+      ringSize,
+      silverFinishStyle
     };
 
     const gallery = images.reduce((acc, image) => {
@@ -298,7 +327,25 @@ class Piece extends React.Component {
                   </li>
                 )}
               </ListInfo>
-
+              {available && silverFinish && (
+                <SilverFinishWrapper>
+                  <SilverFinishInput
+                    handleChange={this.handleSilverFinishChange}
+                    error={error}
+                    errorText="Please choose silver finish style."
+                  />
+                </SilverFinishWrapper>
+              )}
+              {available && category === 'ring' && madeToOrder && (
+                <SizesWrapper>
+                  <SizeInput
+                    handleChange={this.handleSizeChange}
+                    error={error}
+                    errorText="Please select ring size."
+                  />
+                  <SizesInfo />
+                </SizesWrapper>
+              )}
               <Typography variant="body2" paragraph>
                 All purchases come in a branded box.
               </Typography>
@@ -326,38 +373,26 @@ class Piece extends React.Component {
               </Typography>
 
               {available ? (
-                <div>
-                  {category === 'ring' && madeToOrder ? (
-                    <SizesWrapper>
-                      <SizeInput
-                        handleChange={this.handleSizeChange}
-                        error={error}
-                        errorText="Please select ring size."
-                      />
-                      <SizesInfo />
-                    </SizesWrapper>
-                  ) : null}
-                  <ButtonsWrapper>
-                    <Button
-                      size="medium"
-                      variant="contained"
-                      color="primary"
-                      className={classes.button}
-                      onClick={() => this.handleBuyItNow(dataForCart)}
-                    >
-                      Buy It Now
-                    </Button>
-                    <Button
-                      size="medium"
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => this.handleAddToCart(dataForCart)}
-                      className={classes.button}
-                    >
-                      Add To Cart
-                    </Button>
-                  </ButtonsWrapper>
-                </div>
+                <ButtonsWrapper>
+                  <Button
+                    size="medium"
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => this.handleBuyItNow(dataForCart)}
+                  >
+                    Buy It Now
+                  </Button>
+                  <Button
+                    size="medium"
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => this.handleAddToCart(dataForCart)}
+                    className={classes.button}
+                  >
+                    Add To Cart
+                  </Button>
+                </ButtonsWrapper>
               ) : (
                 notAvailable
               )}
