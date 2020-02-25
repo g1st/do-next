@@ -24,7 +24,8 @@ module.exports = data => {
         link: `${baseUrl}${item._id}`,
         quantity: item.quantity,
         price: item.price,
-        ringSize: item.ringSize
+        ringSize: item.ringSize,
+        silverFinishStyle: item.silverFinishStyle
       })
     );
   }
