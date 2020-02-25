@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-const emailTemplate = require('./emailTemplate');
+const mjml2html = require('mjml');
 
 module.exports = function emailForClient(
   data,
@@ -21,64 +21,187 @@ module.exports = function emailForClient(
     phone
   } = clientInfo;
 
-  const title = 'Purchase @dovilejewellery.com';
-  const body = `
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hello Dovile,</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">a new order just have been placed!</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Order details:</p>
-      ${data
-        .map(
-          item => `
-            <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">
-              <a href=${item.link}>${item.name}</a>, ${
-            item.quantity > 1 ? `quantity: ${item.quantity}, ` : ''
-          }£${item.price}${item.ringSize ? `, size: ${item.ringSize}` : ''}
-            </p>
-            `
-        )
-        .join(' ')}
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Amount: £${price}</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Shipping cost: ${
-      shippingCost === 0 ? 'Free' : `£${shippingCost}`
-    }</p>
-    ${
-      withDiscount
-        ? `
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Discount code and percentage: "${
-      withDiscount.code
-    }"  -${withDiscount.discountPercentage}% off
-    </p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Discount      amount: -£${
-      withDiscount.discountAmount
-    }
-    </p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;"> Total amount before discount: £${price +
-      shippingCost}</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Discounted    and total price paid: £${
-      withDiscount.discountedPrice
-    }
-    </p>`
-        : `<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Total amount: £${price +
-            shippingCost}</p>`
-    }
-    
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">
-      Purchase time: ${new Date()}
-    </p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px;">Client info:</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Name: ${first_name} ${last_name}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Email: ${email}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Phone: ${phone ||
-        'Not provided'}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Address1: ${address1}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Address2: ${address2 ||
-        'Not provided'}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">City: ${city}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">ZIP / Postal code: ${postal_code}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">Country: ${full_country_name}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Additional order information: ${additional_info ||
-        'Not provided'}</p>
-  `;
+  const options = {};
 
-  return emailTemplate(body, title);
+  const htmlOutput = mjml2html(
+    `
+  <mjml lang="en">
+  <mj-head>
+    <mj-font name="Roboto" href="https://fonts.googleapis.com/css?family=Roboto" />
+    <mj-title>Purchase @dovilejewellery.com</mj-title>
+    <mj-preview>Purchase @dovilejewellery.com</mj-preview>
+    <mj-attributes>
+      <mj-body background-color="#ffffff" />
+      <mj-all font-family="Roboto, Helvetica, Arial, sans-serif" />
+      <mj-text font-size="16px" line-height="24px" color="#212121" />
+      <mj-button padding="0px" background-color="#fff" />
+      <mj-table font-size="16px" line-height="24px" color="#212121" />
+      <mj-divider border-color="#eeeeee" border-width="1px" border-style="solid" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image src="https://www.dovilejewellery.com/static/images/terms-conditions.JPG" alt="Dovile Jewellery FLOW brooch" />
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          Hello Doviliuk!
+        </mj-text>
+        <mj-text>
+          a new order just have been placed!
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>Order details:</mj-text>
+         <mj-table>
+          ${data
+            .map(
+              item => `
+            <tr style="text-align:left;">
+              <th style="font-weight: normal">Item</th>
+              <td>
+                <a href="${
+                  item.link
+                }" target="_blank" style="color: #212121; text-decoration:underline;">${
+                item.name
+              }</a>${item.quantity > 1 ? `, #${item.quantity}` : ''}
+              </td>
+            </tr>
+            ${
+              item.ringSize
+                ? `<tr style="text-align:left;">
+                <th style="font-weight: normal; padding-left: 15px;">Size</th>
+                <td>${item.ringSize}</td>
+              </tr>`
+                : ''
+            }
+            ${
+              item.silverFinishStyle
+                ? `<tr style="text-align:left;">
+                <th style="font-weight: normal; padding-left: 15px;">Silver finish</th>
+                <td>${item.silverFinishStyle}</td>
+              </tr>`
+                : ''
+            }
+          `
+            )
+            .join(' ')}
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Purchase time</th>
+            <td>${new Date().toLocaleString()}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Amount</th>
+            <td>£${price}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Shipping cost</th>
+            <td>${shippingCost === 0 ? 'Free' : `£${shippingCost}`}</td>
+          </tr>
+          ${
+            withDiscount
+              ? `
+              <tr style="text-align:left;">
+                <th style="font-weight: normal">Amount before discount
+                </th>
+                <td>£${price + shippingCost}</td>
+              </tr>
+              <tr style="text-align:left;">
+                <th style="font-weight: normal">Discount
+                </th>
+                <td>"${withDiscount.code}"  -${
+                  withDiscount.discountPercentage
+                }% off</td>
+              </tr>
+              <tr style="border-top:1px solid #ecedee;text-align:left;;">
+                <th>Total amount paid
+                </th>
+                <td><strong>£${withDiscount.discountedPrice}</strong></td>
+              </tr>
+            `
+              : `<tr style="border-top:1px solid #ecedee;text-align:left;">
+              <th>Total amount</th>
+              <td><strong>£${price + shippingCost}</strong></td>
+            </tr>`
+          }
+        </mj-table>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>Client info:</mj-text>
+         <mj-table>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Name</th>
+            <td>${first_name} ${last_name}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Email</th>
+            <td>${email}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Phone</th>
+            <td>${phone || 'Not provided'}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Address1</th>
+            <td>${address1}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Address2</th>
+            <td>${address2 || 'Not provided'}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">City</th>
+            <td>${city}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">ZIP / Postal Code</th>
+            <td>${postal_code}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Country</th>
+            <td>${full_country_name}</td>
+          </tr>
+          </mj-table>
+          ${additional_info &&
+            `
+          <mj-text>Additional order information:</mj-text>
+          ${additional_info
+            .split('\n')
+            .map(
+              p => `
+          <mj-text>${p}</mj-text>
+        `
+            )
+            .join(' ')}
+          `}
+      </mj-column>
+    </mj-section>
+    <mj-section padding-bottom="0">
+      <mj-column>
+        <mj-divider padding-bottom="0" />
+      </mj-column>
+    </mj-section>
+    <mj-section padding-top="0">
+      <mj-column>
+        <mj-text align="center">
+          <a href="https://www.dovilejewellery.com/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none;">dovilejewellery</a>
+          <a href="https://www.instagram.com/dovilejewellery/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none; padding: 0 20px">instagram</a>
+          <a href="https://www.facebook.com/artdovile/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none;">facebook</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>`,
+    options
+  );
+
+  return htmlOutput.html;
 };
