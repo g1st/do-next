@@ -23,7 +23,7 @@ import {
   AdminLink,
   SizesWrapper
 } from '../styles/Piece';
-import { Mail, Strong } from '../styles/Shared';
+import { Mail, Strong, StyledAnchorLink } from '../styles/Shared';
 import DialogForm from '../components/DialogForm/DialogForm';
 import SizeInput from '../components/Piece/SizeInput';
 import SizesInfo from '../components/Piece/SizesDialog';
@@ -49,6 +49,9 @@ const styles = {
     position: 'relative',
     color: '#595959',
     margin: '0 12px'
+  },
+  boldLink: {
+    fontWeight: 500
   }
 };
 
@@ -303,6 +306,23 @@ class Piece extends React.Component {
                 All items being sold as gold or silver are hallmarked to confirm
                 that they meet the legal standard in accordance with the British
                 Assay Office.
+              </Typography>
+              <Typography inline variant="body2" paragraph>
+                Please read{' '}
+              </Typography>
+              <Link href="/care-guide">
+                <StyledAnchorLink>
+                  <Typography
+                    inline
+                    variant="body2"
+                    className={classes.boldLink}
+                  >
+                    jewellery care guide
+                  </Typography>
+                </StyledAnchorLink>
+              </Link>
+              <Typography inline variant="body2">
+                .
               </Typography>
 
               {available ? (
