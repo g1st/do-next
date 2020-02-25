@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-const emailTemplate = require('./emailTemplate');
+const mjml2html = require('mjml');
 
 module.exports = function emailForClient(
   data,
@@ -16,58 +16,169 @@ module.exports = function emailForClient(
     full_country_name
   } = clientInfo;
 
-  // credits to email template to https://github.com/leemunroe/responsive-html-email-template
+  const options = {};
 
-  const title = 'Purchase @dovilejewellery.com';
-  const body = `
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hello ${first_name},</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">THANK YOU for your purchase, this e-mail confirms your order.</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">I will contact you when the order will be shipped providing you with a tracking number.</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">PLEASE NOTE that <i>made to order</i> items producing times are indicated at each piece's description. Producing times and delivery options for commissions are discussed individually by e-mail.</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Delivery times will vary but usually, it is 1-2 days for UK, 3-7 days for Europe and 5-10 days worldwide. Delivery times may be extended during particularly busy periods such as Christmas.</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Order details:</p>
-      ${data
-        .map(
-          item => `
-            <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">
-              <a href=${item.link}>${item.name}</a>, ${
-            item.quantity > 1 ? `quantity: ${item.quantity}, ` : ''
-          }£${item.price}${item.ringSize ? `, size: ${item.ringSize}` : ''}
-            </p>
+  const htmlOutput = mjml2html(
+    `
+  <mjml lang="en">
+  <mj-head>
+    <mj-font name="Roboto" href="https://fonts.googleapis.com/css?family=Roboto" />
+    <mj-title>Purchase @dovilejewellery.com</mj-title>
+    <mj-preview>Purchase @dovilejewellery.com</mj-preview>
+    <mj-attributes>
+      <mj-body background-color="#ffffff" />
+      <mj-all font-family="Roboto, Helvetica, Arial, sans-serif" />
+      <mj-text font-size="16px" line-height="24px" color="#212121" />
+      <mj-button padding="0px" background-color="#fff" />
+      <mj-table font-size="16px" line-height="24px" color="#212121" />
+      <mj-divider border-color="#eeeeee" border-width="1px" border-style="solid" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image src="https://www.dovilejewellery.com/static/images/terms-conditions.JPG" alt="Dovile Jewellery FLOW brooch" />
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          Hello ${first_name}!
+        </mj-text>
+        <mj-text>
+          THANK YOU for your purchase, this e-mail confirms your order.
+        </mj-text>
+        <mj-text>
+          I will contact you when the order will be shipped providing you with a tracking number.
+        </mj-text>
+        <mj-text font-family="Roboto">
+          PLEASE NOTE, that <i>made to order</i> items producing times are indicated at each piece's description. Producing times and delivery options for commissions are discussed individually by e-mail.
+        </mj-text>
+        <mj-text>
+          Delivery times will vary but usually, it is 1-2 days for UK, 3-7 days for Europe and 5-10 days worldwide. Delivery times may be extended during particularly busy periods such as Christmas.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>Your order:</mj-text>
+         <mj-table>
+          ${data
+            .map(
+              item => `
+            <tr style="text-align:left;">
+              <th style="font-weight: normal">Item</th>
+              <td>
+                <a href="${
+                  item.link
+                }" target="_blank" style="color: #212121; text-decoration:underline;">${
+                item.name
+              }</a>${item.quantity > 1 ? `, #${item.quantity}` : ''}
+              </td>
+            </tr>
+            ${
+              item.ringSize
+                ? `<tr style="text-align:left;">
+                <th style="font-weight: normal; padding-left: 15px;">Size</th>
+                <td>${item.ringSize}</td>
+              </tr>`
+                : ''
+            }
+            ${
+              item.silverFinishStyle
+                ? `<tr style="text-align:left;">
+                <th style="font-weight: normal; padding-left: 15px;">Silver finish</th>
+                <td>${item.silverFinishStyle}</td>
+              </tr>`
+                : ''
+            }
+          `
+            )
+            .join(' ')}
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Amount</th>
+            <td>£${price}</td>
+          </tr>
+          <tr style="text-align:left;">
+            <th style="font-weight: normal">Shipping cost</th>
+            <td>${shippingCost === 0 ? 'Free' : `£${shippingCost}`}</td>
+          </tr>
+          ${
+            withDiscount
+              ? `
+              <tr style="text-align:left;">
+                <th style="font-weight: normal">Amount before discount
+                </th>
+                <td>£${price + shippingCost}</td>
+              </tr>
+              <tr style="text-align:left;">
+                <th style="font-weight: normal">Discount
+                </th>
+                <td>"${withDiscount.code}"  -${
+                  withDiscount.discountPercentage
+                }% off</td>
+              </tr>
+              <tr style="border-top:1px solid #ecedee;text-align:left;;">
+                <th>Total amount paid
+                </th>
+                <td><strong>£${withDiscount.discountedPrice}</strong></td>
+              </tr>
             `
-        )
-        .join(' ')}
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Amount: £${price}</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Shipping cost: ${
-      shippingCost === 0 ? 'Free' : `£${shippingCost}`
-    }</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">${
-      withDiscount ? 'Amount before discount:' : 'Total amount:'
-    } £${price + shippingCost}</p>
-    ${
-      withDiscount
-        ? `
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Discount: "${withDiscount.code}"  -${withDiscount.discountPercentage}% off
-    </p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">Total amount paid: £${withDiscount.discountedPrice}
-    </p>`
-        : ''
-    }
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Shipping address:</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">${address1}</p>
-      ${
-        address2
-          ? `<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">
-            ${address2}
-          </p>`
-          : ''
-      }
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 8px; Margin-left: 15px;">${city}</p>
-      <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; Margin-left: 15px;">${full_country_name}</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">I strongly recommend you to read my jewellery <a href="https://www.dovilejewellery.com/care-guide">care guide</a>.</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Please do not hesitate to contact me, if you have any questions.</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 6px;">Many thanks,</p>
-    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0;">Dovile</p>`;
+              : `<tr style="border-top:1px solid #ecedee;text-align:left;">
+              <th>Total amount</th>
+              <td><strong>£${price + shippingCost}</strong></td>
+            </tr>`
+          }
+        </mj-table>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>Shipping address:</mj-text>
+        <mj-text padding-bottom="0" padding-top="0">${address1}</mj-text>
+        ${
+          address2
+            ? `<mj-text padding-bottom="0" padding-top="0">${address2}</mj-text>`
+            : ''
+        }
+        <mj-text padding-bottom="0" padding-top="0">${city}</mj-text>
+        <mj-text padding-bottom="0" padding-top="0">${full_country_name}</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          I strongly recommend you to read my jewellery <a href="https://www.dovilejewellery.com/care-guide" target="_blank" style="color: #212121; text-decoration: underline;">care guide</a>.
+        </mj-text>
+        <mj-text>
+          Please do not hesitate to contact me, if you have any questions.
+        </mj-text>
+        <mj-spacer height="30px" />
+        <mj-text>
+          Many thanks,<br />
+          Dovile
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section padding-bottom="0">
+      <mj-column>
+        <mj-divider padding-bottom="0" />
+      </mj-column>
+    </mj-section>
+    <mj-section padding-top="0">
+      <mj-column>
+        <mj-text align="center">
+          <a href="https://www.dovilejewellery.com/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none;">dovilejewellery</a>
+          <a href="https://www.instagram.com/dovilejewellery/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none; padding: 0 20px">instagram</a>
+          <a href="https://www.facebook.com/artdovile/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none;">facebook</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
 
-  return emailTemplate(body, title);
+  </mj-body>
+</mjml>`,
+    options
+  );
+
+  return htmlOutput.html;
 };
