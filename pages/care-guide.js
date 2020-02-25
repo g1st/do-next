@@ -203,9 +203,29 @@ const CareGuide = ({ collections, classes, user }) => (
               color="secondary"
             >
               Always make sure earrings and brooches with amber are locked
-              correctly while wearing it. Pay attention when handling these
-              designs because amber could be brittle. Although it is presented
-              as a gemstone that does not mean it is hard as a stone.
+              correctly while wearing it.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Pay attention when handling these designs because amber could be
+              brittle. Although it is presented as a gemstone that does not mean
+              it is hard as a stone.
+            </Typography>
+          </ListItem>
+          <ListItem>
+            <Typography
+              variant="body2"
+              align="justify"
+              paragraph
+              color="secondary"
+            >
+              Please note, that amber rings are not suitable for everyday wear.
             </Typography>
           </ListItem>
         </List>
