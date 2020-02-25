@@ -8,6 +8,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 import { removeFromCart, clearBuyItNow } from '../../store/actions';
 import { CartItems, Thumb, ItemInfo } from '../../styles/CartDrawer';
+import { StyledAnchorLink } from '../../styles/Shared';
 
 const CartItem = ({
   buyItNow,
@@ -36,6 +37,7 @@ const CartItem = ({
     <CartItems>
       {data.map(item => (
         <li key={item._id}>
+          {console.log(item)}
           <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
             <a
               style={{ textDecoration: 'none', height: '48px' }}
@@ -52,10 +54,26 @@ const CartItem = ({
             </a>
           </Link>
           <ItemInfo>
-            <Typography variant="body2">{item.name}</Typography>
+            <Typography variant="body2">
+              <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
+                <StyledAnchorLink
+                  target="_self"
+                  onClick={closeDrawer}
+                  onKeyDown={handleKeyDown(
+                    `/piece?id=${item._id}`,
+                    `/piece/${item._id}`
+                  )}
+                  role="link"
+                  tabIndex={0}
+                >
+                  {item.name}
+                </StyledAnchorLink>
+              </Link>
+              , £{item.price}
+            </Typography>
             <Typography variant="body2" style={{ fontWeight: 300 }}>
-              £{item.price.toFixed(2)}
-              {item.ringSize ? `, size ${item.ringSize}` : null}
+              {item.ringSize}
+              {item.silverFinishStyle && `, ${item.silverFinishStyle}`}
             </Typography>
           </ItemInfo>
           <IconButton
