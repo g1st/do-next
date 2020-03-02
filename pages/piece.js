@@ -30,6 +30,7 @@ import SizeInput from '../components/Piece/SizeInput';
 import SilverFinishInput from '../components/Piece/SilverFinishInput';
 import SizesInfo from '../components/Piece/SizesDialog';
 import { pluralise, deslugify, onImageError } from '../util/helpers';
+import Error from './_error';
 import * as gtag from '../lib/gtag';
 
 const styles = {
@@ -151,7 +152,9 @@ class Piece extends React.Component {
     const { error, size: ringSize, silverFinishStyle } = this.state;
 
     if (onePieceData.length < 1 || onePieceData[0] === null) {
-      return <p>Page doesn't exist</p>;
+      return (
+        <Error pathname="/gallery" statusCode={404} collections={collections} />
+      );
     }
 
     const {
@@ -262,8 +265,7 @@ class Piece extends React.Component {
         pathname="/gallery"
         collections={collections}
         title={`${name} | Dovile Jewellery`}
-        description={`Materials: ${materials}
-      ${description}`}
+        description={`${description} | ${materials}`}
         user={user}
       >
         {pathLine}
