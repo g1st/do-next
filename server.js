@@ -63,15 +63,15 @@ co(function*() {
   server.use('/api', api(db, upload));
 
   // make clean URL's possible from server
-  server.get('/piece/:id', (req, res) => {
+  server.get('/piece/:slug', (req, res) => {
     const actualPage = '/piece';
-    const queryParams = { id: req.params.id };
+    const queryParams = { slug: req.params.slug };
     app.render(req, res, actualPage, queryParams);
   });
 
-  server.get('/edit/:id', (req, res) => {
+  server.get('/edit/:slug', (req, res) => {
     const actualPage = '/edit';
-    const queryParams = { id: req.params.id };
+    const queryParams = { slug: req.params.slug };
     app.render(req, res, actualPage, queryParams);
   });
 

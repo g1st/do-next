@@ -7,8 +7,13 @@ function toLowerCase(val) {
 
 const worksSchema = new mongoose.Schema(
   {
-    name: { type: String, required: 'Title is required', trim: true },
-    slug: { type: String },
+    name: {
+      type: String,
+      required: 'Title is required',
+      trim: true,
+      unique: true
+    },
+    slug: { type: String, unique: true, required: 'Slug is required' },
     description: {
       type: String,
       required: 'Description is required',

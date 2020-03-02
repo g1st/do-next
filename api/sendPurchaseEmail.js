@@ -13,21 +13,21 @@ module.exports = data => {
 
   if (boughtFrom === 'buyItNow') {
     purchaseData.push({
-      link: `${baseUrl}${data.additional.purchaseDetails._id}`,
+      link: `${baseUrl}${data.additional.purchaseDetails.slug}`,
       ...data.additional.purchaseDetails
     });
   } else {
     // from cart, might be multiple items
-    data.additional.purchaseDetails.selectedItems.forEach(item =>
+    data.additional.purchaseDetails.selectedItems.forEach(item => {
       purchaseData.push({
         name: item.name,
-        link: `${baseUrl}${item._id}`,
+        link: `${baseUrl}${item.slug}`,
         quantity: item.quantity,
         price: item.price,
         ringSize: item.ringSize,
         silverFinishStyle: item.silverFinishStyle
-      })
-    );
+      });
+    });
   }
   const { totalPrice, shippingCost, promo } = data.additional.purchaseDetails;
   const totalPriceBuyItNow = purchaseData[0].price * purchaseData[0].quantity;

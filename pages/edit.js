@@ -49,7 +49,7 @@ const Edit = ({
 Edit.getInitialProps = async ({ user, req, query }) => {
   if (req) {
     const { db } = req;
-    const { id } = req.params;
+    const { slug } = req.params;
 
     const data = await db
       .collection('works')
@@ -57,14 +57,14 @@ Edit.getInitialProps = async ({ user, req, query }) => {
       .toArray();
 
     const onePieceDataFromServer = data.filter(
-      obj => obj._id.toString() === id
+      obj => obj.slug.toLowerCase() === slug.toLowerCase()
     );
 
     return { onePieceData: onePieceDataFromServer };
   }
 
   const onePieceDataFromAPI = await axios
-    .get('/api/single', { params: { id: query.id } })
+    .get('/api/single', { params: { slug: query.slug } })
     .then(res => res.data);
   return { user, onePieceData: [onePieceDataFromAPI] };
 };

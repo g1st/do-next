@@ -49,9 +49,9 @@ module.exports = (db, upload) => {
   router.get(
     '/single',
     wrapAsync(async function(req) {
-      const { id } = req.query;
+      const { slug } = req.query;
 
-      return Work.findById(id);
+      return Work.findOne({ slug });
     })
   );
 
