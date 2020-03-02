@@ -30,6 +30,7 @@ import SizeInput from '../components/Piece/SizeInput';
 import SilverFinishInput from '../components/Piece/SilverFinishInput';
 import SizesInfo from '../components/Piece/SizesDialog';
 import { pluralise, deslugify, onImageError } from '../util/helpers';
+import Error from './_error';
 import * as gtag from '../lib/gtag';
 
 const styles = {
@@ -151,11 +152,14 @@ class Piece extends React.Component {
     const { error, size: ringSize, silverFinishStyle } = this.state;
 
     if (onePieceData.length < 1 || onePieceData[0] === null) {
-      return <p>Page doesn't exist</p>;
+      return (
+        <Error pathname="/gallery" statusCode={404} collections={collections} />
+      );
     }
 
     const {
       name,
+      slug,
       description,
       materials,
       price,
@@ -175,6 +179,7 @@ class Piece extends React.Component {
 
     const dataForCart = {
       name,
+      slug,
       price,
       images,
       _id,
@@ -206,7 +211,7 @@ class Piece extends React.Component {
 
     const edit = (
       <div>
-        <Link href={`/edit?id=${_id}`} as={`/edit/${_id}`}>
+        <Link href={`/edit?slug=${slug}`} as={`/edit/${slug}`}>
           <AdminLink>
             <Typography inline variant="body1">
               Edit
@@ -262,8 +267,7 @@ class Piece extends React.Component {
         pathname="/gallery"
         collections={collections}
         title={`${name} | Dovile Jewellery`}
-        description={`Materials: ${materials}
-      ${description}`}
+        description={`${description} | ${materials}`}
         user={user}
       >
         {pathLine}
@@ -429,7 +433,7 @@ class Piece extends React.Component {
 Piece.getInitialProps = async ({ pathname, req, query }) => {
   if (req) {
     const { db } = req;
-    const { id } = req.params;
+    const { slug } = req.params;
 
     const data = await db
       .collection('works')
@@ -437,14 +441,14 @@ Piece.getInitialProps = async ({ pathname, req, query }) => {
       .toArray();
 
     const onePieceDataFromServer = data.filter(
-      obj => obj._id.toString() === id
+      obj => obj.slug.toLowerCase() === slug.toLowerCase()
     );
 
     return { onePieceData: onePieceDataFromServer, pathname };
   }
 
   const onePieceDataFromAPI = await axios
-    .get('/api/single', { params: { id: query.id } })
+    .get('/api/single', { params: { slug: query.slug } })
     .then(res => res.data);
   return { onePieceData: [onePieceDataFromAPI], pathname };
 };

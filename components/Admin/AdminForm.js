@@ -305,7 +305,8 @@ class AdminForm extends Component {
           const {
             _id: id,
             group,
-            images: justUpdatedImages
+            images: justUpdatedImages,
+            slug
           } = response.data.work;
 
           this.setState({
@@ -314,7 +315,8 @@ class AdminForm extends Component {
             work: {
               id,
               name,
-              collection: group
+              collection: group,
+              slug
             },
             images: justUpdatedImages,
             selectedImages: Object.assign(
@@ -323,7 +325,7 @@ class AdminForm extends Component {
             )
           });
 
-          Router.push(`/piece?id=${id}`, `/piece/${id}`);
+          Router.push(`/piece?slug=${slug}`, `/piece/${slug}`);
         })
         .catch(err => {
           this.setState({ errors: err, updating: false });
@@ -337,7 +339,7 @@ class AdminForm extends Component {
 
           if (error) return this.handleErrors(error);
 
-          const { _id: id, group } = response.data.work;
+          const { _id: id, group, slug } = response.data.work;
 
           this.setState(
             () => ({
@@ -346,12 +348,13 @@ class AdminForm extends Component {
               work: {
                 id,
                 name,
-                collection: group
+                collection: group,
+                slug
               }
             }),
             () => this.resetForm()
           );
-          Router.push(`/piece?id=${id}`, `/piece/${id}`);
+          Router.push(`/piece?slug=${slug}`, `/piece/${slug}`);
         })
         .catch(err => {
           this.setState({ errors: err, updating: false });
@@ -389,15 +392,15 @@ class AdminForm extends Component {
 
     if (work) {
       const {
-        id,
         name: justCreatedName,
-        collection: justCreatedCollection
+        collection: justCreatedCollection,
+        slug
       } = work;
       workInfo = (
         <div className={classes.added}>
           <Typography variant="body2">
             Piece{' '}
-            <Link href={`/piece?id=${id}`} as={`/piece/${id}`}>
+            <Link href={`/piece?slug=${slug}`} as={`/piece/${slug}`}>
               <a>{justCreatedName}</a>
             </Link>{' '}
             was {itemToEdit ? 'updated' : 'added'} to a collection{' '}
@@ -453,8 +456,8 @@ class AdminForm extends Component {
           {itemToEdit && (
             <div>
               <Link
-                href={`/piece?id=${itemToEdit._id}`}
-                as={`/piece/${itemToEdit._id}`}
+                href={`/piece?slug=${itemToEdit.slug}`}
+                as={`/piece/${itemToEdit.slug}`}
               >
                 <Button size="small" variant="contained" color="secondary">
                   To {itemToEdit.name} page

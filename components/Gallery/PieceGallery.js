@@ -81,7 +81,10 @@ const PieceGallery = ({ data, currentItem, classes }) => {
                 key={item._id}
                 className={classes.gridItem}
               >
-                <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
+                <Link
+                  href={`/piece?slug=${item.slug}`}
+                  as={`/piece/${item.slug}`}
+                >
                   <ButtonBase className={classes.buttonBase}>
                     <ImageWithLoading
                       src={`/static/uploads/${item.frontImage}`}

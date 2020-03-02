@@ -128,7 +128,7 @@ class MyApp extends App {
           </title>
           <meta
             name="Description"
-            content="Contemporary amber jewellery with a delicate and modern touch by Dovile Kondrasovaite. Shop authentic handmade jewelry made by independent artist."
+            content="Contemporary amber and precious metals jewellery by an independent artist Dovile Kondrasovaite. Handmade in Birmingham's historic Jewellery Quarter, UK."
           />
         </Head>
         {/* Wrap every page in Jss and Theme providers */}

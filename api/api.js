@@ -14,6 +14,7 @@ const Counter = require('./models/counters');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const serverUtils = require('../util/serverHelper');
+const { filterCollections } = require('../util/helpers');
 const { generatePaymentResponse } = require('../util/helpers');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
 const { promoCodes, findDiscountMultiplier } = require('../util/promoCodes');
@@ -38,11 +39,19 @@ module.exports = (db, upload) => {
   );
 
   router.get(
+    '/collections',
+    wrapAsync(async function() {
+      const data = await Work.find();
+      return filterCollections(data, null);
+    })
+  );
+
+  router.get(
     '/single',
     wrapAsync(async function(req) {
-      const { id } = req.query;
+      const { slug } = req.query;
 
-      return Work.findById(id);
+      return Work.findOne({ slug });
     })
   );
 

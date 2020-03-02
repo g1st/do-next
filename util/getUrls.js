@@ -19,8 +19,8 @@ module.exports = async () => {
     const works = await Works.find({});
 
     works.forEach(work => {
-      fileObj[`/piece/${work._id}`] = {
-        page: `/piece/${work._id}`,
+      fileObj[`/piece/${work.slug}`] = {
+        page: `/piece/${work.slug}`,
         lastModified: work.updatedAt || work.created,
         images: work.images,
         caption: work.description,

@@ -11,7 +11,7 @@ const Layout = ({
   collections,
   pathname,
   title = 'Jewellery artist Dovile Kondrasovaite | Dovile Jewellery',
-  description = 'Contemporary amber jewellery with a delicate and modern touch by Dovile Kondrasovaite. Shop authentic handmade jewelry made by independent artist.',
+  description = "Contemporary amber and precious metals jewellery by an independent artist Dovile Kondrasovaite. Handmade in Birmingham's historic Jewellery Quarter, UK.",
   user
 }) => (
   <LayoutWrapper>

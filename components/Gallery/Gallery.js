@@ -396,8 +396,8 @@ class Gallery extends React.Component {
                     </ButtonIndicator>
                   )}
                   <Link
-                    href={`/piece?id=${item._id}`}
-                    as={`/piece/${item._id}`}
+                    href={`/piece?slug=${item.slug}`}
+                    as={`/piece/${item.slug}`}
                   >
                     <ButtonBase classes={{ root: classes.buttonBase }}>
                       <ImageWithLoading
