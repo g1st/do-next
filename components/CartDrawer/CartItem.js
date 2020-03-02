@@ -37,7 +37,6 @@ const CartItem = ({
     <CartItems>
       {data.map(item => (
         <li key={item._id}>
-          {console.log(item)}
           <Link href={`/piece?id=${item._id}`} as={`/piece/${item._id}`}>
             <a
               style={{ textDecoration: 'none', height: '48px' }}
