@@ -17,7 +17,12 @@ const CustomError = ({ statusCode, collections, pathname = '/' }) => (
 );
 
 CustomError.getInitialProps = async ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  let statusCode;
+  if (res) {
+    statusCode = res.statusCode;
+  } else {
+    statusCode = err ? err.statusCode : 404;
+  }
   const data = await axios.get(`${appUrl}/api/collections`);
   const collections = data.data;
 
