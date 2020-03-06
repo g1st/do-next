@@ -441,7 +441,9 @@ Piece.getInitialProps = async ({ pathname, req, query }) => {
       .toArray();
 
     const onePieceDataFromServer = data.filter(
-      obj => obj.slug.toLowerCase() === slug.toLowerCase()
+      obj =>
+        obj.slug.toLowerCase() === slug.toLowerCase() ||
+        obj._id.toString() === slug
     );
 
     return { onePieceData: onePieceDataFromServer, pathname };
@@ -450,6 +452,7 @@ Piece.getInitialProps = async ({ pathname, req, query }) => {
   const onePieceDataFromAPI = await axios
     .get('/api/single', { params: { slug: query.slug } })
     .then(res => res.data);
+
   return { onePieceData: [onePieceDataFromAPI], pathname };
 };
 
