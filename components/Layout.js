@@ -14,14 +14,15 @@ const Layout = ({
   title = 'Jewellery artist Dovile Kondrasovaite | Dovile Jewellery',
   description = "Contemporary amber and precious metals jewellery by an independent artist Dovile Kondrasovaite. Handmade in Birmingham's historic Jewellery Quarter, UK.",
   user,
-  image = '/static/images/Dovile-Kondrasovaite.jpeg'
+  image = '/static/images/Dovile-Kondrasovaite.jpeg',
+  piecePath
 }) => (
   <LayoutWrapper>
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="image" content={appUrl + image} />
-      <meta property="og:url" content={pathname} />
+      <meta property="og:url" content={piecePath || appUrl + pathname} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={appUrl + image} />
@@ -43,7 +44,8 @@ Layout.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   user: PropTypes.string,
-  image: PropTypes.string
+  image: PropTypes.string,
+  piecePath: PropTypes.string
 };
 
 export default Layout;
