@@ -262,13 +262,16 @@ class Piece extends React.Component {
       </div>
     );
 
+    console.log('images :', images);
+
     return (
       <Layout
         pathname="/gallery"
         collections={collections}
         title={`${name} | Dovile Jewellery`}
-        description={`${description} | ${materials}`}
+        description={`${name} | ${materials}`}
         user={user}
+        image={`/static/uploads/${images[0].medium}`}
       >
         {pathLine}
         <Wrapper>
