@@ -269,9 +269,9 @@ class Piece extends React.Component {
         piecePath={`${appUrl}/piece/${slug}`}
         collections={collections}
         title={`${name} | Dovile Jewellery`}
-        description={`${name} | ${materials}`}
+        description={`${description} | ${materials}`}
         user={user}
-        image={`/static/uploads/${images[0].medium}`}
+        image={`/static/uploads/${images[0].big}`}
       >
         {pathLine}
         <Wrapper>
