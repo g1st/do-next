@@ -262,8 +262,6 @@ class Piece extends React.Component {
       </div>
     );
 
-    console.log('images :', images);
-
     return (
       <Layout
         pathname="/gallery"
