@@ -26,8 +26,15 @@ const Layout = ({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={appUrl + image} />
+      <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content="@DKondrasovaite" />
+      {piecePath && (
+        <>
+          <meta property="og:image:width" content="900" />
+          <meta property="og:image:height" content="900" />
+        </>
+      )}
     </Head>
     <div>
       <NavBar pathname={pathname} collections={collections} user={user} />
