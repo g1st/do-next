@@ -3,7 +3,6 @@ import App from 'next/app';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
-import Head from 'next/head';
 import axios from 'axios';
 import { Provider } from 'react-redux';
 import Router from 'next/router';
@@ -122,15 +121,6 @@ class MyApp extends App {
     const { Component, pageProps, reduxStore } = this.props;
     return (
       <>
-        <Head>
-          <title>
-            Jewellery artist Dovile Kondrasovaite | Dovile Jewellery
-          </title>
-          <meta
-            name="Description"
-            content="Contemporary amber and precious metals jewellery by an independent artist Dovile Kondrasovaite. Handmade in Birmingham's historic Jewellery Quarter, UK."
-          />
-        </Head>
         {/* Wrap every page in Jss and Theme providers */}
         <JssProvider
           registry={this.pageContext.sheetsRegistry}

@@ -4,6 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 
+import LandingImage1 from '../../static/images/Dovile-Jewellery.JPG';
+import LandingImage2 from '../../static/images/Dovile-Jewellery-2.JPG';
+import LandingImage3 from '../../static/images/Dovile-Jewellery-3.JPG';
+import LandingImage4 from '../../static/images/Dovile-Jewellery-4.JPG';
 import {
   Wrapper,
   Content,
@@ -130,7 +134,7 @@ class LandingPageGallery extends React.Component {
                       'FLOW n°B8 and n°B10 | brooches | Baltic amber, ebony, steel'
                     )
                   }
-                  src="/static/images/Dovile-Jewellery.JPG"
+                  src={LandingImage1}
                   alt="Presentational Dovile Jewellery art piece"
                   onKeyDown={e =>
                     this.handleKeyDown(
@@ -149,7 +153,7 @@ class LandingPageGallery extends React.Component {
                       'FLOW n°B6 | brooch | Baltic amber, ebony, steel'
                     )
                   }
-                  src="/static/images/Dovile-Jewellery-2.JPG"
+                  src={LandingImage2}
                   alt="Presentational Dovile Jewellery art piece"
                   onKeyDown={e =>
                     this.handleKeyDown(
@@ -170,7 +174,7 @@ class LandingPageGallery extends React.Component {
                       'FLOW n°R29 | ring | Baltic amber, ebony'
                     )
                   }
-                  src="/static/images/Dovile-Jewellery-3.JPG"
+                  src={LandingImage3}
                   alt="Presentational Dovile Jewellery art piece"
                   onKeyDown={e =>
                     this.handleKeyDown(
@@ -189,7 +193,7 @@ class LandingPageGallery extends React.Component {
                       'FLOW n°N9 | chest piece | Baltic amber, bog oak, oxidized silver, silk'
                     )
                   }
-                  src="/static/images/Dovile-Jewellery-4.JPG"
+                  src={LandingImage4}
                   alt="Presentational Dovile Jewellery art piece"
                   onKeyDown={e =>
                     this.handleKeyDown(

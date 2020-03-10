@@ -12,6 +12,7 @@ import {
   Text
 } from '../styles/Commissions';
 import { Mail } from '../styles/Shared';
+import CommissionsImage from '../static/images/commissions.JPG';
 
 const styles = () => ({
   heading: {
@@ -30,7 +31,7 @@ const Commissions = ({ collections, classes, user }) => (
     <Wrapper>
       <ImageWrapper>
         <Figure>
-          <Image src="../static/images/commissions.JPG" alt="Cufflinks" />
+          <Image src={CommissionsImage} alt="Cufflinks" />
         </Figure>
         <figcaption>
           <Typography

@@ -31,6 +31,7 @@ import SilverFinishInput from '../components/Piece/SilverFinishInput';
 import SizesInfo from '../components/Piece/SizesDialog';
 import { pluralise, deslugify, onImageError } from '../util/helpers';
 import Error from './_error';
+import { appUrl } from '../config';
 import * as gtag from '../lib/gtag';
 
 const styles = {
@@ -265,10 +266,12 @@ class Piece extends React.Component {
     return (
       <Layout
         pathname="/gallery"
+        piecePath={`${appUrl}/piece/${slug}`}
         collections={collections}
         title={`${name} | Dovile Jewellery`}
         description={`${description} | ${materials}`}
         user={user}
+        image={`/static/uploads/${images[0].big}`}
       >
         {pathLine}
         <Wrapper>
@@ -430,7 +433,7 @@ class Piece extends React.Component {
   }
 }
 
-Piece.getInitialProps = async ({ pathname, req, query }) => {
+Piece.getInitialProps = async ({ req, query }) => {
   if (req) {
     const { db } = req;
     const { slug } = req.params;
@@ -441,16 +444,19 @@ Piece.getInitialProps = async ({ pathname, req, query }) => {
       .toArray();
 
     const onePieceDataFromServer = data.filter(
-      obj => obj.slug.toLowerCase() === slug.toLowerCase()
+      obj =>
+        obj.slug.toLowerCase() === slug.toLowerCase() ||
+        obj._id.toString() === slug
     );
 
-    return { onePieceData: onePieceDataFromServer, pathname };
+    return { onePieceData: onePieceDataFromServer };
   }
 
   const onePieceDataFromAPI = await axios
     .get('/api/single', { params: { slug: query.slug } })
     .then(res => res.data);
-  return { onePieceData: [onePieceDataFromAPI], pathname };
+
+  return { onePieceData: [onePieceDataFromAPI] };
 };
 
 const mapDispatchToProps = dispatch => ({

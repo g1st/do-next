@@ -18,6 +18,10 @@ import {
   Logo
 } from '../../styles/Footer';
 
+import FacebookPNG from '../../static/images/facebook-box.png';
+import InstagramPNG from '../../static/images/instagram.png';
+import PinterestPNG from '../../static/images/pinterest-box.png';
+
 const styles = {
   links: {
     color: 'rgba(0, 0, 0, .54)',
@@ -46,10 +50,7 @@ const Footer = props => {
             rel="noopener noreferrer"
             aria-label="Go to Dovile's facebook page"
           >
-            <Facebook
-              src="/static/images/facebook-box.png"
-              alt="Facebook logo"
-            />
+            <Facebook src={FacebookPNG} alt="Facebook logo" />
           </AnchorLink>
           <AnchorLink
             href="https://www.instagram.com/dovilejewellery/"
@@ -57,10 +58,7 @@ const Footer = props => {
             rel="noopener noreferrer"
             aria-label="Go to Dovile's instagram page"
           >
-            <Instagram
-              src="/static/images/instagram.png"
-              alt="Instagram logo"
-            />
+            <Instagram src={InstagramPNG} alt="Instagram logo" />
           </AnchorLink>
           <AnchorLink
             href="https://www.pinterest.com/dovilejewellery/"
@@ -68,10 +66,7 @@ const Footer = props => {
             rel="noopener noreferrer"
             aria-label="Go to Dovile's pinterest page"
           >
-            <Pinterest
-              src="/static/images/pinterest-box.png"
-              alt="Pinterest logo"
-            />
+            <Pinterest src={PinterestPNG} alt="Pinterest logo" />
           </AnchorLink>
         </Social>
         <FooterLinks>

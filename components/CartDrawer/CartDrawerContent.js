@@ -24,6 +24,10 @@ import {
   AcceptedCards,
   StripeIconLink
 } from '../../styles/Checkout';
+import Visa from '../../static/images/visa.svg';
+import Mastercard from '../../static/images/mastercard.svg';
+import AmericanExpress from '../../static/images/american-express.svg';
+import Stripe from '../../static/images/stripe.svg';
 
 const styles = {
   button: {
@@ -188,13 +192,10 @@ const CartDrawerContent = ({
             <ListItem className={classes.cardIcons}>
               <PaymentIcons>
                 <AcceptedCards>
-                  <IconImage src="/static/images/visa.svg" alt="VISA logo" />
+                  <IconImage src={Visa} alt="VISA logo" />
+                  <IconImage src={Mastercard} alt="Mastercard logo" />
                   <IconImage
-                    src="/static/images/mastercard.svg"
-                    alt="Mastercard logo"
-                  />
-                  <IconImage
-                    src="/static/images/american-express.svg"
+                    src={AmericanExpress}
                     alt="American Express logo"
                   />
                 </AcceptedCards>
@@ -204,10 +205,7 @@ const CartDrawerContent = ({
                   rel="noopener noreferrer"
                   aria-label="To Stripe homepage"
                 >
-                  <StripeIcon
-                    src="/static/images/stripe.svg"
-                    alt="Stripe logo"
-                  />
+                  <StripeIcon src={Stripe} alt="Stripe logo" />
                 </StripeIconLink>
               </PaymentIcons>
             </ListItem>

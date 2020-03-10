@@ -6,6 +6,9 @@ import Layout from '../components/Layout';
 import Form from '../components/ContactForm';
 import { Wrapper, ImagesWrapper, ImageWrapper, Image } from '../styles/Contact';
 import { Mail } from '../styles/Shared';
+import Image1 from '../static/images/d-4.JPG';
+import Image2 from '../static/images/cx-10.JPG';
+import Image3 from '../static/images/a-6.JPG';
 
 const Contact = ({ pathname, collections, user }) => (
   <Layout
@@ -17,13 +20,13 @@ const Contact = ({ pathname, collections, user }) => (
     <Wrapper>
       <ImagesWrapper>
         <ImageWrapper>
-          <Image src="/static/images/d-4.JPG" alt="Wooden materials" />
+          <Image src={Image1} alt="Wooden materials" />
         </ImageWrapper>
         <ImageWrapper>
-          <Image src="/static/images/cx-10.JPG" alt="Bench peg" />
+          <Image src={Image2} alt="Bench peg" />
         </ImageWrapper>
         <ImageWrapper>
-          <Image src="/static/images/a-6.JPG" alt="Process" />
+          <Image src={Image3} alt="Process" />
         </ImageWrapper>
       </ImagesWrapper>
       <div

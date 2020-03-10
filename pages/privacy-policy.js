@@ -12,6 +12,7 @@ import {
   List,
   ListItem
 } from '../styles/TermsAndConditions';
+import PrivacyImage from '../static/images/privacy-policy.JPG';
 
 const styles = () => ({
   heading: {
@@ -30,10 +31,7 @@ const TermsAndConditions = ({ collections, classes, user }) => (
     <Wrapper>
       <ImageWrapper>
         <Figure>
-          <Image
-            src="../static/images/privacy-policy.JPG"
-            alt="Jewellery packaging boxes"
-          />
+          <Image src={PrivacyImage} alt="Jewellery packaging boxes" />
           <figcaption>
             <Typography
               align="center"
