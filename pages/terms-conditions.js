@@ -12,6 +12,7 @@ import {
   Figure
 } from '../styles/TermsAndConditions';
 import { StyledAnchorLink, Strong } from '../styles/Shared';
+import TermsImage from '../static/images/terms-conditions.JPG';
 
 const styles = () => ({
   heading: {
@@ -31,10 +32,7 @@ const TermsAndConditions = ({ collections, classes, user }) => (
     <Wrapper>
       <ImageWrapper>
         <Figure>
-          <Image
-            src="../static/images/terms-conditions.JPG"
-            alt="Jewellery packaging boxes"
-          />
+          <Image src={TermsImage} alt="Jewellery packaging boxes" />
           <figcaption>
             <Typography
               align="center"

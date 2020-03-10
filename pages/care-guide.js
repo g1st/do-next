@@ -12,6 +12,7 @@ import {
   ListItem
 } from '../styles/CareGuide';
 import { ImageWrapper } from '../styles/TermsAndConditions';
+import Necklaces from '../static/images/f-5.JPG';
 
 const styles = () => ({
   heading: {
@@ -31,7 +32,7 @@ const CareGuide = ({ collections, classes, user }) => (
     <Wrapper>
       <ImageWrapper>
         <Figure>
-          <Image src="../static/images/f-5.JPG" alt="Crafts market" />
+          <Image src={Necklaces} alt="Crafts market" />
         </Figure>
       </ImageWrapper>
       <Text>

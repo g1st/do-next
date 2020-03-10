@@ -19,6 +19,8 @@ import {
   ToArtistStatement
 } from '../styles/About';
 import { AnchorLink, Table, Row, Data } from '../styles/Shared';
+import DovilePortait from '../static/images/Dovile-Kondrasovaite.jpeg';
+import ManWearingABrooch from '../static/images/s-1.jpeg';
 
 const styles = () => ({
   marginTop: {
@@ -58,7 +60,7 @@ const About = ({ pathname, collections, classes, user }) => (
       <Left>
         <PortraitWrapper>
           <Image
-            src="/static/images/Dovile-Kondrasovaite.jpeg"
+            src={DovilePortait}
             alt="Portrait photo of Dovile Kondrasovaite"
           />
           <Caption>
@@ -489,7 +491,7 @@ const About = ({ pathname, collections, classes, user }) => (
         </ArtistStatement>
         <ImageWrapper>
           <Image
-            src="/static/images/s-1.jpeg"
+            src={ManWearingABrooch}
             alt="A man wearing FLOW silver brooch"
           />
           <Caption>
