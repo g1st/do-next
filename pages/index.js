@@ -31,7 +31,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
     <Layout pathname={pathname} collections={collections} user={user}>
       <LandingPageGallery />
       <UpcomingEvent />
-      <InView triggerOnce rootMargin="300px">
+      <InView triggerOnce rootMargin="200px">
         {({ inView, ref }) => (
           <div ref={ref}>
             {inView ? (
@@ -56,7 +56,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
           </div>
         )}
       </InView>
-      <InView triggerOnce rootMargin="100px">
+      <InView triggerOnce rootMargin="200px">
         {({ inView, ref }) => (
           <div ref={ref}>{inView ? <InstagramGallery /> : null}</div>
         )}
