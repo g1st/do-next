@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import { WidthContainer } from './Shared';
 
 export const EventWrapper = styled(WidthContainer)`
-  margin-bottom: 6em;
+  @media screen and (min-width: 960px) {
+    margin-bottom: 6em;
+  }
 `;
 
 export const Image = styled.img`
