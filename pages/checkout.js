@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
 import Stripe from '../components/Stripe/Stripe';
+import { WidthContainer } from '../styles/Shared';
 
 const styles = theme => ({
   h2: {
@@ -25,10 +26,12 @@ const Checkout = ({ classes, collections, user }) => (
     title="Checkout | Dovile Jewellery"
     user={user}
   >
-    <Typography variant="h2" className={classes.h2}>
-      Checkout
-    </Typography>
-    <Stripe />
+    <WidthContainer>
+      <Typography variant="h2" className={classes.h2}>
+        Checkout
+      </Typography>
+      <Stripe />
+    </WidthContainer>
   </Layout>
 );
 

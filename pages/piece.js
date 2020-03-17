@@ -24,7 +24,13 @@ import {
   SizesWrapper,
   SilverFinishWrapper
 } from '../styles/Piece';
-import { Mail, Strong, StyledAnchorLink } from '../styles/Shared';
+import {
+  WidthContainer,
+  Mail,
+  Strong,
+  StyledAnchorLink
+} from '../styles/Shared';
+
 import DialogForm from '../components/DialogForm/DialogForm';
 import SizeInput from '../components/Piece/SizeInput';
 import SilverFinishInput from '../components/Piece/SilverFinishInput';
@@ -242,7 +248,7 @@ class Piece extends React.Component {
     );
 
     const pathLine = (
-      <div>
+      <WidthContainer>
         <Link href="/gallery">
           <AnchorLink>
             <Typography inline variant="body2" className={classes.filterLine}>
@@ -265,7 +271,7 @@ class Piece extends React.Component {
         <Typography inline variant="body2" className={classes.filterLine}>
           {pluralise(category)}
         </Typography>
-      </div>
+      </WidthContainer>
     );
 
     return (

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { WidthContainer } from './Shared';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(WidthContainer)`
   display: flex;
   flex-flow: column-reverse;
 
@@ -26,9 +27,9 @@ export const Stockist = styled.div`
 Stockist.displayName = 'Stockist';
 
 export const StockistText = styled.div`
+  max-width: 480px;
   @media (min-width: 960px) {
     margin: 0 auto;
-    max-width: 480px;
     margin-top: 16px;
   }
 `;

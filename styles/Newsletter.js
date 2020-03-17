@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+
+import { WidthContainer } from './Shared';
 import Image from '../static/images/bg2.JPG';
 
-export const Wrapper = styled.div`
-  max-width: 100%;
+export const Wrapper = styled(WidthContainer)`
   min-height: 252px;
   margin: 6em auto 1em auto;
   display: flex;

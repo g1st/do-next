@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Layout from '../components/Layout';
 import GridGallery from '../components/Gallery/Gallery';
+import { WidthContainer } from '../styles/Shared';
 
 const Gallery = ({ data, router, pathname, collections, user }) => {
   let { collection } = router.query;
@@ -18,7 +19,7 @@ const Gallery = ({ data, router, pathname, collections, user }) => {
       title="Gallery | Dovile Jewellery"
       user={user}
     >
-      <div>
+      <WidthContainer>
         <GridGallery
           user={user}
           data={data}
@@ -26,7 +27,7 @@ const Gallery = ({ data, router, pathname, collections, user }) => {
           collectionsNames={collections}
           showFilter
         />
-      </div>
+      </WidthContainer>
     </Layout>
   );
 };

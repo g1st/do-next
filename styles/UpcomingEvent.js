@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { WidthContainer } from './Shared';
 
-export const EventWrapper = styled.div`
+export const EventWrapper = styled(WidthContainer)`
   margin-bottom: 6em;
 `;
 

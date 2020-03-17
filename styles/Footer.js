@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { WidthContainer } from './Shared';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(WidthContainer)`
   padding: 40px 5px 20px 5px;
   position: relative;
   flex-shrink: 0;

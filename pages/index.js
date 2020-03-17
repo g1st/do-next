@@ -10,6 +10,7 @@ import Newsletter from '../components/Newsletter/Newsletter';
 import InstagramGallery from '../components/InstagramGallery/InstagramGallery';
 import UpcomingEvent from '../components/UpcomingEvent/UpcomingEvent';
 import GridGallery from '../components/Gallery/Gallery';
+import { WidthContainer } from '../styles/Shared';
 
 const styles = () => ({
   button: {
@@ -33,7 +34,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
       <UpcomingEvent />
       <InView triggerOnce rootMargin="200px">
         {({ inView, ref }) => (
-          <div ref={ref}>
+          <WidthContainer ref={ref}>
             {inView ? (
               <>
                 <GridGallery
@@ -53,12 +54,14 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
                 </Button>
               </>
             ) : null}
-          </div>
+          </WidthContainer>
         )}
       </InView>
       <InView triggerOnce rootMargin="200px">
         {({ inView, ref }) => (
-          <div ref={ref}>{inView ? <InstagramGallery /> : null}</div>
+          <WidthContainer ref={ref}>
+            {inView ? <InstagramGallery /> : null}
+          </WidthContainer>
         )}
       </InView>
       <Newsletter />

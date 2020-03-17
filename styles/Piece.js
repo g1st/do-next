@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import { WidthContainer } from './Shared';
 
-export const Wrapper = styled.div`
-  margin: 0 auto;
+export const Wrapper = styled(WidthContainer)`
   @media (min-width: 960px) {
     display: flex;
     padding-top: 40px;

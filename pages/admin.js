@@ -7,6 +7,7 @@ import { deauthenticate } from '../store/actions/index';
 import AdminForm from '../components/Admin/AdminForm';
 import SignIn from '../components/Admin/SignIn';
 import Error from '../components/Error/Error';
+import { WidthContainer } from '../styles/Shared';
 
 const styles = {
   header: {
@@ -23,7 +24,7 @@ const Admin = ({
   collections,
   authServerError
 }) => (
-  <div>
+  <WidthContainer style={{ paddingTop: 0 }}>
     {user ? (
       <div>
         <div style={styles.header}>
@@ -48,7 +49,7 @@ const Admin = ({
         ) : null}
       </>
     )}
-  </div>
+  </WidthContainer>
 );
 
 Admin.propTypes = {
