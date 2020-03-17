@@ -186,7 +186,7 @@ class ContactForm extends Component {
               type="text"
               multiline
               fullWidth
-              rows={4}
+              rows={12}
               InputLabelProps={{
                 required: false,
                 FormLabelClasses: {
