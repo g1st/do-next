@@ -55,6 +55,11 @@ const styles = theme => ({
     color: '#212121',
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
     fontWeight: 'bold'
+  },
+  heading: {
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: '0.75rem'
+    }
   }
 });
 
@@ -203,7 +208,9 @@ class NavBar extends React.Component {
                 className={classes.flex}
               >
                 <Link href="/">
-                  <AnchorLink>Dovile Jewellery</AnchorLink>
+                  <AnchorLink className={classes.heading}>
+                    Dovile Jewellery
+                  </AnchorLink>
                 </Link>
               </Typography>
             </div>
