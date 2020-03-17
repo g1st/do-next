@@ -36,6 +36,9 @@ const styles = () => ({
   header: {
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
     fontSize: '1.75rem'
+  },
+  fontFamily: {
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif'
   }
 });
 
@@ -104,7 +107,9 @@ const PieceGallery = ({ data, currentItem, classes }) => {
                       )} 2x`}
                       alt={item.description}
                     />
-                    <Typography>{item.name}</Typography>
+                    <Typography className={classes.fontFamily}>
+                      {item.name}
+                    </Typography>
                     <Typography className={classes.light}>
                       £{item.price.toFixed(2)}
                     </Typography>

@@ -58,6 +58,9 @@ const styles = () => ({
   },
   swapButton: {
     display: 'inline-block'
+  },
+  name: {
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif'
   }
 });
 
@@ -410,7 +413,9 @@ class Gallery extends React.Component {
                         )} 2x`}
                         alt={item.description}
                       />
-                      <Typography component="span">{item.name}</Typography>
+                      <Typography variant="body1" className={classes.name}>
+                        {item.name}
+                      </Typography>
                       <Typography component="span" className={classes.light}>
                         £{item.price.toFixed(2)}
                       </Typography>
