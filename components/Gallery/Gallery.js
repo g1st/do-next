@@ -51,7 +51,8 @@ const styles = () => ({
     justifyContent: 'center'
   },
   buttonBase: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    marginBottom: '2rem'
   },
   light: {
     fontWeight: 300

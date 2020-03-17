@@ -25,7 +25,8 @@ const styles = () => ({
     fontWeight: 300
   },
   buttonBase: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    marginBottom: '2rem'
   },
   textMargins: {
     marginBottom: '20px',
