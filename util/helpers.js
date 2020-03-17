@@ -154,3 +154,11 @@ exports.filterCollections = (data, user) => {
 };
 
 exports.deslugify = slug => slug.split('-').join(' ');
+
+exports.fontFamily = [
+  'Raleway',
+  'Roboto',
+  'Helvetica',
+  'Arial',
+  'sans-serif'
+].join(',');

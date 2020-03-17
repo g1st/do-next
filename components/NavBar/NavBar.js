@@ -49,10 +49,12 @@ const styles = theme => ({
     }
   },
   menuItem: {
-    fontSize: '.9rem'
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif'
   },
-  textColor: {
-    color: '#212121'
+  navText: {
+    color: '#212121',
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
+    fontWeight: 'bold'
   }
 });
 
@@ -133,13 +135,13 @@ class NavBar extends React.Component {
           <Tab
             label="Admin"
             value="/admin"
-            classes={{ textColorSecondary: classes.textColor }}
+            classes={{ textColorSecondary: classes.navText }}
           />
         ) : (
           ''
         )}
         <Tab
-          classes={{ textColorSecondary: classes.textColor }}
+          classes={{ textColorSecondary: classes.navText }}
           label={
             <WrapSpan>
               <Span>Gallery</Span>
@@ -158,17 +160,17 @@ class NavBar extends React.Component {
         <Tab
           label="About"
           value="/about"
-          classes={{ textColorSecondary: classes.textColor }}
+          classes={{ textColorSecondary: classes.navText }}
         />
         <Tab
           label="Where to find"
           value="/wheretofind"
-          classes={{ textColorSecondary: classes.textColor }}
+          classes={{ textColorSecondary: classes.navText }}
         />
         <Tab
           label="Contact"
           value="/contact"
-          classes={{ textColorSecondary: classes.textColor }}
+          classes={{ textColorSecondary: classes.navText }}
         />
       </Tabs>
     );

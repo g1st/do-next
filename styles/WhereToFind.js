@@ -16,7 +16,7 @@ Wrapper.displayName = 'Wrapper';
 export const Stockist = styled.div`
   margin: 0 auto;
   div > p {
-    margin-bottom: 12px;
+    margin-bottom: 1.25rem;
   }
   @media (min-width: 960px) {
     width: 50%;

@@ -4,6 +4,7 @@ import {
   createGenerateClassName
 } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
+import { fontFamily } from '../util/helpers';
 
 // A theme with custom primary and secondary color.
 // It's optional.
@@ -25,7 +26,25 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
+    h1: {
+      fontFamily
+    },
+    h2: {
+      fontFamily
+    },
+    h3: {
+      fontFamily
+    },
+    h4: {
+      fontFamily
+    },
+    h5: {
+      fontFamily
+    },
+    h6: {
+      fontFamily
+    }
   }
 });
 

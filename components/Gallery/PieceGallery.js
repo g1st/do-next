@@ -32,6 +32,10 @@ const styles = () => ({
     '@media (min-width:960px)': {
       marginBottom: '40px'
     }
+  },
+  header: {
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
+    fontSize: '1.75rem'
   }
 });
 
@@ -67,7 +71,11 @@ const PieceGallery = ({ data, currentItem, classes }) => {
       {mightAlsoLikeData.length > 0 ? (
         <>
           <div className={classes.textMargins}>
-            <Typography variant="body1" color="secondary">
+            <Typography
+              variant="body1"
+              color="secondary"
+              className={classes.header}
+            >
               YOU MIGHT ALSO LIKE
             </Typography>
           </div>

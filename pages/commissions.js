@@ -16,8 +16,8 @@ import CommissionsImage from '../static/images/commissions.JPG';
 
 const styles = () => ({
   heading: {
-    fontSize: '1.2rem',
-    paddingTop: '20px'
+    fontSize: '2rem',
+    margin: '4rem 0 2rem 0'
   }
 });
 
@@ -46,7 +46,7 @@ const Commissions = ({ collections, classes, user }) => (
       <Text>
         <Typography
           color="secondary"
-          variant="body1"
+          variant="h2"
           gutterBottom
           className={classes.heading}
         >
