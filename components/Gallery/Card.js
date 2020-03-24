@@ -23,7 +23,7 @@ const styles = {
 
 const Card = ({ item, classes }) => (
   <Link href={`/piece?slug=${item.slug}`} as={`/piece/${item.slug}`}>
-    <ButtonBase classes={{ root: classes.buttonBase }}>
+    <ButtonBase classes={{ root: classes.buttonBase }} focusRipple>
       <ImageWithLoading
         src={`/static/uploads/${item.frontImage}`}
         srcSet={`/static/uploads/${
