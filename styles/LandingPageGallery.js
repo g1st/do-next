@@ -5,6 +5,7 @@ export const Wrapper = styled(WidthContainer)`
   display: flex;
   height: calc(100vh - 64px);
   align-items: center;
+  padding-top: 7rem;
 `;
 Wrapper.displayName = 'Wrapper';
 
