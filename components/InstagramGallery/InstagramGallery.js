@@ -163,6 +163,7 @@ class InstagramGallery extends React.Component {
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    focusRipple
                   >
                     <img
                       src={image}

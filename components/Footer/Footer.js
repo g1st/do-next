@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Typography, Divider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -38,6 +39,14 @@ const styles = {
 
 const Footer = props => {
   const { classes } = props;
+  const router = useRouter();
+
+  const handleKeyDown = (value, key) => {
+    if (key === 'Enter' || key === ' ') {
+      router.push(value);
+    }
+  };
+
   return (
     <Wrapper>
       <Divider />
@@ -74,7 +83,10 @@ const Footer = props => {
         <FooterLinks>
           <FooterLink>
             <Link href="/terms-conditions">
-              <AnchorLink>
+              <AnchorLink
+                tabIndex={0}
+                onKeyDown={e => handleKeyDown('/terms-conditions', e.key)}
+              >
                 <Typography inline className={classes.links}>
                   Terms &amp; Conditions
                 </Typography>
@@ -83,7 +95,10 @@ const Footer = props => {
           </FooterLink>
           <FooterLink>
             <Link href="/care-guide">
-              <AnchorLink>
+              <AnchorLink
+                tabIndex={0}
+                onKeyDown={e => handleKeyDown('/care-guide', e.key)}
+              >
                 <Typography inline className={classes.links}>
                   Jewellery Care
                 </Typography>
@@ -92,7 +107,10 @@ const Footer = props => {
           </FooterLink>
           <FooterLink>
             <Link href="/commissions">
-              <AnchorLink>
+              <AnchorLink
+                tabIndex={0}
+                onKeyDown={e => handleKeyDown('/commissions', e.key)}
+              >
                 <Typography inline className={classes.links}>
                   Commissions
                 </Typography>
@@ -101,7 +119,10 @@ const Footer = props => {
           </FooterLink>
           <FooterLink>
             <Link href="/privacy-policy">
-              <AnchorLink>
+              <AnchorLink
+                tabIndex={0}
+                onKeyDown={e => handleKeyDown('/privacy-policy', e.key)}
+              >
                 <Typography inline className={classes.links}>
                   Privacy Policy
                 </Typography>
