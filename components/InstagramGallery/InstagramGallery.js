@@ -47,6 +47,9 @@ const styles = {
       marginBottom: '3em',
       marginTop: '9em'
     }
+  },
+  heading: {
+    fontSize: '2rem'
   }
 };
 
@@ -127,7 +130,12 @@ class InstagramGallery extends React.Component {
         {data.length > 0 ? (
           <>
             <div className={classes.headerWrapper}>
-              <Typography variant="h5" align="center" color="secondary">
+              <Typography
+                variant="h3"
+                align="center"
+                color="secondary"
+                className={classes.heading}
+              >
                 INSTAGRAM GALLERY
               </Typography>
               <Typography variant="body2" align="center">
