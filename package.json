@@ -51,6 +51,7 @@
     "next-optimized-images": "^2.5.5",
     "nodemailer": "^6.4.4",
     "prop-types": "^15.7.2",
+    "pure-react-carousel": "^1.26.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-image-gallery": "^1.0.6",

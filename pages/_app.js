@@ -13,7 +13,8 @@ import getPageContext from '../src/getPageContext';
 import { authUrl } from '../config';
 import { saveCart, filterCollections } from '../util/helpers';
 import 'react-image-gallery/styles/css/image-gallery.css';
-import '../styles/react-image-gallery-overrides.css';
+import 'pure-react-carousel/dist/react-carousel.es.css';
+import '../styles/global.css';
 
 class MyApp extends App {
   constructor(props) {

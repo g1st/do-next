@@ -10,6 +10,7 @@ import Newsletter from '../components/Newsletter/Newsletter';
 import InstagramGallery from '../components/InstagramGallery/InstagramGallery';
 import UpcomingEvent from '../components/UpcomingEvent/UpcomingEvent';
 import GridGallery from '../components/Gallery/Gallery';
+import Featured from '../components/Featured.js';
 import { WidthContainer } from '../styles/Shared';
 
 const styles = () => ({
@@ -22,6 +23,7 @@ const styles = () => ({
 const handleButton = () => {
   Router.push('/gallery');
 };
+
 const Index = ({ pathname, collections, classes, user, data, router }) => {
   let { collection } = router.query;
 
@@ -32,6 +34,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
     <Layout pathname={pathname} collections={collections} user={user}>
       <LandingPageGallery />
       <UpcomingEvent />
+      <Featured data={data.filter(item => item.featured)} />
       <InView triggerOnce rootMargin="200px">
         {({ inView, ref }) => (
           <WidthContainer ref={ref}>

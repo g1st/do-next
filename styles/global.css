@@ -1,0 +1,84 @@
+.carousel__slider-tray-wrapper {
+  margin-bottom: 2rem;
+}
+
+.slide {
+  cursor: pointer;
+  text-align: center;
+}
+
+.slide:active {
+  cursor: grabbing;
+}
+
+.buttonBack {
+  position: absolute;
+  top: 35%;
+  left: 0;
+}
+
+.buttonNext {
+  position: absolute;
+  top: 35%;
+  right: 0;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  padding: 0.75rem 0.5rem;
+}
+
+.carousel {
+  padding: 0 20px;
+}
+
+/* react-image-gallery overrides */
+
+.image-gallery-svg {
+  color: #fff;
+}
+
+button.image-gallery-left-nav .image-gallery-svg {
+  height: 46px;
+  width: 18px;
+}
+
+button.image-gallery-right-nav .image-gallery-svg {
+  height: 46px;
+  width: 18px;
+}
+
+button.image-gallery-fullscreen-button .image-gallery-svg {
+  height: 26px;
+  width: 26px;
+}
+
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height: calc(100vh - 108px);
+}
+
+.image-gallery-thumbnail.active {
+  border-color: #9e9e9e;
+}
+
+.image-gallery-thumbnail:hover {
+  border-color: #9e9e9e;
+}
+
+@media (min-width: 960px) {
+  button.image-gallery-left-nav .image-gallery-svg {
+    height: 46px;
+    width: 18px;
+  }
+
+  button.image-gallery-right-nav .image-gallery-svg {
+    height: 46px;
+    width: 18px;
+  }
+
+  button.image-gallery-fullscreen-button .image-gallery-svg {
+    height: 26px;
+    width: 26px;
+  }
+}
