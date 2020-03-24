@@ -118,6 +118,7 @@ class AdminForm extends Component {
     available: 'available',
     display: true,
     oneOfAKind: false,
+    featured: false,
     silverFinish: false,
     madeToOrder: false,
     producingTime: '',
@@ -168,6 +169,9 @@ class AdminForm extends Component {
     if (name === 'oneOfAKind') {
       return this.setState({ [name]: checked });
     }
+    if (name === 'featured') {
+      return this.setState({ [name]: checked });
+    }
     if (name === 'silverFinish') {
       return this.setState({ [name]: checked });
     }
@@ -205,6 +209,7 @@ class AdminForm extends Component {
       available: 'available',
       display: true,
       oneOfAKind: false,
+      featured: false,
       madeToOrder: false,
       producingTime: ''
     });
@@ -245,6 +250,7 @@ class AdminForm extends Component {
       available,
       display,
       oneOfAKind,
+      featured,
       silverFinish,
       selectedImages,
       imageFiles,
@@ -284,6 +290,7 @@ class AdminForm extends Component {
     formData.append('available', available);
     formData.append('display', display);
     formData.append('oneOfAKind', oneOfAKind);
+    formData.append('featured', featured);
     formData.append('silverFinish', silverFinish);
     formData.append('imagesToRemove', imagesToRemove);
     formData.append('imageCount', images.length);
@@ -368,6 +375,7 @@ class AdminForm extends Component {
       available,
       display,
       oneOfAKind,
+      featured,
       silverFinish,
       category,
       collection,
@@ -772,7 +780,7 @@ class AdminForm extends Component {
                   color="secondary"
                 />
               }
-              label="ONE OF A KIND item."
+              label="ONE OF A KIND item"
             />
           </FormGroup>
           <FormGroup className={classes.root}>
@@ -785,7 +793,20 @@ class AdminForm extends Component {
                   color="secondary"
                 />
               }
-              label="Include option for silver finishing."
+              label="Include option for silver finishing"
+            />
+          </FormGroup>
+          <FormGroup className={classes.root}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={featured}
+                  onChange={e => this.handleChange('featured', e)}
+                  value="featured"
+                  color="secondary"
+                />
+              }
+              label="Add to featured items"
             />
           </FormGroup>
           <Button

@@ -146,7 +146,8 @@ module.exports = (db, upload) => {
         display,
         oneOfAKind,
         silverFinish,
-        producingTime
+        producingTime,
+        featured
       } = req.body;
 
       const { files } = req;
@@ -167,7 +168,8 @@ module.exports = (db, upload) => {
         display,
         oneOfAKind,
         silverFinish,
-        producingTime
+        producingTime,
+        featured
       };
 
       let imagesToRemoveOnError;
@@ -305,7 +307,8 @@ module.exports = (db, upload) => {
         display,
         oneOfAKind,
         silverFinish,
-        producingTime
+        producingTime,
+        featured
       } = req.body;
 
       const { files } = req;
@@ -359,7 +362,8 @@ module.exports = (db, upload) => {
         silverFinish,
         producingTime,
         galleryIndex,
-        collectionIndex: galleryIndex
+        collectionIndex: galleryIndex,
+        featured
       };
 
       const work = new Work(piece);
