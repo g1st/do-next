@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  margin-top: -26px;
+  margin-top: 2rem;
+  padding: 3rem 2rem;
   width: 100%;
 `;
 Wrapper.displayName = 'Wrapper';
