@@ -24,12 +24,14 @@ import PinterestPNG from '../../static/images/pinterest-box.png';
 
 const styles = {
   links: {
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
     color: 'rgba(0, 0, 0, .54)',
     '@media (min-width: 960px)': {
       marginBottom: 0
     }
   },
   root: {
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
     textAlign: 'center'
   }
 };

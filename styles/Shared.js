@@ -53,3 +53,10 @@ export const Strong = styled.strong`
   font-weight: 500;
 `;
 Strong.displayName = 'Strong';
+
+export const WidthContainer = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4.5em 1em 0px;
+`;
+WidthContainer.displayName = 'WidthContainer';

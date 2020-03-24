@@ -31,7 +31,7 @@ const ImageWithLoading = ({ src, srcSet, alt }) => {
   }, []);
 
   return (
-    <div>
+    <div style={{ marginBottom: '0.6rem' }}>
       {!loaded ? <Skeleton /> : null}
       <Image
         ref={image}

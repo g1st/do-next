@@ -35,17 +35,20 @@ const styles = () => ({
     fontWeight: 400
   },
   fontSize: {
-    fontSize: '1.2rem'
+    fontSize: '1.3rem'
   },
-  increaseFontWeight: {
-    fontWeight: 500
+  authorName: {
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
+    fontSize: '2rem'
   },
   button: {
-    lineHeight: '24px',
-    fontWeight: 500
+    lineHeight: '24px'
   },
   icon: {
     alignSelf: 'center'
+  },
+  h4: {
+    fontSize: '1rem'
   }
 });
 
@@ -73,7 +76,7 @@ const About = ({ pathname, collections, classes, user }) => (
           </Caption>
         </PortraitWrapper>
         <AuthorNameText>
-          <Typography variant="h5" className={classes.increaseFontWeight}>
+          <Typography variant="h2" className={classes.authorName}>
             Dovile Kondrasovaite
           </Typography>
           <Typography variant="body2" gutterBottom>
@@ -82,7 +85,11 @@ const About = ({ pathname, collections, classes, user }) => (
         </AuthorNameText>
         <WrapLink>
           <ToArtistStatement href="#artist-statement">
-            <Typography inline variant="body2" className={classes.button}>
+            <Typography
+              inline
+              variant="h3"
+              className={`${classes.fontSize} ${classes.button}`}
+            >
               READ ARTIST'S STATEMENT
             </Typography>
           </ToArtistStatement>
@@ -90,7 +97,7 @@ const About = ({ pathname, collections, classes, user }) => (
             <ArrowDropDown fontSize="small" className={classes.icon} />
           </ToArtistStatement>
         </WrapLink>
-        <Typography variant="body1" gutterBottom className={classes.fontSize}>
+        <Typography variant="h3" gutterBottom className={classes.fontSize}>
           EDUCATION
         </Typography>
         <Table>
@@ -118,7 +125,7 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
           </tbody>
         </Table>
-        <Typography variant="body1" gutterBottom className={classes.fontSize}>
+        <Typography variant="h3" gutterBottom className={classes.fontSize}>
           PROFESSIONAL POSITION
         </Typography>
         <Table>
@@ -178,7 +185,7 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
           </tbody>
         </Table>
-        <Typography variant="body1" gutterBottom className={classes.fontSize}>
+        <Typography variant="h3" gutterBottom className={classes.fontSize}>
           EXHIBITIONS
         </Typography>
         <Table>
@@ -261,11 +268,22 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
           </tbody>
         </Table>
-        <Typography variant="body1" gutterBottom className={classes.fontSize}>
+        <Typography variant="h3" gutterBottom className={classes.fontSize}>
           LATEST EVENTS
         </Typography>
         <Table>
           <tbody>
+            <Row>
+              <Data>
+                {' '}
+                <Typography variant="body2">2020</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body2" gutterBottom>
+                  MADE, Yorkshire Sculpture Park, UK
+                </Typography>
+              </Data>
+            </Row>
             <Row>
               <Data>
                 {' '}
@@ -441,14 +459,14 @@ const About = ({ pathname, collections, classes, user }) => (
       <Right>
         <ArtistStatement>
           <Typography
-            variant="body1"
+            variant="h3"
             className={`${classes.fontSize} ${classes.marginTop}`}
             paragraph
             id="artist-statement"
           >
             ARTIST'S STATEMENT
           </Typography>
-          <Typography variant="body2" className={classes.marginTop} paragraph>
+          <Typography variant="h4" className={classes.h4} paragraph>
             THE DIALOGUE BETWEEN PAST, PRESENT AND FUTURE
           </Typography>
           <Typography variant="body2" paragraph align="justify">

@@ -5,15 +5,23 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
 
 import { deslugify } from '../../util/helpers';
 import { clearOption } from '../../store/actions';
+
+const styles = {
+  link: {
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif'
+  }
+};
 
 class NavDrawerContent extends React.Component {
   static propTypes = {
     collections: PropTypes.arrayOf(PropTypes.string),
     closingDrawer: PropTypes.func,
-    clearOptionRedux: PropTypes.func
+    clearOptionRedux: PropTypes.func,
+    classes: PropTypes.object
   };
 
   state = {
@@ -49,16 +57,16 @@ class NavDrawerContent extends React.Component {
 
   render() {
     const { open } = this.state;
-    const { collections } = this.props;
+    const { collections, classes } = this.props;
     return (
       <List>
         <ListItem button onKeyDown={e => this.handleKeyDown(e, null, '/')}>
           <Link href="/">
-            <ListItemText primary="Home" />
+            <ListItemText primary="Home" classes={{ primary: classes.link }} />
           </Link>
         </ListItem>
         <ListItem button onClick={this.handleToggle}>
-          <ListItemText primary="Gallery" />
+          <ListItemText primary="Gallery" classes={{ primary: classes.link }} />
           {open ? <ArrowDropUp /> : <ArrowDropDown />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -72,6 +80,7 @@ class NavDrawerContent extends React.Component {
                 inset
                 primary="SHOW ALL"
                 style={{ paddingLeft: '16px' }}
+                classes={{ primary: classes.link }}
                 onClick={() =>
                   this.handleClick(`/gallery?collection=gallery`, `/gallery`)
                 }
@@ -87,6 +96,7 @@ class NavDrawerContent extends React.Component {
                   inset
                   primary={deslugify(collection).toUpperCase()}
                   style={{ paddingLeft: '16px' }}
+                  classes={{ primary: classes.link }}
                   onClick={() =>
                     this.handleClick(
                       `/gallery?collection=${collection}`,
@@ -104,7 +114,7 @@ class NavDrawerContent extends React.Component {
           onKeyDown={e => this.handleKeyDown(e, null, '/about')}
         >
           <Link href="/about">
-            <ListItemText primary="About" />
+            <ListItemText primary="About" classes={{ primary: classes.link }} />
           </Link>
         </ListItem>
         <ListItem
@@ -113,7 +123,10 @@ class NavDrawerContent extends React.Component {
           onKeyDown={e => this.handleKeyDown(e, null, '/wheretofind')}
         >
           <Link href="/wheretofind">
-            <ListItemText primary="Where To Find" />
+            <ListItemText
+              primary="Where To Find"
+              classes={{ primary: classes.link }}
+            />
           </Link>
         </ListItem>
         <ListItem
@@ -122,7 +135,10 @@ class NavDrawerContent extends React.Component {
           onKeyDown={e => this.handleKeyDown(e, null, '/contact')}
         >
           <Link href="/contact">
-            <ListItemText primary="Contact" />
+            <ListItemText
+              primary="Contact"
+              classes={{ primary: classes.link }}
+            />
           </Link>
         </ListItem>
       </List>
@@ -134,4 +150,7 @@ const mapDispatchToProps = dispatch => ({
   clearOptionRedux: () => dispatch(clearOption())
 });
 
-export default connect(null, mapDispatchToProps)(NavDrawerContent);
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(NavDrawerContent));

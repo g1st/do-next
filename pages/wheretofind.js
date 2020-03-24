@@ -19,11 +19,9 @@ import WhereToFindImage1 from '../static/images/wheretofind1.JPG';
 import WhereToFindImage2 from '../static/images/wheretofind2.JPG';
 
 const styles = () => ({
-  fontSize: {
-    fontSize: '1.2rem'
-  },
-  mb: {
-    marginBottom: '12px'
+  heading: {
+    fontSize: '2rem',
+    marginBottom: '3rem'
   }
 });
 
@@ -40,7 +38,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
           <Image src={WhereToFindImage1} alt="dovile jewellery" />
         </ImageWrapper>
         <StockistText>
-          <Typography variant="body1" gutterBottom className={classes.fontSize}>
+          <Typography variant="h2" className={classes.heading}>
             STOCKISTS
           </Typography>
           <Typography variant="body2">
@@ -53,7 +51,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
             </AnchorLink>
             , Unit 1:06, Oxo Tower Wharf, Bargehouse Street, London SE1 9PH, UK
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body2">
             <AnchorLink
               href="https://www.artisan-alchemy.co.uk/"
               target="_blank"
@@ -63,7 +61,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
             </AnchorLink>
             , 85 Caroline Street, Birmingham, B3 1UP, UK
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body2">
             <AnchorLink
               href="http://www.vda.lt/lt/galerija-argentum/apie-galerija"
               target="_blank"
@@ -73,7 +71,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
             </AnchorLink>
             , Latako g. 2, Vilnius, Lithuania
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body2">
             <AnchorLink
               href="https://www.facebook.com/theplaces17/"
               target="_blank"
@@ -83,7 +81,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
             </AnchorLink>
             , Subaciaus g. 17-33, Vilnius, Lithuania
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body2">
             <AnchorLink
               href="https://miutto.com/collections/dovile-jewellery"
               target="_blank"
@@ -99,7 +97,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
           <ImageWrapper>
             <Image src={WhereToFindImage2} alt="dovile jewellery" />
           </ImageWrapper>
-          <Typography variant="body1" gutterBottom className={classes.fontSize}>
+          <Typography variant="h2" className={classes.heading}>
             UPCOMING EVENTS
           </Typography>
           <Table>
@@ -107,20 +105,11 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">4 Nov - 23 Feb</Typography>
+                  <Typography variant="body2">2020</Typography>
                 </Data>
                 <Data>
-                  <AnchorLink
-                    href="https://ysp.org.uk/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Typography variant="body2" gutterBottom inline>
-                      MADE
-                    </Typography>
-                  </AnchorLink>
-                  <Typography variant="body2" gutterBottom inline>
-                    , Yorkshire Sculpture Park
+                  <Typography variant="body2" inline>
+                    To be confirmed.
                   </Typography>
                 </Data>
               </Row>

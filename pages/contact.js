@@ -36,7 +36,7 @@ const Contact = ({ pathname, collections, user }) => (
       >
         <Typography
           align="center"
-          variant="body2"
+          variant="body1"
           style={{
             marginTop: '50px',
             maxWidth: '720px',

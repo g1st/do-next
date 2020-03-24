@@ -16,8 +16,8 @@ import Necklaces from '../static/images/f-5.JPG';
 
 const styles = () => ({
   heading: {
-    fontSize: '1.2rem',
-    paddingTop: '20px'
+    fontSize: '2rem',
+    margin: '4rem 0 2rem 0'
   }
 });
 
@@ -39,7 +39,7 @@ const CareGuide = ({ collections, classes, user }) => (
         <Typography
           align="left"
           color="secondary"
-          variant="body1"
+          variant="h2"
           paragraph
           className={classes.heading}
         >
@@ -143,7 +143,7 @@ const CareGuide = ({ collections, classes, user }) => (
         <Typography
           align="left"
           color="secondary"
-          variant="body1"
+          variant="h2"
           paragraph
           className={classes.heading}
         >

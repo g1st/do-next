@@ -10,6 +10,8 @@ import Newsletter from '../components/Newsletter/Newsletter';
 import InstagramGallery from '../components/InstagramGallery/InstagramGallery';
 import UpcomingEvent from '../components/UpcomingEvent/UpcomingEvent';
 import GridGallery from '../components/Gallery/Gallery';
+import Featured from '../components/Featured.js';
+import { WidthContainer } from '../styles/Shared';
 
 const styles = () => ({
   button: {
@@ -21,6 +23,7 @@ const styles = () => ({
 const handleButton = () => {
   Router.push('/gallery');
 };
+
 const Index = ({ pathname, collections, classes, user, data, router }) => {
   let { collection } = router.query;
 
@@ -31,9 +34,10 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
     <Layout pathname={pathname} collections={collections} user={user}>
       <LandingPageGallery />
       <UpcomingEvent />
-      <InView triggerOnce rootMargin="300px">
+      <Featured data={data.filter(item => item.featured)} />
+      <InView triggerOnce rootMargin="200px">
         {({ inView, ref }) => (
-          <div ref={ref}>
+          <WidthContainer ref={ref}>
             {inView ? (
               <>
                 <GridGallery
@@ -53,12 +57,14 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
                 </Button>
               </>
             ) : null}
-          </div>
+          </WidthContainer>
         )}
       </InView>
-      <InView triggerOnce rootMargin="100px">
+      <InView triggerOnce rootMargin="200px">
         {({ inView, ref }) => (
-          <div ref={ref}>{inView ? <InstagramGallery /> : null}</div>
+          <WidthContainer ref={ref}>
+            {inView ? <InstagramGallery /> : null}
+          </WidthContainer>
         )}
       </InView>
       <Newsletter />

@@ -7,6 +7,7 @@ import { Button } from '@material-ui/core';
 import { deauthenticate } from '../store/actions/index';
 import SignIn from '../components/Admin/SignIn';
 import AdminForm from '../components/Admin/AdminForm';
+import { WidthContainer } from '../styles/Shared';
 
 const styles = {
   header: {
@@ -23,7 +24,7 @@ const Edit = ({
   collections,
   onePieceData
 }) => (
-  <div>
+  <WidthContainer style={{ paddingTop: 0 }}>
     {user ? (
       <div>
         <div style={styles.header}>
@@ -43,7 +44,7 @@ const Edit = ({
     ) : (
       <SignIn />
     )}
-  </div>
+  </WidthContainer>
 );
 
 Edit.getInitialProps = async ({ user, req, query }) => {

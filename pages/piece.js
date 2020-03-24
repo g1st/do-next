@@ -24,7 +24,13 @@ import {
   SizesWrapper,
   SilverFinishWrapper
 } from '../styles/Piece';
-import { Mail, Strong, StyledAnchorLink } from '../styles/Shared';
+import {
+  WidthContainer,
+  Mail,
+  Strong,
+  StyledAnchorLink
+} from '../styles/Shared';
+
 import DialogForm from '../components/DialogForm/DialogForm';
 import SizeInput from '../components/Piece/SizeInput';
 import SilverFinishInput from '../components/Piece/SilverFinishInput';
@@ -35,8 +41,10 @@ import { appUrl } from '../config';
 import * as gtag from '../lib/gtag';
 
 const styles = {
-  marginBottomBig: {
-    marginBottom: '2rem'
+  price: {
+    marginBottom: '2rem',
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
+    fontSize: '1.6rem'
   },
   button: {
     padding: '10px',
@@ -56,6 +64,9 @@ const styles = {
   },
   boldLink: {
     fontWeight: 500
+  },
+  heading: {
+    fontSize: '2.75rem'
   }
 };
 
@@ -237,7 +248,7 @@ class Piece extends React.Component {
     );
 
     const pathLine = (
-      <div>
+      <WidthContainer>
         <Link href="/gallery">
           <AnchorLink>
             <Typography inline variant="body2" className={classes.filterLine}>
@@ -260,7 +271,7 @@ class Piece extends React.Component {
         <Typography inline variant="body2" className={classes.filterLine}>
           {pluralise(category)}
         </Typography>
-      </div>
+      </WidthContainer>
     );
 
     return (
@@ -289,11 +300,10 @@ class Piece extends React.Component {
           <Info>
             <Text>
               {user && edit}
-              <Typography variant="h4">{name}</Typography>
-              <Typography
-                variant="h5"
-                classes={{ h5: classes.marginBottomBig }}
-              >
+              <Typography variant="h2" className={classes.heading}>
+                {name}
+              </Typography>
+              <Typography variant="body1" classes={{ body1: classes.price }}>
                 £{price}
               </Typography>
               {description.split('\n').map((paragraph, i) => (

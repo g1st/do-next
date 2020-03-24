@@ -16,8 +16,8 @@ import PrivacyImage from '../static/images/privacy-policy.JPG';
 
 const styles = () => ({
   heading: {
-    fontSize: '1.2rem',
-    paddingTop: '20px'
+    fontSize: '2rem',
+    margin: '4rem 0 2rem 0'
   }
 });
 
@@ -47,7 +47,7 @@ const TermsAndConditions = ({ collections, classes, user }) => (
       <Text>
         <Typography
           color="secondary"
-          variant="h5"
+          variant="h2"
           gutterBottom
           className={classes.heading}
         >

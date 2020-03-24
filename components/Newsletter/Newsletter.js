@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CheckIcon from '@material-ui/icons/Check';
 
 import { Wrapper, Form, Wrap } from '../../styles/Newsletter';
+import { WidthContainer } from '../../styles/Shared';
 
 const styles = () => ({
   root: {
@@ -101,79 +102,81 @@ class Newsletter extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Wrapper>
-        <Typography
-          variant="h5"
-          align="center"
-          color="primary"
-          classes={{ root: classes.newsletter }}
-        >
-          SIGN UP FOR NEWSLETTER
-        </Typography>
-        <Typography
-          variant="body1"
-          align="center"
-          color="primary"
-          classes={{ root: classes.discover }}
-        >
-          discover new designs, upcoming shows and events
-        </Typography>
-        <Form onSubmit={e => this.sendRequest(e)}>
-          <Wrap>
-            {subscribed ? null : (
-              <Input
-                value={email}
-                id="email"
-                inputProps={{
-                  'aria-label': 'Signup for newsletter',
-                  required: true
-                }}
-                type="email"
-                disableUnderline
-                classes={{ root: classes.inputRoot }}
-                onChange={this.handleChange('email')}
-                error={!!error}
-                placeholder="Email"
-              />
-            )}
-            <div className={classes.root}>
-              <div className={classes.wrapper}>
-                {subscribed ? (
-                  <>
-                    <Typography inline variant="body2" color="primary">
-                      Subscribed
-                    </Typography>{' '}
-                    <CheckIcon classes={{ root: classes.checkIcon }} />
-                  </>
-                ) : (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    size="small"
-                    className={subscribed ? classes.buttonSuccess : ''}
-                    classes={{ root: classes.button }}
-                    disabled={loading}
-                  >
-                    Subscribe
-                  </Button>
-                )}
-                {loading && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
+      <WidthContainer>
+        <Wrapper>
+          <Typography
+            variant="h5"
+            align="center"
+            color="primary"
+            classes={{ root: classes.newsletter }}
+          >
+            SIGN UP FOR NEWSLETTER
+          </Typography>
+          <Typography
+            variant="body1"
+            align="center"
+            color="primary"
+            classes={{ root: classes.discover }}
+          >
+            discover new designs, upcoming shows and events
+          </Typography>
+          <Form onSubmit={e => this.sendRequest(e)}>
+            <Wrap>
+              {subscribed ? null : (
+                <Input
+                  value={email}
+                  id="email"
+                  inputProps={{
+                    'aria-label': 'Signup for newsletter',
+                    required: true
+                  }}
+                  type="email"
+                  disableUnderline
+                  classes={{ root: classes.inputRoot }}
+                  onChange={this.handleChange('email')}
+                  error={!!error}
+                  placeholder="Email"
+                />
+              )}
+              <div className={classes.root}>
+                <div className={classes.wrapper}>
+                  {subscribed ? (
+                    <>
+                      <Typography inline variant="body2" color="primary">
+                        Subscribed
+                      </Typography>{' '}
+                      <CheckIcon classes={{ root: classes.checkIcon }} />
+                    </>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      size="small"
+                      className={subscribed ? classes.buttonSuccess : ''}
+                      classes={{ root: classes.button }}
+                      disabled={loading}
+                    >
+                      Subscribe
+                    </Button>
+                  )}
+                  {loading && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          </Wrap>
-          {error && (
-            <Typography variant="body2" color="primary">
-              {error}
-            </Typography>
-          )}
-        </Form>
-      </Wrapper>
+            </Wrap>
+            {error && (
+              <Typography variant="body2" color="primary">
+                {error}
+              </Typography>
+            )}
+          </Form>
+        </Wrapper>
+      </WidthContainer>
     );
   }
 }

@@ -5,11 +5,16 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
 import Stripe from '../components/Stripe/Stripe';
+import { WidthContainer } from '../styles/Shared';
 
 const styles = theme => ({
-  h6: {
+  h2: {
+    fontSize: '1.6rem',
+    margin: '1rem 0 2rem 0',
+
     [theme.breakpoints.up('md')]: {
-      fontSize: '34px'
+      fontSize: '2.25rem',
+      marginBottom: 0
     }
   }
 });
@@ -21,10 +26,12 @@ const Checkout = ({ classes, collections, user }) => (
     title="Checkout | Dovile Jewellery"
     user={user}
   >
-    <Typography component="h1" variant="h5" className={classes.h6}>
-      Checkout
-    </Typography>
-    <Stripe />
+    <WidthContainer>
+      <Typography variant="h2" className={classes.h2}>
+        Checkout
+      </Typography>
+      <Stripe />
+    </WidthContainer>
   </Layout>
 );
 

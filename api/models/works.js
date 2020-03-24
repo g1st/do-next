@@ -49,7 +49,8 @@ const worksSchema = new mongoose.Schema(
     created: { type: Date, default: Date.now },
     display: { type: Boolean, default: true },
     oneOfAKind: { type: Boolean, default: false },
-    silverFinish: { type: Boolean, default: false }
+    silverFinish: { type: Boolean, default: false },
+    featured: { type: Boolean, default: false }
   },
   { timestamps: true }
 );

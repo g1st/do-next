@@ -4,7 +4,6 @@ import Head from 'next/head';
 import NavBar from './NavBar/NavBar';
 import Footer from './Footer/Footer';
 import { Main } from '../styles/Main';
-import { LayoutWrapper } from '../styles/LayoutWrapper';
 import { appUrl } from '../config';
 
 const Layout = ({
@@ -17,7 +16,7 @@ const Layout = ({
   image = '/static/images/Dovile-Kondrasovaite.jpeg',
   piecePath
 }) => (
-  <LayoutWrapper>
+  <>
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
@@ -41,7 +40,7 @@ const Layout = ({
     </div>
     <Main>{children}</Main>
     <Footer />
-  </LayoutWrapper>
+  </>
 );
 
 Layout.propTypes = {

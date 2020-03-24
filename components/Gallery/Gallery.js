@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Button, ButtonBase, Typography } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import Link from 'next/link';
 import axios from 'axios';
 
 import { increaseLoadedItems } from '../../store/actions';
@@ -15,7 +14,7 @@ import {
   ButtonIndicator
 } from '../../styles/Gallery';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
-import ImageWithLoading from './ImageWithLoading';
+import Card from './Card';
 
 const styles = () => ({
   root: {
@@ -49,12 +48,6 @@ const styles = () => ({
   gridItem: {
     display: 'flex',
     justifyContent: 'center'
-  },
-  buttonBase: {
-    flexDirection: 'column'
-  },
-  light: {
-    fontWeight: 300
   },
   swapButton: {
     display: 'inline-block'
@@ -395,27 +388,7 @@ class Gallery extends React.Component {
                       </Button>
                     </ButtonIndicator>
                   )}
-                  <Link
-                    href={`/piece?slug=${item.slug}`}
-                    as={`/piece/${item.slug}`}
-                  >
-                    <ButtonBase classes={{ root: classes.buttonBase }}>
-                      <ImageWithLoading
-                        src={`/static/uploads/${item.frontImage}`}
-                        srcSet={`/static/uploads/${
-                          item.frontImage
-                        } 1x, /static/uploads/${item.frontImage.replace(
-                          /300\./,
-                          '.'
-                        )} 2x`}
-                        alt={item.description}
-                      />
-                      <Typography component="span">{item.name}</Typography>
-                      <Typography component="span" className={classes.light}>
-                        £{item.price.toFixed(2)}
-                      </Typography>
-                    </ButtonBase>
-                  </Link>
+                  <Card item={item} />
                 </FlexContainer>
               </Grid>
             ))}
