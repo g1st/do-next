@@ -62,9 +62,14 @@ const Featured = ({ data, classes }) => {
           infinite
         >
           <SliderContainer>
-            <Slider className="slider">
-              {data.map(item => (
-                <Slide key={item._id} index={0} className="slide">
+            <Slider>
+              {data.map((item, key) => (
+                <Slide
+                  key={item._id}
+                  index={key}
+                  className="slide"
+                  tabIndex={-1}
+                >
                   <Card item={item} />
                 </Slide>
               ))}
