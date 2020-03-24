@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Router, { withRouter } from 'next/router';
+import Router from 'next/router';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Link from 'next/link';
@@ -474,7 +474,4 @@ const mapDispatchToProps = dispatch => ({
   buyItNow: item => dispatch(buyItNow(item))
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(withRouter(withStyles(styles)(Piece)));
+export default connect(null, mapDispatchToProps)(withStyles(styles)(Piece));

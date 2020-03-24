@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Router, { withRouter } from 'next/router';
+import Router from 'next/router';
 import { connect } from 'react-redux';
 import {
   AppBar,
@@ -265,4 +265,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(withStyles(styles)(NavBar)));
+)(withStyles(styles)(NavBar));
