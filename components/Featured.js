@@ -45,7 +45,7 @@ const Featured = ({ data, classes }) => {
 
   return (
     data &&
-    data.length && (
+    data.length > 0 && (
       <Container>
         <Typography
           variant="h3"
