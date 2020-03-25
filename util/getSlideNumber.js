@@ -25,9 +25,9 @@ const GetSlideNumber = () => {
 
   const data = { width: windowWidth };
 
-  if (windowWidth < 600) {
+  if (windowWidth < 678) {
     data.visibleSlides = 1;
-  } else if (windowWidth < 960) {
+  } else if (windowWidth < 980) {
     data.visibleSlides = 2;
   } else if (windowWidth < 1360) {
     data.visibleSlides = 3;
