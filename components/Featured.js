@@ -23,7 +23,7 @@ const styles = {
 };
 
 const Container = styled.div`
-  background: #fafafa;
+  background: rgba(0, 0, 0, 0.03);
   margin-top: 4rem;
 
   @media screen and (min-width: 960px) {
