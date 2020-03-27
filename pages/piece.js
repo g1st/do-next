@@ -22,7 +22,8 @@ import {
   ListInfo,
   AdminLink,
   SizesWrapper,
-  SilverFinishWrapper
+  SilverFinishWrapper,
+  MarginBottomWrapper
 } from '../styles/Piece';
 import {
   WidthContainer,
@@ -371,23 +372,25 @@ class Piece extends React.Component {
                 that they meet the legal standard in accordance with the British
                 Assay Office.
               </Typography>
-              <Typography inline variant="body2" paragraph>
-                Please read{' '}
-              </Typography>
-              <Link href="/care-guide">
-                <StyledAnchorLink>
-                  <Typography
-                    inline
-                    variant="body2"
-                    className={classes.boldLink}
-                  >
-                    jewellery care guide
-                  </Typography>
-                </StyledAnchorLink>
-              </Link>
-              <Typography inline variant="body2">
-                .
-              </Typography>
+              <MarginBottomWrapper>
+                <Typography inline variant="body2" paragraph>
+                  Please read{' '}
+                </Typography>
+                <Link href="/care-guide">
+                  <StyledAnchorLink>
+                    <Typography
+                      inline
+                      variant="body2"
+                      className={classes.boldLink}
+                    >
+                      jewellery care guide
+                    </Typography>
+                  </StyledAnchorLink>
+                </Link>
+                <Typography inline variant="body2">
+                  .
+                </Typography>
+              </MarginBottomWrapper>
 
               {available ? (
                 <ButtonsWrapper>

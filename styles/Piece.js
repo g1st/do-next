@@ -81,3 +81,8 @@ export const SilverFinishWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 SilverFinishWrapper.displayName = 'SilverFinishWrapper';
+
+export const MarginBottomWrapper = styled.div`
+  margin-bottom: 1rem;
+`;
+MarginBottomWrapper.displayName = 'MarginBottomWrapper';
