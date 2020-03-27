@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Link from 'next/link';
-import { Grid, ButtonBase, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 import { WidthContainer } from '../../styles/Shared';
-import ImageWithLoading from './ImageWithLoading';
+import Card from './Card';
 
 const styles = () => ({
   wrapper: {
@@ -95,29 +94,7 @@ const PieceGallery = ({ data, currentItem, classes }) => {
                   key={item._id}
                   className={classes.gridItem}
                 >
-                  <Link
-                    href={`/piece?slug=${item.slug}`}
-                    as={`/piece/${item.slug}`}
-                  >
-                    <ButtonBase className={classes.buttonBase}>
-                      <ImageWithLoading
-                        src={`/static/uploads/${item.frontImage}`}
-                        srcSet={`/static/uploads/${
-                          item.frontImage
-                        } 1x, /static/uploads/${item.frontImage.replace(
-                          /300\./,
-                          '.'
-                        )} 2x`}
-                        alt={item.description}
-                      />
-                      <Typography className={classes.fontFamily}>
-                        {item.name}
-                      </Typography>
-                      <Typography className={classes.light}>
-                        £{item.price.toFixed(2)}
-                      </Typography>
-                    </ButtonBase>
-                  </Link>
+                  <Card item={item} />
                 </Grid>
               ))}
             </Grid>
