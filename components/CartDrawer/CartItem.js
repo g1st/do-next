@@ -9,6 +9,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { removeFromCart, clearBuyItNow } from '../../store/actions';
 import { CartItems, Thumb, ItemInfo } from '../../styles/CartDrawer';
 import { StyledAnchorLink } from '../../styles/Shared';
+import { awsBucket } from '../../config';
 
 const CartItem = ({
   buyItNow,
@@ -28,7 +29,7 @@ const CartItem = ({
 
   const getItemImage = item => {
     if (item && item.images && item.images.length) {
-      return `/static/uploads/${item.images[0].thumb}`;
+      return `${awsBucket}/${item.images[0].thumb}`;
     }
     return '/static/images/fallback.png';
   };

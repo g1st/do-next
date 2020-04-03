@@ -14,8 +14,9 @@ const Counter = require('./models/counters');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const serverUtils = require('../util/serverHelper');
+const writeFileToS3 = require('../util/uploadToS3');
 const { filterCollections } = require('../util/helpers');
-const { generatePaymentResponse } = require('../util/helpers');
+const { generatePaymentResponse, modifyFileName } = require('../util/helpers');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
 const { promoCodes, findDiscountMultiplier } = require('../util/promoCodes');
 
@@ -313,21 +314,40 @@ module.exports = (db, upload) => {
 
       const { files } = req;
 
-      const images = files.map(image => {
-        const dot = image.filename.indexOf('.');
+      console.log('files :', files);
 
-        return {
-          big: image.filename,
-          medium:
-            image.filename.substring(0, dot) +
-            imageSizes.medium +
-            image.filename.substring(dot),
-          thumb:
-            image.filename.substring(0, dot) +
-            imageSizes.thumb +
-            image.filename.substring(dot)
-        };
+      const sizes = files.map(image => {
+        const big = modifyFileName(image.originalname, imageSizes.big);
+        const medium = modifyFileName(image.originalname, imageSizes.medium);
+        const thumb = modifyFileName(image.originalname, imageSizes.thumb);
+
+        return [
+          {
+            ...image,
+            path: big,
+            big,
+            dimensions: imageSizes.big
+          },
+          {
+            ...image,
+            path: medium,
+            medium,
+            dimensions: imageSizes.medium
+          },
+          {
+            ...image,
+            path: thumb,
+            thumb,
+            dimensions: imageSizes.thumb
+          }
+        ];
       });
+
+      const images = sizes.map(image => ({
+        big: image[0].big,
+        medium: image[1].medium,
+        thumb: image[2].thumb
+      }));
 
       const frontImage = images[0].medium;
 
@@ -371,25 +391,15 @@ module.exports = (db, upload) => {
       const error = work.validateSync();
 
       if (error) {
-        // pass just thumb of every photo
-        const imagesToRemoveOnError = images.map(image => image.thumb);
-
-        // remove already uploaded images (not elegant but rarely will happen irl
-        serverUtils.removeImagesFromDiskOnError(imagesToRemoveOnError);
-
         return { error: error.errors, work };
       }
 
       await db.collection('works').insertOne(work);
 
-      const sizes = files.map(obj => [
-        { path: obj.path, size: imageSizes.big },
-        { path: obj.path, size: imageSizes.medium },
-        { path: obj.path, size: imageSizes.thumb }
-      ]);
-
       const filesToSave = sizes.map(photos =>
-        photos.map(photo => serverUtils.writeFile(photo.path, photo.size))
+        photos.map(photo =>
+          writeFileToS3(photo.path, photo.dimensions, photo.buffer)
+        )
       );
 
       Promise.all(filesToSave)

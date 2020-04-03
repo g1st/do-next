@@ -19,7 +19,7 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import { appUrl } from '../../config';
+import { appUrl, awsBucket } from '../../config';
 import DangerZone from './DangerZone';
 import Error from '../Error/Error';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
@@ -581,7 +581,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`/static/uploads/${item}`}
+                          src={`${awsBucket}/${item}`}
                         />
                       }
                     />
@@ -610,7 +610,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`/static/uploads/${image.thumb}`}
+                          src={`${awsBucket}/${image.thumb}`}
                         />
                       }
                     />

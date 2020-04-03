@@ -1,3 +1,5 @@
+const path = require('path');
+
 exports.cartHelper = {
   totalItems(cart) {
     return cart.reduce((acc, item) => {
@@ -162,3 +164,11 @@ exports.fontFamily = [
   'Arial',
   'sans-serif'
 ].join(',');
+
+exports.modifyFileName = (originalName, size) => {
+  const extName = path.extname(originalName);
+  const baseName = path.basename(originalName, extName);
+  const timestamp = Date.now();
+
+  return `${timestamp}_${baseName}_${size}${extName}`;
+};
