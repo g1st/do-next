@@ -1,4 +1,5 @@
 const path = require('path');
+const { imageSizes } = require('./globals');
 
 exports.cartHelper = {
   totalItems(cart) {
@@ -165,10 +166,72 @@ exports.fontFamily = [
   'sans-serif'
 ].join(',');
 
-exports.modifyFileName = (originalName, size) => {
+exports.modifyFileName = (originalName, size, timestamp) => {
   const extName = path.extname(originalName);
   const baseName = path.basename(originalName, extName);
-  const timestamp = Date.now();
 
   return `${timestamp}_${baseName}_${size}${extName}`;
 };
+
+exports.formatFilesForUpload = files =>
+  files.map(image => {
+    const timestamp = Date.now();
+    const big = this.modifyFileName(
+      image.originalname,
+      imageSizes.big,
+      timestamp
+    );
+    const medium = this.modifyFileName(
+      image.originalname,
+      imageSizes.medium,
+      timestamp
+    );
+    const thumb = this.modifyFileName(
+      image.originalname,
+      imageSizes.thumb,
+      timestamp
+    );
+
+    return [
+      {
+        ...image,
+        path: big,
+        big,
+        dimensions: imageSizes.big
+      },
+      {
+        ...image,
+        path: medium,
+        medium,
+        dimensions: imageSizes.medium
+      },
+      {
+        ...image,
+        path: thumb,
+        thumb,
+        dimensions: imageSizes.thumb
+      }
+    ];
+  });
+
+exports.extractFileNames = arr => {
+  const removeKeys = arr.map(obj => [obj.big, obj.medium, obj.thumb]);
+
+  return [].concat(...removeKeys);
+};
+
+exports.extractFileNamesFromGroup = arr =>
+  arr.reduce((acc, currentObj) => {
+    const itemsArr = this.extractFileNames(currentObj.images);
+    return acc.concat(itemsArr);
+  }, []);
+
+exports.getNamesOfAllSizes = arr =>
+  arr.reduce((acc, thumb) => {
+    const names = [
+      thumb,
+      thumb.replace(/92(\.\w+)$/, '300$1'),
+      thumb.replace(/92(\.\w+)$/, '900$1')
+    ];
+    return acc.concat(...names);
+  }, []);

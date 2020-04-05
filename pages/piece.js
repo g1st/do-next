@@ -205,8 +205,6 @@ class Piece extends React.Component {
       silverFinishStyle
     };
 
-    console.log('images', images);
-
     const gallery = images.reduce((acc, image) => {
       const galleryFormatted = {
         original: `${awsBucket}/${image.medium}`,

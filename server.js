@@ -19,6 +19,7 @@ let sitemap;
 
 const storage = multer.memoryStorage();
 
+//! file filter here?
 const upload = multer({ storage });
 
 const dev = process.env.NODE_ENV !== 'production';

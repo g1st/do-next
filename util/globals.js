@@ -235,3 +235,6 @@ exports.postageForCountry = function postageForCountry(country) {
   }
   return shippingPriceWorldwide;
 };
+
+// squared shape for better gallery experience
+exports.imageSizes = { big: 900, medium: 300, thumb: 92 };

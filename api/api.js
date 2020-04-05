@@ -14,7 +14,13 @@ const Counter = require('./models/counters');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
 const serverUtils = require('../util/serverHelper');
-const writeFileToS3 = require('../util/uploadToS3');
+const {
+  extractFileNames,
+  extractFileNamesFromGroup,
+  formatFilesForUpload,
+  getNamesOfAllSizes
+} = require('../util/helpers');
+const S3 = require('../util/S3');
 const { filterCollections } = require('../util/helpers');
 const { generatePaymentResponse, modifyFileName } = require('../util/helpers');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
@@ -61,32 +67,22 @@ module.exports = (db, upload) => {
     wrapAsync(async function(req, res) {
       const id = req.query._id;
       const group = req.query.collection;
+
       // deleting single item
       if (id) {
         const works = await Work.findOneAndRemove({ _id: id });
-
-        // removeImagesFromDisk needs thumb as starter
-        const imagesToRemove = works.images.map(img => img.thumb);
-        // remove photos from disk
-        serverUtils.removeImagesFromDisk(imagesToRemove);
+        const imagesToRemove = extractFileNames(works.images);
+        imagesToRemove.forEach(image => S3.deleteObjectFromS3(image));
 
         return { deletedItem: works.name };
       }
+
       // deleting collection
       if (group) {
         const worksToBeDeleted = await Work.find({ group });
-
-        // delete in db
         await Work.deleteMany({ group });
-
-        // removeImagesFromDisk needs thumb as starter
-        const imagesToRemove = worksToBeDeleted.reduce((acc, currObj) => {
-          const thumbArray = currObj.images.map(img => img.thumb);
-          return acc.concat(thumbArray);
-        }, []);
-
-        // remove photos from disk
-        serverUtils.removeImagesFromDisk(imagesToRemove);
+        const imagesToRemove = extractFileNamesFromGroup(worksToBeDeleted);
+        imagesToRemove.forEach(image => S3.deleteObjectFromS3(image));
 
         return { deletedCollection: group };
       }
@@ -110,6 +106,10 @@ module.exports = (db, upload) => {
         .not()
         .isEmpty()
         .withMessage('Price is required.'),
+      check('price')
+        // eslint-disable-next-line no-restricted-globals
+        .custom(value => !isNaN(value))
+        .withMessage('Price is has to be a number.'),
       check('collection')
         .not()
         .isEmpty()
@@ -126,8 +126,6 @@ module.exports = (db, upload) => {
 
         return { error: equalizeErrors };
       }
-
-      const imageSizes = { big: 900, medium: 300, thumb: 92 };
 
       const {
         _id,
@@ -173,44 +171,42 @@ module.exports = (db, upload) => {
         featured
       };
 
-      let imagesToRemoveOnError;
+      let allImagesForRemoval;
+      let formattedFiles;
+      let newImages;
 
       // user adds new images
       if (files.length > 0) {
-        const images = files.map(image => {
-          const dot = image.filename.indexOf('.');
+        formattedFiles = formatFilesForUpload(files);
 
-          return {
-            big: image.filename,
-            medium:
-              image.filename.substring(0, dot) +
-              imageSizes.medium +
-              image.filename.substring(dot),
-            thumb:
-              image.filename.substring(0, dot) +
-              imageSizes.thumb +
-              image.filename.substring(dot)
-          };
-        });
+        const images = formattedFiles.map(image => ({
+          big: image[0].big,
+          medium: image[1].medium,
+          thumb: image[2].thumb
+        }));
 
-        const newImages = {
+        newImages = {
           $push: {
             images: { $each: images }
           }
         };
 
-        await Work.findOneAndUpdate({ _id }, newImages, {
-          new: true
-        });
+        const fileFilter = S3.fileFilter(formattedFiles);
 
-        imagesToRemoveOnError = images.map(image => image.thumb);
+        if (fileFilter) {
+          return {
+            error: { message: 'Wrong file type. Only JPG and PNG allowed.' }
+          };
+        }
       }
 
+      // there are images to remove
       if (imagesToRemove.length > 0) {
-        const imagesForRemoval = imagesToRemove.split(',');
+        const thumbsForRemoval = imagesToRemove.split(',');
+        allImagesForRemoval = getNamesOfAllSizes(thumbsForRemoval);
 
         // current images + how many adding - how many deleting
-        if (Number(imageCount) + files.length - imagesForRemoval.length < 1) {
+        if (Number(imageCount) + files.length - thumbsForRemoval.length < 1) {
           return {
             error: { images: 'Piece must have at least one image.' }
           };
@@ -219,12 +215,14 @@ module.exports = (db, upload) => {
         //  remove image paths from DB document
         update.$pull = {
           images: {
-            thumb: { $in: imagesForRemoval }
+            thumb: { $in: thumbsForRemoval }
           }
         };
+      }
 
-        // remove images from disk
-        serverUtils.removeImagesFromDisk(imagesForRemoval);
+      // cant add and remove images in the same call to db
+      if (newImages) {
+        await Work.findOneAndUpdate({ _id }, newImages);
       }
 
       const work = await Work.findOneAndUpdate({ _id }, update, {
@@ -234,28 +232,27 @@ module.exports = (db, upload) => {
       const error = work.validateSync();
 
       if (error) {
-        // remove already uploaded images (not elegant but rarely will happen irl)
-        if (files.length > 0) {
-          serverUtils.removeImagesFromDisk(imagesToRemoveOnError);
-        }
-
+        console.log('error.errors :', error.errors);
         return { error: error.errors, work };
       }
 
-      if (files.length > 0) {
-        const sizes = files.map(obj => [
-          { path: obj.path, size: imageSizes.big },
-          { path: obj.path, size: imageSizes.medium },
-          { path: obj.path, size: imageSizes.thumb }
-        ]);
-
-        const filesToSave = sizes.map(photos =>
-          photos.map(photo => serverUtils.writeFile(photo.path, photo.size))
+      // upload images to S3
+      if (formattedFiles) {
+        formattedFiles.map(photos =>
+          photos.map(photo =>
+            S3.writeFileToS3(
+              photo.path,
+              photo.dimensions,
+              photo.buffer,
+              photo.mimetype
+            )
+          )
         );
+      }
 
-        Promise.all(filesToSave)
-          .then(val => console.log(val))
-          .catch(err => console.log(err));
+      // remove images from S3
+      if (allImagesForRemoval) {
+        allImagesForRemoval.forEach(image => S3.deleteObjectFromS3(image));
       }
 
       return {
@@ -291,9 +288,6 @@ module.exports = (db, upload) => {
     '/update',
     upload.array('photos[]', 10),
     wrapAsync(async (req, res) => {
-      // squared shape for better gallery experience
-      const imageSizes = { big: 900, medium: 300, thumb: 92 };
-
       const {
         name,
         description,
@@ -314,36 +308,9 @@ module.exports = (db, upload) => {
 
       const { files } = req;
 
-      console.log('files :', files);
+      const formattedFiles = formatFilesForUpload(files);
 
-      const sizes = files.map(image => {
-        const big = modifyFileName(image.originalname, imageSizes.big);
-        const medium = modifyFileName(image.originalname, imageSizes.medium);
-        const thumb = modifyFileName(image.originalname, imageSizes.thumb);
-
-        return [
-          {
-            ...image,
-            path: big,
-            big,
-            dimensions: imageSizes.big
-          },
-          {
-            ...image,
-            path: medium,
-            medium,
-            dimensions: imageSizes.medium
-          },
-          {
-            ...image,
-            path: thumb,
-            thumb,
-            dimensions: imageSizes.thumb
-          }
-        ];
-      });
-
-      const images = sizes.map(image => ({
+      const images = formattedFiles.map(image => ({
         big: image[0].big,
         medium: image[1].medium,
         thumb: image[2].thumb
@@ -394,17 +361,34 @@ module.exports = (db, upload) => {
         return { error: error.errors, work };
       }
 
+      const fileFilter = S3.fileFilter(formattedFiles);
+
+      if (fileFilter) {
+        return {
+          error: { message: 'Wrong file type. Only JPG and PNG allowed.' },
+          work
+        };
+      }
+
       await db.collection('works').insertOne(work);
 
-      const filesToSave = sizes.map(photos =>
-        photos.map(photo =>
-          writeFileToS3(photo.path, photo.dimensions, photo.buffer)
-        )
-      );
+      // const filesToSave = formattedFiles.map(photos =>
+      //   photos.map(photo =>
+      //     S3.writeFileToS3(
+      //       photo.path,
+      //       photo.dimensions,
+      //       photo.buffer,
+      //       photo.mimetype
+      //     )
+      //   )
+      // );
 
-      Promise.all(filesToSave)
-        .then(val => console.log(val))
-        .catch(err => console.log(err));
+      console.log('started');
+      // Upload a list of files to an S3 bucket
+      // await S3.putBatch(formattedFiles);
+      await S3.putBatch(formattedFiles);
+
+      console.log('finished');
 
       return {
         msg: 'Work has been added',

@@ -456,6 +456,11 @@ class AdminForm extends Component {
     return (
       <div>
         {workInfo}
+        {errors && (
+          <Typography align="center" color="error">
+            {errors.message}
+          </Typography>
+        )}
         <form
           encType="multipart/form-data"
           onSubmit={e => this.handleSubmit(e)}
@@ -815,19 +820,18 @@ class AdminForm extends Component {
             size="medium"
             variant="contained"
             color="secondary"
+            disabled={updating}
           >
             {itemToEdit ? 'Edit item' : 'Add item'}
           </Button>
         </form>
-        {errors && (
-          <Typography align="center">There are errors in your form</Typography>
-        )}
         {itemToEdit ? (
           <DangerZone
             itemID={itemToEdit._id.toString()}
             collection={itemToEdit.group}
             removeItem={this.removeItem}
             removeCollection={this.removeCollection}
+            disabled={updating}
           />
         ) : null}
         {updating ? <ModalLoader /> : null}
