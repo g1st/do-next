@@ -4,31 +4,20 @@ const co = require('co');
 const express = require('express');
 const next = require('next');
 const multer = require('multer');
-const uuidv4 = require('uuid/v4');
-const path = require('path');
 const cors = require('cors');
 const compression = require('compression');
 const { SitemapStream, streamToPromise } = require('sitemap');
 const { createGzip } = require('zlib');
 
 const api = require('./api/api');
-const { appUrl } = require('./config');
+const { appUrl, awsBucket } = require('./config');
 const getUrls = require('./util/getUrls');
 
 const { MONGO_URL } = process.env;
 const PORT = process.env.PORT || 3000;
 let sitemap;
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, path.join(__dirname, '/static/uploads'));
-  },
-  filename(req, file, cb) {
-    const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
-
-    cb(null, newFilename);
-  }
-});
+const storage = multer.memoryStorage();
 
 const upload = multer({ storage });
 
@@ -112,7 +101,7 @@ co(function*() {
             url: page,
             lastmod: lastModified,
             img: images.map(imgObj => ({
-              url: `${appUrl}/static/uploads/${imgObj.big}`,
+              url: `${awsBucket}/photos/${imgObj.big}`,
               caption,
               title,
               license: 'https://creativecommons.org/licenses/by/4.0/'

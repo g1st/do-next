@@ -226,7 +226,7 @@ exports.euSizes = euSizes;
 exports.ukSizes = ukSizes;
 exports.usSizes = usSizes;
 exports.dimensions = dimensions;
-exports.postageForCountry = function postageForCountry(country) {
+exports.postageForCountry = country => {
   if (country === 'GB') {
     return shippingPriceGB;
   }
@@ -235,3 +235,6 @@ exports.postageForCountry = function postageForCountry(country) {
   }
   return shippingPriceWorldwide;
 };
+
+// squared shape for better gallery experience
+exports.imageSizes = { big: 900, medium: 300, thumb: 92 };
