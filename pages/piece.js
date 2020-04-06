@@ -9,6 +9,7 @@ import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ArrowRight } from '@material-ui/icons';
 
+import { awsBucket, appUrl } from '../config';
 import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
 import PieceGallery from '../components/Gallery/PieceGallery';
@@ -38,7 +39,7 @@ import SilverFinishInput from '../components/Piece/SilverFinishInput';
 import SizesInfo from '../components/Piece/SizesDialog';
 import { pluralise, deslugify, onImageError } from '../util/helpers';
 import Error from './_error';
-import { appUrl } from '../config';
+
 import * as gtag from '../lib/gtag';
 
 const styles = {
@@ -206,11 +207,11 @@ class Piece extends React.Component {
 
     const gallery = images.reduce((acc, image) => {
       const galleryFormatted = {
-        original: `/static/uploads/${image.medium}`,
-        thumbnail: `/static/uploads/${image.thumb}`,
+        original: `${awsBucket}/photos/${image.medium}`,
+        thumbnail: `${awsBucket}/photos/${image.thumb}`,
         originalAlt: description,
         thumbnailAlt: name,
-        srcSet: `/static/uploads/${image.medium} 300w, /static/uploads/${image.big} 900w`,
+        srcSet: `${awsBucket}/photos/${image.medium} 300w, ${awsBucket}/photos/${image.big} 900w`,
         sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw'
       };
       if (image.medium === frontImage) {
@@ -283,7 +284,7 @@ class Piece extends React.Component {
         title={`${name} | Dovile Jewellery`}
         description={`${description} | ${materials}`}
         user={user}
-        image={`/static/uploads/${images[0].big}`}
+        image={`${awsBucket}/photos/${images[0].big}`}
       >
         {pathLine}
         <Wrapper>

@@ -19,7 +19,7 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import { appUrl } from '../../config';
+import { appUrl, awsBucket } from '../../config';
 import DangerZone from './DangerZone';
 import Error from '../Error/Error';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
@@ -456,6 +456,11 @@ class AdminForm extends Component {
     return (
       <div>
         {workInfo}
+        {errors && (
+          <Typography align="center" color="error">
+            {errors.message}
+          </Typography>
+        )}
         <form
           encType="multipart/form-data"
           onSubmit={e => this.handleSubmit(e)}
@@ -581,7 +586,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`/static/uploads/${item}`}
+                          src={`${awsBucket}/photos/${item}`}
                         />
                       }
                     />
@@ -610,7 +615,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`/static/uploads/${image.thumb}`}
+                          src={`${awsBucket}/photos/${image.thumb}`}
                         />
                       }
                     />
@@ -815,19 +820,18 @@ class AdminForm extends Component {
             size="medium"
             variant="contained"
             color="secondary"
+            disabled={updating}
           >
             {itemToEdit ? 'Edit item' : 'Add item'}
           </Button>
         </form>
-        {errors && (
-          <Typography align="center">There are errors in your form</Typography>
-        )}
         {itemToEdit ? (
           <DangerZone
             itemID={itemToEdit._id.toString()}
             collection={itemToEdit.group}
             removeItem={this.removeItem}
             removeCollection={this.removeCollection}
+            disabled={updating}
           />
         ) : null}
         {updating ? <ModalLoader /> : null}

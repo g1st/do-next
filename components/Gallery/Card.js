@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
 
+import { awsBucket } from '../../config';
 import ImageWithLoading from './ImageWithLoading';
 
 const styles = {
@@ -25,10 +26,10 @@ const Card = ({ item, classes }) => (
   <Link href={`/piece?slug=${item.slug}`} as={`/piece/${item.slug}`}>
     <ButtonBase classes={{ root: classes.buttonBase }} focusRipple>
       <ImageWithLoading
-        src={`/static/uploads/${item.frontImage}`}
-        srcSet={`/static/uploads/${
+        src={`${awsBucket}/photos/${item.frontImage}`}
+        srcSet={`${awsBucket}/photos/${
           item.frontImage
-        } 1x, /static/uploads/${item.frontImage.replace(/300\./, '.')} 2x`}
+        } 1x, ${awsBucket}/photos/${item.frontImage.replace(/300\./, '.')} 2x`}
         alt={item.description}
       />
       <Typography variant="body1" className={classes.name}>

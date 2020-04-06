@@ -30,6 +30,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.4",
     "@material-ui/icons": "^3.0.2",
+    "aws-sdk": "^2.651.0",
     "axios": "^0.19.2",
     "babel-plugin-import": "^1.13.0",
     "body-parser": "^1.19.0",
@@ -68,7 +69,6 @@
     "stripe": "^8.38.0",
     "styled-components": "^5.0.1",
     "styled-jsx": "^3.2.5",
-    "uuid": "^3.4.0",
     "zlib": "^1.0.5"
   },
   "devDependencies": {
