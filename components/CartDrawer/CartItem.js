@@ -29,7 +29,7 @@ const CartItem = ({
 
   const getItemImage = item => {
     if (item && item.images && item.images.length) {
-      return `${awsBucket}/${item.images[0].thumb}`;
+      return `${awsBucket}/photos/${item.images[0].thumb}`;
     }
     return '/static/images/fallback.png';
   };

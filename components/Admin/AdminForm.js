@@ -586,7 +586,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`${awsBucket}/${item}`}
+                          src={`${awsBucket}/photos/${item}`}
                         />
                       }
                     />
@@ -615,7 +615,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`${awsBucket}/${image.thumb}`}
+                          src={`${awsBucket}/photos/${image.thumb}`}
                         />
                       }
                     />

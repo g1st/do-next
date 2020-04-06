@@ -26,10 +26,10 @@ const Card = ({ item, classes }) => (
   <Link href={`/piece?slug=${item.slug}`} as={`/piece/${item.slug}`}>
     <ButtonBase classes={{ root: classes.buttonBase }} focusRipple>
       <ImageWithLoading
-        src={`${awsBucket}/${item.frontImage}`}
-        srcSet={`${awsBucket}/${
+        src={`${awsBucket}/photos/${item.frontImage}`}
+        srcSet={`${awsBucket}/photos/${
           item.frontImage
-        } 1x, ${awsBucket}/${item.frontImage.replace(/300\./, '.')} 2x`}
+        } 1x, ${awsBucket}/photos/${item.frontImage.replace(/300\./, '.')} 2x`}
         alt={item.description}
       />
       <Typography variant="body1" className={classes.name}>

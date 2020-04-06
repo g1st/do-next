@@ -226,7 +226,7 @@ exports.euSizes = euSizes;
 exports.ukSizes = ukSizes;
 exports.usSizes = usSizes;
 exports.dimensions = dimensions;
-exports.postageForCountry = function postageForCountry(country) {
+exports.postageForCountry = country => {
   if (country === 'GB') {
     return shippingPriceGB;
   }

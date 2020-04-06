@@ -207,11 +207,11 @@ class Piece extends React.Component {
 
     const gallery = images.reduce((acc, image) => {
       const galleryFormatted = {
-        original: `${awsBucket}/${image.medium}`,
-        thumbnail: `${awsBucket}/${image.thumb}`,
+        original: `${awsBucket}/photos/${image.medium}`,
+        thumbnail: `${awsBucket}/photos/${image.thumb}`,
         originalAlt: description,
         thumbnailAlt: name,
-        srcSet: `${awsBucket}/${image.medium} 300w, ${awsBucket}/${image.big} 900w`,
+        srcSet: `${awsBucket}/photos/${image.medium} 300w, ${awsBucket}/photos/${image.big} 900w`,
         sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw'
       };
       if (image.medium === frontImage) {
@@ -284,7 +284,7 @@ class Piece extends React.Component {
         title={`${name} | Dovile Jewellery`}
         description={`${description} | ${materials}`}
         user={user}
-        image={`${awsBucket}/${images[0].big}`}
+        image={`${awsBucket}/photos/${images[0].big}`}
       >
         {pathLine}
         <Wrapper>
