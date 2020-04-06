@@ -19,7 +19,6 @@ let sitemap;
 
 const storage = multer.memoryStorage();
 
-//! file filter here?
 const upload = multer({ storage });
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -102,7 +101,7 @@ co(function*() {
             url: page,
             lastmod: lastModified,
             img: images.map(imgObj => ({
-              url: `${awsBucket}/${imgObj.big}`,
+              url: `${awsBucket}/photos/${imgObj.big}`,
               caption,
               title,
               license: 'https://creativecommons.org/licenses/by/4.0/'
