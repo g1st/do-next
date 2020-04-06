@@ -13,7 +13,6 @@ const Subscriber = require('./models/subscribers');
 const Counter = require('./models/counters');
 const sendMail = require('./mail');
 const sendPurchaseEmail = require('./sendPurchaseEmail');
-const serverUtils = require('../util/serverHelper');
 const {
   extractFileNames,
   extractFileNamesFromGroup,
@@ -22,7 +21,8 @@ const {
 } = require('../util/helpers');
 const S3 = require('../util/S3');
 const { filterCollections } = require('../util/helpers');
-const { generatePaymentResponse, modifyFileName } = require('../util/helpers');
+const { postageForCountry } = require('../util/globals');
+const { generatePaymentResponse } = require('../util/helpers');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
 const { promoCodes, findDiscountMultiplier } = require('../util/promoCodes');
 
@@ -72,7 +72,14 @@ module.exports = (db, upload) => {
       if (id) {
         const works = await Work.findOneAndRemove({ _id: id });
         const imagesToRemove = extractFileNames(works.images);
-        imagesToRemove.forEach(image => S3.deleteObjectFromS3(image));
+        const promisesArray = imagesToRemove.map(image =>
+          S3.deleteObjectFromS3(image)
+        );
+
+        // remove images from s3
+        await Promise.all(promisesArray).catch(err =>
+          console.log('Error while deleting from S3', err)
+        );
 
         return { deletedItem: works.name };
       }
@@ -82,7 +89,14 @@ module.exports = (db, upload) => {
         const worksToBeDeleted = await Work.find({ group });
         await Work.deleteMany({ group });
         const imagesToRemove = extractFileNamesFromGroup(worksToBeDeleted);
-        imagesToRemove.forEach(image => S3.deleteObjectFromS3(image));
+        const promisesArray = imagesToRemove.map(image =>
+          S3.deleteObjectFromS3(image)
+        );
+
+        // remove images from s3
+        await Promise.all(promisesArray).catch(err =>
+          console.log('Error while deleting from S3', err)
+        );
 
         return { deletedCollection: group };
       }
@@ -238,21 +252,17 @@ module.exports = (db, upload) => {
 
       // upload images to S3
       if (formattedFiles) {
-        formattedFiles.map(photos =>
-          photos.map(photo =>
-            S3.writeFileToS3(
-              photo.path,
-              photo.dimensions,
-              photo.buffer,
-              photo.mimetype
-            )
-          )
-        );
+        await S3.uploadFiles(formattedFiles);
       }
 
       // remove images from S3
       if (allImagesForRemoval) {
-        allImagesForRemoval.forEach(image => S3.deleteObjectFromS3(image));
+        const promisesArray = allImagesForRemoval.map(image =>
+          S3.deleteObjectFromS3(image)
+        );
+        await Promise.all(promisesArray).catch(err =>
+          console.log('Error while deleting from S3', err)
+        );
       }
 
       return {
@@ -372,23 +382,8 @@ module.exports = (db, upload) => {
 
       await db.collection('works').insertOne(work);
 
-      // const filesToSave = formattedFiles.map(photos =>
-      //   photos.map(photo =>
-      //     S3.writeFileToS3(
-      //       photo.path,
-      //       photo.dimensions,
-      //       photo.buffer,
-      //       photo.mimetype
-      //     )
-      //   )
-      // );
-
-      console.log('started');
-      // Upload a list of files to an S3 bucket
-      // await S3.putBatch(formattedFiles);
-      await S3.putBatch(formattedFiles);
-
-      console.log('finished');
+      // Upload images to an S3 bucket
+      await S3.uploadFiles(formattedFiles);
 
       return {
         msg: 'Work has been added',
@@ -528,7 +523,7 @@ module.exports = (db, upload) => {
       } = req.body.additional.purchaseDetails;
 
       const { country: countryISO } = req.body.additional;
-      const shippingPrice = serverUtils.postageForCountry(countryISO);
+      const shippingPrice = postageForCountry(countryISO);
 
       let amount;
 
