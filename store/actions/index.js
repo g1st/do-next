@@ -2,7 +2,6 @@ import Router from 'next/router';
 import axios from 'axios';
 import * as actionTypes from '../constants/action-types';
 import { setCookie, removeCookie } from '../../util/cookie';
-import { authUrl } from '../../config';
 
 export const addToCart = item => ({ type: actionTypes.ADD_TO_CART, item });
 
@@ -34,7 +33,7 @@ export const authenticate = ({ email, password }, type) => {
   }
   return dispatch => {
     axios
-      .post(`${authUrl}/${type}`, { email, password })
+      .post(`${process.env.AUTH_URL}/${type}`, { email, password })
       .then(response => {
         setCookie('token', response.data.token);
         Router.push('/admin');

@@ -16,7 +16,7 @@ import { WidthContainer } from '../styles/Shared';
 const styles = () => ({
   button: {
     display: 'block',
-    margin: '60px auto 100px auto'
+    margin: '5rem auto 5rem auto'
   }
 });
 

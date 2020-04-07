@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import Error from 'next/error';
 import axios from 'axios';
 
-import { appUrl } from '../config';
 import Layout from '../components/Layout';
 
 const CustomError = ({ statusCode, collections, pathname = '/' }) => (
@@ -23,7 +22,7 @@ CustomError.getInitialProps = async ({ res, err }) => {
   } else {
     statusCode = err ? err.statusCode : 404;
   }
-  const data = await axios.get(`${appUrl}/api/collections`);
+  const data = await axios.get(`${process.env.APP_URL}/api/collections`);
   const collections = data.data;
 
   return { statusCode, collections };

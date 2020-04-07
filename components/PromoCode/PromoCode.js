@@ -15,7 +15,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { withStyles } from '@material-ui/core/styles';
 
 import Error from '../Error/Error';
-import { appUrl } from '../../config';
 import { addDiscount } from '../../store/actions';
 
 const styles = {
@@ -81,7 +80,7 @@ const PromoCode = ({ classes }) => {
       setError(false);
       setIsLoading(true);
       try {
-        const result = await axios(`${appUrl}/api/promo`, {
+        const result = await axios(`${process.env.APP_URL}/api/promo`, {
           params: { code: submit }
         });
         const { validCode } = result.data;

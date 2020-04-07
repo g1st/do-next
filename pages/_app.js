@@ -10,7 +10,6 @@ import Router from 'next/router';
 import * as gtag from '../lib/gtag';
 import withReduxStore from '../lib/with-redux-store';
 import getPageContext from '../src/getPageContext';
-import { authUrl } from '../config';
 import { saveCart, filterCollections } from '../util/helpers';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -32,7 +31,7 @@ class MyApp extends App {
     const { token } = ctx.reduxStore.getState().authenticate;
 
     if (token) {
-      const response = await axios.get(`${authUrl}/user`, {
+      const response = await axios.get(`${process.env.AUTH_URL}/user`, {
         headers: {
           authorization: token
         }

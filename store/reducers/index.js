@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
-import { postageForCountry } from '../../util/globals';
+import { postageForCountry, ITEMS_PER_PAGE } from '../../util/globals';
 import { promoCodes } from '../../util/promoCodes';
-import { ITEMS_PER_PAGE } from '../../config';
 
 import {
   ADD_TO_CART,

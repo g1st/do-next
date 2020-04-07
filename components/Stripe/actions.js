@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
 
-import { appUrl } from '../../config';
 import { getPurchaseDetails } from '../../util/helpers';
 
 export const attemptPayment = ({
@@ -72,7 +71,7 @@ export const attemptPayment = ({
         };
       }
 
-      return axios.post(`${appUrl}/api/charge`, {
+      return axios.post(`${process.env.APP_URL}/api/charge`, {
         payment_method_id: paymentMethod.id,
         additional: {
           email,

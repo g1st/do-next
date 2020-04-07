@@ -4,7 +4,6 @@ import Head from 'next/head';
 import NavBar from './NavBar/NavBar';
 import Footer from './Footer/Footer';
 import { Main } from '../styles/Main';
-import { appUrl } from '../config';
 
 const Layout = ({
   children,
@@ -20,11 +19,14 @@ const Layout = ({
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="image" content={appUrl + image} />
-      <meta property="og:url" content={piecePath || appUrl + pathname} />
+      <meta name="image" content={process.env.APP_URL + image} />
+      <meta
+        property="og:url"
+        content={piecePath || process.env.APP_URL + pathname}
+      />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={appUrl + image} />
+      <meta property="og:image" content={process.env.APP_URL + image} />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content="@DKondrasovaite" />

@@ -19,7 +19,7 @@ class Stripe extends React.Component {
   componentDidMount() {
     if (window.Stripe) {
       this.setState({
-        stripe: window.Stripe('pk_live_tXVZ4Ldnk6GWympBnPfo5lCn')
+        stripe: window.Stripe(process.env.STRIPE_PUBLISHABLE_KEY)
       });
     } else {
       const stripeJs = document.createElement('script');
@@ -27,7 +27,7 @@ class Stripe extends React.Component {
       stripeJs.async = true;
       stripeJs.onload = () => {
         this.setState({
-          stripe: window.Stripe('pk_live_tXVZ4Ldnk6GWympBnPfo5lCn')
+          stripe: window.Stripe(process.env.STRIPE_PUBLISHABLE_KEY)
         });
       };
 

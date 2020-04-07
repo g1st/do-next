@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import { increaseLoadedItems } from '../../store/actions';
 import Filter from './Filter';
-import { ITEMS_PER_PAGE, appUrl } from '../../config';
+import { ITEMS_PER_PAGE } from '../../util/globals';
 import {
   FilterWrapper,
   FlexContainer,
@@ -227,7 +227,7 @@ class Gallery extends React.Component {
       this.setState({ updating: true });
 
       axios
-        .post(`${appUrl}/api/update-grid`, {
+        .post(`${process.env.APP_URL}/api/update-grid`, {
           data: filtered,
           index: activeIndex
         })

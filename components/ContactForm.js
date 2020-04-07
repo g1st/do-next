@@ -4,7 +4,6 @@ import axios from 'axios';
 import { TextField, Paper, Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import { appUrl } from '../config';
 import ModalLoader from './UI/ModalLoader/ModalLoader';
 import { EmailSent } from '../styles/Contact';
 
@@ -85,7 +84,7 @@ class ContactForm extends Component {
     const { email, message, subject } = this.state;
 
     axios
-      .post(`${appUrl}/api/send`, {
+      .post(`${process.env.APP_URL}/api/send`, {
         email,
         message,
         subject,

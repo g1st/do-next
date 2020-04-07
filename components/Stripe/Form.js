@@ -6,7 +6,6 @@ import { Typography, Paper, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
-import { appUrl } from '../../config';
 import { clearCart, clearBuyItNow } from '../../store/actions';
 import CartDrawerContent from '../CartDrawer/CartDrawerContent';
 import Error from '../Error/Error';
@@ -236,7 +235,7 @@ class StripeForm extends Component {
           // The card action has been handled
           // The PaymentIntent can be confirmed again on the server
           axios
-            .post(`${appUrl}/api/charge`, {
+            .post(`${process.env.APP_URL}/api/charge`, {
               payment_intent_id: result.paymentIntent.id,
               additional: {
                 email,

@@ -11,7 +11,6 @@ import {
   CircularProgress
 } from '@material-ui/core';
 
-import { instagramToken } from '../../config';
 import { StyledAnchorLink } from '../../styles/Shared';
 import { addInstagramData } from '../../store/actions';
 
@@ -42,10 +41,8 @@ const styles = {
   },
   headerWrapper: {
     marginBottom: '2em',
-    marginTop: '4em',
     '@media (min-width: 960px)': {
-      marginBottom: '3em',
-      marginTop: '9em'
+      marginBottom: '3em'
     }
   },
   heading: {
@@ -67,7 +64,7 @@ class InstagramGallery extends React.Component {
       reduxInstagramData: { data }
     } = this.props;
     if (data.length < 1) {
-      const url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${instagramToken}&count=12`;
+      const url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${process.env.INSTAGRAM_TOKEN}&count=12`;
       this.fetchData(url);
     }
   }

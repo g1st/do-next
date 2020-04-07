@@ -4,8 +4,6 @@ import axios from 'axios';
 import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import { appUrl } from '../../config';
-
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -31,7 +29,7 @@ const DangerZone = ({
 }) => {
   const deleteItem = () => {
     axios
-      .delete(`${appUrl}/api/delete`, { params: { _id: itemID } })
+      .delete(`${process.env.APP_URL}/api/delete`, { params: { _id: itemID } })
       .then(res => {
         removeItem(res.data.deletedItem);
       })
@@ -40,7 +38,7 @@ const DangerZone = ({
 
   const deleteCollection = () => {
     axios
-      .delete(`${appUrl}/api/delete`, { params: { collection } })
+      .delete(`${process.env.APP_URL}/api/delete`, { params: { collection } })
       .then(res => {
         removeCollection(res.data.deletedCollection);
       })

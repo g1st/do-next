@@ -9,7 +9,6 @@ import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ArrowRight } from '@material-ui/icons';
 
-import { awsBucket, appUrl } from '../config';
 import { addToCart, buyItNow } from '../store/actions';
 import Layout from '../components/Layout.js';
 import PieceGallery from '../components/Gallery/PieceGallery';
@@ -207,11 +206,11 @@ class Piece extends React.Component {
 
     const gallery = images.reduce((acc, image) => {
       const galleryFormatted = {
-        original: `${awsBucket}/photos/${image.medium}`,
-        thumbnail: `${awsBucket}/photos/${image.thumb}`,
+        original: `${process.env.AWS_BUCKET}/photos/${image.medium}`,
+        thumbnail: `${process.env.AWS_BUCKET}/photos/${image.thumb}`,
         originalAlt: description,
         thumbnailAlt: name,
-        srcSet: `${awsBucket}/photos/${image.medium} 300w, ${awsBucket}/photos/${image.big} 900w`,
+        srcSet: `${process.env.AWS_BUCKET}/photos/${image.medium} 300w, ${process.env.AWS_BUCKET}/photos/${image.big} 900w`,
         sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw'
       };
       if (image.medium === frontImage) {
@@ -279,12 +278,12 @@ class Piece extends React.Component {
     return (
       <Layout
         pathname="/gallery"
-        piecePath={`${appUrl}/piece/${slug}`}
+        piecePath={`${process.env.APP_URL}/piece/${slug}`}
         collections={collections}
         title={`${name} | Dovile Jewellery`}
         description={`${description} | ${materials}`}
         user={user}
-        image={`${awsBucket}/photos/${images[0].big}`}
+        image={`${process.env.AWS_BUCKET}/photos/${images[0].big}`}
       >
         {pathLine}
         <Wrapper>
