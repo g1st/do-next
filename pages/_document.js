@@ -54,7 +54,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto:wght@300;400;500&display=swap"
             rel="stylesheet"
           />
-          <link rel="icon" type="image/x-icon" href="/public/favicon.ico" />
+          <link rel="icon" type="image/x-icon" href="favicon.ico" />
         </Head>
         <body>
           <Main />
