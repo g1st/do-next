@@ -6,9 +6,9 @@ import Layout from '../components/Layout';
 import Form from '../components/ContactForm';
 import { Wrapper, ImagesWrapper, ImageWrapper, Image } from '../styles/Contact';
 import { Mail } from '../styles/Shared';
-import Image1 from '../static/images/d-4.JPG';
-import Image2 from '../static/images/cx-10.JPG';
-import Image3 from '../static/images/a-6.JPG';
+import Image1 from '../public/images/d-4.JPG';
+import Image2 from '../public/images/cx-10.JPG';
+import Image3 from '../public/images/a-6.JPG';
 
 const Contact = ({ pathname, collections, user }) => (
   <Layout

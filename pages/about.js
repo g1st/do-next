@@ -19,8 +19,8 @@ import {
   ToArtistStatement
 } from '../styles/About';
 import { AnchorLink, Table, Row, Data } from '../styles/Shared';
-import DovilePortait from '../static/images/Dovile-Kondrasovaite.jpeg';
-import ManWearingABrooch from '../static/images/s-1.jpeg';
+import DovilePortait from '../public/images/Dovile-Kondrasovaite.jpeg';
+import ManWearingABrooch from '../public/images/s-1.jpeg';
 
 const styles = () => ({
   marginTop: {

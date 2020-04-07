@@ -24,10 +24,10 @@ import {
   AcceptedCards,
   StripeIconLink
 } from '../../styles/Checkout';
-import Visa from '../../static/images/visa.svg';
-import Mastercard from '../../static/images/mastercard.svg';
-import AmericanExpress from '../../static/images/american-express.svg';
-import Stripe from '../../static/images/stripe.svg';
+import Visa from '../../public/images/visa.svg';
+import Mastercard from '../../public/images/mastercard.svg';
+import AmericanExpress from '../../public/images/american-express.svg';
+import Stripe from '../../public/images/stripe.svg';
 
 const styles = {
   button: {

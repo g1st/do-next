@@ -55,9 +55,9 @@ exports.saveCart = state => {
 };
 
 exports.onImageError = event => {
-  const defaultImage = '/static/images/fallback.png';
+  const defaultImage = '/public/images/fallback.png';
 
-  if (event.target.src.indexOf('/static/images/fallback.png') === -1) {
+  if (event.target.src.indexOf('/public/images/fallback.png') === -1) {
     event.target.src = defaultImage;
     event.target.srcset = '';
   }

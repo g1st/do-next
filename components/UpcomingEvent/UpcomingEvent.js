@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import Banner from '../../static/images/Banner-1.JPG';
+import Banner from '../../public/images/Banner-1.JPG';
 import { Image, EventWrapper } from '../../styles/UpcomingEvent';
 
 const UpcomingEvent = () => {

@@ -30,7 +30,7 @@ const CartItem = ({
     if (item && item.images && item.images.length) {
       return `${process.env.AWS_BUCKET}/photos/${item.images[0].thumb}`;
     }
-    return '/static/images/fallback.png';
+    return '/public/images/fallback.png';
   };
 
   return (

@@ -4,10 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 
-import LandingImage1 from '../../static/images/Dovile-Jewellery.JPG';
-import LandingImage2 from '../../static/images/Dovile-Jewellery-2.JPG';
-import LandingImage3 from '../../static/images/Dovile-Jewellery-3.JPG';
-import LandingImage4 from '../../static/images/Dovile-Jewellery-4.JPG';
+import LandingImage1 from '../../public/images/Dovile-Jewellery.JPG';
+import LandingImage2 from '../../public/images/Dovile-Jewellery-2.JPG';
+import LandingImage3 from '../../public/images/Dovile-Jewellery-3.JPG';
+import LandingImage4 from '../../public/images/Dovile-Jewellery-4.JPG';
 import {
   Wrapper,
   Content,

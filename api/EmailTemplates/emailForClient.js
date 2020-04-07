@@ -37,7 +37,7 @@ module.exports = function emailForClient(
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-image src="https://www.dovilejewellery.com/static/images/terms-conditions.JPG" alt="Dovile Jewellery FLOW brooch" />
+        <mj-image src="https://www.dovilejewellery.com/images/terms-conditions.JPG" alt="Dovile Jewellery FLOW brooch" />
       </mj-column>
     </mj-section>
     <mj-section>

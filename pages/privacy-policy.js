@@ -12,7 +12,7 @@ import {
   List,
   ListItem
 } from '../styles/TermsAndConditions';
-import PrivacyImage from '../static/images/privacy-policy.JPG';
+import PrivacyImage from '../public/images/privacy-policy.JPG';
 
 const styles = () => ({
   heading: {

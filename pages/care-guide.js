@@ -12,7 +12,7 @@ import {
   ListItem
 } from '../styles/CareGuide';
 import { ImageWrapper } from '../styles/TermsAndConditions';
-import Necklaces from '../static/images/f-5.JPG';
+import Necklaces from '../public/images/f-5.JPG';
 
 const styles = () => ({
   heading: {

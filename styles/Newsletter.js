@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import Image from '../static/images/bg2.JPG';
+import Image from '../public/images/bg2.JPG';
 
 export const Wrapper = styled.div`
   min-height: 252px;

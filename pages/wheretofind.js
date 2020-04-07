@@ -15,8 +15,8 @@ import {
   Data
 } from '../styles/WhereToFind';
 import { AnchorLink, Table, Row } from '../styles/Shared';
-import WhereToFindImage1 from '../static/images/wheretofind1.JPG';
-import WhereToFindImage2 from '../static/images/wheretofind2.JPG';
+import WhereToFindImage1 from '../public/images/wheretofind1.JPG';
+import WhereToFindImage2 from '../public/images/wheretofind2.JPG';
 
 const styles = () => ({
   heading: {

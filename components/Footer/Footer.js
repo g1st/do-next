@@ -19,9 +19,9 @@ import {
   Logo
 } from '../../styles/Footer';
 
-import FacebookPNG from '../../static/images/facebook-box.png';
-import InstagramPNG from '../../static/images/instagram.png';
-import PinterestPNG from '../../static/images/pinterest-box.png';
+import FacebookPNG from '../../public/images/facebook-box.png';
+import InstagramPNG from '../../public/images/instagram.png';
+import PinterestPNG from '../../public/images/pinterest-box.png';
 
 const styles = {
   links: {
@@ -51,7 +51,7 @@ const Footer = props => {
     <Wrapper>
       <Divider />
       <BrandLogo>
-        <Logo src="../../static/images/logo.svg" alt="Dovile Jewellery logo" />
+        <Logo src="../../public/images/logo.svg" alt="Dovile Jewellery logo" />
       </BrandLogo>
       <FlexContainer>
         <Social>

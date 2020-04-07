@@ -12,7 +12,7 @@ const Layout = ({
   title = 'Jewellery artist Dovile Kondrasovaite | Dovile Jewellery',
   description = "Contemporary amber and precious metals jewellery by an independent artist Dovile Kondrasovaite. Handmade in Birmingham's historic Jewellery Quarter, UK.",
   user,
-  image = '/static/images/Dovile-Kondrasovaite.jpeg',
+  image = '/images/Dovile-Kondrasovaite.jpeg',
   piecePath
 }) => (
   <>

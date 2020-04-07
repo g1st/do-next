@@ -12,7 +12,7 @@ import {
   Figure
 } from '../styles/TermsAndConditions';
 import { StyledAnchorLink, Strong } from '../styles/Shared';
-import TermsImage from '../static/images/terms-conditions.JPG';
+import TermsImage from '../public/images/terms-conditions.JPG';
 
 const styles = () => ({
   heading: {
