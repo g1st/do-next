@@ -235,3 +235,8 @@ exports.getNamesOfAllSizes = arr =>
     ];
     return acc.concat(...names);
   }, []);
+
+exports.amountInCents = amount => {
+  const cents = amount * 100;
+  return parseFloat(cents.toFixed(2));
+};

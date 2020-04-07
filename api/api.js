@@ -20,7 +20,7 @@ const {
   getNamesOfAllSizes
 } = require('../util/helpers');
 const S3 = require('../util/S3');
-const { filterCollections } = require('../util/helpers');
+const { filterCollections, amountInCents } = require('../util/helpers');
 const { postageForCountry } = require('../util/globals');
 const { generatePaymentResponse } = require('../util/helpers');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
@@ -580,7 +580,7 @@ module.exports = (db, upload) => {
       let intent;
       if (req.body.payment_method_id) {
         intent = await stripe.paymentIntents.create({
-          amount: amount * 100, // stripe needs cents
+          amount: amountInCents(amount),
           currency: 'gbp',
           description: `Purchase at dovilejewellery.com`,
           payment_method: req.body.payment_method_id,
