@@ -1,5 +1,4 @@
 /.next
 node_modules/
 .env
-static/uploads
-
+.vscode
