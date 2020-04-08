@@ -1,19 +1,17 @@
-# Contemporary jewellery artist's portfolio and shop.
+# Jeweller's portfolio and e-shop.
 
 [![Known Vulnerabilities](https://snyk.io/test/github/g1st/do-next/badge.svg?targetFile=package.json)](https://snyk.io/test/github/g1st/do-next?targetFile=package.json)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#contributing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## do-next is a full stack MERN e-commerce app.
-
 [dovilejewellery.com](https://dovilejewellery.com)
 
 ## Main features
 
-- Real payments with stripe.
+- Payments with stripe.
 - Instant emails with order details for client and owner after successful purchase.
 - Subscription to newsletter.
-- Image processing and resizing on upload with [sharp](https://github.com/lovell/sharp).
+- Image processing and resizing before saving to a S3 bucket with [sharp](https://github.com/lovell/sharp).
 - Admin's features:
 
   - add, edit, delete items or whole collections;
@@ -36,6 +34,7 @@ Now to smoothly start the app you'll need to:
 - install mongodb (if you haven't already) and run mongodb shell locally OR create free cluster at [mongodb.com](https://www.mongodb.com/)
 - get credentials of any free smtp mail API providers like [mailchimp](https://mailchimp.com) or [sendgrid](https://sendgrid.com)
 - get private and public stripe keys by setting up a [stripe](https://stripe.com) account
+- use your free bucket on [aws simple storage service](https://aws.amazon.com/).
 
 Then populate .env file with yours.
 
@@ -50,6 +49,12 @@ MAIL_PORT=
 STRIPE_PUBLISHABLE_KEY=
 STRIPE_SECRET_KEY=
 EMAIL=your@email
+AWS_ACCESS_KEY_ID=get from aws s3
+AWS_SECRET_ACCESS_KEY=get from aws s3
+AUTH_URL=authentication server url
+APP_URL=localhost:3000 in dev
+AWS_BUCKET=bukets's url
+INSTAGRAM_TOKEN=get from facebook developers
 ```
 
 to run in dev
@@ -65,7 +70,7 @@ npm run build
 npm start
 ```
 
-> Note that app use external authentication server for admin's logins. You would need to run [this](https://github.com/g1st/express-server-jwt) server or use your own in order to login as admin. Server address for development is `http://localhost:3030` and can be changed in `config.js`.
+> Note that app use external authentication server for admin's logins. You would need to run [this](https://github.com/g1st/express-server-jwt) server or use your own in order to login as admin. Server address for development is `http://localhost:3030` and can be changed in `.env`.
 
 ## Built With
 
@@ -99,7 +104,6 @@ Contributions are welcome.
 
 - [Dovile Kondrasovaite](https://dovilejewellery.com/about)
 - [nikrb](https://github.com/nikrb)
-- [chingu](https://chingu.io/)
 - [fcc](https://www.freecodecamp.org/)
 - Red Pandas
 - BC Zalgiris
