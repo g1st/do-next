@@ -9,7 +9,7 @@ import {
   Image,
   Figure,
   ImageWrapper,
-  Text
+  Text,
 } from '../styles/Commissions';
 import { Mail } from '../styles/Shared';
 import CommissionsImage from '../public/images/commissions.JPG';
@@ -17,8 +17,8 @@ import CommissionsImage from '../public/images/commissions.JPG';
 const styles = () => ({
   heading: {
     fontSize: '2rem',
-    margin: '4rem 0 2rem 0'
-  }
+    margin: '4rem 0 2rem 0',
+  },
 });
 
 const Commissions = ({ collections, classes, user }) => (
@@ -91,7 +91,7 @@ const Commissions = ({ collections, classes, user }) => (
 Commissions.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
   classes: PropTypes.object.isRequired,
-  user: PropTypes.string
+  user: PropTypes.string,
 };
 
 export default withStyles(styles)(Commissions);

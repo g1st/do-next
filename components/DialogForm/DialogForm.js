@@ -7,31 +7,31 @@ import {
   Dialog,
   DialogContent,
   Paper,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     padding: theme.spacing.unit * 2,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      padding: theme.spacing.unit * 3
-    }
+      padding: theme.spacing.unit * 3,
+    },
   },
   button: {
     marginTop: '50px',
     padding: '10px',
     maxWidth: '300px',
     width: '100%',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
 class FormDialog extends React.Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
   };
 
   state = {
@@ -41,7 +41,7 @@ class FormDialog extends React.Component {
     message: '',
     isSendingMail: false,
     emailSent: false,
-    errors: { message: null, email: null, subject: null }
+    errors: { message: null, email: null, subject: null },
   };
 
   handleClickOpen = () => {
@@ -52,13 +52,13 @@ class FormDialog extends React.Component {
     this.setState({ open: false });
   };
 
-  handleChange = name => event => {
+  handleChange = (name) => (event) => {
     this.setState({
-      [name]: event.target.value
+      [name]: event.target.value,
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ isSendingMail: true });
     const { email, message, subject } = this.state;
@@ -68,22 +68,22 @@ class FormDialog extends React.Component {
         email,
         message,
         subject,
-        contactForm: true
+        contactForm: true,
       })
-      .then(res => {
+      .then((res) => {
         this.setState(() => ({
           isSendingMail: false,
-          emailSent: true
+          emailSent: true,
         }));
       })
-      .catch(err => {
+      .catch((err) => {
         const { errors } = err.response.data;
         this.setState(() => ({
           isSendingMail: false,
           errors: errors.reduce((acc, err) => {
             acc[err.param] = err.msg;
             return acc;
-          }, {})
+          }, {}),
         }));
       });
   };
@@ -96,7 +96,7 @@ class FormDialog extends React.Component {
       isSendingMail,
       message,
       subject,
-      open
+      open,
     } = this.state;
 
     const { classes } = this.props;

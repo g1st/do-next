@@ -11,13 +11,13 @@ const worksSchema = new mongoose.Schema(
       type: String,
       required: 'Title is required',
       trim: true,
-      unique: true
+      unique: true,
     },
     slug: { type: String, unique: true, required: 'Slug is required' },
     description: {
       type: String,
       required: 'Description is required',
-      trim: true
+      trim: true,
     },
     images: {
       type: Array,
@@ -26,15 +26,15 @@ const worksSchema = new mongoose.Schema(
         validator(array) {
           return array.length > 0;
         },
-        message: 'Piece has to have at least one image'
-      }
+        message: 'Piece has to have at least one image',
+      },
     },
     frontImage: { type: String },
     group: {
       type: String,
       required: 'Collection name is required',
       set: toLowerCase,
-      trim: true
+      trim: true,
     },
     materials: { type: String, trim: true },
     category: { type: String, default: 'other', trim: true },
@@ -50,7 +50,7 @@ const worksSchema = new mongoose.Schema(
     display: { type: Boolean, default: true },
     oneOfAKind: { type: Boolean, default: false },
     silverFinish: { type: Boolean, default: false },
-    featured: { type: Boolean, default: false }
+    featured: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

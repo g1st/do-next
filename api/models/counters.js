@@ -6,8 +6,8 @@ const countersSchema = new mongoose.Schema(
     sequence_value: {
       type: Number,
       unique: true,
-      required: true
-    }
+      required: true,
+    },
   },
   { timestamps: true }
 );

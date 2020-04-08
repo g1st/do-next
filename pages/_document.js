@@ -32,7 +32,7 @@ class MyDocument extends Document {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_TRACKING_ID}');
-          `
+          `,
             }}
           />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
@@ -65,7 +65,7 @@ class MyDocument extends Document {
   }
 }
 
-MyDocument.getInitialProps = async ctx => {
+MyDocument.getInitialProps = async (ctx) => {
   // Resolution order
   //
   // On the server:
@@ -84,15 +84,15 @@ MyDocument.getInitialProps = async ctx => {
   // 3. page.render
   // Get the context of the page to collected side effects.
   let pageContext;
-  const page = ctx.renderPage(Component => {
-    const WrappedComponent = props => {
+  const page = ctx.renderPage((Component) => {
+    const WrappedComponent = (props) => {
       // eslint-disable-next-line react/destructuring-assignment
       pageContext = props.pageContext;
       return <Component {...props} />;
     };
 
     WrappedComponent.propTypes = {
-      pageContext: PropTypes.object.isRequired
+      pageContext: PropTypes.object.isRequired,
     };
 
     return WrappedComponent;
@@ -110,7 +110,7 @@ MyDocument.getInitialProps = async ctx => {
   try {
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+        enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
       });
 
     const initialProps = await Document.getInitialProps(ctx);
@@ -129,7 +129,7 @@ MyDocument.getInitialProps = async ctx => {
           {sheet.getStyleElement()}
           {flush() || null}
         </>
-      )
+      ),
     };
   } finally {
     sheet.seal();

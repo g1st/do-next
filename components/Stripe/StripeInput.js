@@ -6,22 +6,22 @@ const styles = {
   root: {
     width: '100%',
     padding: '6px 0 7px',
-    cursor: 'text'
-  }
+    cursor: 'text',
+  },
 };
 
 const StripeInput = ({ classes, component: Component, onChange, name }) => (
   <Component
     className={classes.root}
-    onChange={e => onChange(e, name)}
+    onChange={(e) => onChange(e, name)}
     style={{
       base: {
         fontSize: '14px',
-        letterSpacing: '0.025em'
+        letterSpacing: '0.025em',
       },
       invalid: {
-        color: '#9e2146'
-      }
+        color: '#9e2146',
+      },
     }}
   />
 );
@@ -30,7 +30,7 @@ StripeInput.propTypes = {
   classes: PropTypes.object.isRequired,
   component: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(StripeInput);

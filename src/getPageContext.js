@@ -1,7 +1,7 @@
 import { SheetsRegistry } from 'jss';
 import {
   createMuiTheme,
-  createGenerateClassName
+  createGenerateClassName,
 } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 import { fontFamily } from '../util/helpers';
@@ -11,41 +11,41 @@ import { fontFamily } from '../util/helpers';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#FFFFFF'
+      main: '#FFFFFF',
     },
     secondary: {
       light: grey[600],
       main: grey[900],
-      dark: grey[900]
+      dark: grey[900],
     },
     error: {
-      main: '#9e2146'
+      main: '#9e2146',
     },
     background: {
-      default: '#FFFFFF'
-    }
+      default: '#FFFFFF',
+    },
   },
   typography: {
     useNextVariants: true,
     h1: {
-      fontFamily
+      fontFamily,
     },
     h2: {
-      fontFamily
+      fontFamily,
     },
     h3: {
-      fontFamily
+      fontFamily,
     },
     h4: {
-      fontFamily
+      fontFamily,
     },
     h5: {
-      fontFamily
+      fontFamily,
     },
     h6: {
-      fontFamily
-    }
-  }
+      fontFamily,
+    },
+  },
 });
 
 function createPageContext() {
@@ -56,7 +56,7 @@ function createPageContext() {
     // This is needed in order to inject the critical CSS.
     sheetsRegistry: new SheetsRegistry(),
     // The standard class name generator.
-    generateClassName: createGenerateClassName()
+    generateClassName: createGenerateClassName(),
   };
 }
 

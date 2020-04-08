@@ -9,7 +9,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  Tooltip
+  Tooltip,
 } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import { withStyles } from '@material-ui/core/styles';
@@ -22,7 +22,7 @@ import {
   IconImage,
   StripeIcon,
   AcceptedCards,
-  StripeIconLink
+  StripeIconLink,
 } from '../../styles/Checkout';
 import Visa from '../../public/images/visa.svg';
 import Mastercard from '../../public/images/mastercard.svg';
@@ -35,29 +35,29 @@ const styles = {
     display: 'flex',
     marginTop: '32px',
     maxWidth: '300px',
-    padding: '10px'
+    padding: '10px',
   },
   textRight: {
     textAlign: 'right',
-    padding: 0
+    padding: 0,
   },
   list: {
     paddingBottom: 0,
     '& > li': {
       '&:nth-child(even)': {
-        backgroundColor: 'rgba(0, 0, 0, 0.02)'
-      }
-    }
+        backgroundColor: 'rgba(0, 0, 0, 0.02)',
+      },
+    },
   },
   marginTop: {
-    marginTop: '20px'
+    marginTop: '20px',
   },
   cardIcons: {
-    padding: '6px 16px'
+    padding: '6px 16px',
   },
   discounted: {
-    textDecoration: 'line-through'
-  }
+    textDecoration: 'line-through',
+  },
 };
 
 const CartDrawerContent = ({
@@ -68,7 +68,7 @@ const CartDrawerContent = ({
   buyItNow,
   buyItNowItem,
   shippingCost,
-  discount
+  discount,
 }) => {
   const buttonClickHandler = () => {
     Router.push('/gallery');
@@ -92,7 +92,7 @@ const CartDrawerContent = ({
         variant="contained"
         color="secondary"
         onClick={() => buttonClickHandler()}
-        onKeyDown={e => keyDownHandler(e)}
+        onKeyDown={(e) => keyDownHandler(e)}
         fullWidth
       >
         GALLERY
@@ -222,15 +222,15 @@ const CartDrawerContent = ({
   return content;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   cart: state.cart,
   buyItNowItem: state.buyItNow,
   shippingCost: state.shippingCost,
-  discount: state.promo.discount
+  discount: state.promo.discount,
 });
 
 CartDrawerContent.propTypes = {
-  buyItNow: PropTypes.bool
+  buyItNow: PropTypes.bool,
 };
 
 export default React.memo(

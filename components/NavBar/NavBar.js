@@ -11,7 +11,7 @@ import {
   Tabs,
   Tab,
   Menu,
-  MenuItem
+  MenuItem,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
@@ -27,40 +27,40 @@ import { AnchorLink } from '../../styles/Shared';
 import { deslugify } from '../../util/helpers';
 import { clearOption } from '../../store/actions';
 
-const styles = theme => ({
+const styles = (theme) => ({
   flex: {
     flex: 1,
     [theme.breakpoints.down('sm')]: {
-      textAlign: 'center'
+      textAlign: 'center',
     },
     fontWeight: 400,
     fontSize: '1.2rem',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   },
   toggleNav: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
-      display: 'block'
-    }
+      display: 'block',
+    },
   },
   toggleNavMenu: {
     [theme.breakpoints.up('md')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   menuItem: {
-    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif'
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
   },
   navText: {
     color: '#212121',
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   heading: {
     [theme.breakpoints.up('md')]: {
-      paddingLeft: '0.75rem'
-    }
-  }
+      paddingLeft: '0.75rem',
+    },
+  },
 });
 
 class NavBar extends React.Component {
@@ -70,14 +70,14 @@ class NavBar extends React.Component {
     pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     uniqueCartItems: PropTypes.number,
     user: PropTypes.string,
-    clearOptionRedux: PropTypes.func
+    clearOptionRedux: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
     this.toggleDrawer = (type, open) => () => {
       this.setState(() => ({
-        [type]: open
+        [type]: open,
       }));
     };
 
@@ -85,7 +85,7 @@ class NavBar extends React.Component {
       anchorEl: null,
       drawerNav: false,
       drawerCart: false,
-      toggleDrawer: this.toggleDrawer
+      toggleDrawer: this.toggleDrawer,
     };
   }
 
@@ -98,7 +98,7 @@ class NavBar extends React.Component {
     }
   };
 
-  openMenu = event => {
+  openMenu = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -119,7 +119,7 @@ class NavBar extends React.Component {
       collections,
       pathname,
       uniqueCartItems,
-      user
+      user,
     } = this.props;
     const { anchorEl } = this.state;
 
@@ -227,7 +227,7 @@ class NavBar extends React.Component {
               >
                 SHOW ALL
               </MenuItem>
-              {collections.map(collection => (
+              {collections.map((collection) => (
                 <MenuItem
                   key={collection}
                   onClick={this.handleMenuItemClick(
@@ -254,12 +254,12 @@ class NavBar extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  uniqueCartItems: state.cart.length
+const mapStateToProps = (state) => ({
+  uniqueCartItems: state.cart.length,
 });
 
-const mapDispatchToProps = dispatch => ({
-  clearOptionRedux: () => dispatch(clearOption())
+const mapDispatchToProps = (dispatch) => ({
+  clearOptionRedux: () => dispatch(clearOption()),
 });
 
 export default connect(

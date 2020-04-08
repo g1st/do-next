@@ -6,17 +6,17 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   inputRoot: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
   labelRoot: {
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 };
 const EmailField = ({
   backend_validation_errors,
   handleChange,
   isNotValid,
-  classes
+  classes,
 }) => (
   <TextField
     id="email"
@@ -27,13 +27,13 @@ const EmailField = ({
     fullWidth
     required
     error={backend_validation_errors.some(
-      err => err.param === 'additional.email'
+      (err) => err.param === 'additional.email'
     )}
     InputLabelProps={{
       required: false,
       FormLabelClasses: {
-        root: classes.labelRoot
-      }
+        root: classes.labelRoot,
+      },
     }}
     InputProps={{ classes: { root: classes.inputRoot } }}
     helperText={isNotValid('additional.email')}
@@ -44,7 +44,7 @@ EmailField.propTypes = {
   backend_validation_errors: PropTypes.array,
   handleChange: PropTypes.func,
   isNotValid: PropTypes.func,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(EmailField);

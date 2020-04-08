@@ -6,18 +6,18 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   inputRoot: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
   labelRoot: {
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 };
 
 const CityField = ({
   backend_validation_errors,
   handleChange,
   isNotValid,
-  classes
+  classes,
 }) => (
   <TextField
     id="city"
@@ -30,12 +30,12 @@ const CityField = ({
     InputLabelProps={{
       required: false,
       FormLabelClasses: {
-        root: classes.labelRoot
-      }
+        root: classes.labelRoot,
+      },
     }}
     InputProps={{ classes: { root: classes.inputRoot } }}
     error={backend_validation_errors.some(
-      err => err.param === 'additional.city'
+      (err) => err.param === 'additional.city'
     )}
     helperText={isNotValid('additional.city')}
   />
@@ -45,7 +45,7 @@ CityField.propTypes = {
   backend_validation_errors: PropTypes.array,
   handleChange: PropTypes.func,
   isNotValid: PropTypes.func,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(CityField);

@@ -11,7 +11,7 @@ import { ITEMS_PER_PAGE } from '../../util/globals';
 import {
   FilterWrapper,
   FlexContainer,
-  ButtonIndicator
+  ButtonIndicator,
 } from '../../styles/Gallery';
 import ModalLoader from '../UI/ModalLoader/ModalLoader';
 import Card from './Card';
@@ -22,10 +22,10 @@ const styles = () => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     paddingTop: '10px',
-    '@media (min-width: 1460px)': { margin: '0 -80px' }
+    '@media (min-width: 1460px)': { margin: '0 -80px' },
   },
   grid: {
-    marginTop: '20px'
+    marginTop: '20px',
   },
   buttonContainer: {
     textAlign: 'center',
@@ -34,24 +34,24 @@ const styles = () => ({
     '@media (min-width: 960px)': {
       paddingBottom: '40px',
       marginTop: '60px',
-      paddingTop: '20px'
-    }
+      paddingTop: '20px',
+    },
   },
   collection: {
     lineHeight: '48px',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   },
   gridWrapper: {
     margin: 0,
-    width: '100%'
+    width: '100%',
   },
   gridItem: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   swapButton: {
-    display: 'inline-block'
-  }
+    display: 'inline-block',
+  },
 });
 
 class Gallery extends React.Component {
@@ -64,7 +64,7 @@ class Gallery extends React.Component {
     increaseLoadedItems: PropTypes.func,
     showFilter: PropTypes.bool,
     user: PropTypes.string,
-    option: PropTypes.string
+    option: PropTypes.string,
   };
 
   constructor(props) {
@@ -74,19 +74,19 @@ class Gallery extends React.Component {
       collectionsNames,
       reduxLoadedItems,
       showCollection,
-      option
+      option,
     } = props;
     const collections = {
-      all: { data, itemsLoaded: reduxLoadedItems.all }
+      all: { data, itemsLoaded: reduxLoadedItems.all },
     };
 
     const dataForSelectedCollection = (allItemsData, collection) =>
-      allItemsData.filter(x => x.group === collection);
+      allItemsData.filter((x) => x.group === collection);
 
-    collectionsNames.forEach(collection => {
+    collectionsNames.forEach((collection) => {
       collections[collection] = {
         data: dataForSelectedCollection(data, collection),
-        itemsLoaded: reduxLoadedItems[collection] || ITEMS_PER_PAGE
+        itemsLoaded: reduxLoadedItems[collection] || ITEMS_PER_PAGE,
       };
     });
 
@@ -95,13 +95,13 @@ class Gallery extends React.Component {
       withFilter: { [showCollection]: { filter: option, category: option } },
       toSwap: {},
       snapshots: {},
-      updating: false
+      updating: false,
     };
   }
 
   componentDidMount() {
     const {
-      toSwap: { collection }
+      toSwap: { collection },
     } = this.state;
     const { user, showCollection } = this.props;
     if (user && collection && showCollection !== collection) {
@@ -109,30 +109,30 @@ class Gallery extends React.Component {
     }
   }
 
-  loadMore = collection => {
+  loadMore = (collection) => {
     const { increaseLoadedItems: increaseLoadedItemsRedux } = this.props;
 
     increaseLoadedItemsRedux(collection);
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       collections: {
         ...prevState.collections,
         [collection]: {
           data: prevState.collections[collection].data,
           itemsLoaded:
-            prevState.collections[collection].itemsLoaded + ITEMS_PER_PAGE
-        }
-      }
+            prevState.collections[collection].itemsLoaded + ITEMS_PER_PAGE,
+        },
+      },
     }));
   };
 
-  handleChange = value => {
+  handleChange = (value) => {
     const { showCollection } = this.props;
 
     this.setState({
       withFilter: {
-        [showCollection]: { filter: value, category: value }
-      }
+        [showCollection]: { filter: value, category: value },
+      },
     });
   };
 
@@ -140,13 +140,13 @@ class Gallery extends React.Component {
     const {
       toSwap,
       collections: {
-        [collection]: { data }
-      }
+        [collection]: { data },
+      },
     } = this.state;
     const location = collection === 'all' ? 'galleryIndex' : 'collectionIndex';
 
-    const firstIndex = data.findIndex(el => el._id === itemId);
-    const secondIndex = data.findIndex(el => el._id === toSwap.id);
+    const firstIndex = data.findIndex((el) => el._id === itemId);
+    const secondIndex = data.findIndex((el) => el._id === toSwap.id);
 
     // intended state mutation
     const temp = data[secondIndex][location];
@@ -156,24 +156,24 @@ class Gallery extends React.Component {
     return data;
   };
 
-  makeSnapshot = collection => {
+  makeSnapshot = (collection) => {
     const {
       collections: {
-        [collection]: { data: snapshot }
-      }
+        [collection]: { data: snapshot },
+      },
     } = this.state;
 
     const index = collection === 'all' ? 'galleryIndex' : 'collectionIndex';
-    const snapshotToSave = snapshot.map(item => ({
+    const snapshotToSave = snapshot.map((item) => ({
       _id: item._id,
-      [index]: item[index]
+      [index]: item[index],
     }));
-    this.setState(prevState => ({
-      snapshots: { ...prevState.snapshots, [collection]: snapshotToSave }
+    this.setState((prevState) => ({
+      snapshots: { ...prevState.snapshots, [collection]: snapshotToSave },
     }));
   };
 
-  swap = item => {
+  swap = (item) => {
     const { showCollection } = this.props;
     const { toSwap, snapshots } = this.state;
 
@@ -182,19 +182,19 @@ class Gallery extends React.Component {
     }
     if (!toSwap.id) {
       return this.setState({
-        toSwap: { id: item._id, collection: showCollection }
+        toSwap: { id: item._id, collection: showCollection },
       });
     }
     if (toSwap.id === item._id) {
-      return this.setState(prevState => ({
-        toSwap: { ...prevState.toSwap, id: null }
+      return this.setState((prevState) => ({
+        toSwap: { ...prevState.toSwap, id: null },
       }));
     }
 
     this.swapItemsIndexes(item._id, showCollection);
 
-    return this.setState(prevState => ({
-      toSwap: { ...prevState.toSwap, id: null }
+    return this.setState((prevState) => ({
+      toSwap: { ...prevState.toSwap, id: null },
     }));
   };
 
@@ -203,8 +203,8 @@ class Gallery extends React.Component {
     const {
       snapshots: { [showCollection]: activeSnapshot },
       collections: {
-        [showCollection]: { data }
-      }
+        [showCollection]: { data },
+      },
     } = this.state;
 
     if (!activeSnapshot) return;
@@ -212,8 +212,8 @@ class Gallery extends React.Component {
     const activeIndex =
       showCollection === 'all' ? 'galleryIndex' : 'collectionIndex';
 
-    const filtered = data.filter(item => {
-      const snapIndex = activeSnapshot.findIndex(e => e._id === item._id);
+    const filtered = data.filter((item) => {
+      const snapIndex = activeSnapshot.findIndex((e) => e._id === item._id);
       if (
         activeSnapshot[snapIndex]._id === item._id &&
         activeSnapshot[snapIndex][activeIndex] !== item[activeIndex]
@@ -229,24 +229,24 @@ class Gallery extends React.Component {
       axios
         .post(`${process.env.APP_URL}/api/update-grid`, {
           data: filtered,
-          index: activeIndex
+          index: activeIndex,
         })
-        .then(res => {
+        .then((res) => {
           this.makeSnapshot(showCollection);
           this.setState({
-            updating: false
+            updating: false,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           this.setState({
-            updating: false
+            updating: false,
           });
         });
     }
   };
 
-  sort = dataArray => {
+  sort = (dataArray) => {
     const { showCollection } = this.props;
     const indexValue =
       showCollection === 'all' ? 'galleryIndex' : 'collectionIndex';
@@ -276,7 +276,7 @@ class Gallery extends React.Component {
       originalData = collections[showCollection].data;
     } else {
       originalData = collections[showCollection].data.filter(
-        obj => obj.display || obj.display === undefined
+        (obj) => obj.display || obj.display === undefined
       );
     }
 
@@ -290,7 +290,7 @@ class Gallery extends React.Component {
       withFilter[showCollection].filter
     ) {
       filtered = sorted.filter(
-        item => item.category === withFilter[showCollection].category
+        (item) => item.category === withFilter[showCollection].category
       );
     } else if (sorted.length > itemsLoaded) {
       loadMoreButton = (
@@ -341,7 +341,7 @@ class Gallery extends React.Component {
             </Button>
           )}
           <Grid container spacing={32} className={classes.gridWrapper}>
-            {filtered.map(item => (
+            {filtered.map((item) => (
               <Grid
                 item
                 xs={12}
@@ -400,13 +400,14 @@ class Gallery extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   reduxLoadedItems: state.loadMore,
-  option: state.filter.option
+  option: state.filter.option,
 });
 
-const mapDispatchToProps = dispatch => ({
-  increaseLoadedItems: collection => dispatch(increaseLoadedItems(collection))
+const mapDispatchToProps = (dispatch) => ({
+  increaseLoadedItems: (collection) =>
+    dispatch(increaseLoadedItems(collection)),
 });
 
 export default connect(

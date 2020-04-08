@@ -8,6 +8,6 @@ module.exports = withOptimizedImages({
     APP_URL: process.env.APP_URL,
     AWS_BUCKET: process.env.AWS_BUCKET,
     INSTAGRAM_TOKEN: process.env.INSTAGRAM_TOKEN,
-    STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY
-  }
+    STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
+  },
 });

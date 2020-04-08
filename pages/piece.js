@@ -23,13 +23,13 @@ import {
   AdminLink,
   SizesWrapper,
   SilverFinishWrapper,
-  MarginBottomWrapper
+  MarginBottomWrapper,
 } from '../styles/Piece';
 import {
   WidthContainer,
   Mail,
   Strong,
-  StyledAnchorLink
+  StyledAnchorLink,
 } from '../styles/Shared';
 
 import DialogForm from '../components/DialogForm/DialogForm';
@@ -45,30 +45,30 @@ const styles = {
   price: {
     marginBottom: '2rem',
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
-    fontSize: '1.6rem'
+    fontSize: '1.6rem',
   },
   button: {
     padding: '10px',
     margin: '0 auto 20px auto',
-    width: '100%'
+    width: '100%',
   },
   filterLine: {
     color: '#595959',
     letterSpacing: '1px',
-    lineHeight: '43px'
+    lineHeight: '43px',
   },
   svg: {
     top: '.3em',
     position: 'relative',
     color: '#595959',
-    margin: '0 12px'
+    margin: '0 12px',
   },
   boldLink: {
-    fontWeight: 500
+    fontWeight: 500,
   },
   heading: {
-    fontSize: '2.75rem'
-  }
+    fontSize: '2.75rem',
+  },
 };
 
 class Piece extends React.Component {
@@ -79,13 +79,13 @@ class Piece extends React.Component {
     user: PropTypes.string,
     buyItNow: PropTypes.func,
     addToCart: PropTypes.func,
-    data: PropTypes.array
+    data: PropTypes.array,
   };
 
   state = {
     size: '',
     silverFinishStyle: '',
-    error: false
+    error: false,
   };
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -95,14 +95,14 @@ class Piece extends React.Component {
     return true;
   }
 
-  handleBuyItNow = item => {
+  handleBuyItNow = (item) => {
     const { buyItNow: buyItNowRedux, onePieceData } = this.props;
     const silverFinishRequired = onePieceData[0].silverFinish;
     const { size, silverFinishStyle } = this.state;
     gtag.event({
       action: 'click_buyitnow',
       category: 'Purchase',
-      label: 'BuyItNow'
+      label: 'BuyItNow',
     });
 
     if (item.madeToOrder && item.category === 'ring') {
@@ -123,7 +123,7 @@ class Piece extends React.Component {
     Router.push('/checkout');
   };
 
-  handleAddToCart = cartData => {
+  handleAddToCart = (cartData) => {
     const { addToCart: addToCartRedux, onePieceData } = this.props;
     const silverFinishRequired = onePieceData[0].silverFinish;
 
@@ -132,7 +132,7 @@ class Piece extends React.Component {
     gtag.event({
       action: 'click_addToCart',
       category: 'Purchase',
-      label: 'AddToCart'
+      label: 'AddToCart',
     });
 
     if (cartData.madeToOrder && cartData.category === 'ring') {
@@ -187,7 +187,7 @@ class Piece extends React.Component {
       madeToOrder,
       producingTime,
       oneOfAKind,
-      silverFinish
+      silverFinish,
     } = onePieceData[0];
 
     const dataForCart = {
@@ -201,7 +201,7 @@ class Piece extends React.Component {
       madeToOrder,
       category,
       ringSize,
-      silverFinishStyle
+      silverFinishStyle,
     };
 
     const gallery = images.reduce((acc, image) => {
@@ -211,7 +211,7 @@ class Piece extends React.Component {
         originalAlt: description,
         thumbnailAlt: name,
         srcSet: `${process.env.AWS_BUCKET}/photos/${image.medium} 300w, ${process.env.AWS_BUCKET}/photos/${image.big} 900w`,
-        sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw'
+        sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw',
       };
       if (image.medium === frontImage) {
         // add in front of array to be first in gallery
@@ -451,13 +451,10 @@ Piece.getInitialProps = async ({ req, query }) => {
     const { db } = req;
     const { slug } = req.params;
 
-    const data = await db
-      .collection('works')
-      .find()
-      .toArray();
+    const data = await db.collection('works').find().toArray();
 
     const onePieceDataFromServer = data.filter(
-      obj =>
+      (obj) =>
         obj.slug.toLowerCase() === slug.toLowerCase() ||
         obj._id.toString() === slug
     );
@@ -467,14 +464,14 @@ Piece.getInitialProps = async ({ req, query }) => {
 
   const onePieceDataFromAPI = await axios
     .get('/api/single', { params: { slug: query.slug } })
-    .then(res => res.data);
+    .then((res) => res.data);
 
   return { onePieceData: [onePieceDataFromAPI] };
 };
 
-const mapDispatchToProps = dispatch => ({
-  addToCart: item => dispatch(addToCart(item)),
-  buyItNow: item => dispatch(buyItNow(item))
+const mapDispatchToProps = (dispatch) => ({
+  addToCart: (item) => dispatch(addToCart(item)),
+  buyItNow: (item) => dispatch(buyItNow(item)),
 });
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(Piece));

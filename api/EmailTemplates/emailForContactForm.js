@@ -43,7 +43,7 @@ module.exports = function emailForContactForm(message, email, subject) {
         ${message
           .split('\n')
           .map(
-            p => `
+            (p) => `
           <mj-text>${p}</mj-text>
         `
           )

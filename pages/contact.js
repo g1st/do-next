@@ -31,7 +31,7 @@ const Contact = ({ pathname, collections, user }) => (
       </ImagesWrapper>
       <div
         style={{
-          textAlign: 'center'
+          textAlign: 'center',
         }}
       >
         <Typography
@@ -40,7 +40,7 @@ const Contact = ({ pathname, collections, user }) => (
           style={{
             marginTop: '50px',
             maxWidth: '720px',
-            display: 'inline-block'
+            display: 'inline-block',
           }}
         >
           If you would like to contact me to discuss a commission or have any
@@ -61,7 +61,7 @@ const Contact = ({ pathname, collections, user }) => (
 Contact.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
-  user: PropTypes.string
+  user: PropTypes.string,
 };
 
 Contact.getInitialProps = async ({ pathname }) => ({ pathname });

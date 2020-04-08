@@ -10,15 +10,15 @@ const styles = {
     flexDirection: 'column',
     marginBottom: '2rem',
     '&:active': {
-      cursor: 'grabbing'
-    }
+      cursor: 'grabbing',
+    },
   },
   light: {
-    fontWeight: 300
+    fontWeight: 300,
   },
   name: {
-    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif'
-  }
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
+  },
 };
 
 const Card = ({ item, classes }) => (
@@ -43,7 +43,7 @@ const Card = ({ item, classes }) => (
 
 Card.propTypes = {
   item: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Card);

@@ -5,11 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   inputRoot: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
   labelRoot: {
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 };
 
 const AdditionalInfoField = ({ handleChange, classes }) => (
@@ -19,8 +19,8 @@ const AdditionalInfoField = ({ handleChange, classes }) => (
     InputLabelProps={{
       required: false,
       FormLabelClasses: {
-        root: classes.labelRoot
-      }
+        root: classes.labelRoot,
+      },
     }}
     InputProps={{ classes: { root: classes.inputRoot } }}
     label="Additional information (optional)"
@@ -35,7 +35,7 @@ const AdditionalInfoField = ({ handleChange, classes }) => (
 
 AdditionalInfoField.propTypes = {
   handleChange: PropTypes.func,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AdditionalInfoField);

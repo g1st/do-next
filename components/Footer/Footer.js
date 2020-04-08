@@ -16,7 +16,7 @@ import {
   Facebook,
   Instagram,
   Pinterest,
-  Logo
+  Logo,
 } from '../../styles/Footer';
 
 import FacebookPNG from '../../public/images/facebook-box.png';
@@ -29,16 +29,16 @@ const styles = {
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
     color: 'rgba(0, 0, 0, .54)',
     '@media (min-width: 960px)': {
-      marginBottom: 0
-    }
+      marginBottom: 0,
+    },
   },
   root: {
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 };
 
-const Footer = props => {
+const Footer = (props) => {
   const { classes } = props;
   const router = useRouter();
 
@@ -86,7 +86,7 @@ const Footer = props => {
             <Link href="/terms-conditions">
               <AnchorLink
                 tabIndex={0}
-                onKeyDown={e => handleKeyDown('/terms-conditions', e.key)}
+                onKeyDown={(e) => handleKeyDown('/terms-conditions', e.key)}
               >
                 <Typography inline className={classes.links}>
                   Terms &amp; Conditions
@@ -98,7 +98,7 @@ const Footer = props => {
             <Link href="/care-guide">
               <AnchorLink
                 tabIndex={0}
-                onKeyDown={e => handleKeyDown('/care-guide', e.key)}
+                onKeyDown={(e) => handleKeyDown('/care-guide', e.key)}
               >
                 <Typography inline className={classes.links}>
                   Jewellery Care
@@ -110,7 +110,7 @@ const Footer = props => {
             <Link href="/commissions">
               <AnchorLink
                 tabIndex={0}
-                onKeyDown={e => handleKeyDown('/commissions', e.key)}
+                onKeyDown={(e) => handleKeyDown('/commissions', e.key)}
               >
                 <Typography inline className={classes.links}>
                   Commissions
@@ -122,7 +122,7 @@ const Footer = props => {
             <Link href="/privacy-policy">
               <AnchorLink
                 tabIndex={0}
-                onKeyDown={e => handleKeyDown('/privacy-policy', e.key)}
+                onKeyDown={(e) => handleKeyDown('/privacy-policy', e.key)}
               >
                 <Typography inline className={classes.links}>
                   Privacy Policy
@@ -140,7 +140,7 @@ const Footer = props => {
 };
 
 Footer.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Footer);

@@ -16,7 +16,7 @@ import CityField from './CityField';
 const CustomerOrderDetailForm = ({
   backend_validation_errors,
   handleChange,
-  isNotValid
+  isNotValid,
 }) => (
   <>
     <Grid item xs={12} sm={6}>
@@ -57,7 +57,7 @@ const CustomerOrderDetailForm = ({
       <SelectCountry
         handleChange={handleChange('country')}
         error={backend_validation_errors.some(
-          err => err.param === 'additional.country'
+          (err) => err.param === 'additional.country'
         )}
         helperText={isNotValid('additional.country')}
       />
@@ -75,7 +75,7 @@ const CustomerOrderDetailForm = ({
 CustomerOrderDetailForm.propTypes = {
   backend_validation_errors: PropTypes.array,
   handleChange: PropTypes.func,
-  isNotValid: PropTypes.func
+  isNotValid: PropTypes.func,
 };
 
 export default CustomerOrderDetailForm;

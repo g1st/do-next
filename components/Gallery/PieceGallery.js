@@ -10,37 +10,37 @@ const styles = () => ({
   wrapper: {
     marginTop: '30px',
     '@media (min-width: 960px)': {
-      marginTop: '100px'
-    }
+      marginTop: '100px',
+    },
   },
   gridWrapper: {
     margin: 0,
-    width: '100%'
+    width: '100%',
   },
   gridItem: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   light: {
-    fontWeight: 300
+    fontWeight: 300,
   },
   buttonBase: {
     flexDirection: 'column',
-    marginBottom: '2rem'
+    marginBottom: '2rem',
   },
   textMargins: {
     marginBottom: '20px',
     '@media (min-width:960px)': {
-      marginBottom: '40px'
-    }
+      marginBottom: '40px',
+    },
   },
   header: {
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
-    fontSize: '1.75rem'
+    fontSize: '1.75rem',
   },
   fontFamily: {
-    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif'
-  }
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
+  },
 });
 
 const PieceGallery = ({ data, currentItem, classes }) => {
@@ -85,7 +85,7 @@ const PieceGallery = ({ data, currentItem, classes }) => {
               </Typography>
             </div>
             <Grid container spacing={32} className={classes.gridWrapper}>
-              {mightAlsoLikeData.map(item => (
+              {mightAlsoLikeData.map((item) => (
                 <Grid
                   item
                   xs={12}
@@ -108,7 +108,7 @@ const PieceGallery = ({ data, currentItem, classes }) => {
 PieceGallery.propTypes = {
   currentItem: PropTypes.object,
   data: PropTypes.array,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(PieceGallery);

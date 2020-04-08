@@ -23,7 +23,7 @@ const UpcomingEvent = () => {
           srcSet=""
           tabIndex="0"
           aria-label="View Silver Flow collection"
-          onKeyDown={e =>
+          onKeyDown={(e) =>
             handleKeyDown(
               '/gallery?collection=silver-flow',
               '/gallery/silver-flow',

@@ -6,11 +6,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   inputRoot: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
   labelRoot: {
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 };
 const AddressField2 = ({ handleChange, classes }) => (
   <TextField
@@ -23,8 +23,8 @@ const AddressField2 = ({ handleChange, classes }) => (
     InputLabelProps={{
       required: false,
       FormLabelClasses: {
-        root: classes.labelRoot
-      }
+        root: classes.labelRoot,
+      },
     }}
     InputProps={{ classes: { root: classes.inputRoot } }}
   />
@@ -32,7 +32,7 @@ const AddressField2 = ({ handleChange, classes }) => (
 
 AddressField2.propTypes = {
   handleChange: PropTypes.func,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AddressField2);

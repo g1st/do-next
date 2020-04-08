@@ -14,15 +14,15 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     margin: '20px 20px',
-    flexWrap: 'wrap'
-  }
+    flexWrap: 'wrap',
+  },
 };
 
 const Edit = ({
   user,
   deauthenticate: reduxPropDeauthenticate,
   collections,
-  onePieceData
+  onePieceData,
 }) => (
   <WidthContainer style={{ paddingTop: 0 }}>
     {user ? (
@@ -52,13 +52,10 @@ Edit.getInitialProps = async ({ user, req, query }) => {
     const { db } = req;
     const { slug } = req.params;
 
-    const data = await db
-      .collection('works')
-      .find()
-      .toArray();
+    const data = await db.collection('works').find().toArray();
 
     const onePieceDataFromServer = data.filter(
-      obj => obj.slug.toLowerCase() === slug.toLowerCase()
+      (obj) => obj.slug.toLowerCase() === slug.toLowerCase()
     );
 
     return { onePieceData: onePieceDataFromServer };
@@ -66,7 +63,7 @@ Edit.getInitialProps = async ({ user, req, query }) => {
 
   const onePieceDataFromAPI = await axios
     .get('/api/single', { params: { slug: query.slug } })
-    .then(res => res.data);
+    .then((res) => res.data);
   return { user, onePieceData: [onePieceDataFromAPI] };
 };
 
@@ -74,7 +71,7 @@ Edit.propTypes = {
   user: PropTypes.string,
   deauthenticate: PropTypes.func,
   collections: PropTypes.array,
-  onePieceData: PropTypes.array
+  onePieceData: PropTypes.array,
 };
 
 export default connect(null, { deauthenticate })(Edit);

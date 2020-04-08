@@ -7,32 +7,32 @@ import { withStyles } from '@material-ui/core/styles';
 import ModalLoader from './UI/ModalLoader/ModalLoader';
 import { EmailSent } from '../styles/Contact';
 
-const styles = theme => ({
+const styles = (theme) => ({
   wrapper: {
     marginTop: '10px',
     display: 'flex',
     justifyContent: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   margin: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
   },
   button: {
     marginTop: '50px',
     padding: '10px',
     maxWidth: '300px',
-    width: '100%'
+    width: '100%',
   },
   message: {
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   },
   formControl: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: '100%'
+    width: '100%',
   },
   paper: {
     maxWidth: '700px',
@@ -47,20 +47,20 @@ const styles = theme => ({
       marginTop: theme.spacing.unit * 6,
       marginBottom: theme.spacing.unit * 6,
       padding: theme.spacing.unit * 3,
-      paddingBottom: '32px'
-    }
+      paddingBottom: '32px',
+    },
   },
   inputRoot: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
   labelRoot: {
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 });
 
 class ContactForm extends Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
   };
 
   state = {
@@ -69,16 +69,16 @@ class ContactForm extends Component {
     message: '',
     isSendingMail: false,
     emailSent: false,
-    errors: { message: null, email: null, subject: null }
+    errors: { message: null, email: null, subject: null },
   };
 
-  handleChange = name => event => {
+  handleChange = (name) => (event) => {
     this.setState({
-      [name]: event.target.value
+      [name]: event.target.value,
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ isSendingMail: true });
     const { email, message, subject } = this.state;
@@ -88,22 +88,22 @@ class ContactForm extends Component {
         email,
         message,
         subject,
-        contactForm: true
+        contactForm: true,
       })
-      .then(res => {
+      .then((res) => {
         this.setState(() => ({
           isSendingMail: false,
-          emailSent: true
+          emailSent: true,
         }));
       })
-      .catch(err => {
+      .catch((err) => {
         const { errors } = err.response.data;
         this.setState(() => ({
           isSendingMail: false,
           errors: errors.reduce((acc, err) => {
             acc[err.param] = err.msg;
             return acc;
-          }, {})
+          }, {}),
         }));
       });
   };
@@ -116,7 +116,7 @@ class ContactForm extends Component {
       errors,
       isSendingMail,
       message,
-      subject
+      subject,
     } = this.state;
 
     if (isSendingMail) {
@@ -136,7 +136,7 @@ class ContactForm extends Component {
     return (
       <div className={classes.wrapper}>
         <Paper className={classes.paper}>
-          <form onSubmit={e => this.handleSubmit(e)}>
+          <form onSubmit={(e) => this.handleSubmit(e)}>
             <TextField
               value={email}
               id="email"
@@ -148,8 +148,8 @@ class ContactForm extends Component {
               InputLabelProps={{
                 required: false,
                 FormLabelClasses: {
-                  root: classes.labelRoot
-                }
+                  root: classes.labelRoot,
+                },
               }}
               InputProps={{ classes: { root: classes.inputRoot } }}
               onChange={this.handleChange('email')}
@@ -164,8 +164,8 @@ class ContactForm extends Component {
               InputLabelProps={{
                 required: false,
                 FormLabelClasses: {
-                  root: classes.labelRoot
-                }
+                  root: classes.labelRoot,
+                },
               }}
               InputProps={{ classes: { root: classes.inputRoot } }}
               type="text"
@@ -189,8 +189,8 @@ class ContactForm extends Component {
               InputLabelProps={{
                 required: false,
                 FormLabelClasses: {
-                  root: classes.labelRoot
-                }
+                  root: classes.labelRoot,
+                },
               }}
               InputProps={{ classes: { root: classes.inputRoot } }}
               onChange={this.handleChange('message')}

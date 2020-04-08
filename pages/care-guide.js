@@ -9,7 +9,7 @@ import {
   Figure,
   Text,
   List,
-  ListItem
+  ListItem,
 } from '../styles/CareGuide';
 import { ImageWrapper } from '../styles/TermsAndConditions';
 import Necklaces from '../public/images/f-5.JPG';
@@ -17,8 +17,8 @@ import Necklaces from '../public/images/f-5.JPG';
 const styles = () => ({
   heading: {
     fontSize: '2rem',
-    margin: '4rem 0 2rem 0'
-  }
+    margin: '4rem 0 2rem 0',
+  },
 });
 
 const CareGuide = ({ collections, classes, user }) => (
@@ -245,7 +245,7 @@ const CareGuide = ({ collections, classes, user }) => (
 CareGuide.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
   classes: PropTypes.object.isRequired,
-  user: PropTypes.string
+  user: PropTypes.string,
 };
 
 export default withStyles(styles)(CareGuide);

@@ -13,21 +13,21 @@ import CartDrawerContent from './CartDrawerContent';
 const styles = {
   list: {
     width: 320,
-    marginTop: '8px'
+    marginTop: '8px',
   },
   button: {
-    margin: '20px 20px'
+    margin: '20px 20px',
   },
   cart: {
-    paddingTop: '10px'
-  }
+    paddingTop: '10px',
+  },
 };
 
 class CartDrawer extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     uniqueCartItems: PropTypes.number,
-    clearBuyItNow: PropTypes.func
+    clearBuyItNow: PropTypes.func,
   };
 
   static contextType = DrawerContext;
@@ -86,12 +86,12 @@ class CartDrawer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  uniqueCartItems: state.cart.length
+const mapStateToProps = (state) => ({
+  uniqueCartItems: state.cart.length,
 });
 
-const mapDispatchToProps = dispatch => ({
-  clearBuyItNow: () => dispatch(clearBuyItNow())
+const mapDispatchToProps = (dispatch) => ({
+  clearBuyItNow: () => dispatch(clearBuyItNow()),
 });
 
 export default connect(

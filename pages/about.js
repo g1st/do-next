@@ -16,7 +16,7 @@ import {
   Caption,
   ArtistStatement,
   WrapLink,
-  ToArtistStatement
+  ToArtistStatement,
 } from '../styles/About';
 import { AnchorLink, Table, Row, Data } from '../styles/Shared';
 import DovilePortait from '../public/images/Dovile-Kondrasovaite.jpeg';
@@ -24,32 +24,32 @@ import ManWearingABrooch from '../public/images/s-1.jpeg';
 
 const styles = () => ({
   marginTop: {
-    marginTop: '36px'
+    marginTop: '36px',
   },
   credit: {
     fontWeight: 100,
     fontSize: '0.8rem',
-    color: 'rgba(0,0,0,0.5)'
+    color: 'rgba(0,0,0,0.5)',
   },
   lighterFont: {
-    fontWeight: 400
+    fontWeight: 400,
   },
   fontSize: {
-    fontSize: '1.3rem'
+    fontSize: '1.3rem',
   },
   authorName: {
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
-    fontSize: '2rem'
+    fontSize: '2rem',
   },
   button: {
-    lineHeight: '24px'
+    lineHeight: '24px',
   },
   icon: {
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   h4: {
-    fontSize: '1rem'
-  }
+    fontSize: '1rem',
+  },
 });
 
 const About = ({ pathname, collections, classes, user }) => (
@@ -534,7 +534,7 @@ About.propTypes = {
   classes: PropTypes.object.isRequired,
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
-  user: PropTypes.string
+  user: PropTypes.string,
 };
 
 About.getInitialProps = async ({ pathname }) => ({ pathname });

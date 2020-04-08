@@ -10,7 +10,7 @@ const ImageWithLoading = ({ src, srcSet, alt }) => {
   const handleLoaded = () => {
     setLoaded(true);
   };
-  const handleError = e => {
+  const handleError = (e) => {
     const fallbackImage = '../../public/images/fallback.png';
     if (e.src.indexOf('/public/images/fallback.png') === -1) {
       e.src = fallbackImage;
@@ -40,7 +40,7 @@ const ImageWithLoading = ({ src, srcSet, alt }) => {
         alt={alt}
         loaded={loaded}
         onLoad={() => handleLoaded()}
-        onError={e => handleError(e.target)}
+        onError={(e) => handleError(e.target)}
       />
     </div>
   );
@@ -49,7 +49,7 @@ const ImageWithLoading = ({ src, srcSet, alt }) => {
 ImageWithLoading.propTypes = {
   src: PropTypes.string.isRequired,
   srcSet: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired
+  alt: PropTypes.string.isRequired,
 };
 
 export default ImageWithLoading;

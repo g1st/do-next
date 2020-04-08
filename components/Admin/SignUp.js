@@ -6,15 +6,15 @@ import { authenticate } from '../../store/actions/index';
 
 class Signup extends Component {
   static propTypes = {
-    authenticate: PropTypes.func
+    authenticate: PropTypes.func,
   };
 
   state = {
     email: '',
-    password: ''
+    password: '',
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { authenticate: authenticateRedux } = this.props;
     const { email, password } = this.state;
@@ -28,20 +28,20 @@ class Signup extends Component {
     return (
       <div>
         <h3>Sign Up</h3>
-        <form onSubmit={e => this.handleSubmit(e)}>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
           <input
             type="email"
             placeholder="Email"
             required
             value={email}
-            onChange={e => this.setState({ email: e.target.value })}
+            onChange={(e) => this.setState({ email: e.target.value })}
           />
           <input
             type="password"
             placeholder="Password"
             required
             value={password}
-            onChange={e => this.setState({ password: e.target.value })}
+            onChange={(e) => this.setState({ password: e.target.value })}
           />
           <button type="submit" className="button is-success">
             Sign Up

@@ -8,11 +8,11 @@ import Error from '../Error/Error';
 
 const styles = {
   inputRoot: {
-    fontSize: '4px'
+    fontSize: '4px',
   },
   labelRoot: {
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 };
 
 const StripeElementWrapper = ({
@@ -21,7 +21,7 @@ const StripeElementWrapper = ({
   label,
   name,
   error,
-  classes
+  classes,
 }) => (
   <div>
     <FormControl fullWidth margin="dense" error={!!error}>
@@ -46,7 +46,7 @@ StripeElementWrapper.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   error: PropTypes.string,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(StripeElementWrapper);

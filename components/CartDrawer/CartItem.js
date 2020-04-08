@@ -15,9 +15,9 @@ const CartItem = ({
   data,
   closeDrawer,
   clearBuyItNow: clearBytItNowRedux,
-  removeFromCart: removeFromCartRedux
+  removeFromCart: removeFromCartRedux,
 }) => {
-  const handleRemove = id =>
+  const handleRemove = (id) =>
     buyItNow ? clearBytItNowRedux() : removeFromCartRedux(id);
 
   const handleKeyDown = (href, as) => ({ key }) => {
@@ -26,7 +26,7 @@ const CartItem = ({
     }
   };
 
-  const getItemImage = item => {
+  const getItemImage = (item) => {
     if (item && item.images && item.images.length) {
       return `${process.env.AWS_BUCKET}/photos/${item.images[0].thumb}`;
     }
@@ -35,7 +35,7 @@ const CartItem = ({
 
   return (
     <CartItems>
-      {data.map(item => (
+      {data.map((item) => (
         <li key={item._id}>
           <Link href={`/piece?slug=${item.slug}`} as={`/piece/${item.slug}`}>
             <a
@@ -94,14 +94,14 @@ const CartItem = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   cart: state.cart,
-  buyItNowItem: state.buyItNow
+  buyItNowItem: state.buyItNow,
 });
 
-const mapDispatchToProps = dispatch => ({
-  removeFromCart: id => dispatch(removeFromCart(id)),
-  clearBuyItNow: () => dispatch(clearBuyItNow())
+const mapDispatchToProps = (dispatch) => ({
+  removeFromCart: (id) => dispatch(removeFromCart(id)),
+  clearBuyItNow: () => dispatch(clearBuyItNow()),
 });
 
 CartItem.propTypes = {
@@ -109,7 +109,7 @@ CartItem.propTypes = {
   buyItNow: PropTypes.bool,
   closeDrawer: PropTypes.func,
   removeFromCart: PropTypes.func,
-  clearBuyItNow: PropTypes.func
+  clearBuyItNow: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

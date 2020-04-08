@@ -9,7 +9,7 @@ import {
   ListItemText,
   Input,
   IconButton,
-  CircularProgress
+  CircularProgress,
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { withStyles } from '@material-ui/core/styles';
@@ -20,12 +20,12 @@ import { addDiscount } from '../../store/actions';
 const styles = {
   textRight: {
     textAlign: 'right',
-    padding: 0
+    padding: 0,
   },
   button: {
     all: 'unset',
     textDecoration: 'underline',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   inputRoot: {
     fontSize: '14px',
@@ -33,14 +33,14 @@ const styles = {
     background: '#fff',
     padding: '0 4px',
     borderRadius: '3px 0 0 3px',
-    height: '30px'
+    height: '30px',
   },
   root: {
     display: 'inline-flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   wrapper: {
-    position: 'relative'
+    position: 'relative',
   },
   buttonProgress: {
     color: '#4CAF50',
@@ -48,20 +48,20 @@ const styles = {
     top: '50%',
     left: '50%',
     marginTop: -12,
-    marginLeft: -12
+    marginLeft: -12,
   },
   inputWrapper: {
     display: 'inline-block',
-    position: 'relative'
+    position: 'relative',
   },
   errorWrapper: {
     position: 'absolute',
-    top: '1.5em'
+    top: '1.5em',
   },
   iconButton: {
     color: 'rgba(0, 0, 0, 0.26)',
-    marginLeft: '4px'
-  }
+    marginLeft: '4px',
+  },
 };
 
 const PromoCode = ({ classes }) => {
@@ -72,7 +72,7 @@ const PromoCode = ({ classes }) => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Wrong code');
   const firstLoad = useRef();
-  const discount = useSelector(state => state.promo.discount);
+  const discount = useSelector((state) => state.promo.discount);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const PromoCode = ({ classes }) => {
       setIsLoading(true);
       try {
         const result = await axios(`${process.env.APP_URL}/api/promo`, {
-          params: { code: submit }
+          params: { code: submit },
         });
         const { validCode } = result.data;
 
@@ -103,7 +103,7 @@ const PromoCode = ({ classes }) => {
     }
   }, [dispatch, submit]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setSubmit(code);
   };
@@ -157,12 +157,12 @@ const PromoCode = ({ classes }) => {
                     id="promocode"
                     inputProps={{
                       'aria-label': 'Coupon code',
-                      required: true
+                      required: true,
                     }}
                     type="text"
                     disableUnderline
                     className={classes.inputRoot}
-                    onChange={e => setCode(e.target.value)}
+                    onChange={(e) => setCode(e.target.value)}
                     error={!!error}
                     placeholder="Coupon code"
                     disabled={isLoading}
@@ -200,7 +200,7 @@ const PromoCode = ({ classes }) => {
 };
 
 PromoCode.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(PromoCode);

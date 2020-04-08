@@ -11,16 +11,16 @@ import { WidthContainer } from '../../styles/Shared';
 const styles = () => ({
   root: {
     display: 'inline-flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   wrapper: {
-    position: 'relative'
+    position: 'relative',
   },
   buttonSuccess: {
     backgroundColor: '#9E9E9E',
     '&:hover': {
-      backgroundColor: '#212121'
-    }
+      backgroundColor: '#212121',
+    },
   },
   buttonProgress: {
     color: '#9E9E9E',
@@ -28,7 +28,7 @@ const styles = () => ({
     top: '50%',
     left: '50%',
     marginTop: -12,
-    marginLeft: -12
+    marginLeft: -12,
   },
   inputRoot: {
     fontSize: '14px',
@@ -36,62 +36,62 @@ const styles = () => ({
     background: '#fff',
     padding: '0 4px',
     borderRadius: '3px 0 0 3px',
-    height: '30px'
+    height: '30px',
   },
   newsletter: {
     textShadow: '2px 2px #333',
     alignItems: 'center',
     marginBottom: '10px',
-    letterSpacing: '2px'
+    letterSpacing: '2px',
   },
   discover: {
     textShadow: '1px 1px #333',
     alignItems: 'center',
-    marginBottom: '20px'
+    marginBottom: '20px',
   },
   button: {
     borderRadius: '0 3px 3px 0',
-    height: '30px'
+    height: '30px',
   },
   checkIcon: {
-    color: '#4CAF50'
-  }
+    color: '#4CAF50',
+  },
 });
 
 class Newsletter extends React.Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
   };
 
   state = {
     subscribed: false,
     email: '',
     loading: false,
-    error: null
+    error: null,
   };
 
-  handleChange = name => event => {
+  handleChange = (name) => (event) => {
     this.setState({
-      [name]: event.target.value
+      [name]: event.target.value,
     });
   };
 
-  sendRequest = e => {
+  sendRequest = (e) => {
     e.preventDefault();
     this.setState({ loading: true, error: null });
     const { email } = this.state;
     axios
       .post('/api/subscribe', {
-        email
+        email,
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.err) {
           return this.setState({ error: res.data.err, loading: false });
         }
         this.setState({ subscribed: true, loading: false });
         return res.data;
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({ loading: false, error: err });
         return err;
       });
@@ -120,7 +120,7 @@ class Newsletter extends React.Component {
           >
             discover new designs, upcoming shows and events
           </Typography>
-          <Form onSubmit={e => this.sendRequest(e)}>
+          <Form onSubmit={(e) => this.sendRequest(e)}>
             <Wrap>
               {subscribed ? null : (
                 <Input
@@ -128,7 +128,7 @@ class Newsletter extends React.Component {
                   id="email"
                   inputProps={{
                     'aria-label': 'Signup for newsletter',
-                    required: true
+                    required: true,
                   }}
                   type="email"
                   disableUnderline

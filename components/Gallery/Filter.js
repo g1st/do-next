@@ -13,33 +13,33 @@ import { AnchorLink } from '../../styles/Piece';
 
 const styles = () => ({
   root: {
-    marginLeft: 'auto'
+    marginLeft: 'auto',
   },
   textField: {
     marginLeft: 'auto',
-    minWidth: '60px'
+    minWidth: '60px',
   },
   menu: {
-    width: 200
+    width: 200,
   },
   svg: {
     top: '.3em',
     position: 'relative',
     color: '#595959',
-    margin: '0 12px'
+    margin: '0 12px',
   },
   filterLine: {
     color: '#595959',
-    letterSpacing: '1px'
+    letterSpacing: '1px',
   },
   menuItemText: {
     textTransform: 'lowercase',
     fontSize: '.9rem',
-    color: '#595959'
+    color: '#595959',
   },
   iconColor: {
-    color: '#595959'
-  }
+    color: '#595959',
+  },
 });
 
 class Filter extends React.Component {
@@ -49,14 +49,14 @@ class Filter extends React.Component {
     option: PropTypes.string,
     handleChange: PropTypes.func,
     collection: PropTypes.string,
-    changeOptionRedux: PropTypes.func
+    changeOptionRedux: PropTypes.func,
   };
 
   state = {
-    anchorEl: null
+    anchorEl: null,
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -64,14 +64,14 @@ class Filter extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  handleItemClick = category => () => {
+  handleItemClick = (category) => () => {
     const { handleChange, changeOptionRedux } = this.props;
     handleChange(category);
     changeOptionRedux(category);
     this.setState({ anchorEl: null });
   };
 
-  categorise = data => {
+  categorise = (data) => {
     /* extracts out categories and moves 'other' to the end of array */
     const categories = data.reduce((acc, item) => {
       if (!acc.includes(item.category)) acc.push(item.category);
@@ -80,7 +80,7 @@ class Filter extends React.Component {
 
     categories.push(
       categories.splice(
-        categories.findIndex(cat => cat === 'other'),
+        categories.findIndex((cat) => cat === 'other'),
         1
       )[0]
     );
@@ -140,7 +140,7 @@ class Filter extends React.Component {
               show all
             </Typography>
           </MenuItem>
-          {this.categorise(data).map(category => (
+          {this.categorise(data).map((category) => (
             <MenuItem
               key={category}
               value={category}
@@ -157,12 +157,12 @@ class Filter extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  option: state.filter.option
+const mapStateToProps = (state) => ({
+  option: state.filter.option,
 });
 
-const mapDispatchToProps = dispatch => ({
-  changeOptionRedux: option => dispatch(changeOption(option))
+const mapDispatchToProps = (dispatch) => ({
+  changeOptionRedux: (option) => dispatch(changeOption(option)),
 });
 
 export default connect(

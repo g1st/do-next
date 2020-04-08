@@ -33,5 +33,5 @@ export default CustomError;
 CustomError.propTypes = {
   statusCode: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   collections: PropTypes.array.isRequired,
-  pathname: PropTypes.string
+  pathname: PropTypes.string,
 };

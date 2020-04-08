@@ -13,7 +13,7 @@ const Layout = ({
   description = "Contemporary amber and precious metals jewellery by an independent artist Dovile Kondrasovaite. Handmade in Birmingham's historic Jewellery Quarter, UK.",
   user,
   image = '/images/Dovile-Kondrasovaite.jpeg',
-  piecePath
+  piecePath,
 }) => (
   <>
     <Head>
@@ -53,7 +53,7 @@ Layout.propTypes = {
   description: PropTypes.string,
   user: PropTypes.string,
   image: PropTypes.string,
-  piecePath: PropTypes.string
+  piecePath: PropTypes.string,
 };
 
 export default Layout;

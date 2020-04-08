@@ -33,8 +33,8 @@ class MyApp extends App {
     if (token) {
       const response = await axios.get(`${process.env.AUTH_URL}/user`, {
         headers: {
-          authorization: token
-        }
+          authorization: token,
+        },
       });
 
       const isUser = response.data.user;
@@ -49,10 +49,7 @@ class MyApp extends App {
       // and inelegant.
       const { db } = ctx.req;
       // Note that `db` above comes from express middleware
-      const data = await db
-        .collection('works')
-        .find()
-        .toArray();
+      const data = await db.collection('works').find().toArray();
       const collectionsFromServer = filterCollections(data, user);
       pageProps = {
         ...pageProps,
@@ -60,7 +57,7 @@ class MyApp extends App {
         from: 'server',
         collections: collectionsFromServer,
         router,
-        user
+        user,
       };
       return { pageProps };
     }
@@ -74,13 +71,13 @@ class MyApp extends App {
         collections: filterCollections(parsedData, user),
         from: 'rest api',
         router,
-        user
+        user,
       };
 
       return { pageProps };
     }
     // Otherwise, we're rendering on the client and need to use the API
-    const works = await axios.get('/api').then(res => res.data);
+    const works = await axios.get('/api').then((res) => res.data);
 
     // To populate menu for user's created collections(works in frontend)
     const collections = filterCollections(works, user);
@@ -91,7 +88,7 @@ class MyApp extends App {
       from: 'rest api',
       collections,
       router,
-      user
+      user,
     };
 
     return { pageProps };
@@ -100,7 +97,7 @@ class MyApp extends App {
   pageContext = null;
 
   componentDidMount() {
-    Router.events.on('routeChangeComplete', url => gtag.pageview(url));
+    Router.events.on('routeChangeComplete', (url) => gtag.pageview(url));
 
     const { reduxStore } = this.props;
 

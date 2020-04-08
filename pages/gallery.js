@@ -37,7 +37,7 @@ Gallery.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.array,
   router: PropTypes.object,
-  user: PropTypes.string
+  user: PropTypes.string,
 };
 
 Gallery.getInitialProps = async ({ pathname }) => ({ pathname });

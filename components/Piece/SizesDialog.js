@@ -8,11 +8,11 @@ import { IconButtonWrapper } from '../../styles/Piece';
 
 class SizesDialog extends React.Component {
   static propTypes = {
-    forDimensions: PropTypes.bool
+    forDimensions: PropTypes.bool,
   };
 
   state = {
-    open: false
+    open: false,
   };
 
   handleClickOpen = () => {
@@ -36,7 +36,7 @@ class SizesDialog extends React.Component {
               marginLeft: forDimensions ? '6px' : '12px',
               fill: 'rgba(0,0,0,0.54)',
               cursor: 'pointer',
-              transform: `translateY(${forDimensions ? '3px' : ''})`
+              transform: `translateY(${forDimensions ? '3px' : ''})`,
             }}
             onClick={this.handleClickOpen}
           />

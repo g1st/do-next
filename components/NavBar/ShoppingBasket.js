@@ -5,11 +5,11 @@ import { Badge } from '@material-ui/core';
 
 class ShoppingBasket extends Component {
   static propTypes = {
-    uniqueCartItems: PropTypes.number
+    uniqueCartItems: PropTypes.number,
   };
 
   state = {
-    isClient: false
+    isClient: false,
   };
 
   componentDidMount() {

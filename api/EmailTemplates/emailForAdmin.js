@@ -18,7 +18,7 @@ module.exports = function emailForClient(
     first_name,
     last_name,
     postal_code,
-    phone
+    phone,
   } = clientInfo;
 
   const options = {};
@@ -61,7 +61,7 @@ module.exports = function emailForClient(
          <mj-table>
           ${data
             .map(
-              item => `
+              (item) => `
             <tr style="text-align:left;">
               <th style="font-weight: normal">Item</th>
               <td>
@@ -169,18 +169,20 @@ module.exports = function emailForClient(
             <td>${full_country_name}</td>
           </tr>
           </mj-table>
-          ${additional_info &&
+          ${
+            additional_info &&
             `
           <mj-text>Additional order information:</mj-text>
           ${additional_info
             .split('\n')
             .map(
-              p => `
+              (p) => `
           <mj-text>${p}</mj-text>
         `
             )
             .join(' ')}
-          `}
+          `
+          }
       </mj-column>
     </mj-section>
     <mj-section padding-bottom="0">

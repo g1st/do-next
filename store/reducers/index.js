@@ -16,7 +16,7 @@ import {
   ADD_INSTAGRAM_DATA,
   ADD_DISCOUNT,
   FILTER_OPTION,
-  CLEAR_FILTER_OPTION
+  CLEAR_FILTER_OPTION,
 } from '../constants/action-types';
 
 export const initialState = {
@@ -27,18 +27,18 @@ export const initialState = {
   loadMore: { all: ITEMS_PER_PAGE },
   instagramData: { data: [], nextPage: null },
   promo: {},
-  filter: {}
+  filter: {},
 };
 
 const cart = (state = initialState.cart, action) => {
   if (action.type === ADD_TO_CART) {
     // check if item is already in the cart
-    if (state.some(item => item._id === action.item._id)) return state;
+    if (state.some((item) => item._id === action.item._id)) return state;
 
     return [...state, { ...action.item, images: [...action.item.images] }];
   }
   if (action.type === REMOVE_FROM_CART) {
-    return state.filter(item => item._id !== action.id);
+    return state.filter((item) => item._id !== action.id);
   }
   if (CLEAR_CART === action.type) {
     return [];
@@ -81,7 +81,7 @@ const loadMore = (state = initialState.loadMore, action) => {
     return {
       ...state,
       [action.collection]:
-        (state[action.collection] || ITEMS_PER_PAGE) + ITEMS_PER_PAGE
+        (state[action.collection] || ITEMS_PER_PAGE) + ITEMS_PER_PAGE,
     };
   }
   return state;
@@ -91,7 +91,7 @@ const instagramData = (state = initialState.instagramData, action) => {
   if (ADD_INSTAGRAM_DATA === action.type) {
     return {
       data: state.data.concat(action.payload.data),
-      nextPage: action.payload.nextPage
+      nextPage: action.payload.nextPage,
     };
   }
   return state;
@@ -101,7 +101,8 @@ const promo = (state = initialState.promo, action) => {
   if (ADD_DISCOUNT === action.type) {
     return {
       code: action.code,
-      discount: promoCodes.filter(obj => obj.code === action.code)[0].discount
+      discount: promoCodes.filter((obj) => obj.code === action.code)[0]
+        .discount,
     };
   }
   return state;
@@ -110,12 +111,12 @@ const promo = (state = initialState.promo, action) => {
 const filter = (state = initialState.filter, action) => {
   if (FILTER_OPTION === action.type) {
     return {
-      option: action.option
+      option: action.option,
     };
   }
   if (CLEAR_FILTER_OPTION === action.type) {
     return {
-      option: ''
+      option: '',
     };
   }
   return state;
@@ -129,7 +130,7 @@ const dovile = combineReducers({
   authenticate,
   instagramData,
   promo,
-  filter
+  filter,
 });
 
 export default dovile;

@@ -1,10 +1,14 @@
 {
   "presets": ["next/babel"],
   "plugins": [
-    ["styled-components", {
-      "ssr": true
-    }],
-    ["import",
+    [
+      "styled-components",
+      {
+        "ssr": true
+      }
+    ],
+    [
+      "import",
       {
         "libraryName": "@material-ui/core",
         "libraryDirectory": "",
@@ -12,7 +16,8 @@
       },
       "mui"
     ],
-    ["import",
+    [
+      "import",
       {
         "libraryName": "@material-ui/icons",
         "libraryDirectory": "",

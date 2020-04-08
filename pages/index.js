@@ -16,8 +16,8 @@ import { WidthContainer } from '../styles/Shared';
 const styles = () => ({
   button: {
     display: 'block',
-    margin: '5rem auto 5rem auto'
-  }
+    margin: '5rem auto 5rem auto',
+  },
 });
 
 const handleButton = () => {
@@ -34,7 +34,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
     <Layout pathname={pathname} collections={collections} user={user}>
       <LandingPageGallery />
       <UpcomingEvent />
-      <Featured data={data.filter(item => item.featured)} />
+      <Featured data={data.filter((item) => item.featured)} />
       <InView triggerOnce rootMargin="200px">
         {({ inView, ref }) => (
           <WidthContainer ref={ref}>
@@ -42,7 +42,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
               <>
                 <GridGallery
                   user={user}
-                  data={data.filter(item => item.group === 'silver-flow')}
+                  data={data.filter((item) => item.group === 'silver-flow')}
                   showCollection={collection}
                   collectionsNames={collections}
                 />
@@ -78,7 +78,7 @@ Index.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.string,
   data: PropTypes.array,
-  router: PropTypes.object
+  router: PropTypes.object,
 };
 
 Index.getInitialProps = async ({ pathname, user }) => ({ pathname, user });

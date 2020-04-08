@@ -9,11 +9,11 @@ import Error from '../Error/Error';
 
 const styles = {
   inputRoot: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
   labelRoot: {
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 };
 
 const SelectCountry = ({
@@ -21,11 +21,11 @@ const SelectCountry = ({
   helperText,
   handleChange,
   classes,
-  countShippingCost: countShippingCostRedux
+  countShippingCost: countShippingCostRedux,
 }) => {
   const [country, setCountry] = useState('GB');
 
-  const changeCountry = e => {
+  const changeCountry = (e) => {
     const countryISO = e.target.value;
     countShippingCostRedux(countryISO);
     setCountry(countryISO);
@@ -48,8 +48,8 @@ const SelectCountry = ({
           name: 'country',
           id: 'country-native',
           classes: {
-            root: classes.inputRoot
-          }
+            root: classes.inputRoot,
+          },
         }}
       >
         <option value="AF">Afghanistan</option>
@@ -312,11 +312,11 @@ SelectCountry.propTypes = {
   helperText: PropTypes.node,
   handleChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  countShippingCost: PropTypes.func.isRequired
+  countShippingCost: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  countShippingCost: country => dispatch(countShippingCost(country))
+const mapDispatchToProps = (dispatch) => ({
+  countShippingCost: (country) => dispatch(countShippingCost(country)),
 });
 
 export default connect(

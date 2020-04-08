@@ -51,7 +51,7 @@ const europeCountries = [
   'TR',
   'UA',
   'GB',
-  'VA'
+  'VA',
 ];
 const euSizes = [
   42,
@@ -92,7 +92,7 @@ const euSizes = [
   64,
   64.25,
   65,
-  65.5
+  65.5,
 ];
 const dimensions = [
   '13.3',
@@ -133,7 +133,7 @@ const dimensions = [
   '20.3',
   '20.5',
   '20.7',
-  '20.9'
+  '20.9',
 ];
 const usSizes = [
   1.75,
@@ -174,7 +174,7 @@ const usSizes = [
   10.5,
   10.75,
   11,
-  11.25
+  11.25,
 ];
 const ukSizes = [
   'D',
@@ -215,7 +215,7 @@ const ukSizes = [
   'U 1/2',
   'V',
   'V 1/2',
-  'W'
+  'W',
 ];
 
 exports.shippingPriceGB = shippingPriceGB;
@@ -226,7 +226,7 @@ exports.euSizes = euSizes;
 exports.ukSizes = ukSizes;
 exports.usSizes = usSizes;
 exports.dimensions = dimensions;
-exports.postageForCountry = country => {
+exports.postageForCountry = (country) => {
   if (country === 'GB') {
     return shippingPriceGB;
   }

@@ -12,8 +12,8 @@ import { clearOption } from '../../store/actions';
 
 const styles = {
   link: {
-    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif'
-  }
+    fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
+  },
 };
 
 class NavDrawerContent extends React.Component {
@@ -21,11 +21,11 @@ class NavDrawerContent extends React.Component {
     collections: PropTypes.arrayOf(PropTypes.string),
     closingDrawer: PropTypes.func,
     clearOptionRedux: PropTypes.func,
-    classes: PropTypes.object
+    classes: PropTypes.object,
   };
 
   state = {
-    open: true
+    open: true,
   };
 
   handleToggle = () => {
@@ -60,7 +60,7 @@ class NavDrawerContent extends React.Component {
     const { collections, classes } = this.props;
     return (
       <List>
-        <ListItem button onKeyDown={e => this.handleKeyDown(e, null, '/')}>
+        <ListItem button onKeyDown={(e) => this.handleKeyDown(e, null, '/')}>
           <Link href="/">
             <ListItemText primary="Home" classes={{ primary: classes.link }} />
           </Link>
@@ -74,7 +74,7 @@ class NavDrawerContent extends React.Component {
             <ListItem
               button
               key="gallery"
-              onKeyDown={e => this.handleKeyDown(e, null, '/gallery')}
+              onKeyDown={(e) => this.handleKeyDown(e, null, '/gallery')}
             >
               <ListItemText
                 inset
@@ -86,11 +86,11 @@ class NavDrawerContent extends React.Component {
                 }
               />
             </ListItem>
-            {collections.map(collection => (
+            {collections.map((collection) => (
               <ListItem
                 button
                 key={collection}
-                onKeyDown={e => this.handleKeyDown(e, collection)}
+                onKeyDown={(e) => this.handleKeyDown(e, collection)}
               >
                 <ListItemText
                   inset
@@ -111,7 +111,7 @@ class NavDrawerContent extends React.Component {
         <ListItem
           button
           to="/about"
-          onKeyDown={e => this.handleKeyDown(e, null, '/about')}
+          onKeyDown={(e) => this.handleKeyDown(e, null, '/about')}
         >
           <Link href="/about">
             <ListItemText primary="About" classes={{ primary: classes.link }} />
@@ -120,7 +120,7 @@ class NavDrawerContent extends React.Component {
         <ListItem
           button
           to="/wheretofind"
-          onKeyDown={e => this.handleKeyDown(e, null, '/wheretofind')}
+          onKeyDown={(e) => this.handleKeyDown(e, null, '/wheretofind')}
         >
           <Link href="/wheretofind">
             <ListItemText
@@ -132,7 +132,7 @@ class NavDrawerContent extends React.Component {
         <ListItem
           button
           to="/contact"
-          onKeyDown={e => this.handleKeyDown(e, null, '/contact')}
+          onKeyDown={(e) => this.handleKeyDown(e, null, '/contact')}
         >
           <Link href="/contact">
             <ListItemText
@@ -146,8 +146,8 @@ class NavDrawerContent extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  clearOptionRedux: () => dispatch(clearOption())
+const mapDispatchToProps = (dispatch) => ({
+  clearOptionRedux: () => dispatch(clearOption()),
 });
 
 export default connect(

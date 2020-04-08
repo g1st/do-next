@@ -21,7 +21,7 @@ const BuyButton = ({ disabled, fullWidth, priceToPay }) => (
 BuyButton.propTypes = {
   disabled: PropTypes.bool,
   fullWidth: PropTypes.bool,
-  priceToPay: PropTypes.string
+  priceToPay: PropTypes.string,
 };
 
 export default BuyButton;

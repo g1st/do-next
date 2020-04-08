@@ -7,7 +7,7 @@ import { Grid } from '@material-ui/core';
 import {
   CardExpiryElement,
   CardCvcElement,
-  CardNumberElement
+  CardNumberElement,
 } from 'react-stripe-elements';
 
 import StripeElementWrapper from './StripeElementWrapper';
@@ -18,7 +18,7 @@ const StripeDetailForm = ({
   handleStripeChange,
   handleChange,
   backend_validation_errors,
-  isNotValid
+  isNotValid,
 }) => {
   let cardNumberError = null;
   if (card_number.error) {
@@ -90,7 +90,7 @@ StripeDetailForm.propTypes = {
   handleStripeChange: PropTypes.func,
   backend_validation_errors: PropTypes.array,
   handleChange: PropTypes.func,
-  isNotValid: PropTypes.func
+  isNotValid: PropTypes.func,
 };
 
 export default StripeDetailForm;

@@ -28,7 +28,7 @@ exports.cartHelper = {
     }
 
     return price.toFixed(2);
-  }
+  },
 };
 
 exports.loadState = () => {
@@ -45,7 +45,7 @@ exports.loadState = () => {
   }
 };
 
-exports.saveCart = state => {
+exports.saveCart = (state) => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('cart', serializedState);
@@ -54,7 +54,7 @@ exports.saveCart = state => {
   }
 };
 
-exports.onImageError = event => {
+exports.onImageError = (event) => {
   const defaultImage = '/public/images/fallback.png';
 
   if (event.target.src.indexOf('/public/images/fallback.png') === -1) {
@@ -63,7 +63,7 @@ exports.onImageError = event => {
   }
 };
 
-exports.pluralise = category => {
+exports.pluralise = (category) => {
   switch (category) {
     case 'brooch':
       return 'brooches';
@@ -82,7 +82,7 @@ exports.pluralise = category => {
   }
 };
 
-exports.generatePaymentResponse = intent => {
+exports.generatePaymentResponse = (intent) => {
   if (
     (intent.status === 'requires_action' ||
       intent.status === 'requires_source_action') &&
@@ -91,7 +91,7 @@ exports.generatePaymentResponse = intent => {
     // Tell the client to handle the action
     return {
       requires_action: true,
-      payment_intent_client_secret: intent.client_secret
+      payment_intent_client_secret: intent.client_secret,
     };
   }
 
@@ -99,13 +99,13 @@ exports.generatePaymentResponse = intent => {
     // The payment didn’t need any additional actions and completed!
     // Handle post-payment fulfillment
     return {
-      success: true
+      success: true,
     };
   }
 
   // Invalid status
   return {
-    errors: [{ msg: 'Invalid PaymentIntent status', param: '_error' }]
+    errors: [{ msg: 'Invalid PaymentIntent status', param: '_error' }],
   };
 };
 
@@ -115,7 +115,7 @@ exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart, promo = 0) => {
       ...buyItNowItem,
       shippingCost,
       boughtFrom: 'buyItNow',
-      promo
+      promo,
     };
   }
 
@@ -129,7 +129,7 @@ exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart, promo = 0) => {
     totalPrice,
     boughtFrom: 'cart',
     shippingCost,
-    promo
+    promo,
   };
 };
 
@@ -156,14 +156,14 @@ exports.filterCollections = (data, user) => {
   return collections;
 };
 
-exports.deslugify = slug => slug.split('-').join(' ');
+exports.deslugify = (slug) => slug.split('-').join(' ');
 
 exports.fontFamily = [
   'Raleway',
   'Roboto',
   'Helvetica',
   'Arial',
-  'sans-serif'
+  'sans-serif',
 ].join(',');
 
 exports.modifyFileName = (originalName, size, timestamp) => {
@@ -173,8 +173,8 @@ exports.modifyFileName = (originalName, size, timestamp) => {
   return `${timestamp}_${baseName}_${size}${extName}`;
 };
 
-exports.formatFilesForUpload = files =>
-  files.map(image => {
+exports.formatFilesForUpload = (files) =>
+  files.map((image) => {
     const timestamp = Date.now();
     const big = this.modifyFileName(
       image.originalname,
@@ -197,46 +197,46 @@ exports.formatFilesForUpload = files =>
         ...image,
         path: big,
         big,
-        dimensions: imageSizes.big
+        dimensions: imageSizes.big,
       },
       {
         ...image,
         path: medium,
         medium,
-        dimensions: imageSizes.medium
+        dimensions: imageSizes.medium,
       },
       {
         ...image,
         path: thumb,
         thumb,
-        dimensions: imageSizes.thumb
-      }
+        dimensions: imageSizes.thumb,
+      },
     ];
   });
 
-exports.extractFileNames = arr => {
-  const removeKeys = arr.map(obj => [obj.big, obj.medium, obj.thumb]);
+exports.extractFileNames = (arr) => {
+  const removeKeys = arr.map((obj) => [obj.big, obj.medium, obj.thumb]);
 
   return [].concat(...removeKeys);
 };
 
-exports.extractFileNamesFromGroup = arr =>
+exports.extractFileNamesFromGroup = (arr) =>
   arr.reduce((acc, currentObj) => {
     const itemsArr = this.extractFileNames(currentObj.images);
     return acc.concat(itemsArr);
   }, []);
 
-exports.getNamesOfAllSizes = arr =>
+exports.getNamesOfAllSizes = (arr) =>
   arr.reduce((acc, thumb) => {
     const names = [
       thumb,
       thumb.replace(/92(\.\w+)$/, '300$1'),
-      thumb.replace(/92(\.\w+)$/, '900$1')
+      thumb.replace(/92(\.\w+)$/, '900$1'),
     ];
     return acc.concat(...names);
   }, []);
 
-exports.amountInCents = amount => {
+exports.amountInCents = (amount) => {
   const cents = amount * 100;
   return parseFloat(cents.toFixed(2));
 };

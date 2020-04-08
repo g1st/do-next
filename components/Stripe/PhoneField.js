@@ -5,11 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   inputRoot: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
   labelRoot: {
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 };
 const PhoneField = ({ handleChange, classes }) => (
   <TextField
@@ -21,8 +21,8 @@ const PhoneField = ({ handleChange, classes }) => (
     fullWidth
     InputLabelProps={{
       FormLabelClasses: {
-        root: classes.labelRoot
-      }
+        root: classes.labelRoot,
+      },
     }}
     InputProps={{ classes: { root: classes.inputRoot } }}
   />
@@ -30,7 +30,7 @@ const PhoneField = ({ handleChange, classes }) => (
 
 PhoneField.propTypes = {
   handleChange: PropTypes.func,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(PhoneField);

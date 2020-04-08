@@ -24,10 +24,10 @@ import {
   Cart,
   FormWrapper,
   CheckoutForm,
-  CenterButton
+  CenterButton,
 } from '../../styles/Checkout';
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     backgroundColor: '#fafafa',
     marginTop: theme.spacing.unit * 3,
@@ -36,12 +36,12 @@ const styles = theme => ({
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 6,
       marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3
-    }
+      padding: theme.spacing.unit * 3,
+    },
   },
   marginTop: {
-    marginTop: '30px'
-  }
+    marginTop: '30px',
+  },
 });
 
 class StripeForm extends Component {
@@ -53,7 +53,7 @@ class StripeForm extends Component {
     clearCart: PropTypes.func,
     shippingCost: PropTypes.number,
     stripe: PropTypes.object,
-    promo: PropTypes.object
+    promo: PropTypes.object,
   };
 
   state = {
@@ -74,13 +74,13 @@ class StripeForm extends Component {
     card_expiration: {
       complete: false,
       error: null,
-      empty: true
+      empty: true,
     },
     CVC_number: { complete: false, error: null, empty: true },
     postal_code: '',
     stripe_errors: false,
     backend_validation_errors: [],
-    isClient: false
+    isClient: false,
   };
 
   componentDidMount() {
@@ -98,7 +98,7 @@ class StripeForm extends Component {
       country,
       city,
       postal_code,
-      additional_info
+      additional_info,
     } = this.state;
 
     if (
@@ -118,22 +118,22 @@ class StripeForm extends Component {
     return true;
   }
 
-  handleChange = name => event => {
+  handleChange = (name) => (event) => {
     if (name === 'country') {
       const full_country_name = [...event.target.options]
-        .filter(option => option.selected)
-        .map(option => option.textContent)[0];
+        .filter((option) => option.selected)
+        .map((option) => option.textContent)[0];
       this.setState({ full_country_name });
     }
     this.setState({
-      [name]: event.target.value
+      [name]: event.target.value,
     });
   };
 
   handleStripeChange = (element, name) => {
     if (!element.empty && element.complete) {
       return this.setState({
-        [name]: { complete: true, error: null, empty: false }
+        [name]: { complete: true, error: null, empty: false },
       });
     }
 
@@ -141,8 +141,8 @@ class StripeForm extends Component {
       [name]: {
         complete: false,
         empty: element.empty,
-        error: element.error ? element.error.message : null
-      }
+        error: element.error ? element.error.message : null,
+      },
     });
   };
 
@@ -167,10 +167,10 @@ class StripeForm extends Component {
     return false;
   };
 
-  handleServerResponse = response => {
+  handleServerResponse = (response) => {
     const {
       clearCart: clearCartRedux,
-      clearBuyItNow: clearBuyItNowRedux
+      clearBuyItNow: clearBuyItNowRedux,
     } = this.props;
 
     if (response.data.errors) {
@@ -179,7 +179,7 @@ class StripeForm extends Component {
 
       this.setState({
         backend_validation_errors: response.data.errors,
-        processing: false
+        processing: false,
       });
     } else if (response.data.requires_action) {
       // Use Stripe.js to handle required card action
@@ -193,7 +193,7 @@ class StripeForm extends Component {
     }
   };
 
-  handleAction = response => {
+  handleAction = (response) => {
     const { stripe, shippingCost, buyItNowItem, cart, promo } = this.props;
     const {
       first_name,
@@ -206,12 +206,12 @@ class StripeForm extends Component {
       city,
       postal_code,
       full_country_name,
-      additional_info
+      additional_info,
     } = this.state;
 
     stripe
       .handleCardAction(response.payment_intent_client_secret)
-      .then(result => {
+      .then((result) => {
         if (result.error) {
           // Show error in payment form
           window.scrollTo(0, 0);
@@ -220,10 +220,10 @@ class StripeForm extends Component {
             backend_validation_errors: [
               {
                 msg: result.error.message,
-                param: '_error'
-              }
+                param: '_error',
+              },
             ],
-            processing: false
+            processing: false,
           });
         } else {
           const purchaseDetails = getPurchaseDetails(
@@ -249,26 +249,26 @@ class StripeForm extends Component {
                 country,
                 full_country_name,
                 postal_code,
-                purchaseDetails
-              }
+                purchaseDetails,
+              },
             })
-            .then(res => {
+            .then((res) => {
               this.handleServerResponse(res);
             })
-            .catch(err => {
+            .catch((err) => {
               console.log(err);
             });
         }
       });
   };
 
-  handleSubmit = ev => {
+  handleSubmit = (ev) => {
     ev.preventDefault();
 
     gtag.event({
       action: 'submit_payment',
       category: 'Purchase',
-      label: 'BUY_button'
+      label: 'BUY_button',
     });
 
     const { stripe_errors } = this.state;
@@ -279,10 +279,10 @@ class StripeForm extends Component {
 
     if (stripe) {
       attemptPayment({ ...this.state, ...this.props })
-        .then(res => {
+        .then((res) => {
           this.handleServerResponse(res);
         })
-        .catch(err => {
+        .catch((err) => {
           window.scrollTo(0, 0);
           this.setState({
             // actually error from stripe.js
@@ -290,10 +290,10 @@ class StripeForm extends Component {
               {
                 msg:
                   'We cannot process your payment. Please check your payment details and try again.',
-                param: '_error'
-              }
+                param: '_error',
+              },
             ],
-            processing: false
+            processing: false,
           });
         });
     } else {
@@ -301,15 +301,15 @@ class StripeForm extends Component {
     }
   };
 
-  isNotValid = element => {
+  isNotValid = (element) => {
     const { backend_validation_errors } = this.state;
 
     let output = null;
 
-    if (backend_validation_errors.some(error => error.param === element)) {
+    if (backend_validation_errors.some((error) => error.param === element)) {
       output = backend_validation_errors
-        .filter(error => error.param === element)
-        .map(error => error.msg);
+        .filter((error) => error.param === element)
+        .map((error) => error.msg);
     }
     return output;
   };
@@ -319,7 +319,7 @@ class StripeForm extends Component {
       backend_validation_errors,
       processing,
       isClient,
-      orderComplete
+      orderComplete,
     } = this.state;
 
     const {
@@ -328,7 +328,7 @@ class StripeForm extends Component {
       stripe,
       buyItNowItem,
       shippingCost,
-      promo
+      promo,
     } = this.props;
     const buyItNow = Object.prototype.hasOwnProperty.call(buyItNowItem, 'name');
 
@@ -338,10 +338,10 @@ class StripeForm extends Component {
       <CheckoutForm>
         <Paper className={classes.paper}>
           <FormWrapper>
-            <form onSubmit={e => this.handleSubmit(e)}>
+            <form onSubmit={(e) => this.handleSubmit(e)}>
               {backend_validation_errors.length > 0
                 ? backend_validation_errors
-                    .filter(error => error.param === '_error')
+                    .filter((error) => error.param === '_error')
                     .map((error, i) => <Error key={i}>{error.msg}</Error>)
                 : null}
               <Grid container spacing={16}>
@@ -418,16 +418,16 @@ class StripeForm extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   buyItNowItem: state.buyItNow,
   cart: state.cart,
   shippingCost: state.shippingCost,
-  promo: state.promo
+  promo: state.promo,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   clearBuyItNow: () => dispatch(clearBuyItNow()),
-  clearCart: () => dispatch(clearCart())
+  clearCart: () => dispatch(clearCart()),
 });
 
 export default withStyles(styles)(

@@ -8,14 +8,14 @@ import NavDrawerContent from './NavDrawerContent';
 
 const styles = {
   list: {
-    width: 250
-  }
+    width: 250,
+  },
 };
 
 class NavDrawer extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    collections: PropTypes.arrayOf(PropTypes.string)
+    collections: PropTypes.arrayOf(PropTypes.string),
   };
 
   static contextType = DrawerContext;

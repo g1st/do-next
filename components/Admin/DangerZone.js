@@ -4,20 +4,20 @@ import axios from 'axios';
 import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   button: {
     margin: theme.spacing.unit,
     background: '#9e2146',
-    color: 'fff'
+    color: 'fff',
   },
   paddingTop: {
-    paddingTop: '70px'
+    paddingTop: '70px',
   },
   dangerButtons: {
     margin: '20px',
     display: 'flex',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });
 
 const DangerZone = ({
@@ -25,24 +25,24 @@ const DangerZone = ({
   itemID,
   collection,
   removeItem,
-  removeCollection
+  removeCollection,
 }) => {
   const deleteItem = () => {
     axios
       .delete(`${process.env.APP_URL}/api/delete`, { params: { _id: itemID } })
-      .then(res => {
+      .then((res) => {
         removeItem(res.data.deletedItem);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   const deleteCollection = () => {
     axios
       .delete(`${process.env.APP_URL}/api/delete`, { params: { collection } })
-      .then(res => {
+      .then((res) => {
         removeCollection(res.data.deletedCollection);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -88,7 +88,7 @@ DangerZone.propTypes = {
   itemID: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   removeItem: PropTypes.func.isRequired,
-  removeCollection: PropTypes.func.isRequired
+  removeCollection: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(DangerZone);

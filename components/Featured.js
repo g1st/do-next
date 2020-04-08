@@ -6,7 +6,7 @@ import {
   Slider,
   Slide,
   ButtonBack,
-  ButtonNext
+  ButtonNext,
 } from 'pure-react-carousel';
 import { Typography } from '@material-ui/core';
 import { ChevronLeft, ChevronRight } from '@material-ui/icons';
@@ -18,8 +18,8 @@ import Card from './Gallery/Card';
 const styles = {
   heading: {
     fontSize: '2rem',
-    padding: '4rem 0'
-  }
+    padding: '4rem 0',
+  },
 };
 
 const Container = styled.div`
@@ -89,7 +89,7 @@ const Featured = ({ data, classes }) => {
 
 Featured.propTypes = {
   data: PropTypes.array,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Featured);

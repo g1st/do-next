@@ -5,9 +5,9 @@ const subscribersSchema = new mongoose.Schema(
     email: {
       type: String,
       unique: true,
-      lowercase: true
+      lowercase: true,
     },
-    created: { type: Date, default: Date.now }
+    created: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );

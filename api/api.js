@@ -17,7 +17,7 @@ const {
   extractFileNames,
   extractFileNamesFromGroup,
   formatFilesForUpload,
-  getNamesOfAllSizes
+  getNamesOfAllSizes,
 } = require('../util/helpers');
 const S3 = require('../util/S3');
 const { filterCollections, amountInCents } = require('../util/helpers');
@@ -29,25 +29,25 @@ const { promoCodes, findDiscountMultiplier } = require('../util/promoCodes');
 module.exports = (db, upload) => {
   const router = express.Router();
 
-  const wrapAsync = handler => (req, res) =>
+  const wrapAsync = (handler) => (req, res) =>
     handler(req)
-      .then(result => res.json(result))
-      .catch(error =>
+      .then((result) => res.json(result))
+      .catch((error) =>
         res.status(500).json({
-          error: error.message
+          error: error.message,
         })
       );
 
   router.get(
     '/',
-    wrapAsync(async function() {
+    wrapAsync(async function () {
       return Work.find();
     })
   );
 
   router.get(
     '/collections',
-    wrapAsync(async function() {
+    wrapAsync(async function () {
       const data = await Work.find();
       return filterCollections(data, null);
     })
@@ -55,7 +55,7 @@ module.exports = (db, upload) => {
 
   router.get(
     '/single',
-    wrapAsync(async function(req) {
+    wrapAsync(async function (req) {
       const { slug } = req.query;
 
       return Work.findOne({ slug });
@@ -64,7 +64,7 @@ module.exports = (db, upload) => {
 
   router.delete(
     '/delete',
-    wrapAsync(async function(req, res) {
+    wrapAsync(async function (req, res) {
       const id = req.query._id;
       const group = req.query.collection;
 
@@ -72,12 +72,12 @@ module.exports = (db, upload) => {
       if (id) {
         const works = await Work.findOneAndRemove({ _id: id });
         const imagesToRemove = extractFileNames(works.images);
-        const promisesArray = imagesToRemove.map(image =>
+        const promisesArray = imagesToRemove.map((image) =>
           S3.deleteObjectFromS3(image)
         );
 
         // remove images from s3
-        await Promise.all(promisesArray).catch(err =>
+        await Promise.all(promisesArray).catch((err) =>
           console.log('Error while deleting from S3', err)
         );
 
@@ -89,12 +89,12 @@ module.exports = (db, upload) => {
         const worksToBeDeleted = await Work.find({ group });
         await Work.deleteMany({ group });
         const imagesToRemove = extractFileNamesFromGroup(worksToBeDeleted);
-        const promisesArray = imagesToRemove.map(image =>
+        const promisesArray = imagesToRemove.map((image) =>
           S3.deleteObjectFromS3(image)
         );
 
         // remove images from s3
-        await Promise.all(promisesArray).catch(err =>
+        await Promise.all(promisesArray).catch((err) =>
           console.log('Error while deleting from S3', err)
         );
 
@@ -108,26 +108,20 @@ module.exports = (db, upload) => {
     '/update',
     upload.array('photos[]', 10),
     [
-      check('name')
-        .not()
-        .isEmpty()
-        .withMessage('Name is required.'),
+      check('name').not().isEmpty().withMessage('Name is required.'),
       check('description')
         .not()
         .isEmpty()
         .withMessage('Description is required.'),
-      check('price')
-        .not()
-        .isEmpty()
-        .withMessage('Price is required.'),
+      check('price').not().isEmpty().withMessage('Price is required.'),
       check('price')
         // eslint-disable-next-line no-restricted-globals
-        .custom(value => !isNaN(value))
+        .custom((value) => !isNaN(value))
         .withMessage('Price is has to be a number.'),
       check('collection')
         .not()
         .isEmpty()
-        .withMessage('Collection is required.')
+        .withMessage('Collection is required.'),
     ],
     wrapAsync(async (req, res) => {
       const errors = validationResult(req);
@@ -160,7 +154,7 @@ module.exports = (db, upload) => {
         oneOfAKind,
         silverFinish,
         producingTime,
-        featured
+        featured,
       } = req.body;
 
       const { files } = req;
@@ -182,7 +176,7 @@ module.exports = (db, upload) => {
         oneOfAKind,
         silverFinish,
         producingTime,
-        featured
+        featured,
       };
 
       let allImagesForRemoval;
@@ -193,23 +187,23 @@ module.exports = (db, upload) => {
       if (files.length > 0) {
         formattedFiles = formatFilesForUpload(files);
 
-        const images = formattedFiles.map(image => ({
+        const images = formattedFiles.map((image) => ({
           big: image[0].big,
           medium: image[1].medium,
-          thumb: image[2].thumb
+          thumb: image[2].thumb,
         }));
 
         newImages = {
           $push: {
-            images: { $each: images }
-          }
+            images: { $each: images },
+          },
         };
 
         const fileFilter = S3.fileFilter(formattedFiles);
 
         if (fileFilter) {
           return {
-            error: { message: 'Wrong file type. Only JPG and PNG allowed.' }
+            error: { message: 'Wrong file type. Only JPG and PNG allowed.' },
           };
         }
       }
@@ -222,15 +216,15 @@ module.exports = (db, upload) => {
         // current images + how many adding - how many deleting
         if (Number(imageCount) + files.length - thumbsForRemoval.length < 1) {
           return {
-            error: { images: 'Piece must have at least one image.' }
+            error: { images: 'Piece must have at least one image.' },
           };
         }
 
         //  remove image paths from DB document
         update.$pull = {
           images: {
-            thumb: { $in: thumbsForRemoval }
-          }
+            thumb: { $in: thumbsForRemoval },
+          },
         };
       }
 
@@ -240,7 +234,7 @@ module.exports = (db, upload) => {
       }
 
       const work = await Work.findOneAndUpdate({ _id }, update, {
-        new: true
+        new: true,
       });
 
       const error = work.validateSync();
@@ -257,10 +251,10 @@ module.exports = (db, upload) => {
 
       // remove images from S3
       if (allImagesForRemoval) {
-        const promisesArray = allImagesForRemoval.map(image =>
+        const promisesArray = allImagesForRemoval.map((image) =>
           S3.deleteObjectFromS3(image)
         );
-        await Promise.all(promisesArray).catch(err =>
+        await Promise.all(promisesArray).catch((err) =>
           console.log('Error while deleting from S3', err)
         );
       }
@@ -268,7 +262,7 @@ module.exports = (db, upload) => {
       return {
         msg: 'Work has been updated',
         work,
-        error
+        error,
       };
     })
   );
@@ -278,7 +272,7 @@ module.exports = (db, upload) => {
     wrapAsync(async (req, res) => {
       const { data, index } = req.body;
 
-      const promises = data.map(item =>
+      const promises = data.map((item) =>
         Work.findByIdAndUpdate(
           { _id: item._id },
           { $set: { [index]: item[index] } }
@@ -288,7 +282,7 @@ module.exports = (db, upload) => {
       await Promise.all(promises);
 
       return {
-        msg: 'Updated'
+        msg: 'Updated',
       };
     })
   );
@@ -313,22 +307,22 @@ module.exports = (db, upload) => {
         oneOfAKind,
         silverFinish,
         producingTime,
-        featured
+        featured,
       } = req.body;
 
       const { files } = req;
 
       const formattedFiles = formatFilesForUpload(files);
 
-      const images = formattedFiles.map(image => ({
+      const images = formattedFiles.map((image) => ({
         big: image[0].big,
         medium: image[1].medium,
-        thumb: image[2].thumb
+        thumb: image[2].thumb,
       }));
 
       const frontImage = images[0].medium;
 
-      const getNextSequenceValue = async sequenceName => {
+      const getNextSequenceValue = async (sequenceName) => {
         const sequenceDocument = await Counter.findOneAndUpdate(
           { sequence_name: sequenceName },
           { $inc: { sequence_value: 1 } },
@@ -360,7 +354,7 @@ module.exports = (db, upload) => {
         producingTime,
         galleryIndex,
         collectionIndex: galleryIndex,
-        featured
+        featured,
       };
 
       const work = new Work(piece);
@@ -376,7 +370,7 @@ module.exports = (db, upload) => {
       if (fileFilter) {
         return {
           error: { message: 'Wrong file type. Only JPG and PNG allowed.' },
-          work
+          work,
         };
       }
 
@@ -388,7 +382,7 @@ module.exports = (db, upload) => {
       return {
         msg: 'Work has been added',
         work,
-        error
+        error,
       };
     })
   );
@@ -399,14 +393,8 @@ module.exports = (db, upload) => {
       check('email')
         .isEmail()
         .withMessage('Please enter a valid email address.'),
-      check('subject')
-        .not()
-        .isEmpty()
-        .withMessage('Please provide a subject.'),
-      check('message')
-        .not()
-        .isEmpty()
-        .withMessage('Please provide a message.')
+      check('subject').not().isEmpty().withMessage('Please provide a subject.'),
+      check('message').not().isEmpty().withMessage('Please provide a message.'),
     ],
     (req, res) => {
       const { email, subject, message, contactForm } = req.body;
@@ -424,14 +412,14 @@ module.exports = (db, upload) => {
         email,
         subject,
         message: htmlMessage || message,
-        contactForm
+        contactForm,
       })
         .then(() =>
           res.json({
-            msg: 'Email has been sent.'
+            msg: 'Email has been sent.',
           })
         )
-        .catch(err => res.json({ msg: err.message }));
+        .catch((err) => res.json({ msg: err.message }));
     }
   );
 
@@ -441,12 +429,10 @@ module.exports = (db, upload) => {
       oneOf(
         [
           [
-            check('additional.purchaseDetails.available')
-              .not()
-              .exists(),
+            check('additional.purchaseDetails.available').not().exists(),
             check('additional.purchaseDetails.selectedItems.*.available')
               .isBoolean()
-              .equals('true')
+              .equals('true'),
           ],
           [
             check('additional.purchaseDetails.available')
@@ -454,27 +440,25 @@ module.exports = (db, upload) => {
               .equals('true'),
             check('additional.purchaseDetails.selectedItems.*.available')
               .not()
-              .exists()
-          ]
+              .exists(),
+          ],
         ],
         'Sorry, item is not available.'
       ),
       oneOf(
         [
           [
-            check('additional.purchaseDetails.quantity')
-              .not()
-              .exists(),
+            check('additional.purchaseDetails.quantity').not().exists(),
             check('additional.purchaseDetails.selectedItems.*.quantity').isInt({
-              min: 1
-            })
+              min: 1,
+            }),
           ],
           [
             check('additional.purchaseDetails.quantity').isInt({ min: 1 }),
             check('additional.purchaseDetails.selectedItems.*.quantity')
               .not()
-              .exists()
-          ]
+              .exists(),
+          ],
         ],
         'The quantity is invalid.'
       ),
@@ -493,10 +477,7 @@ module.exports = (db, upload) => {
         .not()
         .isEmpty()
         .withMessage('Address field is required.'),
-      check('additional.city')
-        .not()
-        .isEmpty()
-        .withMessage('City is required.'),
+      check('additional.city').not().isEmpty().withMessage('City is required.'),
       check('additional.country')
         .not()
         .isEmpty()
@@ -504,7 +485,7 @@ module.exports = (db, upload) => {
       check('additional.postal_code')
         .not()
         .isEmpty()
-        .withMessage('Postal / ZIP code is required.')
+        .withMessage('Postal / ZIP code is required.'),
     ],
     wrapAsync(async (req, res) => {
       const errors = validationResult(req);
@@ -519,7 +500,7 @@ module.exports = (db, upload) => {
         price,
         _id,
         quantity,
-        promo
+        promo,
       } = req.body.additional.purchaseDetails;
 
       const { country: countryISO } = req.body.additional;
@@ -537,13 +518,13 @@ module.exports = (db, upload) => {
       } else {
         // bought from cart - might be multiple
         const items = req.body.additional.purchaseDetails.selectedItems.map(
-          item => ({
+          (item) => ({
             id: item._id,
-            price: item.price
+            price: item.price,
           })
         );
 
-        const pricePromises = items.map(async item =>
+        const pricePromises = items.map(async (item) =>
           Work.findById(item.id, 'price')
         );
 
@@ -585,7 +566,7 @@ module.exports = (db, upload) => {
           description: `Purchase at dovilejewellery.com`,
           payment_method: req.body.payment_method_id,
           confirmation_method: 'manual',
-          confirm: true
+          confirm: true,
         });
       } else if (req.body.payment_intent_id) {
         intent = await stripe.paymentIntents.confirm(
@@ -602,7 +583,7 @@ module.exports = (db, upload) => {
           await sendPurchaseEmail(req.body);
         }
         const [
-          { id, amount: amount_paid, receipt_url, payment_method: source }
+          { id, amount: amount_paid, receipt_url, payment_method: source },
         ] = intent.charges.data;
 
         if (boughtFrom === 'buyItNow') {
@@ -616,12 +597,12 @@ module.exports = (db, upload) => {
         } else {
           // bought from cart - might be multiple
           const ids = req.body.additional.purchaseDetails.selectedItems
-            .filter(item => item.madeToOrder === false)
-            .map(item => ({
-              id: item._id
+            .filter((item) => item.madeToOrder === false)
+            .map((item) => ({
+              id: item._id,
             }));
 
-          const promises = ids.map(item =>
+          const promises = ids.map((item) =>
             Work.findByIdAndUpdate(
               { _id: item.id },
               { $set: { available: false } }
@@ -642,7 +623,7 @@ module.exports = (db, upload) => {
           additional_info,
           full_country_name,
           postal_code,
-          purchaseDetails
+          purchaseDetails,
         } = req.body.additional;
         /* eslint-enable camelcase */
 
@@ -663,7 +644,7 @@ module.exports = (db, upload) => {
             source,
             purchaseDetails,
             additional_info,
-            client: client._id
+            client: client._id,
           });
 
           await db.collection('orders').insertOne(order);
@@ -687,9 +668,9 @@ module.exports = (db, upload) => {
               address2,
               city,
               country: full_country_name,
-              postal_code
+              postal_code,
             },
-            orders: [orderId]
+            orders: [orderId],
           });
 
           const order = new Order({
@@ -700,7 +681,7 @@ module.exports = (db, upload) => {
             source,
             purchaseDetails,
             additional_info,
-            client: client._id
+            client: client._id,
           });
 
           await db.collection('orders').insertOne(order);
@@ -714,7 +695,7 @@ module.exports = (db, upload) => {
 
   router.post(
     '/subscribe',
-    wrapAsync(async function(req) {
+    wrapAsync(async function (req) {
       const { email } = req.body;
       const name = email.split('@')[0];
 
@@ -727,7 +708,7 @@ module.exports = (db, upload) => {
 
       if (existingEmail) {
         return {
-          err: 'This email address is already subscribed.'
+          err: 'This email address is already subscribed.',
         };
       }
 
@@ -745,31 +726,31 @@ module.exports = (db, upload) => {
           [
             {
               email,
-              first_name: name
-            }
+              first_name: name,
+            },
           ],
           {
             headers: {
               authorization: `Bearer ${process.env.MAIL_API_PASS}`,
-              'content-type': 'application/json'
-            }
+              'content-type': 'application/json',
+            },
           }
         )
-        .catch(err => ({ err }));
+        .catch((err) => ({ err }));
 
       return {
         msg: 'Email has been added',
         email,
-        err: error
+        err: error,
       };
     })
   );
 
   router.get(
     '/promo',
-    wrapAsync(async function(req, res) {
+    wrapAsync(async function (req, res) {
       const { code } = req.query;
-      if (promoCodes.some(x => x.code === code)) {
+      if (promoCodes.some((x) => x.code === code)) {
         return { validCode: true };
       }
       return { validCode: false };

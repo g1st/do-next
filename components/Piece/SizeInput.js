@@ -7,23 +7,23 @@ import Error from '../Error/Error';
 
 const styles = {
   inputRoot: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
   labelRoot: {
     fontSize: '14px',
-    color: 'rgba(0, 0, 0, 0.87)'
+    color: 'rgba(0, 0, 0, 0.87)',
   },
   formControl: {
     maxWidth: '11rem',
-    width: '100%'
-  }
+    width: '100%',
+  },
 };
 
 const SelectSize = ({ error, errorText, handleChange, classes }) => {
   const [size, setSize] = useState('');
   const [sizeError, setSizeError] = useState(true);
 
-  const changeSize = e => {
+  const changeSize = (e) => {
     const ringSize = e.target.value;
     setSize(ringSize);
     if (ringSize) {
@@ -50,8 +50,8 @@ const SelectSize = ({ error, errorText, handleChange, classes }) => {
           name: 'size',
           id: 'size-native',
           classes: {
-            root: classes.inputRoot
-          }
+            root: classes.inputRoot,
+          },
         }}
       >
         <option value="" aria-label="default blank" />
@@ -104,7 +104,7 @@ SelectSize.propTypes = {
   error: PropTypes.bool,
   errorText: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SelectSize);

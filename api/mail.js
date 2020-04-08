@@ -5,7 +5,7 @@ const {
   MAIL_HOST,
   MAIL_PORT,
   MAIL_API_USER,
-  MAIL_API_PASS
+  MAIL_API_PASS,
 } = process.env;
 
 // send mail with defined transport object
@@ -17,11 +17,11 @@ const sendMail = ({ email, subject, message, contactForm }) => {
     secure: false, // true for 465, false for other ports
     auth: {
       user: MAIL_API_USER, // generated ethereal user
-      pass: MAIL_API_PASS // generated ethereal password
+      pass: MAIL_API_PASS, // generated ethereal password
     },
     tls: {
-      rejectUnauthorized: false
-    }
+      rejectUnauthorized: false,
+    },
   });
 
   // setup email data with unicode symbols
@@ -30,7 +30,7 @@ const sendMail = ({ email, subject, message, contactForm }) => {
     to: contactForm ? EMAIL : email, // list of receivers
     subject, // Subject line
     text: `${message} From: ${email}`, // plain text body
-    html: message // html body
+    html: message, // html body
   };
 
   return new Promise((resolve, reject) => {

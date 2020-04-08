@@ -17,10 +17,10 @@ import {
   ImagesWrapper,
   TwoImages,
   Image,
-  Close
+  Close,
 } from '../../styles/LandingPageGallery';
 
-const styles = theme => ({
+const styles = (theme) => ({
   gridList: {
     display: 'flex',
     justifyContent: 'center',
@@ -28,14 +28,14 @@ const styles = theme => ({
     maxWidth: '100%',
     '@media (min-width: 600px)': {
       margin: 0,
-      flexWrap: 'nowrap'
+      flexWrap: 'nowrap',
     },
 
     '& > div': {
       '@media (max-width: 600px)': {
-        maxWidth: '250px'
-      }
-    }
+        maxWidth: '250px',
+      },
+    },
   },
   paper: {
     margin: 0,
@@ -52,8 +52,8 @@ const styles = theme => ({
 
     '@media (min-width: 600px)': {
       maxWidth: '814px',
-      maxHeight: '90vh'
-    }
+      maxHeight: '90vh',
+    },
   },
   headline: {
     textTransform: 'uppercase',
@@ -61,21 +61,21 @@ const styles = theme => ({
     marginTop: '40px',
     fontSize: '1rem',
     '@media (min-width: 960px)': {
-      fontSize: '1.5rem'
-    }
+      fontSize: '1.5rem',
+    },
   },
   author: {
     fontSize: '1rem',
     marginTop: '0.6rem',
     '@media (min-width: 960px)': {
-      fontSize: '1.3rem'
-    }
-  }
+      fontSize: '1.3rem',
+    },
+  },
 });
 
 class LandingPageGallery extends React.Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
   };
 
   state = { open: false };
@@ -128,7 +128,7 @@ class LandingPageGallery extends React.Component {
               <Image>
                 <Input
                   type="image"
-                  onClick={e =>
+                  onClick={(e) =>
                     this.onImageClick(
                       e,
                       'FLOW n°B8 and n°B10 | brooches | Baltic amber, ebony, steel'
@@ -136,7 +136,7 @@ class LandingPageGallery extends React.Component {
                   }
                   src={LandingImage1}
                   alt="Presentational Dovile Jewellery art piece"
-                  onKeyDown={e =>
+                  onKeyDown={(e) =>
                     this.handleKeyDown(
                       e,
                       'FLOW n°B8 and n°B10 | brooches | Baltic amber, ebony, steel'
@@ -147,7 +147,7 @@ class LandingPageGallery extends React.Component {
               <Image>
                 <Input
                   type="image"
-                  onClick={e =>
+                  onClick={(e) =>
                     this.onImageClick(
                       e,
                       'FLOW n°B6 | brooch | Baltic amber, ebony, steel'
@@ -155,7 +155,7 @@ class LandingPageGallery extends React.Component {
                   }
                   src={LandingImage2}
                   alt="Presentational Dovile Jewellery art piece"
-                  onKeyDown={e =>
+                  onKeyDown={(e) =>
                     this.handleKeyDown(
                       e,
                       'FLOW n°B6 | brooch | Baltic amber, ebony, steel'
@@ -168,7 +168,7 @@ class LandingPageGallery extends React.Component {
               <Image>
                 <Input
                   type="image"
-                  onClick={e =>
+                  onClick={(e) =>
                     this.onImageClick(
                       e,
                       'FLOW n°R29 | ring | Baltic amber, ebony'
@@ -176,7 +176,7 @@ class LandingPageGallery extends React.Component {
                   }
                   src={LandingImage3}
                   alt="Presentational Dovile Jewellery art piece"
-                  onKeyDown={e =>
+                  onKeyDown={(e) =>
                     this.handleKeyDown(
                       e,
                       'FLOW n°R29 | ring | Baltic amber, ebony'
@@ -187,7 +187,7 @@ class LandingPageGallery extends React.Component {
               <Image>
                 <Input
                   type="image"
-                  onClick={e =>
+                  onClick={(e) =>
                     this.onImageClick(
                       e,
                       'FLOW n°N9 | chest piece | Baltic amber, bog oak, oxidized silver, silk'
@@ -195,7 +195,7 @@ class LandingPageGallery extends React.Component {
                   }
                   src={LandingImage4}
                   alt="Presentational Dovile Jewellery art piece"
-                  onKeyDown={e =>
+                  onKeyDown={(e) =>
                     this.handleKeyDown(
                       e,
                       'FLOW n°N9 | chest piece | Baltic amber, bog oak, oxidized silver, silk'

@@ -14,15 +14,15 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     margin: '20px 20px',
-    flexWrap: 'wrap'
-  }
+    flexWrap: 'wrap',
+  },
 };
 
 const Admin = ({
   user,
   deauthenticate: reduxPropDeauthenticate,
   collections,
-  authServerError
+  authServerError,
 }) => (
   <WidthContainer style={{ paddingTop: 0 }}>
     {user ? (
@@ -56,13 +56,13 @@ Admin.propTypes = {
   user: PropTypes.string,
   collections: PropTypes.array,
   deauthenticate: PropTypes.func,
-  authServerError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
+  authServerError: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
 Admin.getInitialProps = ({ user }) => ({ user });
 
-const mapStateToProps = state => ({
-  authServerError: state.authenticate.error
+const mapStateToProps = (state) => ({
+  authServerError: state.authenticate.error,
 });
 
 export default connect(mapStateToProps, { deauthenticate })(Admin);

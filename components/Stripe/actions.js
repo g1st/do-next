@@ -19,7 +19,7 @@ export const attemptPayment = ({
   cart,
   stripe,
   postal_code,
-  promo
+  promo,
 }) =>
   stripe
     .createPaymentMethod('card', {
@@ -32,11 +32,11 @@ export const attemptPayment = ({
           line2: address2,
           city,
           country,
-          postal_code
-        }
-      }
+          postal_code,
+        },
+      },
     })
-    .then(payload => {
+    .then((payload) => {
       const purchaseDetails = getPurchaseDetails(
         buyItNowItem,
         shippingCost,
@@ -51,10 +51,10 @@ export const attemptPayment = ({
             errors: [
               {
                 msg: 'The postal code provided was incorrect.',
-                param: 'additional.postal_code'
-              }
-            ]
-          }
+                param: 'additional.postal_code',
+              },
+            ],
+          },
         };
       }
 
@@ -64,10 +64,10 @@ export const attemptPayment = ({
             errors: [
               {
                 msg: error.message,
-                param: '_error'
-              }
-            ]
-          }
+                param: '_error',
+              },
+            ],
+          },
         };
       }
 
@@ -85,20 +85,20 @@ export const attemptPayment = ({
           country,
           full_country_name,
           postal_code,
-          purchaseDetails
-        }
+          purchaseDetails,
+        },
       });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       return {
         data: {
           errors: [
             {
               msg: 'error from stripe.js',
-              param: '_error'
-            }
-          ]
-        }
+              param: '_error',
+            },
+          ],
+        },
       };
     });

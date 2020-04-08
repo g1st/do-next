@@ -65,7 +65,7 @@ export const AdminLink = styled.a`
 AdminLink.displayName = 'AdminLink';
 
 export const IconButtonWrapper = styled.div`
-  display: ${props => (props.forDimensions ? 'inline-block' : 'flex')};
+  display: ${(props) => (props.forDimensions ? 'inline-block' : 'flex')};
   align-items: flex-end;
 `;
 IconButtonWrapper.displayName = 'IconButtonWrapper';

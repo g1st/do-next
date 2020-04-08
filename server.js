@@ -25,7 +25,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 // credits to http://thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html
-co(function*() {
+co(function* () {
   // Initialize the Next.js app
   yield app.prepare();
 
@@ -34,7 +34,7 @@ co(function*() {
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   });
   const db = yield mongoose.connection;
 
@@ -73,8 +73,8 @@ co(function*() {
     res.status(200).sendFile('robots.txt', {
       root: `${__dirname}/public/`,
       headers: {
-        'Content-Type': 'text/plain;charset=UTF-8'
-      }
+        'Content-Type': 'text/plain;charset=UTF-8',
+      },
     });
   });
 
@@ -99,12 +99,12 @@ co(function*() {
           smStream.write({
             url: page,
             lastmod: lastModified,
-            img: images.map(imgObj => ({
+            img: images.map((imgObj) => ({
               url: `${AWS_BUCKET}/photos/${imgObj.big}`,
               caption,
               title,
-              license: 'https://creativecommons.org/licenses/by/4.0/'
-            }))
+              license: 'https://creativecommons.org/licenses/by/4.0/',
+            })),
           });
         } else {
           smStream.write({ url: page, lastmod: lastModified }); // changefreq: 'weekly',  priority: 0.5
@@ -113,9 +113,9 @@ co(function*() {
       smStream.end();
 
       // cache the response
-      streamToPromise(pipeline).then(sm => (sitemap = sm));
+      streamToPromise(pipeline).then((sm) => (sitemap = sm));
       // stream the response
-      pipeline.pipe(res).on('error', e => {
+      pipeline.pipe(res).on('error', (e) => {
         throw e;
       });
     } catch (e) {
@@ -127,4 +127,4 @@ co(function*() {
   server.get('*', (req, res) => handle(req, res));
 
   server.listen(PORT, () => console.log(`Server listening on ${PORT}`));
-}).catch(error => console.error(error.stack));
+}).catch((error) => console.error(error.stack));

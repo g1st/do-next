@@ -12,7 +12,7 @@ import {
   Events,
   ImageWrapper,
   Image,
-  Data
+  Data,
 } from '../styles/WhereToFind';
 import { AnchorLink, Table, Row } from '../styles/Shared';
 import WhereToFindImage1 from '../public/images/wheretofind1.JPG';
@@ -21,8 +21,8 @@ import WhereToFindImage2 from '../public/images/wheretofind2.JPG';
 const styles = () => ({
   heading: {
     fontSize: '2rem',
-    marginBottom: '3rem'
-  }
+    marginBottom: '3rem',
+  },
 });
 
 const WhereToFind = ({ pathname, collections, classes, user }) => (
@@ -125,7 +125,7 @@ WhereToFind.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   classes: PropTypes.object.isRequired,
-  user: PropTypes.string
+  user: PropTypes.string,
 };
 
 WhereToFind.getInitialProps = async ({ pathname }) => ({ pathname });

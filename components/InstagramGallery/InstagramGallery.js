@@ -8,7 +8,7 @@ import {
   ButtonBase,
   Button,
   Typography,
-  CircularProgress
+  CircularProgress,
 } from '@material-ui/core';
 
 import { StyledAnchorLink } from '../../styles/Shared';
@@ -17,51 +17,51 @@ import { addInstagramData } from '../../store/actions';
 const styles = {
   gridWrapper: {
     margin: 0,
-    width: '100%'
+    width: '100%',
   },
   gridItem: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   image: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   progress: {
     margin: 'auto',
-    display: 'block'
+    display: 'block',
   },
   buttonContainer: {
     textAlign: 'center',
     margin: '20px 0',
     marginTop: '20px',
     '@media (min-width: 960px)': {
-      margin: '60px 0 40px 0'
-    }
+      margin: '60px 0 40px 0',
+    },
   },
   headerWrapper: {
     marginBottom: '2em',
     '@media (min-width: 960px)': {
-      marginBottom: '3em'
-    }
+      marginBottom: '3em',
+    },
   },
   heading: {
-    fontSize: '2rem'
-  }
+    fontSize: '2rem',
+  },
 };
 
 class InstagramGallery extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     reduxInstagramData: PropTypes.object.isRequired,
-    addInstagramData: PropTypes.func.isRequired
+    addInstagramData: PropTypes.func.isRequired,
   };
 
   state = { loading: false };
 
   componentDidMount() {
     const {
-      reduxInstagramData: { data }
+      reduxInstagramData: { data },
     } = this.props;
     if (data.length < 1) {
       const url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${process.env.INSTAGRAM_TOKEN}&count=12`;
@@ -71,28 +71,28 @@ class InstagramGallery extends React.Component {
 
   loadMore = () => {
     const {
-      reduxInstagramData: { nextPage }
+      reduxInstagramData: { nextPage },
     } = this.props;
 
     this.fetchData(nextPage);
   };
 
-  fetchData = url => {
+  fetchData = (url) => {
     const { addInstagramData: reduxAddInstagramData } = this.props;
     this.setState({ loading: true });
     axios
       .get(url)
-      .then(res => {
+      .then((res) => {
         const { data } = res.data;
 
         let {
-          pagination: { next_url: nextUrl }
+          pagination: { next_url: nextUrl },
         } = res.data;
 
-        const mappedData = data.map(post => ({
+        const mappedData = data.map((post) => ({
           image: post.images.standard_resolution.url,
           link: post.link,
-          caption: post.caption.text
+          caption: post.caption.text,
         }));
 
         if (!nextUrl) nextUrl = null;
@@ -100,10 +100,10 @@ class InstagramGallery extends React.Component {
         reduxAddInstagramData(mappedData, nextUrl);
 
         this.setState({
-          loading: false
+          loading: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         this.setState({ loading: false });
       });
@@ -113,7 +113,7 @@ class InstagramGallery extends React.Component {
     const { loading } = this.state;
     const {
       classes,
-      reduxInstagramData: { data, nextPage }
+      reduxInstagramData: { data, nextPage },
     } = this.props;
     return (
       <div>
@@ -197,13 +197,13 @@ class InstagramGallery extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  reduxInstagramData: state.instagramData
+const mapStateToProps = (state) => ({
+  reduxInstagramData: state.instagramData,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   addInstagramData: (data, nextPage) =>
-    dispatch(addInstagramData(data, nextPage))
+    dispatch(addInstagramData(data, nextPage)),
 });
 
 export default connect(

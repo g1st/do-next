@@ -6,7 +6,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow
+  TableRow,
 } from '@material-ui/core';
 
 import { dimensions, usSizes, ukSizes, euSizes } from '../../util/globals';
@@ -14,13 +14,13 @@ import { dimensions, usSizes, ukSizes, euSizes } from '../../util/globals';
 const styles = {
   root: {
     width: '100%',
-    overflowX: 'auto'
+    overflowX: 'auto',
   },
   row: {
     '&:nth-of-type(odd)': {
-      backgroundColor: '#fafafa'
-    }
-  }
+      backgroundColor: '#fafafa',
+    },
+  },
 };
 
 const SizesTable = ({ classes }) => (
@@ -63,7 +63,7 @@ const SizesTable = ({ classes }) => (
 );
 
 SizesTable.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SizesTable);

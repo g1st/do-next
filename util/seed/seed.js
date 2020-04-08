@@ -17,7 +17,7 @@ const seedDB = () => {
 
   if (argument === 'drop') {
     mongoose.connect(MONGO_URL, { useNewUrlParser: true });
-    return mongoose.connection.dropDatabase(error => {
+    return mongoose.connection.dropDatabase((error) => {
       console.log(error);
       console.log(`database dropped`);
       process.exit(0);
@@ -54,7 +54,7 @@ const seedDB = () => {
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
 };

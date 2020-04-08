@@ -4,11 +4,11 @@ const Works = require('../api/models/works');
 module.exports = async () => {
   const fileObj = {};
 
-  const getUrls = async dir => {
+  const getUrls = async (dir) => {
     let files = fs.readdirSync(dir);
     // exclude some files
     files = files.filter(
-      file =>
+      (file) =>
         file !== '_app.js' &&
         file !== '_document.js' &&
         file !== 'edit.js' &&
@@ -18,16 +18,16 @@ module.exports = async () => {
 
     const works = await Works.find({});
 
-    works.forEach(work => {
+    works.forEach((work) => {
       fileObj[`/piece/${work.slug}`] = {
         page: `/piece/${work.slug}`,
         lastModified: work.updatedAt || work.created,
         images: work.images,
         caption: work.description,
-        title: work.name
+        title: work.name,
       };
     });
-    files.forEach(file => {
+    files.forEach((file) => {
       // Construct whole file-path & retrieve file's stats
       const filePath = `${dir}${file}`;
       const fileStat = fs.statSync(filePath);
@@ -44,7 +44,7 @@ module.exports = async () => {
         // Add this file to `fileObj`
         fileObj[`/${cleanFileName}`] = {
           page: `/${cleanFileName}`,
-          lastModified: fileStat.mtime
+          lastModified: fileStat.mtime,
         };
       }
     });

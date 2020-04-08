@@ -9,7 +9,7 @@ import {
   Image,
   ImageWrapper,
   Text,
-  Figure
+  Figure,
 } from '../styles/TermsAndConditions';
 import { StyledAnchorLink, Strong } from '../styles/Shared';
 import TermsImage from '../public/images/terms-conditions.JPG';
@@ -17,8 +17,8 @@ import TermsImage from '../public/images/terms-conditions.JPG';
 const styles = () => ({
   heading: {
     fontSize: '2rem',
-    margin: '4rem 0 2rem 0'
-  }
+    margin: '4rem 0 2rem 0',
+  },
 });
 
 const TermsAndConditions = ({ collections, classes, user }) => (
@@ -177,7 +177,7 @@ const TermsAndConditions = ({ collections, classes, user }) => (
 TermsAndConditions.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
   classes: PropTypes.object.isRequired,
-  user: PropTypes.string
+  user: PropTypes.string,
 };
 
 TermsAndConditions.getInitialProps = async ({ pathname }) => ({ pathname });
