@@ -64,7 +64,7 @@ class InstagramGallery extends React.Component {
       reduxInstagramData: { data },
     } = this.props;
     if (data.length < 1) {
-      const url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${process.env.INSTAGRAM_TOKEN}&count=12`;
+      const url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${process.env.INSTAGRAM_TOKEN}&count=6`;
       this.fetchData(url);
     }
   }
