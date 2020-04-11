@@ -5,9 +5,20 @@ export const Wrapper = styled(WidthContainer)`
   display: flex;
   height: calc(100vh - 64px);
   align-items: center;
-  padding-top: 7rem;
+  margin-top: 2rem;
+
+  @media (min-width: 600px) {
+    padding-top: 7rem;
+    margin-top: 0;
+  }
 `;
 Wrapper.displayName = 'Wrapper';
+
+export const WrapperWooden = styled(WidthContainer)`
+  display: flex;
+  align-items: center;
+  padding-top: 7rem;
+`;
 
 export const Content = styled.div`
   text-align: center;
@@ -55,12 +66,74 @@ export const TwoImages = styled.div`
   flex: 1;
   @media (min-width: 600px) {
     flex-wrap: nowrap;
+    &:first-child {
+      margin-right: 1rem;
+    }
   }
 `;
 TwoImages.displayName = 'TwoImages';
 
+export const FourImages = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+  @media (min-width: 600px) {
+    flex-wrap: nowrap;
+
+    > div {
+      :last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  @media (min-width: 100px) {
+  }
+`;
+FourImages.displayName = 'FourImages';
+
+export const Image1 = styled.div`
+  margin-right: 0;
+
+  @media (min-width: 601px) {
+    margin-right: 1rem;
+  }
+`;
+Image1.displayName = 'Image1';
+
+export const Image2 = styled.div`
+  @media (max-width: 600px) {
+    display: none;
+  }
+
+  @media (min-width: 901px) {
+    margin-right: 1rem;
+  }
+`;
+Image2.displayName = 'Image2';
+
+export const Image3 = styled.div`
+  @media (max-width: 900px) {
+    display: none;
+  }
+
+  @media (min-width: 1201px) {
+    margin-right: 1rem;
+  }
+`;
+Image3.displayName = 'Image3';
+
+export const Image4 = styled.div`
+  @media (max-width: 1200px) {
+    display: none;
+  }
+`;
+Image4.displayName = 'Image4';
+
 export const Image = styled.div`
   @media (min-width: 600px) {
+    &:first-child {
+      margin-right: 1rem;
+    }
   }
 `;
 Image.displayName = 'Image';
@@ -75,7 +148,7 @@ export const Close = styled.button`
   font-family: inherit;
   border: 0;
   padding: 0;
-  background: #fff;
+  background: transparent;
 
   ::before {
     content: '×';

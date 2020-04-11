@@ -6,6 +6,7 @@ import { InView } from 'react-intersection-observer';
 
 import Layout from '../components/Layout';
 import LandingPageGallery from '../components/LandingPageGallery/LandingPageGallery';
+import LandingPageGalleryWooden from '../components/LandingPageGallery/LandingPageGalleryWooden';
 import Newsletter from '../components/Newsletter/Newsletter';
 import InstagramGallery from '../components/InstagramGallery/InstagramGallery';
 import UpcomingEvent from '../components/UpcomingEvent/UpcomingEvent';
@@ -34,6 +35,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
     <Layout pathname={pathname} collections={collections} user={user}>
       <LandingPageGallery />
       <UpcomingEvent />
+      <LandingPageGalleryWooden />
       <Featured data={data.filter((item) => item.featured)} />
       <InView triggerOnce rootMargin="200px">
         {({ inView, ref }) => (

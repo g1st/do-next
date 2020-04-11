@@ -4,23 +4,19 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 
-import LandingImage1 from '../../public/images/IMG_2489_min.jpg';
-import LandingImage2 from '../../public/images/IMG_2485_min.jpg';
-import LandingImage3 from '../../public/images/IMG_2488_min.jpg';
-import LandingImage4 from '../../public/images/IMG_2491_min.jpg';
-
+import LandingImage1 from '../../public/images/Dovile-Jewellery.JPG';
+import LandingImage2 from '../../public/images/Dovile-Jewellery-2.JPG';
+import LandingImage3 from '../../public/images/Dovile-Jewellery-3.JPG';
+import LandingImage4 from '../../public/images/Dovile-Jewellery-4.JPG';
 import {
-  Wrapper,
+  WrapperWooden,
   Content,
   Input,
   ModalImage,
   Figcaption,
   ImagesWrapper,
-  FourImages,
-  Image1,
-  Image2,
-  Image3,
-  Image4,
+  TwoImages,
+  Image,
   Close,
 } from '../../styles/LandingPageGallery';
 
@@ -80,8 +76,6 @@ const styles = (theme) => ({
 const LandingPageGallery = ({ classes }) => {
   const [state, setState] = useState({ open: false });
 
-  const { open, figcaption, src } = state;
-
   const onImageClick = ({ target }, text) => {
     setState({ open: true, src: target.src, figcaption: text });
   };
@@ -96,8 +90,10 @@ const LandingPageGallery = ({ classes }) => {
     }
   };
 
+  const { open, src, figcaption } = state;
+
   return (
-    <Wrapper>
+    <WrapperWooden>
       <Modal
         aria-labelledby="jewellery-piece"
         aria-describedby="jewellery-piece-description"
@@ -106,7 +102,10 @@ const LandingPageGallery = ({ classes }) => {
       >
         <figure className={classes.paper}>
           <Close onClick={handleClose} aria-label="Close Image Modal Box" />
-          <ModalImage src={src} alt={figcaption} />
+          <ModalImage
+            src={src}
+            alt="Presentational Dovile Jewellery art piece"
+          />
           <Figcaption>
             <Typography variant="body2" id="jewellery-piece-description">
               {figcaption}
@@ -116,63 +115,67 @@ const LandingPageGallery = ({ classes }) => {
       </Modal>
       <Content>
         <ImagesWrapper>
-          <FourImages>
-            <Image1>
+          <TwoImages>
+            <Image>
               <Input
                 type="image"
                 onClick={(e) =>
                   onImageClick(
                     e,
-                    'SILVER FLOW BROOCH n°B1 | silver 925',
-                    'image1'
+                    'FLOW n°B8 and n°B10 | brooches | Baltic amber, ebony, steel'
                   )
                 }
                 src={LandingImage1}
                 alt="Presentational Dovile Jewellery art piece"
                 onKeyDown={(e) =>
-                  handleKeyDown(e, 'SILVER FLOW BROOCH n°B1 | silver 925')
+                  handleKeyDown(
+                    e,
+                    'FLOW n°B8 and n°B10 | brooches | Baltic amber, ebony, steel'
+                  )
                 }
               />
-            </Image1>
-            <Image2>
+            </Image>
+            <Image>
               <Input
                 type="image"
                 onClick={(e) =>
-                  onImageClick(e, 'SILVER FLOW EARRINGS n°E4 | silver 925')
+                  onImageClick(
+                    e,
+                    'FLOW n°B6 | brooch | Baltic amber, ebony, steel'
+                  )
                 }
                 src={LandingImage2}
                 alt="Presentational Dovile Jewellery art piece"
                 onKeyDown={(e) =>
-                  handleKeyDown(e, 'SILVER FLOW EARRINGS n°E4 | silver 925')
+                  handleKeyDown(
+                    e,
+                    'FLOW n°B6 | brooch | Baltic amber, ebony, steel'
+                  )
                 }
               />
-            </Image2>
-            <Image3>
+            </Image>
+          </TwoImages>
+          <TwoImages>
+            <Image>
               <Input
                 type="image"
                 onClick={(e) =>
-                  onImageClick(
-                    e,
-                    'SILVER FLOW STATEMENT RING n°R3 | silver 925'
-                  )
+                  onImageClick(e, 'FLOW n°R29 | ring | Baltic amber, ebony')
                 }
                 src={LandingImage3}
                 alt="Presentational Dovile Jewellery art piece"
                 onKeyDown={(e) =>
-                  handleKeyDown(
-                    e,
-                    'SILVER FLOW STATEMENT RING n°R3 | silver 925'
-                  )
+                  handleKeyDown(e, 'FLOW n°R29 | ring | Baltic amber, ebony')
                 }
               />
-            </Image3>
-            <Image4>
+            </Image>
+            <Image>
               <Input
                 type="image"
                 onClick={(e) =>
                   onImageClick(
                     e,
-                    'SILVER FLOW NECKLACE n°N2 | freshwater pearls, silver 925'
+                    'FLOW n°N9 | chest piece | Baltic amber, bog oak, oxidized silver, silk'
                   )
                 }
                 src={LandingImage4}
@@ -180,21 +183,15 @@ const LandingPageGallery = ({ classes }) => {
                 onKeyDown={(e) =>
                   handleKeyDown(
                     e,
-                    'SILVER FLOW NECKLACE n°N2 | freshwater pearls, silver 925'
+                    'FLOW n°N9 | chest piece | Baltic amber, bog oak, oxidized silver, silk'
                   )
                 }
               />
-            </Image4>
-          </FourImages>
+            </Image>
+          </TwoImages>
         </ImagesWrapper>
-        <Typography variant="h5" component="h2" className={classes.headline}>
-          contemporary art jewellery
-        </Typography>
-        <Typography variant="h5" component="h2" className={classes.author}>
-          by Dovile Kondrasovaite
-        </Typography>
       </Content>
-    </Wrapper>
+    </WrapperWooden>
   );
 };
 
