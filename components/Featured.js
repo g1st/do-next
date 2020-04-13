@@ -53,7 +53,8 @@ const Featured = ({ data, classes }) => {
           color="secondary"
           className={classes.heading}
         >
-          FEATURED
+          Reclaimed dark hardwood and natural Baltic amber jewellery | FLOW
+          COLLECTION
         </Typography>
         <CarouselProvider
           totalSlides={data.length}
