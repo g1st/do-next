@@ -17,8 +17,14 @@ import Card from './Gallery/Card';
 
 const styles = {
   heading: {
-    fontSize: '2rem',
+    fontSize: '1rem',
     padding: '4rem 0',
+    '@media (min-width: 600px)': {
+      fontSize: '1.5rem',
+    },
+    '@media (min-width: 960px)': {
+      fontSize: '2rem',
+    },
   },
 };
 

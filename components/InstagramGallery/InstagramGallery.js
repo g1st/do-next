@@ -46,7 +46,22 @@ const styles = {
     },
   },
   heading: {
-    fontSize: '2rem',
+    fontSize: '1rem',
+    '@media (min-width: 600px)': {
+      fontSize: '1.5rem',
+    },
+    '@media (min-width: 960px)': {
+      fontSize: '2rem',
+    },
+  },
+  instagramSubheading: {
+    fontSize: '0.75rem',
+    '@media (min-width: 600px)': {
+      fontSize: '0.8rem',
+    },
+    '@media (min-width: 960px)': {
+      fontSize: '0.875rem',
+    },
   },
 };
 
@@ -135,8 +150,12 @@ class InstagramGallery extends React.Component {
               >
                 INSTAGRAM GALLERY
               </Typography>
-              <Typography variant="body2" align="center">
-                Follow me{' '}
+              <Typography
+                variant="body2"
+                align="center"
+                className={classes.instagramSubheading}
+              >
+                Follow{' '}
                 <StyledAnchorLink
                   href="https://www.instagram.com/dovilejewellery/"
                   target="_blank"

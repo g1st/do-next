@@ -64,8 +64,11 @@ const styles = (theme) => ({
     letterSpacing: '4px',
     marginTop: '40px',
     fontSize: '1rem',
-    '@media (min-width: 960px)': {
+    '@media (min-width: 600px)': {
       fontSize: '1.5rem',
+    },
+    '@media (min-width: 960px)': {
+      fontSize: '2rem',
     },
   },
   author: {
