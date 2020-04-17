@@ -28,7 +28,7 @@ const Card = ({ item, classes }) => (
         src={`${process.env.AWS_BUCKET}/photos/${item.frontImage}`}
         srcSet={`${process.env.AWS_BUCKET}/photos/${item.frontImage} 1x, ${
           process.env.AWS_BUCKET
-        }/photos/${item.frontImage.replace(/300\./, '.')} 2x`}
+        }/photos/${item.frontImage.replace(/300\./, '900.')} 2x`}
         alt={item.description}
       />
       <Typography variant="body1" className={classes.name}>
