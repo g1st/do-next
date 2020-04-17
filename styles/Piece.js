@@ -90,3 +90,10 @@ export const MarginBottomWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 MarginBottomWrapper.displayName = 'MarginBottomWrapper';
+
+export const PathLineContainer = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4.5em 1em 0;
+`;
+PathLineContainer.displayName = 'PathLineContainer';
