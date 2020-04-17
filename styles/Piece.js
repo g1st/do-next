@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { WidthContainer } from './Shared';
 
 export const Wrapper = styled(WidthContainer)`
+  padding-top: 0.5rem;
+  @media (min-width: 600px) {
+    padding-top: 1rem;
+  }
   @media (min-width: 960px) {
     display: flex;
     padding-top: 40px;
