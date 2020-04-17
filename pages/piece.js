@@ -45,7 +45,10 @@ const styles = {
   price: {
     marginBottom: '2rem',
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
-    fontSize: '1.6rem',
+    fontSize: '1.25rem',
+    '@media (min-width: 960px)': {
+      fontSize: '1.6rem',
+    },
   },
   button: {
     padding: '10px',
@@ -67,7 +70,13 @@ const styles = {
     fontWeight: 500,
   },
   heading: {
-    fontSize: '2.75rem',
+    fontSize: '1.5rem',
+    '@media (min-width: 600px)': {
+      fontSize: '2rem',
+    },
+    '@media (min-width: 960px)': {
+      fontSize: '2.75rem',
+    },
   },
 };
 
