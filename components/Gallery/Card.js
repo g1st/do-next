@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
 
 import ImageWithLoading from './ImageWithLoading';
+import { mediumToHighResolutionUri } from '../../util/helpers';
 
 const styles = {
   buttonBase: {
@@ -28,7 +29,7 @@ const Card = ({ item, classes }) => (
         src={`${process.env.AWS_BUCKET}/photos/${item.frontImage}`}
         srcSet={`${process.env.AWS_BUCKET}/photos/${item.frontImage} 1x, ${
           process.env.AWS_BUCKET
-        }/photos/${item.frontImage.replace(/300\./, '900.')} 2x`}
+        }/photos/${mediumToHighResolutionUri(item.frontImage)} 2x`}
         alt={item.description}
       />
       <Typography variant="body1" className={classes.name}>

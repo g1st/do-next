@@ -240,3 +240,12 @@ exports.amountInCents = (amount) => {
   const cents = amount * 100;
   return parseFloat(cents.toFixed(2));
 };
+
+exports.mediumToHighResolutionUri = (mediumResUrl) => {
+  // new aws url
+  if (mediumResUrl.match(/_300\./)) {
+    return mediumResUrl.replace(/_300\./, '_900.');
+  }
+  // old url from the server
+  return mediumResUrl.replace(/300\./, '.');
+};
