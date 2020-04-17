@@ -57,6 +57,6 @@ Strong.displayName = 'Strong';
 export const WidthContainer = styled.div`
   max-width: 1280px;
   margin: 0 auto;
-  padding: 4.5em 1em 0px;
+  padding: 4.5em 1em 0;
 `;
 WidthContainer.displayName = 'WidthContainer';
