@@ -458,11 +458,15 @@ Piece.getInitialProps = async ({ req, query }) => {
 
     const data = await db.collection('works').find().toArray();
 
-    const onePieceDataFromServer = data.filter(
-      (obj) =>
-        obj.slug.toLowerCase() === slug.toLowerCase() ||
-        obj._id.toString() === slug
-    );
+    const onePieceDataFromServer = data.filter((obj) => {
+      if (obj.slug) {
+        return (
+          obj.slug.toLowerCase() === slug.toLowerCase() ||
+          obj._id.toString() === slug
+        );
+      }
+      return false;
+    });
 
     return { onePieceData: onePieceDataFromServer };
   }
