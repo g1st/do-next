@@ -27,7 +27,7 @@ export const Content = styled.div`
 Content.displayName = 'Content';
 
 export const Input = styled.input`
-  max-width: 100%;
+  max-width: 300px;
 
   :hover {
     cursor: pointer;
