@@ -30,7 +30,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.4",
     "@material-ui/icons": "^3.0.2",
-    "aws-sdk": "^2.663.0",
+    "aws-sdk": "^2.666.0",
     "axios": "^0.19.2",
     "babel-plugin-import": "^1.13.0",
     "body-parser": "^1.19.0",
@@ -48,7 +48,7 @@
     "mjml": "^4.6.2",
     "mongoose": "^5.9.10",
     "multer": "^1.4.2",
-    "next": "^9.3.5",
+    "next": "^9.3.6",
     "next-optimized-images": "^2.6.0",
     "nodemailer": "^6.4.6",
     "prop-types": "^15.7.2",
@@ -66,7 +66,7 @@
     "sharp": "^0.25.2",
     "sitemap": "^6.1.2",
     "slugify": "^1.4.0",
-    "stripe": "^8.47.0",
+    "stripe": "^8.48.0",
     "styled-components": "^5.1.0",
     "styled-jsx": "^3.2.5",
     "zlib": "^1.0.5"
