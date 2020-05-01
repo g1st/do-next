@@ -25,7 +25,9 @@
     "build": "next build",
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint . --fix",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@material-ui/core": "^3.9.4",
@@ -69,7 +71,8 @@
     "stripe": "^8.47.0",
     "styled-components": "^5.1.0",
     "styled-jsx": "^3.2.5",
-    "zlib": "^1.0.5"
+    "zlib": "^1.0.5",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -85,5 +88,6 @@
     "eslint-plugin-react-hooks": "^3.0.0",
     "prettier": "^2.0.5",
     "redux-devtools": "^3.5.0"
-  }
+  },
+  "snyk": true
 }
