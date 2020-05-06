@@ -57,6 +57,11 @@ co(function* () {
     app.render(req, res, actualPage, queryParams);
   });
 
+  server.get('/piece', (req, res) => {
+    const actualPage = '/gallery';
+    app.render(req, res, actualPage);
+  });
+
   server.get('/edit/:slug', (req, res) => {
     const actualPage = '/edit';
     const queryParams = { slug: req.params.slug };
