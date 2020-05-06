@@ -11,6 +11,8 @@ module.exports = async () => {
       (file) =>
         file !== '_app.js' &&
         file !== '_document.js' &&
+        file !== '_error.js' &&
+        file !== '404.js' &&
         file !== 'edit.js' &&
         file !== 'admin.js' &&
         file !== 'checkout.js'
