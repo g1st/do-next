@@ -455,18 +455,23 @@ Piece.getInitialProps = async ({ req, query }) => {
   if (req) {
     const { db } = req;
     const { slug } = req.params;
+    let onePieceDataFromServer;
 
-    const data = await db.collection('works').find().toArray();
+    if (slug) {
+      const data = await db.collection('works').find().toArray();
 
-    const onePieceDataFromServer = data.filter((obj) => {
-      if (obj.slug) {
-        return (
-          obj.slug.toLowerCase() === slug.toLowerCase() ||
-          obj._id.toString() === slug
-        );
-      }
-      return false;
-    });
+      onePieceDataFromServer = data.filter((obj) => {
+        if (obj.slug) {
+          return (
+            obj.slug.toLowerCase() === slug.toLowerCase() ||
+            obj._id.toString() === slug
+          );
+        }
+        return false;
+      });
+    } else {
+      onePieceDataFromServer = [];
+    }
 
     return { onePieceData: onePieceDataFromServer };
   }
