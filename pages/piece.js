@@ -434,15 +434,14 @@ class Piece extends React.Component {
                 ''
               )}
               <Typography variant="body2" paragraph>
-                If interested in ordering customized design please contact me
-                directly to{' '}
+                If interested in ordering customized design please contact me at{' '}
                 <Mail
                   href="mailto:&#104;&#101;&#108;&#108;&#111;&#064;&#100;&#111;&#118;&#105;&#108;&#101;&#106;&#101;&#119;&#101;&#108;&#108;&#101;&#114;&#121;&#046;&#099;&#111;&#109;"
                   target="_top"
                 >
                   &#104;&#101;&#108;&#108;&#111;&#064;&#100;&#111;&#118;&#105;&#108;&#101;&#106;&#101;&#119;&#101;&#108;&#108;&#101;&#114;&#121;&#046;&#099;&#111;&#109;
                 </Mail>{' '}
-                or open contact form below.
+                or by contact form below.
               </Typography>
               <DialogForm />
             </Text>
