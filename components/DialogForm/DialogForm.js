@@ -184,7 +184,7 @@ class FormDialog extends React.Component {
                 type="text"
                 multiline
                 fullWidth
-                rows={4}
+                rows={8}
                 InputLabelProps={{ required: false }}
                 onChange={this.handleChange('message')}
                 error={!!errors.message}
