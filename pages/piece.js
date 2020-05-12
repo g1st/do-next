@@ -25,6 +25,7 @@ import {
   SilverFinishWrapper,
   MarginBottomWrapper,
   PathLineContainer,
+  SelectionWrapper,
 } from '../styles/Piece';
 import { Mail, Strong, StyledAnchorLink } from '../styles/Shared';
 
@@ -48,7 +49,7 @@ const styles = {
   },
   button: {
     padding: '10px',
-    margin: '0 auto 20px auto',
+    margin: '0 auto 2rem auto',
     width: '100%',
   },
   filterLine: {
@@ -350,6 +351,7 @@ class Piece extends React.Component {
                   </li>
                 )}
               </ListInfo>
+              <SelectionWrapper>
               {available && silverFinish && (
                 <SilverFinishWrapper>
                   <SilverFinishInput
@@ -369,6 +371,7 @@ class Piece extends React.Component {
                   <SizesInfo />
                 </SizesWrapper>
               )}
+              </SelectionWrapper>
               <Typography variant="body2" paragraph>
                 All purchases come in a branded box.
               </Typography>

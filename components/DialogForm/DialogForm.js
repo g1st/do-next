@@ -27,6 +27,16 @@ const styles = (theme) => ({
     width: '100%',
     textAlign: 'center',
   },
+  contactButton: {
+    padding: '0.6rem 1rem',
+    maxWidth: '19rem',
+    width: '100%',
+    margin: '2rem auto 0 auto',
+    display: 'block',
+    '@media (min-width: 960px)': {
+      margin: '2rem 0 0 0',
+    },
+  },
 });
 
 class FormDialog extends React.Component {
@@ -126,6 +136,7 @@ class FormDialog extends React.Component {
           variant="contained"
           color="primary"
           onClick={this.handleClickOpen}
+          className={classes.contactButton}
         >
           Contact Dovile
         </Button>

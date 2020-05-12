@@ -14,8 +14,7 @@ const styles = {
     color: 'rgba(0, 0, 0, 0.87)',
   },
   formControl: {
-    maxWidth: '11rem',
-    width: '100%',
+    minWidth: '13rem',
   },
 };
 

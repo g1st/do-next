@@ -16,10 +16,10 @@ Wrapper.displayName = 'Wrapper';
 export const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 300px;
-  margin: 2rem auto 1.6rem auto;
+  max-width: 19rem;
+  margin: 2.25rem auto 1rem auto;
   @media (min-width: 960px) {
-    margin: 2rem 0 1.6rem 0;
+    margin: 2rem 0 1rem 0;
   }
 `;
 ButtonsWrapper.displayName = 'ButtonsWrapper';
@@ -76,20 +76,30 @@ IconButtonWrapper.displayName = 'IconButtonWrapper';
 
 export const SizesWrapper = styled.div`
   display: flex;
-  margin-bottom: 2rem;
 `;
 SizesWrapper.displayName = 'SizesWrapper';
 
 export const SilverFinishWrapper = styled.div`
-  display: flex;
   margin-bottom: 1rem;
 `;
 SilverFinishWrapper.displayName = 'SilverFinishWrapper';
 
 export const MarginBottomWrapper = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `;
 MarginBottomWrapper.displayName = 'MarginBottomWrapper';
+
+export const SelectionWrapper = styled.div`
+  max-width: 13rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 2rem auto;
+
+  @media (min-width: 960px) {
+    margin: 0 0 2rem 0;
+  }
+`;
+SelectionWrapper.displayName = 'SelectionWrapper';
 
 export const PathLineContainer = styled.div`
   max-width: 1280px;
