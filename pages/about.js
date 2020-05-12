@@ -469,7 +469,7 @@ const About = ({ pathname, collections, classes, user }) => (
           <Typography variant="h4" className={classes.h4} paragraph>
             THE DIALOGUE BETWEEN PAST, PRESENT AND FUTURE
           </Typography>
-          <Typography variant="body2" paragraph align="justify">
+          <Typography variant="body2" paragraph>
             The central concept of my jewellery is time and natural ageing
             processes. This is shown through the use of hand-carved amber and
             wood, their interplay, giving a sense of the growth to the wearer.
@@ -481,7 +481,7 @@ const About = ({ pathname, collections, classes, user }) => (
             starting to bloom or even a coming wave. It could take seconds or
             centuries.
           </Typography>
-          <Typography variant="body2" paragraph align="justify">
+          <Typography variant="body2" paragraph>
             The materials I have chosen to work with have gone through long
             ageing processes until they have reached my hands as natural raw
             Baltic amber and bog oak and other naturally black hardwoods. Amber
@@ -491,7 +491,7 @@ const About = ({ pathname, collections, classes, user }) => (
             within my own work with a hope to modify the image of amber and to
             use it in a more considered and contemporary way.
           </Typography>
-          <Typography variant="body2" paragraph align="justify">
+          <Typography variant="body2" paragraph>
             I bring wood and amber together into sculptural shapes. The visual
             confrontation of hard black wood and fragile amber and dynamic
             volume creates intriguing dialogue. Every design in shaping comes
@@ -500,7 +500,7 @@ const About = ({ pathname, collections, classes, user }) => (
             Sometimes it goes into a very dramatic structure sometimes turn into
             a still and light design.
           </Typography>
-          <Typography variant="body2" paragraph align="justify">
+          <Typography variant="body2" paragraph>
             Over the time and with wear the objects will change, the surface may
             rub off, may crack and polish naturally. It is sustainable
             jewellery, which after wearing could be dropped into the bog or the
