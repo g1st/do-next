@@ -29,7 +29,9 @@ const DangerZone = ({
 }) => {
   const deleteItem = () => {
     axios
-      .delete(`${process.env.APP_URL}/api/delete`, { params: { _id: itemID } })
+      .delete(`${process.env.NEXT_PUBLIC_APP_URL}/api/delete`, {
+        params: { _id: itemID },
+      })
       .then((res) => {
         removeItem(res.data.deletedItem);
       })
@@ -38,7 +40,9 @@ const DangerZone = ({
 
   const deleteCollection = () => {
     axios
-      .delete(`${process.env.APP_URL}/api/delete`, { params: { collection } })
+      .delete(`${process.env.NEXT_PUBLIC_APP_URL}/api/delete`, {
+        params: { collection },
+      })
       .then((res) => {
         removeCollection(res.data.deletedCollection);
       })

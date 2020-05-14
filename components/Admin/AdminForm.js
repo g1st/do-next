@@ -303,7 +303,7 @@ class AdminForm extends Component {
     const { itemToEdit } = this.props;
     if (itemToEdit) {
       axios
-        .patch(`${process.env.APP_URL}/api/update`, formData)
+        .patch(`${process.env.NEXT_PUBLIC_APP_URL}/api/update`, formData)
         .then((response) => {
           const { error } = response.data;
           if (error) return this.handleErrors(error);
@@ -339,7 +339,7 @@ class AdminForm extends Component {
     } else {
       // creating new item
       axios
-        .post(`${process.env.APP_URL}/api/update`, formData)
+        .post(`${process.env.NEXT_PUBLIC_APP_URL}/api/update`, formData)
         .then((response) => {
           const { error } = response.data;
 
@@ -585,7 +585,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`${process.env.AWS_BUCKET}/photos/${item}`}
+                          src={`${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${item}`}
                         />
                       }
                     />
@@ -614,7 +614,7 @@ class AdminForm extends Component {
                         <img
                           alt=""
                           className={classes.singleImage}
-                          src={`${process.env.AWS_BUCKET}/photos/${image.thumb}`}
+                          src={`${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${image.thumb}`}
                         />
                       }
                     />

@@ -235,7 +235,7 @@ class StripeForm extends Component {
           // The card action has been handled
           // The PaymentIntent can be confirmed again on the server
           axios
-            .post(`${process.env.APP_URL}/api/charge`, {
+            .post(`${process.env.NEXT_PUBLIC_APP_URL}/api/charge`, {
               payment_intent_id: result.paymentIntent.id,
               additional: {
                 email,

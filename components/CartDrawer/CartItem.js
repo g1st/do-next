@@ -28,7 +28,7 @@ const CartItem = ({
 
   const getItemImage = (item) => {
     if (item && item.images && item.images.length) {
-      return `${process.env.AWS_BUCKET}/photos/${item.images[0].thumb}`;
+      return `${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${item.images[0].thumb}`;
     }
     return '/images/fallback.png';
   };

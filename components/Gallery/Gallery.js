@@ -227,7 +227,7 @@ class Gallery extends React.Component {
       this.setState({ updating: true });
 
       axios
-        .post(`${process.env.APP_URL}/api/update-grid`, {
+        .post(`${process.env.NEXT_PUBLIC_APP_URL}/api/update-grid`, {
           data: filtered,
           index: activeIndex,
         })

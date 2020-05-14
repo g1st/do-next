@@ -26,9 +26,11 @@ const Card = ({ item, classes }) => (
   <Link href={`/piece?slug=${item.slug}`} as={`/piece/${item.slug}`}>
     <ButtonBase classes={{ root: classes.buttonBase }} focusRipple>
       <ImageWithLoading
-        src={`${process.env.AWS_BUCKET}/photos/${item.frontImage}`}
-        srcSet={`${process.env.AWS_BUCKET}/photos/${item.frontImage} 1x, ${
-          process.env.AWS_BUCKET
+        src={`${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${item.frontImage}`}
+        srcSet={`${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${
+          item.frontImage
+        } 1x, ${
+          process.env.NEXT_PUBLIC_AWS_BUCKET
         }/photos/${mediumToHighResolutionUri(item.frontImage)} 2x`}
         alt={item.description}
       />

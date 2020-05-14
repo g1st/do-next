@@ -33,7 +33,7 @@ export const authenticate = ({ email, password }, type) => {
   }
   return (dispatch) => {
     axios
-      .post(`${process.env.AUTH_URL}/${type}`, { email, password })
+      .post(`${process.env.NEXT_PUBLIC_AUTH_URL}/${type}`, { email, password })
       .then((response) => {
         setCookie('token', response.data.token);
         Router.push('/admin');

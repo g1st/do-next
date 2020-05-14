@@ -74,7 +74,7 @@ class FormDialog extends React.Component {
     const { email, message, subject } = this.state;
 
     axios
-      .post(`${process.env.APP_URL}/api/send`, {
+      .post(`${process.env.NEXT_PUBLIC_APP_URL}/api/send`, {
         email,
         message,
         subject,
