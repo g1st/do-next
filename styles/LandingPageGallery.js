@@ -22,7 +22,7 @@ export const WrapperWooden = styled(WidthContainer)`
 
 export const Content = styled.div`
   text-align: center;
-  margin-top: -20px;
+  margin: -20px auto 0 auto;
 `;
 Content.displayName = 'Content';
 
@@ -78,6 +78,7 @@ export const FourImages = styled.div`
   display: flex;
   justify-content: space-around;
   flex: 1;
+  margin-bottom: 2rem;
   @media (min-width: 600px) {
     flex-wrap: nowrap;
 
@@ -86,8 +87,6 @@ export const FourImages = styled.div`
         margin-right: 0;
       }
     }
-  }
-  @media (min-width: 100px) {
   }
 `;
 FourImages.displayName = 'FourImages';
