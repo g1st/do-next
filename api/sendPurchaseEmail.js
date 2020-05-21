@@ -7,7 +7,7 @@ const { cartHelper } = require('../util/helpers');
 
 module.exports = (data) => {
   const { boughtFrom } = data.additional.purchaseDetails;
-  const baseUrl = `${process.env.APP_URL}/piece/`;
+  const baseUrl = `${process.env.NEXT_PUBLIC_APP_URL}/piece/`;
   const purchaseData = [];
 
   if (boughtFrom === 'buyItNow') {
@@ -82,13 +82,13 @@ module.exports = (data) => {
 
   Promise.all([
     // mail for business owner
-    axios.post(`${process.env.APP_URL}/api/send`, {
+    axios.post(`${process.env.NEXT_PUBLIC_APP_URL}/api/send`, {
       subject: 'New order @dovilejewellery.com',
       email: 'hello@dovilejewellery.com',
       message: adminHTML,
     }),
     // mail to client
-    axios.post(`${process.env.APP_URL}/api/send`, {
+    axios.post(`${process.env.NEXT_PUBLIC_APP_URL}/api/send`, {
       subject: 'Purchase at dovilejewellery.com',
       email,
       message: clientHTML,

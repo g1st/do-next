@@ -31,11 +31,14 @@ class MyApp extends App {
     const { token } = ctx.reduxStore.getState().authenticate;
 
     if (token) {
-      const response = await axios.get(`${process.env.AUTH_URL}/user`, {
-        headers: {
-          authorization: token,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_AUTH_URL}/user`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
 
       const isUser = response.data.user;
 

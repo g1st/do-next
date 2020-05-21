@@ -71,7 +71,7 @@ export const attemptPayment = ({
         };
       }
 
-      return axios.post(`${process.env.APP_URL}/api/charge`, {
+      return axios.post(`${process.env.NEXT_PUBLIC_APP_URL}/api/charge`, {
         payment_method_id: paymentMethod.id,
         additional: {
           email,

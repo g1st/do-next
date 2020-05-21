@@ -209,14 +209,18 @@ class Piece extends React.Component {
       ringSize,
       silverFinishStyle,
     };
+    console.log(
+      'process.env.NEXT_PUBLIC_AWS_BUCKET :>> ',
+      process.env.NEXT_PUBLIC_AWS_BUCKET
+    );
 
     const gallery = images.reduce((acc, image) => {
       const galleryFormatted = {
-        original: `${process.env.AWS_BUCKET}/photos/${image.medium}`,
-        thumbnail: `${process.env.AWS_BUCKET}/photos/${image.thumb}`,
+        original: `${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${image.medium}`,
+        thumbnail: `${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${image.thumb}`,
         originalAlt: description,
         thumbnailAlt: name,
-        srcSet: `${process.env.AWS_BUCKET}/photos/${image.medium} 300w, ${process.env.AWS_BUCKET}/photos/${image.big} 900w`,
+        srcSet: `${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${image.medium} 300w, ${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${image.big} 900w`,
         sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw',
       };
       if (image.medium === frontImage) {
@@ -284,12 +288,12 @@ class Piece extends React.Component {
     return (
       <Layout
         pathname="/gallery"
-        piecePath={`${process.env.APP_URL}/piece/${slug}`}
+        piecePath={`${process.env.NEXT_PUBLIC_APP_URL}/piece/${slug}`}
         collections={collections}
         title={`${name} | Dovile Jewellery`}
         description={`${description} | ${materials}`}
         user={user}
-        image={`${process.env.AWS_BUCKET}/photos/${images[0].big}`}
+        image={`${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${images[0].big}`}
       >
         {pathLine}
         <Wrapper>
@@ -352,25 +356,25 @@ class Piece extends React.Component {
                 )}
               </ListInfo>
               <SelectionWrapper>
-              {available && silverFinish && (
-                <SilverFinishWrapper>
-                  <SilverFinishInput
-                    handleChange={this.handleSilverFinishChange}
-                    error={error}
-                    errorText="Please choose silver finish style."
-                  />
-                </SilverFinishWrapper>
-              )}
-              {available && category === 'ring' && madeToOrder && (
-                <SizesWrapper>
-                  <SizeInput
-                    handleChange={this.handleSizeChange}
-                    error={error}
-                    errorText="Please select ring size."
-                  />
-                  <SizesInfo />
-                </SizesWrapper>
-              )}
+                {available && silverFinish && (
+                  <SilverFinishWrapper>
+                    <SilverFinishInput
+                      handleChange={this.handleSilverFinishChange}
+                      error={error}
+                      errorText="Please choose silver finish style."
+                    />
+                  </SilverFinishWrapper>
+                )}
+                {available && category === 'ring' && madeToOrder && (
+                  <SizesWrapper>
+                    <SizeInput
+                      handleChange={this.handleSizeChange}
+                      error={error}
+                      errorText="Please select ring size."
+                    />
+                    <SizesInfo />
+                  </SizesWrapper>
+                )}
               </SelectionWrapper>
               <Typography variant="body2" paragraph>
                 All purchases come in a branded box.

@@ -22,7 +22,9 @@ CustomError.getInitialProps = async ({ res, err }) => {
   } else {
     statusCode = err ? err.statusCode : 404;
   }
-  const data = await axios.get(`${process.env.APP_URL}/api/collections`);
+  const data = await axios.get(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/collections`
+  );
   const collections = data.data;
 
   return { statusCode, collections };

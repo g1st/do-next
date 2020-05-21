@@ -80,9 +80,12 @@ const PromoCode = ({ classes }) => {
       setError(false);
       setIsLoading(true);
       try {
-        const result = await axios(`${process.env.APP_URL}/api/promo`, {
-          params: { code: submit },
-        });
+        const result = await axios(
+          `${process.env.NEXT_PUBLIC_APP_URL}/api/promo`,
+          {
+            params: { code: submit },
+          }
+        );
         const { validCode } = result.data;
 
         setIsLoading(false);

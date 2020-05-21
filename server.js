@@ -12,7 +12,7 @@ const { createGzip } = require('zlib');
 const api = require('./api/api');
 const getUrls = require('./util/getUrls');
 
-const { MONGO_URL, APP_URL, AWS_BUCKET } = process.env;
+const { MONGO_URL } = process.env;
 const PORT = process.env.PORT || 3000;
 let sitemap;
 
@@ -92,7 +92,9 @@ co(function* () {
       return;
     }
     try {
-      const smStream = new SitemapStream({ hostname: APP_URL });
+      const smStream = new SitemapStream({
+        hostname: process.env.NEXT_PUBLIC_APP_URL,
+      });
       const pipeline = smStream.pipe(createGzip());
 
       const urls = await getUrls();
@@ -105,7 +107,7 @@ co(function* () {
             url: page,
             lastmod: lastModified,
             img: images.map((imgObj) => ({
-              url: `${AWS_BUCKET}/photos/${imgObj.big}`,
+              url: `${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${imgObj.big}`,
               caption,
               title,
               license: 'https://creativecommons.org/licenses/by/4.0/',

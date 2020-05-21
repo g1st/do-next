@@ -46,15 +46,16 @@ MAIL_API_PASS=
 MAIL_API_USER=
 MAIL_HOST=
 MAIL_PORT=
-STRIPE_PUBLISHABLE_KEY=
 STRIPE_SECRET_KEY=
 EMAIL=your@email
 AWS_ACCESS_KEY_ID=get from aws s3
 AWS_SECRET_ACCESS_KEY=get from aws s3
-AUTH_URL=authentication server url
-APP_URL=localhost:3000 in dev
-AWS_BUCKET=bukets's url
-INSTAGRAM_TOKEN=get from facebook developers
+
+NEXT_PUBLIC_APP_URL=localhost:3000 in dev
+NEXT_PUBLIC_AUTH_URL=authentication server url
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+NEXT_PUBLIC_AWS_BUCKET=buckets's url
+NEXT_PUBLIC_INSTAGRAM_TOKEN=get from facebook developers
 ```
 
 to run in dev
