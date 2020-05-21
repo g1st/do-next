@@ -209,10 +209,6 @@ class Piece extends React.Component {
       ringSize,
       silverFinishStyle,
     };
-    console.log(
-      'process.env.NEXT_PUBLIC_AWS_BUCKET :>> ',
-      process.env.NEXT_PUBLIC_AWS_BUCKET
-    );
 
     const gallery = images.reduce((acc, image) => {
       const galleryFormatted = {
