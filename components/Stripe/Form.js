@@ -95,7 +95,6 @@ class StripeForm extends Component {
       phone,
       address1,
       address2,
-      country,
       city,
       postal_code,
       additional_info,
@@ -108,7 +107,6 @@ class StripeForm extends Component {
       phone !== nextState.phone ||
       address1 !== nextState.address1 ||
       address2 !== nextState.address2 ||
-      country !== nextState.country ||
       city !== nextState.city ||
       postal_code !== nextState.postal_code ||
       additional_info !== nextState.additional_info
