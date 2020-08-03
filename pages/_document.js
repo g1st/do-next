@@ -4,13 +4,13 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import { GA_TRACKING_ID } from '../lib/gtag';
+import theme from '../src/theme';
 
 class MyDocument extends Document {
   render() {
-    const { pageContext } = this.props;
-
     return (
       <html lang="en" dir="ltr">
         <Head>
@@ -34,12 +34,7 @@ class MyDocument extends Document {
             }}
           />
           {/* PWA primary color */}
-          <meta
-            name="theme-color"
-            content={
-              pageContext ? pageContext.theme.palette.primary.main : null
-            }
-          />
+          <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto:wght@300;400;500&display=swap"
             rel="stylesheet"
@@ -81,7 +76,7 @@ MyDocument.getInitialProps = async (ctx) => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  // const materialSheets = new ServerStyleSheets();
+  const materialSheets = new ServerStyleSheets();
   const styledComponentsSheet = new ServerStyleSheet();
   const originalRenderPage = ctx.renderPage;
 
@@ -89,11 +84,9 @@ MyDocument.getInitialProps = async (ctx) => {
     ctx.renderPage = () =>
       originalRenderPage({
         enhanceApp: (App) => (props) =>
-          styledComponentsSheet.collectStyles(<App {...props} />),
-        // enhanceApp: (App) => (props) =>
-        //   styledComponentsSheet.collectStyles(
-        //     materialSheets.collect(<App {...props} />)
-        //   ),
+          styledComponentsSheet.collectStyles(
+            materialSheets.collect(<App {...props} />)
+          ),
       });
 
     const initialProps = await Document.getInitialProps(ctx);
@@ -103,7 +96,7 @@ MyDocument.getInitialProps = async (ctx) => {
       // Styles fragment is rendered after the app and page rendering finish.
       styles: [
         ...React.Children.toArray(initialProps.styles),
-        // materialSheets.getStyleElement(),
+        materialSheets.getStyleElement(),
         styledComponentsSheet.getStyleElement(),
       ],
     };
