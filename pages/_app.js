@@ -6,6 +6,7 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import axios from 'axios';
 import { Provider } from 'react-redux';
 import Router from 'next/router';
+import Head from 'next/head';
 
 import * as gtag from '../lib/gtag';
 import withReduxStore from '../lib/with-redux-store';
@@ -121,6 +122,13 @@ class MyApp extends App {
     const { Component, pageProps, reduxStore } = this.props;
     return (
       <>
+        <Head>
+          {/* Use minimum-scale=1 to enable GPU rasterization */}
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+          />
+        </Head>
         {/* Wrap every page in Jss and Theme providers */}
         <JssProvider
           registry={this.pageContext.sheetsRegistry}
