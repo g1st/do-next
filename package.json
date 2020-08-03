@@ -68,7 +68,6 @@
     "slugify": "^1.4.5",
     "stripe": "^8.81.0",
     "styled-components": "^5.1.1",
-    "styled-jsx": "^3.3.0",
     "zlib": "^1.0.5"
   },
   "devDependencies": {
