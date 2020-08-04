@@ -69,8 +69,7 @@ export const FooterLinks = styled.ul`
 
   @media (min-width: 960px) {
     padding: 0;
-    margin-bottom: 48px;
-    margin-top: 48px;
+    margin-top: 40px;
   }
 `;
 FooterLinks.displayName = 'FooterLinks';
