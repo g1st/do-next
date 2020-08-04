@@ -16,6 +16,7 @@ const styles = {
   },
   light: {
     fontWeight: 300,
+    fontSize: '14px',
   },
   name: {
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
