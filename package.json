@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^3.0.2",
-    "aws-sdk": "^2.725.0",
+    "@material-ui/icons": "^4.9.1",
+    "aws-sdk": "^2.726.0",
     "axios": "^0.19.2",
     "babel-plugin-import": "^1.13.0",
     "body-parser": "^1.19.0",
