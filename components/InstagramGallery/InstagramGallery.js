@@ -151,7 +151,7 @@ class InstagramGallery extends React.Component {
                 INSTAGRAM GALLERY
               </Typography>
               <Typography
-                variant="body2"
+                variant="body1"
                 align="center"
                 className={classes.instagramSubheading}
               >
@@ -165,7 +165,7 @@ class InstagramGallery extends React.Component {
                 </StyledAnchorLink>
               </Typography>
             </div>
-            <Grid container spacing={32} className={classes.gridWrapper}>
+            <Grid container spacing={10} className={classes.gridWrapper}>
               {data.map(({ image, link, caption }) => (
                 <Grid
                   item
@@ -200,7 +200,7 @@ class InstagramGallery extends React.Component {
               )}
               {!loading && nextPage && (
                 <Button
-                  size="medium"
+                  size="large"
                   variant="contained"
                   color="secondary"
                   onClick={this.loadMore}

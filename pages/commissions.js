@@ -52,7 +52,7 @@ const Commissions = ({ collections, classes, user }) => (
         >
           COMMISSIONS
         </Typography>
-        <Typography paragraph variant="body2">
+        <Typography paragraph variant="body1">
           For me, working to commission is to offer clients the opportunity to
           have an input into their piece of jewellery. Essentially, the client
           likes my style of work, and there are several particular elements of
@@ -60,21 +60,21 @@ const Commissions = ({ collections, classes, user }) => (
           pleasure to create the personalised piece, especially if it is a
           surprise for somebody else.
         </Typography>
-        <Typography paragraph variant="body2">
+        <Typography paragraph variant="body1">
           Despite my original art jewellery pieces in wood and amber, I do
           commissions in silver and gold such as wedding rings, engagement rings
           etc.
         </Typography>
-        <Typography paragraph variant="body2">
+        <Typography paragraph variant="body1">
           Please note I do not make any other designs taken from other makers. I
           am accepting the idea for the customised item only fitting my vision
           and my aesthetics, work principles.
         </Typography>
-        <Typography paragraph variant="body2">
+        <Typography paragraph variant="body1">
           The design, price, timing and delivery are discussed individually by
           e-mail or in person.
         </Typography>
-        <Typography paragraph variant="body2">
+        <Typography paragraph variant="body1">
           For any interest, please contact me{' '}
           <Mail
             href="mailto:&#104;&#101;&#108;&#108;&#111;&#064;&#100;&#111;&#118;&#105;&#108;&#101;&#106;&#101;&#119;&#101;&#108;&#108;&#101;&#114;&#121;&#046;&#099;&#111;&#109;"

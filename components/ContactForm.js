@@ -15,7 +15,7 @@ const styles = (theme) => ({
     textAlign: 'center',
   },
   margin: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   button: {
     marginTop: '50px',
@@ -27,34 +27,28 @@ const styles = (theme) => ({
     alignSelf: 'flex-start',
   },
   formControl: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     width: '100%',
   },
   paper: {
     maxWidth: '700px',
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    margin: `${theme.spacing.unit * 3}px auto ${theme.spacing.unit * 3}px auto`,
-    padding: theme.spacing.unit * 2,
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    margin: `${theme.spacing(3)}px auto ${theme.spacing(3)}px auto`,
+    padding: theme.spacing(2),
     paddingBottom: '20px',
     backgroundColor: '#fafafa',
 
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3,
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
       paddingBottom: '32px',
     },
-  },
-  inputRoot: {
-    fontSize: '14px',
-  },
-  labelRoot: {
-    fontSize: '14px',
   },
 });
 
@@ -126,7 +120,7 @@ class ContactForm extends Component {
       return (
         <EmailSent>
           <Paper className={classes.paper} elevation={3}>
-            <Typography variant="body2">
+            <Typography variant="body1">
               Thank you, your message has been sent.
             </Typography>
           </Paper>
@@ -135,7 +129,7 @@ class ContactForm extends Component {
     }
     return (
       <div className={classes.wrapper}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={3}>
           <form onSubmit={(e) => this.handleSubmit(e)}>
             <TextField
               value={email}
@@ -144,17 +138,15 @@ class ContactForm extends Component {
               type="email"
               required
               fullWidth
-              margin="dense"
+              margin="normal"
               InputLabelProps={{
                 required: false,
-                FormLabelClasses: {
-                  root: classes.labelRoot,
-                },
               }}
-              InputProps={{ classes: { root: classes.inputRoot } }}
+              classes={{ root: classes.labelRoot }}
               onChange={this.handleChange('email')}
               error={!!errors.email}
               helperText={errors.email}
+              color="secondary"
             />
             <TextField
               value={subject}
@@ -163,17 +155,14 @@ class ContactForm extends Component {
               required
               InputLabelProps={{
                 required: false,
-                FormLabelClasses: {
-                  root: classes.labelRoot,
-                },
               }}
-              InputProps={{ classes: { root: classes.inputRoot } }}
               type="text"
-              margin="dense"
+              margin="normal"
               fullWidth
               onChange={this.handleChange('subject')}
               error={!!errors.subject}
               helperText={errors.subject}
+              color="secondary"
             />
 
             <TextField
@@ -181,25 +170,22 @@ class ContactForm extends Component {
               id="message"
               label="Message"
               required
-              margin="dense"
+              margin="normal"
               type="text"
               multiline
               fullWidth
               rows={12}
               InputLabelProps={{
                 required: false,
-                FormLabelClasses: {
-                  root: classes.labelRoot,
-                },
               }}
-              InputProps={{ classes: { root: classes.inputRoot } }}
               onChange={this.handleChange('message')}
               error={!!errors.message}
               helperText={errors.message}
+              color="secondary"
             />
             <Button
               type="submit"
-              size="medium"
+              size="large"
               variant="contained"
               color="secondary"
               className={classes.button}

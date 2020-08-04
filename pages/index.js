@@ -53,7 +53,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
                   color="secondary"
                   className={classes.button}
                   onClick={handleButton}
-                  size="medium"
+                  size="large"
                 >
                   Show more
                 </Button>

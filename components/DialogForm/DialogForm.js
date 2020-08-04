@@ -15,9 +15,9 @@ import ModalLoader from '../UI/ModalLoader/ModalLoader';
 
 const styles = (theme) => ({
   paper: {
-    padding: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      padding: theme.spacing.unit * 3,
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      padding: theme.spacing(3),
     },
   },
   button: {
@@ -122,7 +122,7 @@ class FormDialog extends React.Component {
           aria-labelledby="contact-form"
         >
           <Paper className={classes.paper} elevation={3}>
-            <Typography variant="body2">
+            <Typography variant="body1">
               Thank you, your message has been sent.
             </Typography>
           </Paper>
@@ -134,6 +134,7 @@ class FormDialog extends React.Component {
       <div>
         <Button
           variant="contained"
+          size="large"
           color="primary"
           onClick={this.handleClickOpen}
           className={classes.contactButton}
@@ -146,7 +147,10 @@ class FormDialog extends React.Component {
           aria-labelledby="contact-form"
         >
           <DialogContent>
-            <form onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
+            <form
+              onSubmit={this.handleSubmit}
+              style={{ textAlign: 'center', paddingBottom: '30px' }}
+            >
               <TextField
                 value={email}
                 id="email"
@@ -155,11 +159,12 @@ class FormDialog extends React.Component {
                 type="email"
                 required
                 fullWidth
-                margin="dense"
+                margin="normal"
                 InputLabelProps={{ required: false }}
                 onChange={this.handleChange('email')}
                 error={!!errors.email}
                 helperText={errors.email}
+                color="secondary"
               />
               <TextField
                 value={subject}
@@ -168,11 +173,12 @@ class FormDialog extends React.Component {
                 required
                 InputLabelProps={{ required: false }}
                 type="text"
-                margin="dense"
+                margin="normal"
                 fullWidth
                 onChange={this.handleChange('subject')}
                 error={!!errors.subject}
                 helperText={errors.subject}
+                color="secondary"
               />
 
               <TextField
@@ -180,7 +186,7 @@ class FormDialog extends React.Component {
                 id="message"
                 label="Message"
                 required
-                margin="dense"
+                margin="normal"
                 type="text"
                 multiline
                 fullWidth
@@ -189,12 +195,13 @@ class FormDialog extends React.Component {
                 onChange={this.handleChange('message')}
                 error={!!errors.message}
                 helperText={errors.message}
+                color="secondary"
               />
               <Button
                 type="submit"
-                size="medium"
+                size="large"
                 variant="contained"
-                color="primary"
+                color="secondary"
                 className={classes.button}
               >
                 SEND

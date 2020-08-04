@@ -36,7 +36,7 @@ class MyDocument extends Document {
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link
-            href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto:wght@300;400;500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&family=Roboto:wght@300;400;500&display=swap"
             rel="stylesheet"
           />
           <link rel="icon" type="image/x-icon" href="favicon.ico" />

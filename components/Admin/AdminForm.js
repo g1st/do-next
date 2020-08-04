@@ -27,7 +27,7 @@ const styles = (theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    margin: theme.spacing.unit,
+    margin: theme.spacing(2),
   },
   button: {
     marginTop: '4em',
@@ -44,7 +44,7 @@ const styles = (theme) => ({
     },
   },
   imageInput: {
-    marginTop: '30px',
+    margin: '16px',
     display: 'flex',
     flexDirection: 'column',
     hideImageInput: {
@@ -55,10 +55,11 @@ const styles = (theme) => ({
     flexDirection: 'row',
   },
   newCollection: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(2),
   },
   collection: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(2),
+    minWidth: '200px',
   },
   added: {
     margin: '10px',
@@ -75,7 +76,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    margin: theme.spacing.unit,
+    margin: theme.spacing(2),
   },
   checkbox: {
     color: theme.palette.error.main,
@@ -87,8 +88,7 @@ const styles = (theme) => ({
   madeToOrder: {
     display: 'flex',
     flexWrap: 'wrap',
-    margin: theme.spacing.unit,
-    flexDirection: 'row',
+    margin: theme.spacing(2),
   },
   producingTime: {
     flexGrow: 1,
@@ -405,7 +405,7 @@ class AdminForm extends Component {
       } = work;
       workInfo = (
         <div className={classes.added}>
-          <Typography variant="body2">
+          <Typography variant="body1">
             Piece{' '}
             <Link href={`/piece?slug=${slug}`} as={`/piece/${slug}`}>
               <a>{justCreatedName}</a>
@@ -426,10 +426,10 @@ class AdminForm extends Component {
     if (deletedItem) {
       return (
         <div>
-          <Typography variant="body2">
+          <Typography variant="body1">
             Item {deletedItem} was deleted.
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">
             <Link href="/admin">
               <a>Add new piece</a>
             </Link>
@@ -441,10 +441,10 @@ class AdminForm extends Component {
     if (deletedCollection) {
       return (
         <div>
-          <Typography variant="body2">
+          <Typography variant="body1">
             Collection {deletedCollection} was deleted.
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">
             <Link href="/admin">
               <a>Add new piece</a>
             </Link>
@@ -488,6 +488,7 @@ class AdminForm extends Component {
             InputLabelProps={{ required: false }}
             error={errors ? !!errors.name : false}
             helperText={errors && errors.name}
+            color="secondary"
           />
           <TextField
             className={classes.root}
@@ -502,12 +503,14 @@ class AdminForm extends Component {
             InputLabelProps={{ required: false }}
             error={errors ? !!errors.description : false}
             helperText={errors && errors.description}
+            color="secondary"
           />
           <div>
             <FormControl
               className={classes.collection}
               disabled={!!collection}
               required={!collection}
+              color="secondary"
             >
               <InputLabel htmlFor="collection" shrink required={false}>
                 Select Collection
@@ -540,11 +543,12 @@ class AdminForm extends Component {
               InputLabelProps={{ required: false }}
               error={errors ? !!errors.collection : false}
               helperText={errors && errors.collection}
+              color="secondary"
             />
           </div>
           <div className={classes.imageInput}>
             <label id="linting" htmlFor="images">
-              <Typography variant="body2" gutterBottom>
+              <Typography variant="body1" gutterBottom>
                 Add images
               </Typography>
               <input
@@ -561,7 +565,7 @@ class AdminForm extends Component {
             {/* for edit view show current photos and let select for deleting */}
             {selectedImages ? (
               <div>
-                <Typography variant="body2">
+                <Typography variant="body1">
                   Select images below which you would like to remove
                 </Typography>
                 <FormGroup className={classes.imagesToEdit}>
@@ -595,7 +599,7 @@ class AdminForm extends Component {
             ) : null}
             {selectedImages ? (
               <div>
-                <Typography variant="body2">Select your front image</Typography>
+                <Typography variant="body1">Select your front image</Typography>
                 <RadioGroup
                   className={classes.formGroup}
                   aria-label="frontImage"
@@ -631,6 +635,7 @@ class AdminForm extends Component {
             value={materials}
             onChange={(e) => this.handleChange('materials', e)}
             margin="normal"
+            color="secondary"
           />
           <TextField
             className={classes.root}
@@ -639,6 +644,7 @@ class AdminForm extends Component {
             value={size}
             onChange={(e) => this.handleChange('size', e)}
             margin="normal"
+            color="secondary"
           />
           <TextField
             className={classes.root}
@@ -647,6 +653,7 @@ class AdminForm extends Component {
             value={weight}
             onChange={(e) => this.handleChange('weight', e)}
             margin="normal"
+            color="secondary"
           />
           <TextField
             className={classes.root}
@@ -660,9 +667,10 @@ class AdminForm extends Component {
             InputLabelProps={{ required: false }}
             error={errors ? !!errors.price : false}
             helperText={errors && errors.price}
+            color="secondary"
           />
           <FormControl component="fieldset" className={classes.root}>
-            <FormLabel component="legend" color="primary">
+            <FormLabel component="legend" color="secondary">
               Category
             </FormLabel>
             <RadioGroup
@@ -725,7 +733,7 @@ class AdminForm extends Component {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={available}
+                  checked={available === 'available' || available}
                   onChange={(e) => this.handleChange('available', e)}
                   value="available"
                   color="secondary"
@@ -759,6 +767,7 @@ class AdminForm extends Component {
               required={!!madeToOrder}
               error={errors ? !!errors.producingTime : false}
               helperText={errors && errors.producingTime}
+              color="secondary"
             />
           </FormGroup>
           <FormGroup className={classes.root}>
@@ -816,7 +825,7 @@ class AdminForm extends Component {
           <Button
             className={classes.button}
             type="submit"
-            size="medium"
+            size="large"
             variant="contained"
             color="secondary"
             disabled={updating}

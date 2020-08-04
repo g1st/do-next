@@ -20,7 +20,6 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    useNextVariants: true,
     h1: {
       fontFamily,
     },

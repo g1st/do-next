@@ -22,7 +22,7 @@ import NavDrawer from '../NavDrawer/NavDrawer';
 import CartDrawer from '../CartDrawer/CartDrawer';
 import { DrawerContext } from '../DrawerContext';
 import ShoppingBasket from './ShoppingBasket';
-import { Wrapper, WrapSpan, Span } from '../../styles/NavBar';
+import { Wrapper, WrapSpan, Span, Icon } from '../../styles/NavBar';
 import { AnchorLink } from '../../styles/Shared';
 import { deslugify } from '../../util/helpers';
 import { clearOption } from '../../store/actions';
@@ -40,7 +40,7 @@ const styles = (theme) => ({
   toggleNav: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
-      display: 'block',
+      display: 'flex',
     },
   },
   toggleNavMenu: {
@@ -50,16 +50,29 @@ const styles = (theme) => ({
   },
   menuItem: {
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
+    fontWeight: 500,
+    padding: '1em',
   },
   navText: {
     color: '#212121',
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
-    fontWeight: 'bold',
+    fontWeight: 500,
+    fontSize: '16px',
   },
   heading: {
     [theme.breakpoints.up('md')]: {
       paddingLeft: '0.75rem',
     },
+  },
+  title: {
+    fontSize: '1rem',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.2rem',
+      fontWeight: 300,
+    },
+  },
+  icon: {
+    marginTop: '0',
   },
 });
 
@@ -129,12 +142,13 @@ class NavBar extends React.Component {
 
     const navigation = (
       <Tabs
-        value={pathname !== '/' ? pathname : false}
+        value={pathname !== '/' ? pathname : '/gallery'}
         onChange={this.handleNavBarChange}
         indicatorColor="secondary"
         textColor="secondary"
         centered
         className={classes.toggleNav}
+        aria-label="main site navigation"
       >
         {user ? (
           <Tab
@@ -151,9 +165,13 @@ class NavBar extends React.Component {
             <WrapSpan>
               <Span>Gallery</Span>
               {anchorEl ? (
-                <ArrowDropUp fontSize="small" />
+                <Icon>
+                  <ArrowDropUp fontSize="small" className={classes.icon} />
+                </Icon>
               ) : (
-                <ArrowDropDown fontSize="small" />
+                <Icon>
+                  <ArrowDropDown fontSize="small" className={classes.icon} />
+                </Icon>
               )}
             </WrapSpan>
           }
@@ -205,7 +223,7 @@ class NavBar extends React.Component {
                 variant="h6"
                 component="h1"
                 color="inherit"
-                className={classes.flex}
+                className={classes.title}
               >
                 <Link href="/">
                   <AnchorLink className={classes.heading}>

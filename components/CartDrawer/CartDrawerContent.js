@@ -83,12 +83,12 @@ const CartDrawerContent = ({
 
   let content = (
     <>
-      <Typography variant="body2" align="center" className={classes.marginTop}>
+      <Typography variant="body1" align="center" className={classes.marginTop}>
         Cart is currently empty.
       </Typography>
       <Button
         className={classes.button}
-        size="medium"
+        size="large"
         variant="contained"
         color="secondary"
         onClick={() => buttonClickHandler()}
@@ -110,16 +110,16 @@ const CartDrawerContent = ({
         <List className={classes.list}>
           <ListItem>
             <ListItemText>
-              <Typography variant="body2">Items</Typography>
+              <Typography variant="body1">Items</Typography>
             </ListItemText>
             <ListItemText className={classes.textRight}>
-              <Typography variant="body2">
+              <Typography variant="body1">
                 {buyItNow ? buyItNowItem.quantity : cartHelper.totalItems(cart)}
               </Typography>
             </ListItemText>
           </ListItem>
           <ListItem>
-            <Typography inline variant="body2">
+            <Typography display="inline" variant="body1">
               Shipping
             </Typography>
             <div classes={{ display: 'inline-block' }}>
@@ -129,40 +129,39 @@ const CartDrawerContent = ({
                 placement="right"
                 title={
                   <>
-                    <Typography variant="body2" style={{ color: '#fff' }}>
+                    <Typography variant="body1" style={{ color: '#fff' }}>
                       UK - Free
                     </Typography>
-                    <Typography variant="body2" style={{ color: '#fff' }}>
+                    <Typography variant="body1" style={{ color: '#fff' }}>
                       EU - £9
                     </Typography>
-                    <Typography variant="body2" style={{ color: '#fff' }}>
+                    <Typography variant="body1" style={{ color: '#fff' }}>
                       Worldwide - £16
                     </Typography>
                   </>
                 }
               >
                 <InfoIcon
-                  fontSize="small"
                   style={{ fill: 'rgba(0, 0, 0, 0.54)', marginLeft: '6px' }}
                 />
               </Tooltip>
             </div>
             <ListItemText className={classes.textRight}>
-              <Typography variant="body2">
+              <Typography variant="body1">
                 {shippingCost !== 0 ? `£${shippingCost.toFixed(2)}` : 'Free'}
               </Typography>
             </ListItemText>
           </ListItem>
           <ListItem>
             <ListItemText>
-              <Typography variant="body2">Total</Typography>
+              <Typography variant="body1">Total</Typography>
             </ListItemText>
             <ListItemText className={classes.textRight}>
               <Typography
-                variant="body2"
+                variant="body1"
                 className={discount ? classes.discounted : ''}
                 color={discount ? 'textSecondary' : 'textPrimary'}
-                inline
+                display="inline"
               >
                 £
                 {cartHelper.priceToPay(
@@ -173,7 +172,7 @@ const CartDrawerContent = ({
                 )}
               </Typography>
               {discount ? (
-                <Typography variant="body2" inline>
+                <Typography variant="body1" display="inline">
                   {' '}
                   £
                   {cartHelper.priceToPay(

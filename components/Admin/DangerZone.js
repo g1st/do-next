@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     background: '#9e2146',
     color: 'fff',
   },
@@ -58,7 +58,7 @@ const DangerZone = ({
         <Button
           className={classes.button}
           type="submit"
-          size="medium"
+          size="large"
           variant="contained"
           color="secondary"
           onClick={() =>
@@ -71,7 +71,7 @@ const DangerZone = ({
         <Button
           className={classes.button}
           type="submit"
-          size="medium"
+          size="large"
           variant="contained"
           color="secondary"
           onClick={() =>

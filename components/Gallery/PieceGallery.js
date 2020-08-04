@@ -84,7 +84,7 @@ const PieceGallery = ({ data, currentItem, classes }) => {
                 YOU MIGHT ALSO LIKE
               </Typography>
             </div>
-            <Grid container spacing={32} className={classes.gridWrapper}>
+            <Grid container spacing={10} className={classes.gridWrapper}>
               {mightAlsoLikeData.map((item) => (
                 <Grid
                   item

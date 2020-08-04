@@ -104,6 +104,6 @@ SelectionWrapper.displayName = 'SelectionWrapper';
 export const PathLineContainer = styled.div`
   max-width: 1280px;
   margin: 0 auto;
-  padding: 4.5em 1em 0;
+  padding: 5.5em 1em 0;
 `;
 PathLineContainer.displayName = 'PathLineContainer';

@@ -31,10 +31,13 @@ const styles = () => ({
     marginLeft: -12,
   },
   inputRoot: {
-    fontSize: '14px',
+    fontSize: '16px',
     maxWidth: '178px',
+    '@media (min-width: 600px)': {
+      maxWidth: '260px',
+    },
     background: '#fff',
-    padding: '0 4px',
+    padding: '1.25em 1em',
     borderRadius: '3px 0 0 3px',
     height: '30px',
   },
@@ -43,15 +46,20 @@ const styles = () => ({
     alignItems: 'center',
     marginBottom: '10px',
     letterSpacing: '2px',
+    fontSize: '2rem',
+    fontWeight: 600,
   },
   discover: {
     textShadow: '1px 1px #333',
     alignItems: 'center',
     marginBottom: '20px',
+    fontSize: '1.15rem',
   },
   button: {
     borderRadius: '0 3px 3px 0',
     height: '30px',
+    fontSize: '16px',
+    padding: '1.25em 1.5em',
   },
   checkIcon: {
     color: '#4CAF50',
@@ -142,7 +150,11 @@ class Newsletter extends React.Component {
                 <div className={classes.wrapper}>
                   {subscribed ? (
                     <>
-                      <Typography inline variant="body2" color="primary">
+                      <Typography
+                        display="inline"
+                        variant="body1"
+                        color="primary"
+                      >
                         Subscribed
                       </Typography>{' '}
                       <CheckIcon classes={{ root: classes.checkIcon }} />
@@ -170,7 +182,7 @@ class Newsletter extends React.Component {
               </div>
             </Wrap>
             {error && (
-              <Typography variant="body2" color="primary">
+              <Typography variant="body1" color="primary">
                 {error}
               </Typography>
             )}

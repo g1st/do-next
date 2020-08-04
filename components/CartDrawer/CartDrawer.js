@@ -70,7 +70,7 @@ class CartDrawer extends Component {
             <div style={{ width: 280 }}>
               <Button
                 className={classes.button}
-                size="medium"
+                size="large"
                 variant="contained"
                 color="secondary"
                 fullWidth

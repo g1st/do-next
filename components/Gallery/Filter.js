@@ -34,7 +34,7 @@ const styles = () => ({
   },
   menuItemText: {
     textTransform: 'lowercase',
-    fontSize: '.9rem',
+    padding: '.25em',
     color: '#595959',
   },
   iconColor: {
@@ -101,8 +101,8 @@ class Filter extends React.Component {
               <Link href="/gallery">
                 <AnchorLink>
                   <Typography
-                    inline
-                    variant="body2"
+                    display="inline"
+                    variant="body1"
                     className={classes.filterLine}
                   >
                     gallery
@@ -112,11 +112,19 @@ class Filter extends React.Component {
               <ArrowRight fontSize="small" className={classes.svg} />
             </>
           ) : null}
-          <Typography inline variant="body2" className={classes.filterLine}>
+          <Typography
+            display="inline"
+            variant="body1"
+            className={classes.filterLine}
+          >
             {collection === 'all' ? 'all collections' : deslugify(collection)}
           </Typography>
           <ArrowRight fontSize="small" className={classes.svg} />
-          <Typography inline variant="body2" className={classes.filterLine}>
+          <Typography
+            display="inline"
+            variant="body1"
+            className={classes.filterLine}
+          >
             {pluralise(option)}
           </Typography>
           <IconButton
@@ -136,7 +144,7 @@ class Filter extends React.Component {
           onClose={this.handleClose}
         >
           <MenuItem key="show all" onClick={this.handleItemClick('')}>
-            <Typography variant="body2" className={classes.menuItemText}>
+            <Typography variant="body1" className={classes.menuItemText}>
               show all
             </Typography>
           </MenuItem>
@@ -146,7 +154,7 @@ class Filter extends React.Component {
               value={category}
               onClick={this.handleItemClick(category)}
             >
-              <Typography variant="body2" className={classes.menuItemText}>
+              <Typography variant="body1" className={classes.menuItemText}>
                 {pluralise(category)}
               </Typography>
             </MenuItem>

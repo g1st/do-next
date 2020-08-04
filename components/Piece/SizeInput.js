@@ -6,15 +6,13 @@ import { withStyles } from '@material-ui/core/styles';
 import Error from '../Error/Error';
 
 const styles = {
-  inputRoot: {
-    fontSize: '14px',
-  },
   labelRoot: {
-    fontSize: '14px',
+    fontSize: '16px',
     color: 'rgba(0, 0, 0, 0.87)',
   },
   formControl: {
     minWidth: '13rem',
+    marginTop: '1rem',
   },
 };
 
@@ -37,6 +35,7 @@ const SelectSize = ({ error, errorText, handleChange, classes }) => {
     <FormControl
       error={error && sizeError}
       classes={{ root: classes.formControl }}
+      color="secondary"
     >
       <InputLabel htmlFor="size-native" classes={{ root: classes.labelRoot }}>
         Size
@@ -48,9 +47,6 @@ const SelectSize = ({ error, errorText, handleChange, classes }) => {
         inputProps={{
           name: 'size',
           id: 'size-native',
-          classes: {
-            root: classes.inputRoot,
-          },
         }}
       >
         <option value="" aria-label="default blank" />

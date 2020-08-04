@@ -41,7 +41,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
           <Typography variant="h2" className={classes.heading}>
             STOCKISTS
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">
             <AnchorLink
               href="https://studiofusiongallery.co.uk/"
               target="_blank"
@@ -51,7 +51,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
             </AnchorLink>
             , Unit 1:06, Oxo Tower Wharf, Bargehouse Street, London SE1 9PH, UK
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">
             <AnchorLink
               href="https://www.artisan-alchemy.co.uk/"
               target="_blank"
@@ -61,7 +61,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
             </AnchorLink>
             , 85 Caroline Street, Birmingham, B3 1UP, UK
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">
             <AnchorLink
               href="http://www.vda.lt/lt/galerija-argentum/apie-galerija"
               target="_blank"
@@ -71,7 +71,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
             </AnchorLink>
             , Latako g. 2, Vilnius, Lithuania
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">
             <AnchorLink
               href="https://www.facebook.com/theplaces17/"
               target="_blank"
@@ -81,7 +81,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
             </AnchorLink>
             , Subaciaus g. 17-33, Vilnius, Lithuania
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">
             <AnchorLink
               href="https://miutto.com/collections/dovile-jewellery"
               target="_blank"
@@ -105,10 +105,10 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body2">2020</Typography>
+                  <Typography variant="body1">2020</Typography>
                 </Data>
                 <Data>
-                  <Typography variant="body2" inline>
+                  <Typography variant="body1" display="inline">
                     To be confirmed.
                   </Typography>
                 </Data>

@@ -15,6 +15,7 @@ const styles = {
     justifyContent: 'space-between',
     margin: '20px 20px',
     flexWrap: 'wrap',
+    fontSize: '1rem',
   },
 };
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Image from '../public/images/bg2.JPG';
 
 export const Wrapper = styled.div`
-  min-height: 252px;
+  min-height: 280px;
   margin: 6em auto 1em auto;
   display: flex;
   flex-direction: column;
