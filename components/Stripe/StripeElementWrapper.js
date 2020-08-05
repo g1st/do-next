@@ -24,8 +24,13 @@ const StripeElementWrapper = ({
   classes,
 }) => (
   <div>
-    <FormControl fullWidth margin="dense" error={!!error}>
-      <InputLabel shrink error={!!error} classes={{ root: classes.labelRoot }}>
+    <FormControl fullWidth margin="dense" error={!!error} color="secondary">
+      <InputLabel
+        htmlFor={name}
+        shrink
+        error={!!error}
+        classes={{ root: classes.labelRoot }}
+      >
         {label}
       </InputLabel>
       <Input
@@ -34,6 +39,7 @@ const StripeElementWrapper = ({
         onChange={onChange}
         inputProps={{ component, classes: { root: classes.fontSize } }}
         name={name}
+        id={name}
       />
       {error && <Error>{error}</Error>}
     </FormControl>
