@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Typography, Paper, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { CardNumberElement } from '@stripe/react-stripe-js';
 
 import { clearCart, clearBuyItNow } from '../../store/actions';
 import CartDrawerContent from '../CartDrawer/CartDrawerContent';
@@ -53,6 +54,7 @@ class StripeForm extends Component {
     clearCart: PropTypes.func,
     shippingCost: PropTypes.number,
     stripe: PropTypes.object,
+    elements: PropTypes.object,
     promo: PropTypes.object,
   };
 
@@ -270,13 +272,15 @@ class StripeForm extends Component {
     });
 
     const { stripe_errors } = this.state;
-    const { stripe } = this.props;
+    const { stripe, elements } = this.props;
 
     if (!this.isStripesInputsOk() || stripe_errors) return;
     this.setState(() => ({ processing: true }));
 
-    if (stripe) {
-      attemptPayment({ ...this.state, ...this.props })
+    if (stripe && elements) {
+      const cardElement = elements.getElement(CardNumberElement);
+
+      attemptPayment({ ...this.state, ...this.props, cardElement })
         .then((res) => {
           this.handleServerResponse(res);
         })
