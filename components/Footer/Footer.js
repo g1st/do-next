@@ -27,7 +27,8 @@ import DovileLogo from '../../public/images/logo.svg';
 const styles = {
   links: {
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
-    color: 'rgba(0, 0, 0, .54)',
+    color: 'rgba(0, 0, 0, .74)',
+    padding: '18px',
     '@media (min-width: 960px)': {
       marginBottom: 0,
     },
@@ -88,7 +89,7 @@ const Footer = (props) => {
                 tabIndex={0}
                 onKeyDown={(e) => handleKeyDown('/terms-conditions', e.key)}
               >
-                <Typography inline className={classes.links}>
+                <Typography className={classes.links}>
                   Terms &amp; Conditions
                 </Typography>
               </AnchorLink>
@@ -100,7 +101,7 @@ const Footer = (props) => {
                 tabIndex={0}
                 onKeyDown={(e) => handleKeyDown('/care-guide', e.key)}
               >
-                <Typography inline className={classes.links}>
+                <Typography className={classes.links}>
                   Jewellery Care
                 </Typography>
               </AnchorLink>
@@ -112,9 +113,7 @@ const Footer = (props) => {
                 tabIndex={0}
                 onKeyDown={(e) => handleKeyDown('/commissions', e.key)}
               >
-                <Typography inline className={classes.links}>
-                  Commissions
-                </Typography>
+                <Typography className={classes.links}>Commissions</Typography>
               </AnchorLink>
             </Link>
           </FooterLink>
@@ -124,7 +123,7 @@ const Footer = (props) => {
                 tabIndex={0}
                 onKeyDown={(e) => handleKeyDown('/privacy-policy', e.key)}
               >
-                <Typography inline className={classes.links}>
+                <Typography className={classes.links}>
                   Privacy Policy
                 </Typography>
               </AnchorLink>

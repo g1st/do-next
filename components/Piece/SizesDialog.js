@@ -31,7 +31,6 @@ class SizesDialog extends React.Component {
       <IconButtonWrapper forDimensions={forDimensions}>
         <div>
           <InfoIcon
-            fontSize="small"
             style={{
               marginLeft: forDimensions ? '6px' : '12px',
               fill: 'rgba(0,0,0,0.54)',
@@ -44,7 +43,12 @@ class SizesDialog extends React.Component {
         <Dialog open={open} keepMounted onClose={this.handleClose}>
           <Table />
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button
+              onClick={this.handleClose}
+              color="secondary"
+              size="large"
+              variant="contained"
+            >
               Close
             </Button>
           </DialogActions>

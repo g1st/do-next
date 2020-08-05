@@ -121,7 +121,7 @@ const PromoCode = ({ classes }) => {
     <ListItem>
       <ListItemText className={classes.textRight}>
         {discount ? (
-          <Typography variant="body2" inline>
+          <Typography variant="body1" display="inline">
             -{discount}% off applied
           </Typography>
         ) : (
@@ -129,7 +129,7 @@ const PromoCode = ({ classes }) => {
             {!inputVisible && (
               <button type="button" className={classes.button}>
                 <Typography
-                  variant="body2"
+                  variant="body1"
                   onClick={() => setInputVisible(!inputVisible)}
                   onKeyDown={handleKeyDown}
                   tabIndex={0}

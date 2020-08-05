@@ -20,9 +20,12 @@ export const attemptPayment = ({
   stripe,
   postal_code,
   promo,
+  cardElement,
 }) =>
   stripe
-    .createPaymentMethod('card', {
+    .createPaymentMethod({
+      type: 'card',
+      card: cardElement,
       billing_details: {
         name: `${first_name} ${last_name}`,
         email,

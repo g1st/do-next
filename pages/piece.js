@@ -232,14 +232,14 @@ class Piece extends React.Component {
       <div>
         <Link href={`/edit?slug=${slug}`} as={`/edit/${slug}`}>
           <AdminLink>
-            <Typography inline variant="body1">
+            <Typography display="inline" variant="body1">
               Edit
             </Typography>
           </AdminLink>
         </Link>
         <Link href="/admin">
           <AdminLink>
-            <Typography inline variant="body1">
+            <Typography display="inline" variant="body1">
               Add new
             </Typography>
           </AdminLink>
@@ -248,7 +248,7 @@ class Piece extends React.Component {
     );
 
     const notAvailable = (
-      <Typography variant="body2" paragraph>
+      <Typography variant="body1" paragraph>
         This item is <Strong>NOT AVAILABLE</Strong> for purchasing because of
         exhibiting at the various events or it’s already sold.
       </Typography>
@@ -258,7 +258,11 @@ class Piece extends React.Component {
       <PathLineContainer>
         <Link href="/gallery">
           <AnchorLink>
-            <Typography inline variant="body2" className={classes.filterLine}>
+            <Typography
+              display="inline"
+              variant="body1"
+              className={classes.filterLine}
+            >
               gallery
             </Typography>
           </AnchorLink>
@@ -269,13 +273,21 @@ class Piece extends React.Component {
           as={`/gallery/${collection}`}
         >
           <AnchorLink>
-            <Typography inline variant="body2" className={classes.filterLine}>
+            <Typography
+              display="inline"
+              variant="body1"
+              className={classes.filterLine}
+            >
               {deslugify(collection)}
             </Typography>
           </AnchorLink>
         </Link>
         <ArrowRight fontSize="small" className={classes.svg} />
-        <Typography inline variant="body2" className={classes.filterLine}>
+        <Typography
+          display="inline"
+          variant="body1"
+          className={classes.filterLine}
+        >
           {pluralise(category)}
         </Typography>
       </PathLineContainer>
@@ -314,23 +326,21 @@ class Piece extends React.Component {
                 £{price}
               </Typography>
               {description.split('\n').map((paragraph, i) => (
-                <Typography key={i} variant="body2">
+                <Typography key={i} variant="body1">
                   {paragraph}
                 </Typography>
               ))}
               <ListInfo>
                 {materials && (
                   <li>
-                    <Typography variant="body2">
+                    <Typography variant="body1">
                       Materials: {materials}
                     </Typography>
                   </li>
                 )}
                 {size && (
                   <li>
-                    <Typography inline variant="body2">
-                      Dimensions: {size}{' '}
-                    </Typography>
+                    <Typography variant="body1">Dimensions: {size} </Typography>
                     {category === 'ring' && !madeToOrder ? (
                       <SizesInfo forDimensions />
                     ) : null}
@@ -338,12 +348,12 @@ class Piece extends React.Component {
                 )}
                 {weight && (
                   <li>
-                    <Typography variant="body2">Weight: {weight}</Typography>
+                    <Typography variant="body1">Weight: {weight}</Typography>
                   </li>
                 )}
                 {available && madeToOrder && (
                   <li>
-                    <Typography variant="body2">
+                    <Typography variant="body1">
                       This is <Strong>made to order</Strong> item. PLEASE NOTE
                       that estimated producing time for this item is{' '}
                       {producingTime}.
@@ -372,30 +382,30 @@ class Piece extends React.Component {
                   </SizesWrapper>
                 )}
               </SelectionWrapper>
-              <Typography variant="body2" paragraph>
+              <Typography variant="body1" paragraph>
                 All purchases come in a branded box.
               </Typography>
-              <Typography variant="body2" paragraph>
+              <Typography variant="body1" paragraph>
                 All items being sold as gold or silver are hallmarked to confirm
                 that they meet the legal standard in accordance with the British
                 Assay Office.
               </Typography>
               <MarginBottomWrapper>
-                <Typography inline variant="body2" paragraph>
+                <Typography display="inline" variant="body1" paragraph>
                   Please read{' '}
                 </Typography>
                 <Link href="/care-guide">
                   <StyledAnchorLink>
                     <Typography
-                      inline
-                      variant="body2"
+                      display="inline"
+                      variant="body1"
                       className={classes.boldLink}
                     >
                       jewellery care guide
                     </Typography>
                   </StyledAnchorLink>
                 </Link>
-                <Typography inline variant="body2">
+                <Typography display="inline" variant="body1">
                   .
                 </Typography>
               </MarginBottomWrapper>
@@ -403,7 +413,7 @@ class Piece extends React.Component {
               {available ? (
                 <ButtonsWrapper>
                   <Button
-                    size="medium"
+                    size="large"
                     variant="contained"
                     color="primary"
                     className={classes.button}
@@ -412,7 +422,7 @@ class Piece extends React.Component {
                     Buy It Now
                   </Button>
                   <Button
-                    size="medium"
+                    size="large"
                     variant="contained"
                     color="secondary"
                     onClick={() => this.handleAddToCart(dataForCart)}
@@ -425,7 +435,7 @@ class Piece extends React.Component {
                 notAvailable
               )}
               {oneOfAKind ? (
-                <Typography variant="body2" paragraph>
+                <Typography variant="body1" paragraph>
                   Please note this is ONE OF A KIND piece, therefore,
                   commissions are welcome in related designs to meet your
                   personal needs.
@@ -433,7 +443,7 @@ class Piece extends React.Component {
               ) : (
                 ''
               )}
-              <Typography variant="body2" paragraph>
+              <Typography variant="body1" paragraph>
                 If interested in ordering customized design please contact me at{' '}
                 <Mail
                   href="mailto:&#104;&#101;&#108;&#108;&#111;&#064;&#100;&#111;&#118;&#105;&#108;&#101;&#106;&#101;&#119;&#101;&#108;&#108;&#101;&#114;&#121;&#046;&#099;&#111;&#109;"

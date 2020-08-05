@@ -67,10 +67,8 @@ const About = ({ pathname, collections, classes, user }) => (
             alt="Portrait photo of Dovile Kondrasovaite"
           />
           <Caption>
-            <Typography inline variant="body2">
-              Dovile wearing FLOW ring
-            </Typography>
-            <Typography inline variant="subtitle2" className={classes.credit}>
+            <Typography variant="body1">Dovile wearing FLOW ring</Typography>
+            <Typography variant="subtitle2" className={classes.credit}>
               &copy;Agne Bekeraityte
             </Typography>
           </Caption>
@@ -79,14 +77,13 @@ const About = ({ pathname, collections, classes, user }) => (
           <Typography variant="h2" className={classes.authorName}>
             Dovile Kondrasovaite
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body1" gutterBottom>
             Born 1989, Dusetos, Lithuania
           </Typography>
         </AuthorNameText>
         <WrapLink>
           <ToArtistStatement href="#artist-statement">
             <Typography
-              inline
               variant="h3"
               className={`${classes.fontSize} ${classes.button}`}
             >
@@ -104,10 +101,10 @@ const About = ({ pathname, collections, classes, user }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body2">2012</Typography>
+                <Typography variant="body1">2012</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   BA in jewellery and smithery, Vilnius Academy of Arts,
                   Lithuania
                 </Typography>
@@ -115,10 +112,10 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2011</Typography>
+                <Typography variant="body1">2011</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   Study exchange at Escola Massana, Barcelona, Spain
                 </Typography>
               </Data>
@@ -132,12 +129,12 @@ const About = ({ pathname, collections, classes, user }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   2016 - current
                 </Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   Jewellery tutor,{' '}
                   <AnchorLink
                     href="http://www.thequarterworkshop.com/"
@@ -152,12 +149,12 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   2019 - 2020
                 </Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   Artist in Residence,{' '}
                   <AnchorLink
                     href="https://www.bcu.ac.uk/jewellery"
@@ -172,13 +169,13 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   2013 - 2015
                 </Typography>
               </Data>
               <Data>
                 {' '}
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   Jewellery tutor, Art Studio Ramios Bites, Vilnius, Lithuania
                 </Typography>
               </Data>
@@ -192,10 +189,10 @@ const About = ({ pathname, collections, classes, user }) => (
           <tbody>
             <Row>
               <Data>
-                <Typography variant="body2">2019</Typography>
+                <Typography variant="body1">2019</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   TEKME/FLOW, solo exhibition, Art jewellery gallery ARgenTum,
                   Vilnius, Lithuania
                 </Typography>
@@ -203,10 +200,10 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2019</Typography>
+                <Typography variant="body1">2019</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   TRIPLE PARADE Biennale for Contemporary Jewellery, How Design
                   Center, Shanghai, China
                 </Typography>
@@ -214,10 +211,10 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   MAKING IT NOW, group exhibition, Ruthin Craft Centre, Ruthin,
                   Wales, UK
                 </Typography>
@@ -225,10 +222,10 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   PRESENT, group exhibition, Studio Fusion Gallery, Oxo Tower
                   Wharf, London, UK
                 </Typography>
@@ -236,20 +233,20 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   LUMINATES, group exhibition, Mint Shop, London, UK
                 </Typography>
               </Data>
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   NATURE MORTE: Contemporary artists reinvigorate the Still-Life
                   tradition, group exhibition, Wroclaw National Museum, Wroclav,
                   Poland
@@ -258,10 +255,10 @@ const About = ({ pathname, collections, classes, user }) => (
             </Row>
             <Row>
               <Data>
-                <Typography variant="body2">2016</Typography>
+                <Typography variant="body1">2016</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   THE EYE / HOME, group exhibition, Magan gallery, London, UK
                 </Typography>
               </Data>
@@ -276,10 +273,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2020</Typography>
+                <Typography variant="body1">2020</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   MADE, Yorkshire Sculpture Park, UK
                 </Typography>
               </Data>
@@ -287,10 +284,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2019</Typography>
+                <Typography variant="body1">2019</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   CENTREPIECE, Birmingham, UK.
                 </Typography>
               </Data>
@@ -298,10 +295,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2019</Typography>
+                <Typography variant="body1">2019</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   JOYA Barcelona Art Jewellery & Objects, Barcelona, Spain.
                 </Typography>
               </Data>
@@ -309,10 +306,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2019</Typography>
+                <Typography variant="body1">2019</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
                   Vilnius, Lithuania
                 </Typography>
@@ -321,10 +318,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2018</Typography>
+                <Typography variant="body1">2018</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   DAZZLE LONDON, Oxo Tower Wharf, London, UK
                 </Typography>
               </Data>
@@ -332,10 +329,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2018</Typography>
+                <Typography variant="body1">2018</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   MADE IN LEAMINGTON, Town Hall, Entertainments Venue,
                   Leamington Spa, UK
                 </Typography>
@@ -344,10 +341,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2018</Typography>
+                <Typography variant="body1">2018</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   DAZZLE @ DOVECOT, Edinburgh, UK
                 </Typography>
               </Data>
@@ -355,10 +352,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2018</Typography>
+                <Typography variant="body1">2018</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
                 </Typography>
               </Data>
@@ -366,10 +363,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2018</Typography>
+                <Typography variant="body1">2018</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   AMBER TRIP, XV International Baltic Jewellery show, Litexpo,
                   Vilnius, Lithuania
                 </Typography>
@@ -378,10 +375,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
                 </Typography>
               </Data>
@@ -389,10 +386,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   MADE BY HAND CARDIFF, contemporary craft fair, Cardiff, UK
                 </Typography>
               </Data>
@@ -400,10 +397,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   DAZZLE LONDON, group exhibition, Oxo Tower Wharf, London, UK
                 </Typography>
               </Data>
@@ -411,10 +408,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   NEW DESIGNERS, ONE YEAR ON, Business Design Centre, London, UK
                 </Typography>
               </Data>
@@ -422,10 +419,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   THE CONTEMPORARY CRAFT FESTIVAL, Bovey Tracey, Devon, UK
                 </Typography>
               </Data>
@@ -433,10 +430,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   AMBER TRIP, Art Jewellery Competition show & jewellery show
                   Vilnius, Lithuania
                 </Typography>
@@ -445,10 +442,10 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 {' '}
-                <Typography variant="body2">2017</Typography>
+                <Typography variant="body1">2017</Typography>
               </Data>
               <Data>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body1" gutterBottom>
                   THE EYE, Contemporary Jewellery Symposium, Telsiai, Lithuania
                 </Typography>
               </Data>
@@ -469,7 +466,7 @@ const About = ({ pathname, collections, classes, user }) => (
           <Typography variant="h4" className={classes.h4} paragraph>
             THE DIALOGUE BETWEEN PAST, PRESENT AND FUTURE
           </Typography>
-          <Typography variant="body2" paragraph>
+          <Typography variant="body1" paragraph>
             The central concept of my jewellery is time and natural ageing
             processes. This is shown through the use of hand-carved amber and
             wood, their interplay, giving a sense of the growth to the wearer.
@@ -481,7 +478,7 @@ const About = ({ pathname, collections, classes, user }) => (
             starting to bloom or even a coming wave. It could take seconds or
             centuries.
           </Typography>
-          <Typography variant="body2" paragraph>
+          <Typography variant="body1" paragraph>
             The materials I have chosen to work with have gone through long
             ageing processes until they have reached my hands as natural raw
             Baltic amber and bog oak and other naturally black hardwoods. Amber
@@ -491,7 +488,7 @@ const About = ({ pathname, collections, classes, user }) => (
             within my own work with a hope to modify the image of amber and to
             use it in a more considered and contemporary way.
           </Typography>
-          <Typography variant="body2" paragraph>
+          <Typography variant="body1" paragraph>
             I bring wood and amber together into sculptural shapes. The visual
             confrontation of hard black wood and fragile amber and dynamic
             volume creates intriguing dialogue. Every design in shaping comes
@@ -500,7 +497,7 @@ const About = ({ pathname, collections, classes, user }) => (
             Sometimes it goes into a very dramatic structure sometimes turn into
             a still and light design.
           </Typography>
-          <Typography variant="body2" paragraph>
+          <Typography variant="body1" paragraph>
             Over the time and with wear the objects will change, the surface may
             rub off, may crack and polish naturally. It is sustainable
             jewellery, which after wearing could be dropped into the bog or the
@@ -513,7 +510,7 @@ const About = ({ pathname, collections, classes, user }) => (
             alt="A man wearing FLOW silver brooch"
           />
           <Caption>
-            <Typography inline variant="body2">
+            <Typography variant="body1">
               A man wearing FLOW silver brooch
             </Typography>
             <Typography

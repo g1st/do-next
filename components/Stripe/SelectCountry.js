@@ -1,26 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Select, InputLabel, FormControl } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import { countShippingCost } from '../../store/actions';
 import Error from '../Error/Error';
 
-const styles = {
-  inputRoot: {
-    fontSize: '14px',
-  },
-  labelRoot: {
-    fontSize: '14px',
-  },
-};
-
 const SelectCountry = ({
   error,
   helperText,
   handleChange,
-  classes,
   countShippingCost: countShippingCostRedux,
 }) => {
   const [country, setCountry] = useState('GB');
@@ -34,10 +23,7 @@ const SelectCountry = ({
 
   return (
     <FormControl error={error} style={{ display: 'flex', marginTop: '5px' }}>
-      <InputLabel
-        htmlFor="country-native"
-        classes={{ root: classes.labelRoot }}
-      >
+      <InputLabel htmlFor="country-native" color="secondary">
         Country
       </InputLabel>
       <Select
@@ -47,9 +33,6 @@ const SelectCountry = ({
         inputProps={{
           name: 'country',
           id: 'country-native',
-          classes: {
-            root: classes.inputRoot,
-          },
         }}
       >
         <option value="AF">Afghanistan</option>
@@ -311,7 +294,6 @@ SelectCountry.propTypes = {
   error: PropTypes.bool,
   helperText: PropTypes.node,
   handleChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   countShippingCost: PropTypes.func.isRequired,
 };
 
@@ -319,7 +301,4 @@ const mapDispatchToProps = (dispatch) => ({
   countShippingCost: (country) => dispatch(countShippingCost(country)),
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(withStyles(styles)(SelectCountry));
+export default connect(null, mapDispatchToProps)(SelectCountry);

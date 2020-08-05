@@ -21,22 +21,25 @@ const styles = {
       backgroundColor: '#fafafa',
     },
   },
+  tableCell: {
+    fontSize: '16px',
+  },
 };
 
 const SizesTable = ({ classes }) => (
-  <Table className={classes.root}>
+  <Table stickyHeader className={classes.root}>
     <TableHead>
       <TableRow>
-        <TableCell padding="dense" align="center">
+        <TableCell align="center" className={classes.tableCell}>
           Diameter (mm)
         </TableCell>
-        <TableCell padding="dense" align="center">
+        <TableCell align="center" className={classes.tableCell}>
           UK
         </TableCell>
-        <TableCell padding="dense" align="center">
+        <TableCell align="center" className={classes.tableCell}>
           EU
         </TableCell>
-        <TableCell padding="dense" align="center">
+        <TableCell align="center" className={classes.tableCell}>
           US
         </TableCell>
       </TableRow>
@@ -44,16 +47,16 @@ const SizesTable = ({ classes }) => (
     <TableBody>
       {dimensions.map((dimension, index) => (
         <TableRow key={index} className={classes.row}>
-          <TableCell align="center" padding="dense">
+          <TableCell align="center" className={classes.tableCell}>
             {dimension}
           </TableCell>
-          <TableCell align="center" padding="dense">
+          <TableCell align="center" className={classes.tableCell}>
             {ukSizes[index]}
           </TableCell>
-          <TableCell align="center" padding="dense">
+          <TableCell align="center" className={classes.tableCell}>
             {euSizes[index]}
           </TableCell>
-          <TableCell align="center" padding="dense">
+          <TableCell align="center" className={classes.tableCell}>
             {usSizes[index]}
           </TableCell>
         </TableRow>

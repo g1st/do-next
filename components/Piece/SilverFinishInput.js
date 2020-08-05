@@ -6,15 +6,13 @@ import { withStyles } from '@material-ui/core/styles';
 import Error from '../Error/Error';
 
 const styles = {
-  inputRoot: {
-    fontSize: '14px',
-  },
   labelRoot: {
-    fontSize: '14px',
+    fontSize: '16px',
     color: 'rgba(0, 0, 0, 0.87)',
   },
   formControl: {
     width: '100%',
+    marginTop: '1rem',
   },
 };
 
@@ -37,6 +35,7 @@ const SilverFinishInput = ({ error, errorText, handleChange, classes }) => {
     <FormControl
       error={error && silverFinishError}
       classes={{ root: classes.formControl }}
+      color="secondary"
     >
       <InputLabel
         htmlFor="silverFinish-native"
@@ -51,9 +50,6 @@ const SilverFinishInput = ({ error, errorText, handleChange, classes }) => {
         inputProps={{
           name: 'silverFinish',
           id: 'silverFinish-native',
-          classes: {
-            root: classes.inputRoot,
-          },
         }}
       >
         <option value="" aria-label="default blank" />

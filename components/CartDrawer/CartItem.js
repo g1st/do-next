@@ -53,7 +53,7 @@ const CartItem = ({
             </a>
           </Link>
           <ItemInfo>
-            <Typography variant="body2">
+            <Typography variant="body1">
               <Link
                 href={`/piece?slug=${item.slug}`}
                 as={`/piece/${item.slug}`}
@@ -73,7 +73,7 @@ const CartItem = ({
               </Link>
               , £{item.price}
             </Typography>
-            <Typography variant="body2" style={{ fontWeight: 300 }}>
+            <Typography variant="body1" style={{ fontWeight: 300 }}>
               {item.ringSize}
               {item.silverFinishStyle && `, ${item.silverFinishStyle}`}
             </Typography>

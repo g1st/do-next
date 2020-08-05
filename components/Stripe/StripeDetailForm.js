@@ -8,7 +8,7 @@ import {
   CardExpiryElement,
   CardCvcElement,
   CardNumberElement,
-} from 'react-stripe-elements';
+} from '@stripe/react-stripe-js';
 
 import StripeElementWrapper from './StripeElementWrapper';
 import CustomPostalCode from './CustomPostalCode';

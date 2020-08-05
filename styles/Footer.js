@@ -17,21 +17,12 @@ export const BrandLogo = styled.div`
   flex-direction: column;
   justify-content: center;
   position: static;
-
-  @media (min-width: 960px) {
-    position: absolute;
-    top: 124px;
-    left: 60px;
-  }
 `;
 BrandLogo.displayName = 'BrandLogo';
 
 export const Logo = styled.img`
   width: 80px;
   margin: 40px auto 0 auto;
-  @media (min-width: 960px) {
-    margin-top: 0;
-  }
 `;
 Logo.displayName = 'Logo';
 
@@ -46,24 +37,26 @@ export const FlexContainer = styled.div`
 `;
 FlexContainer.displayName = 'FlexContainer';
 
-export const Facebook = styled.img``;
+export const Facebook = styled.img`
+  padding: 1.2em;
+`;
 Facebook.displayName = 'Facebook';
 
-export const Instagram = styled.img``;
+export const Instagram = styled.img`
+  padding: 1.2em;
+`;
 Instagram.displayName = 'Instagram';
 
-export const Pinterest = styled.img``;
+export const Pinterest = styled.img`
+  padding: 1.2em;
+`;
 Pinterest.displayName = 'Pinterest';
 
 export const Social = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100px;
-  padding-bottom: 4px;
+  width: 260px;
   margin: 0 auto;
-  @media (min-width: 960px) {
-    padding-bottom: 15px;
-  }
 `;
 Social.displayName = 'Social';
 
@@ -76,7 +69,7 @@ export const FooterLinks = styled.ul`
 
   @media (min-width: 960px) {
     padding: 0;
-    margin-bottom: 16px;
+    margin-top: 40px;
   }
 `;
 FooterLinks.displayName = 'FooterLinks';
@@ -96,6 +89,7 @@ export const FooterLink = styled.li`
     display: inline-block;
     margin-bottom: 16px;
     margin-right: 20px;
+    /* padding: 18px; */
     &:last-child {
       margin-right: 0;
     }

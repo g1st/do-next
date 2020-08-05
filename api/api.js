@@ -567,6 +567,7 @@ module.exports = (db, upload) => {
           payment_method: req.body.payment_method_id,
           confirmation_method: 'manual',
           confirm: true,
+          metadata: { integration_check: 'accept_a_payment' },
         });
       } else if (req.body.payment_intent_id) {
         intent = await stripe.paymentIntents.confirm(

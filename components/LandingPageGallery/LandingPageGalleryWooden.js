@@ -43,7 +43,7 @@ const styles = (theme) => ({
     position: 'absolute',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing(4),
     outline: 'none',
     top: '50%',
     left: '50%',
@@ -107,7 +107,7 @@ const LandingPageGallery = ({ classes }) => {
             alt="Presentational Dovile Jewellery art piece"
           />
           <Figcaption>
-            <Typography variant="body2" id="jewellery-piece-description">
+            <Typography variant="body1" id="jewellery-piece-description">
               {figcaption}
             </Typography>
           </Figcaption>

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Typography, Paper, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { CardNumberElement } from '@stripe/react-stripe-js';
 
 import { clearCart, clearBuyItNow } from '../../store/actions';
 import CartDrawerContent from '../CartDrawer/CartDrawerContent';
@@ -30,13 +31,13 @@ import {
 const styles = (theme) => ({
   paper: {
     backgroundColor: '#fafafa',
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
     },
   },
   marginTop: {
@@ -53,6 +54,7 @@ class StripeForm extends Component {
     clearCart: PropTypes.func,
     shippingCost: PropTypes.number,
     stripe: PropTypes.object,
+    elements: PropTypes.object,
     promo: PropTypes.object,
   };
 
@@ -270,13 +272,15 @@ class StripeForm extends Component {
     });
 
     const { stripe_errors } = this.state;
-    const { stripe } = this.props;
+    const { stripe, elements } = this.props;
 
     if (!this.isStripesInputsOk() || stripe_errors) return;
     this.setState(() => ({ processing: true }));
 
-    if (stripe) {
-      attemptPayment({ ...this.state, ...this.props })
+    if (stripe && elements) {
+      const cardElement = elements.getElement(CardNumberElement);
+
+      attemptPayment({ ...this.state, ...this.props, cardElement })
         .then((res) => {
           this.handleServerResponse(res);
         })
@@ -342,7 +346,7 @@ class StripeForm extends Component {
                     .filter((error) => error.param === '_error')
                     .map((error, i) => <Error key={i}>{error.msg}</Error>)
                 : null}
-              <Grid container spacing={16}>
+              <Grid container spacing={4}>
                 <CustomerOrderDetailForm
                   handleChange={this.handleChange}
                   isNotValid={this.isNotValid}
@@ -403,14 +407,14 @@ class StripeForm extends Component {
     }
     if (orderComplete) {
       return (
-        <Typography variant="body2" className={classes.marginTop}>
+        <Typography variant="body1" className={classes.marginTop}>
           Your order was successful. Confirmation has been sent to your e-mail.
         </Typography>
       );
     }
     return (
       <div>
-        <Typography variant="body2">Your Cart is empty.</Typography>
+        <Typography variant="body1">Your Cart is empty.</Typography>
       </div>
     );
   }

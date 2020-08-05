@@ -263,7 +263,7 @@ class Gallery extends React.Component {
 
     if (data.length < 1) {
       return (
-        <Typography variant="body2" align="center">
+        <Typography variant="body1" align="center">
           Gallery empty.
         </Typography>
       );
@@ -296,7 +296,7 @@ class Gallery extends React.Component {
       loadMoreButton = (
         <div className={classes.buttonContainer}>
           <Button
-            size="medium"
+            size="large"
             variant="contained"
             color="secondary"
             onClick={() => this.loadMore(showCollection)}
@@ -340,7 +340,7 @@ class Gallery extends React.Component {
               Save gallery item's position
             </Button>
           )}
-          <Grid container spacing={32} className={classes.gridWrapper}>
+          <Grid container spacing={10} className={classes.gridWrapper}>
             {filtered.map((item) => (
               <Grid
                 item
@@ -358,7 +358,7 @@ class Gallery extends React.Component {
                     >
                       {item.available ? (
                         <Typography
-                          variant="body2"
+                          variant="body1"
                           align="center"
                           style={{ color: 'green' }}
                         >
@@ -369,7 +369,7 @@ class Gallery extends React.Component {
                         </Typography>
                       ) : (
                         <Typography
-                          variant="body2"
+                          variant="body1"
                           align="center"
                           style={{ color: 'red' }}
                         >

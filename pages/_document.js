@@ -2,17 +2,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import Document, { Head, Main, NextScript } from 'next/document';
-import flush from 'styled-jsx/server';
 import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import { GA_TRACKING_ID } from '../lib/gtag';
+import theme from '../src/theme';
 
 class MyDocument extends Document {
   render() {
-    const { pageContext } = this.props;
-
     return (
       <html lang="en" dir="ltr">
         <Head>
@@ -35,23 +33,10 @@ class MyDocument extends Document {
           `,
             }}
           />
-          {/* Use minimum-scale=1 to enable GPU rasterization */}
-          <meta
-            name="viewport"
-            content={
-              'user-scalable=0, initial-scale=1, ' +
-              'minimum-scale=1, width=device-width, height=device-height'
-            }
-          />
           {/* PWA primary color */}
-          <meta
-            name="theme-color"
-            content={
-              pageContext ? pageContext.theme.palette.primary.main : null
-            }
-          />
+          <meta name="theme-color" content={theme.palette.primary.main} />
           <link
-            href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto:wght@300;400;500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&family=Roboto:wght@300;400;500&display=swap"
             rel="stylesheet"
           />
           <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -65,74 +50,58 @@ class MyDocument extends Document {
   }
 }
 
+// `getInitialProps` belongs to `_document` (instead of `_app`),
+// it's compatible with server-side generation (SSG).
 MyDocument.getInitialProps = async (ctx) => {
   // Resolution order
   //
   // On the server:
-  // 1. page.getInitialProps
-  // 2. document.getInitialProps
-  // 3. page.render
-  // 4. document.render
+  // 1. app.getInitialProps
+  // 2. page.getInitialProps
+  // 3. document.getInitialProps
+  // 4. app.render
+  // 5. page.render
+  // 6. document.render
   //
   // On the server with error:
-  // 2. document.getInitialProps
+  // 1. document.getInitialProps
+  // 2. app.render
   // 3. page.render
   // 4. document.render
   //
   // On the client
-  // 1. page.getInitialProps
-  // 3. page.render
-  // Get the context of the page to collected side effects.
-  let pageContext;
-  const page = ctx.renderPage((Component) => {
-    const WrappedComponent = (props) => {
-      // eslint-disable-next-line react/destructuring-assignment
-      pageContext = props.pageContext;
-      return <Component {...props} />;
-    };
+  // 1. app.getInitialProps
+  // 2. page.getInitialProps
+  // 3. app.render
+  // 4. page.render
 
-    WrappedComponent.propTypes = {
-      pageContext: PropTypes.object.isRequired,
-    };
-
-    return WrappedComponent;
-  });
-
-  let css;
-  // It might be undefined, e.g. after an error.
-  if (pageContext) {
-    css = pageContext.sheetsRegistry.toString();
-  }
-
-  const sheet = new ServerStyleSheet();
+  // Render app and page and get the context of the page with collected side effects.
+  const materialSheets = new ServerStyleSheets();
+  const styledComponentsSheet = new ServerStyleSheet();
   const originalRenderPage = ctx.renderPage;
 
   try {
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+        enhanceApp: (App) => (props) =>
+          styledComponentsSheet.collectStyles(
+            materialSheets.collect(<App {...props} />)
+          ),
       });
 
     const initialProps = await Document.getInitialProps(ctx);
+
     return {
       ...initialProps,
-      ...page,
-      pageContext,
-      styles: (
-        <>
-          <style
-            id="jss-server-side"
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: css }}
-          />
-          {initialProps.styles}
-          {sheet.getStyleElement()}
-          {flush() || null}
-        </>
-      ),
+      // Styles fragment is rendered after the app and page rendering finish.
+      styles: [
+        ...React.Children.toArray(initialProps.styles),
+        materialSheets.getStyleElement(),
+        styledComponentsSheet.getStyleElement(),
+      ],
     };
   } finally {
-    sheet.seal();
+    styledComponentsSheet.seal();
   }
 };
 
