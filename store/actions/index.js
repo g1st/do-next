@@ -21,9 +21,14 @@ export const increaseLoadedItems = (collection) => ({
   collection,
 });
 
-export const addInstagramData = (data, nextPage) => ({
+export const addInstagramData = (data, currentlyVisible) => ({
   type: actionTypes.ADD_INSTAGRAM_DATA,
-  payload: { data, nextPage },
+  payload: { data, currentlyVisible },
+});
+
+export const updateInstagramVisibleItems = (currentlyVisible) => ({
+  type: actionTypes.UPDATE_INSTAGRAM_VISIBLE_ITEMS,
+  payload: { currentlyVisible },
 });
 
 // gets token from the api and stores it in the redux store and in cookie
