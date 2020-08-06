@@ -12,7 +12,12 @@ import {
 } from '@material-ui/core';
 
 import { StyledAnchorLink } from '../../styles/Shared';
-import { addInstagramData } from '../../store/actions';
+import {
+  addInstagramData,
+  updateInstagramVisibleItems,
+} from '../../store/actions';
+import ImageWithLoading from '../Gallery/ImageWithLoading';
+import { INSTAGRAM_ITEMS_PER_PAGE } from '../../util/globals';
 
 const styles = {
   gridWrapper: {
@@ -22,10 +27,6 @@ const styles = {
   gridItem: {
     display: 'flex',
     justifyContent: 'center',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
   },
   progress: {
     margin: 'auto',
@@ -70,6 +71,7 @@ class InstagramGallery extends React.Component {
     classes: PropTypes.object.isRequired,
     reduxInstagramData: PropTypes.object.isRequired,
     addInstagramData: PropTypes.func.isRequired,
+    updateInstagramVisibleItems: PropTypes.func.isRequired,
   };
 
   state = { loading: false };
@@ -79,17 +81,20 @@ class InstagramGallery extends React.Component {
       reduxInstagramData: { data },
     } = this.props;
     if (data.length < 1) {
-      const url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${process.env.NEXT_PUBLIC_INSTAGRAM_TOKEN}&count=6`;
-      this.fetchData(url);
+      const url =
+        'https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink&access_token=';
+      const token = process.env.NEXT_PUBLIC_INSTAGRAM_TOKEN;
+      const fetchUrl = url + token;
+      this.fetchData(fetchUrl);
     }
   }
 
   loadMore = () => {
     const {
-      reduxInstagramData: { nextPage },
+      updateInstagramVisibleItems: reduxUpdateInstagramVisibleItems,
     } = this.props;
 
-    this.fetchData(nextPage);
+    reduxUpdateInstagramVisibleItems(INSTAGRAM_ITEMS_PER_PAGE);
   };
 
   fetchData = (url) => {
@@ -100,19 +105,13 @@ class InstagramGallery extends React.Component {
       .then((res) => {
         const { data } = res.data;
 
-        let {
-          pagination: { next_url: nextUrl },
-        } = res.data;
-
         const mappedData = data.map((post) => ({
-          image: post.images.standard_resolution.url,
-          link: post.link,
-          caption: post.caption.text,
+          image: post.media_url,
+          link: post.permalink,
+          caption: post.caption,
         }));
 
-        if (!nextUrl) nextUrl = null;
-
-        reduxAddInstagramData(mappedData, nextUrl);
+        reduxAddInstagramData(mappedData, INSTAGRAM_ITEMS_PER_PAGE);
 
         this.setState({
           loading: false,
@@ -128,7 +127,7 @@ class InstagramGallery extends React.Component {
     const { loading } = this.state;
     const {
       classes,
-      reduxInstagramData: { data, nextPage },
+      reduxInstagramData: { data, currentlyVisible },
     } = this.props;
     return (
       <div>
@@ -166,29 +165,31 @@ class InstagramGallery extends React.Component {
               </Typography>
             </div>
             <Grid container spacing={10} className={classes.gridWrapper}>
-              {data.map(({ image, link, caption }) => (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  key={image}
-                  className={classes.gridItem}
-                >
-                  <ButtonBase
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    focusRipple
+              {data
+                .slice(0, currentlyVisible)
+                .map(({ image, link, caption }) => (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    key={image}
+                    className={classes.gridItem}
                   >
-                    <img
-                      src={image}
-                      alt={caption || 'Instagram picture'}
-                      className={classes.image}
-                    />
-                  </ButtonBase>
-                </Grid>
-              ))}
+                    <ButtonBase
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      focusRipple
+                    >
+                      <ImageWithLoading
+                        src={image}
+                        srcSet={`${image} 1x, ${image} 2x`}
+                        alt={caption || 'Instagram picture'}
+                      />
+                    </ButtonBase>
+                  </Grid>
+                ))}
             </Grid>
             <div className={classes.buttonContainer}>
               {loading && (
@@ -198,7 +199,7 @@ class InstagramGallery extends React.Component {
                   className={classes.progress}
                 />
               )}
-              {!loading && nextPage && (
+              {!loading && currentlyVisible < 24 && (
                 <Button
                   size="large"
                   variant="contained"
@@ -223,6 +224,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addInstagramData: (data, nextPage) =>
     dispatch(addInstagramData(data, nextPage)),
+  updateInstagramVisibleItems: (items) =>
+    dispatch(updateInstagramVisibleItems(items)),
 });
 
 export default connect(

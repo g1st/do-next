@@ -14,6 +14,7 @@ import {
   INCREASE_LOADED_ITEMS,
   COUNT_SHIPPING_COST,
   ADD_INSTAGRAM_DATA,
+  UPDATE_INSTAGRAM_VISIBLE_ITEMS,
   ADD_DISCOUNT,
   FILTER_OPTION,
   CLEAR_FILTER_OPTION,
@@ -25,7 +26,7 @@ export const initialState = {
   shippingCost: postageForCountry('GB'),
   authenticate: { token: null, error: false },
   loadMore: { all: ITEMS_PER_PAGE },
-  instagramData: { data: [], nextPage: null },
+  instagramData: { data: [], currentlyVisible: 0 },
   promo: {},
   filter: {},
 };
@@ -90,8 +91,15 @@ const loadMore = (state = initialState.loadMore, action) => {
 const instagramData = (state = initialState.instagramData, action) => {
   if (ADD_INSTAGRAM_DATA === action.type) {
     return {
-      data: state.data.concat(action.payload.data),
-      nextPage: action.payload.nextPage,
+      data: action.payload.data,
+      currentlyVisible: action.payload.currentlyVisible,
+    };
+  }
+  if (UPDATE_INSTAGRAM_VISIBLE_ITEMS === action.type) {
+    return {
+      ...state,
+      currentlyVisible:
+        state.currentlyVisible + action.payload.currentlyVisible,
     };
   }
   return state;
