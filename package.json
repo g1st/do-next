@@ -32,7 +32,7 @@
     "@material-ui/icons": "^4.9.1",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.8.0",
-    "aws-sdk": "^2.726.0",
+    "aws-sdk": "^2.727.1",
     "axios": "^0.19.2",
     "babel-plugin-import": "^1.13.0",
     "body-parser": "^1.19.0",
@@ -65,7 +65,7 @@
     "sharp": "^0.25.4",
     "sitemap": "^6.2.0",
     "slugify": "^1.4.5",
-    "stripe": "^8.81.0",
+    "stripe": "^8.83.0",
     "styled-components": "^5.1.1",
     "zlib": "^1.0.5"
   },
