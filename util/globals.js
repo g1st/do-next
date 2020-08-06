@@ -239,3 +239,4 @@ exports.postageForCountry = (country) => {
 // squared shape for better gallery experience
 exports.imageSizes = { big: 900, medium: 300, thumb: 92 };
 exports.ITEMS_PER_PAGE = 30;
+exports.INSTAGRAM_ITEMS_PER_PAGE = 6;
