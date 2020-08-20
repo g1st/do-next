@@ -217,7 +217,7 @@ class Piece extends React.Component {
         originalAlt: description,
         thumbnailAlt: name,
         srcSet: `${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${image.medium} 300w, ${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${image.big} 900w`,
-        sizes: '(max-width: 800px) 80vw, (max-width: 960px) 65vw, 45vw',
+        sizes: '82vw',
       };
       if (image.medium === frontImage) {
         // add in front of array to be first in gallery
@@ -306,6 +306,7 @@ class Piece extends React.Component {
         {pathLine}
         <Wrapper>
           <Images>
+            {console.log(gallery)}
             <ImageGallery
               items={gallery}
               lazyLoad

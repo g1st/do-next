@@ -37,7 +37,6 @@ const ImageWithLoading = ({ src, srcSet, alt }) => {
         ref={image}
         src={src}
         srcSet={srcSet}
-        sizes="100vw"
         alt={alt}
         loaded={loaded}
         onLoad={() => handleLoaded()}
