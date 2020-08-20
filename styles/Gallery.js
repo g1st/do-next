@@ -40,6 +40,7 @@ const loading = keyframes`
 `;
 
 export const Skeleton = styled.div`
+  display: inline-block;
   height: 300px;
   width: 300px;
   background-color: #f4f4f4;
