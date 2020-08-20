@@ -113,7 +113,7 @@ class Newsletter extends React.Component {
       <WidthContainer>
         <Wrapper>
           <Typography
-            variant="h5"
+            variant="h4"
             align="center"
             color="primary"
             classes={{ root: classes.newsletter }}

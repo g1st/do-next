@@ -19,8 +19,6 @@ const UpcomingEvent = () => {
         <Image
           src={Banner}
           alt="Silver Flow collection banner"
-          sizes=""
-          srcSet=""
           tabIndex="0"
           aria-label="View Silver Flow collection"
           onKeyDown={(e) =>

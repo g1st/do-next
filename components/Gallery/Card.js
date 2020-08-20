@@ -19,6 +19,7 @@ const styles = {
     fontSize: '14px',
   },
   name: {
+    marginTop: '0.6rem',
     fontFamily: 'Raleway, Roboto, Helvetica, Arial, sans-serif',
   },
 };
@@ -35,7 +36,7 @@ const Card = ({ item, classes }) => (
         }/photos/${mediumToHighResolutionUri(item.frontImage)} 2x`}
         alt={item.description}
       />
-      <Typography variant="body1" className={classes.name}>
+      <Typography variant="body1" component="span" className={classes.name}>
         {item.name}
       </Typography>
       <Typography component="span" className={classes.light}>

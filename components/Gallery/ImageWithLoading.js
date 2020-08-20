@@ -31,7 +31,7 @@ const ImageWithLoading = ({ src, srcSet, alt }) => {
   }, []);
 
   return (
-    <div style={{ marginBottom: '0.6rem' }}>
+    <>
       {!loaded ? <Skeleton /> : null}
       <Image
         ref={image}
@@ -42,7 +42,7 @@ const ImageWithLoading = ({ src, srcSet, alt }) => {
         onLoad={() => handleLoaded()}
         onError={(e) => handleError(e.target)}
       />
-    </div>
+    </>
   );
 };
 

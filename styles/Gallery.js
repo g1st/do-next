@@ -24,7 +24,7 @@ export const ButtonIndicator = styled.div`
 ButtonIndicator.displayName = 'ButtonIndicator';
 
 export const Image = styled.img`
-  display: ${({ loaded }) => (loaded ? 'block' : 'none')};
+  display: ${({ loaded }) => (loaded ? 'inline-block' : 'none')};
   width: 100%;
   max-width: 300px;
 `;
