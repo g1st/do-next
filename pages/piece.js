@@ -306,7 +306,6 @@ class Piece extends React.Component {
         {pathLine}
         <Wrapper>
           <Images>
-            {console.log(gallery)}
             <ImageGallery
               items={gallery}
               lazyLoad
