@@ -18,7 +18,7 @@ export const Span = styled.span`
 `;
 Span.displayName = 'Span';
 
-export const Icon = styled.div`
+export const Icon = styled.span`
   display: flex;
   align-self: center;
 `;
