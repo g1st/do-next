@@ -66,7 +66,7 @@ const Footer = (props) => {
             <Facebook src={FacebookPNG} alt="Facebook logo" />
           </AnchorLink>
           <AnchorLink
-            href="https://www.instagram.com/dovilejewellery/"
+            href="https://www.instagram.com/dovilekojewellery/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Go to Dovile's instagram page"

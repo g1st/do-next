@@ -169,7 +169,7 @@ module.exports = function emailForClient(
       <mj-column>
         <mj-text align="center">
           <a href="https://www.dovilejewellery.com/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none;">dovilejewellery</a>
-          <a href="https://www.instagram.com/dovilejewellery/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none; padding: 0 20px">instagram</a>
+          <a href="https://www.instagram.com/dovilekojewellery/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none; padding: 0 20px">instagram</a>
           <a href="https://www.facebook.com/artdovile/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none;">facebook</a>
         </mj-text>
       </mj-column>

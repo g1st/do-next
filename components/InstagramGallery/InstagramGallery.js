@@ -156,11 +156,11 @@ class InstagramGallery extends React.Component {
               >
                 Follow{' '}
                 <StyledAnchorLink
-                  href="https://www.instagram.com/dovilejewellery/"
+                  href="https://www.instagram.com/dovilekojewellery/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  @dovilejewellery
+                  @dovilekojewellery
                 </StyledAnchorLink>
               </Typography>
             </div>
