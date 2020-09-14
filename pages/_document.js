@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import React from 'react';
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
@@ -12,7 +12,7 @@ import theme from '../src/theme';
 class MyDocument extends Document {
   render() {
     return (
-      <html lang="en" dir="ltr">
+      <Html lang="en" dir="ltr">
         <Head>
           <link rel="preconnect" href="https://www.googletagmanager.com" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,7 +45,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
