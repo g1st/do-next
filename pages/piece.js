@@ -340,7 +340,9 @@ class Piece extends React.Component {
                 )}
                 {size && (
                   <li>
-                    <Typography variant="body1">Dimensions: {size} </Typography>
+                    <Typography variant="body1" display="inline">
+                      Dimensions: {size}{' '}
+                    </Typography>
                     {category === 'ring' && !madeToOrder ? (
                       <SizesInfo forDimensions />
                     ) : null}
