@@ -33,11 +33,7 @@ class CartDrawer extends Component {
     const { drawerCart, toggleDrawer } = this.context;
 
     const sideCart = (
-      // buyItNow always false because checkouting from cart component
-      <CartDrawerContent
-        closeDrawer={toggleDrawer('drawerCart', false)}
-        buyItNow={false}
-      />
+      <CartDrawerContent closeDrawer={toggleDrawer('drawerCart', false)} />
     );
 
     return (

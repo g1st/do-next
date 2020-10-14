@@ -6,19 +6,16 @@ import { connect } from 'react-redux';
 import { Typography, IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import { removeFromCart, clearBuyItNow } from '../../store/actions';
+import { removeFromCart } from '../../store/actions';
 import { CartItems, Thumb, ItemInfo } from '../../styles/CartDrawer';
 import { StyledAnchorLink } from '../../styles/Shared';
 
 const CartItem = ({
-  buyItNow,
   data,
   closeDrawer,
-  clearBuyItNow: clearBytItNowRedux,
   removeFromCart: removeFromCartRedux,
 }) => {
-  const handleRemove = (id) =>
-    buyItNow ? clearBytItNowRedux() : removeFromCartRedux(id);
+  const handleRemove = (id) => removeFromCartRedux(id);
 
   const handleKeyDown = (href, as) => ({ key }) => {
     if (key === 'Enter') {
@@ -96,20 +93,16 @@ const CartItem = ({
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
-  buyItNowItem: state.buyItNow,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   removeFromCart: (id) => dispatch(removeFromCart(id)),
-  clearBuyItNow: () => dispatch(clearBuyItNow()),
 });
 
 CartItem.propTypes = {
   data: PropTypes.array,
-  buyItNow: PropTypes.bool,
   closeDrawer: PropTypes.func,
   removeFromCart: PropTypes.func,
-  clearBuyItNow: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

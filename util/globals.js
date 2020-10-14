@@ -1,6 +1,3 @@
-const shippingPriceGB = 0;
-const shippingPriceEU = 9;
-const shippingPriceWorldwide = 16;
 const europeCountries = [
   'AL',
   'AD',
@@ -459,23 +456,11 @@ const supportedCountries = [
 ];
 
 exports.supportedCountries = supportedCountries;
-exports.shippingPriceGB = shippingPriceGB;
-exports.shippingPriceEU = shippingPriceEU;
-exports.shippingPriceWorldwide = shippingPriceWorldwide;
 exports.europeCountries = europeCountries;
 exports.euSizes = euSizes;
 exports.ukSizes = ukSizes;
 exports.usSizes = usSizes;
 exports.dimensions = dimensions;
-exports.postageForCountry = (country) => {
-  if (country === 'GB') {
-    return shippingPriceGB;
-  }
-  if (europeCountries.includes(country)) {
-    return shippingPriceEU;
-  }
-  return shippingPriceWorldwide;
-};
 
 // squared shape for better gallery experience
 exports.imageSizes = { big: 900, medium: 300, thumb: 92 };

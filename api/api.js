@@ -1,18 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const slugify = require('slugify');
-const { check, oneOf, validationResult } = require('express-validator');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const mongoose = require('mongoose');
+const { check, validationResult } = require('express-validator');
 const axios = require('axios');
 
 const Work = require('./models/works');
-const Order = require('./models/orders');
-const Client = require('./models/clients');
 const Subscriber = require('./models/subscribers');
 const Counter = require('./models/counters');
 const sendMail = require('./mail');
-const sendPurchaseEmail = require('./sendPurchaseEmail');
 const {
   extractFileNames,
   extractFileNamesFromGroup,
@@ -20,11 +15,8 @@ const {
   getNamesOfAllSizes,
 } = require('../util/helpers');
 const S3 = require('../util/S3');
-const { filterCollections, amountInCents } = require('../util/helpers');
-const { postageForCountry } = require('../util/globals');
-const { generatePaymentResponse } = require('../util/helpers');
+const { filterCollections } = require('../util/helpers');
 const emailForContactForm = require('./EmailTemplates/emailForContactForm');
-const { promoCodes, findDiscountMultiplier } = require('../util/promoCodes');
 const createCheckoutSession = require('./routes/createCheckoutSession');
 const checkoutSession = require('./routes/checkoutSession');
 const webhook = require('./routes/webhook');
@@ -483,17 +475,6 @@ module.exports = (db, upload) => {
         email,
         err: error,
       };
-    })
-  );
-
-  router.get(
-    '/promo',
-    wrapAsync(async function (req, res) {
-      const { code } = req.query;
-      if (promoCodes.some((x) => x.code === code)) {
-        return { validCode: true };
-      }
-      return { validCode: false };
     })
   );
 

@@ -9,25 +9,13 @@ exports.cartHelper = {
     }, 0);
   },
 
-  totalPrice(cart, shippingCost = 0) {
-    const basePrice = cart.reduce((acc, item) => {
+  totalPrice(cart) {
+    const totalPrice = cart.reduce((acc, item) => {
       const price = acc + item.price * item.quantity;
       return price;
     }, 0);
-    const totalPrice = basePrice + shippingCost;
-    return totalPrice;
-  },
 
-  priceToPay(buyItNow, buyItNowItem, cart, shippingCost, discount) {
-    let price = buyItNow
-      ? this.totalPrice([buyItNowItem], shippingCost)
-      : this.totalPrice(cart, shippingCost);
-
-    if (discount) {
-      price *= (100 - discount) / 100;
-    }
-
-    return price.toFixed(2);
+    return totalPrice.toFixed(2);
   },
 };
 
@@ -106,30 +94,6 @@ exports.generatePaymentResponse = (intent) => {
   // Invalid status
   return {
     errors: [{ msg: 'Invalid PaymentIntent status', param: '_error' }],
-  };
-};
-
-exports.getPurchaseDetails = (buyItNowItem, shippingCost, cart, promo = 0) => {
-  if (Object.prototype.hasOwnProperty.call(buyItNowItem, 'name')) {
-    return {
-      ...buyItNowItem,
-      shippingCost,
-      boughtFrom: 'buyItNow',
-      promo,
-    };
-  }
-
-  const selectedItems = cart;
-  const totalItems = this.cartHelper.totalItems(cart);
-  const totalPrice = this.cartHelper.totalPrice(cart);
-
-  return {
-    selectedItems,
-    totalItems,
-    totalPrice,
-    boughtFrom: 'cart',
-    shippingCost,
-    promo,
   };
 };
 

@@ -1,6 +1,6 @@
 User-agent: *
 Disallow: /admin
 Disallow: /edit
-Disallow: /checkout
+Disallow: /success
 
 Sitemap: https://www.dovilejewellery.com/sitemap.xml

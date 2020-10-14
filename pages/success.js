@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout';
 import { WidthContainer } from '../styles/Shared';
-import { clearBuyItNow, clearCart } from '../store/actions';
+import { clearCart } from '../store/actions';
 
 const styles = () => ({
   marginTop: {
@@ -20,7 +20,6 @@ const Success = function ({
   collections,
   classes,
   user,
-  clearBuyItNow: clearBuyItNowRedux,
   clearCart: clearCartRedux,
 }) {
   const router = useRouter();
@@ -35,7 +34,6 @@ const Success = function ({
         .then((res) => res.data)
         .then((session) => {
           if (session.payment_status === 'paid') {
-            clearBuyItNowRedux();
             clearCartRedux();
           }
         })
@@ -44,7 +42,7 @@ const Success = function ({
         });
     }
     fetchSession();
-  }, [sessionId, clearBuyItNowRedux, clearCartRedux]);
+  }, [sessionId, clearCartRedux]);
 
   return (
     <Layout
@@ -74,12 +72,10 @@ Success.propTypes = {
   collections: PropTypes.arrayOf(PropTypes.string),
   classes: PropTypes.object.isRequired,
   user: PropTypes.string,
-  clearBuyItNow: PropTypes.func,
   clearCart: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  clearBuyItNow: () => dispatch(clearBuyItNow()),
   clearCart: () => dispatch(clearCart()),
 });
 

@@ -1,29 +1,22 @@
 import { combineReducers } from 'redux';
-import { postageForCountry, ITEMS_PER_PAGE } from '../../util/globals';
-import { promoCodes } from '../../util/promoCodes';
+import { ITEMS_PER_PAGE } from '../../util/globals';
 
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
-  BUY_IT_NOW,
-  CLEAR_BUY_IT_NOW,
   CLEAR_CART,
   AUTHENTICATE,
   AUTHENTICATE_ERROR,
   DEAUTHENTICATE,
   INCREASE_LOADED_ITEMS,
-  COUNT_SHIPPING_COST,
   ADD_INSTAGRAM_DATA,
   UPDATE_INSTAGRAM_VISIBLE_ITEMS,
-  ADD_DISCOUNT,
   FILTER_OPTION,
   CLEAR_FILTER_OPTION,
 } from '../constants/action-types';
 
 export const initialState = {
   cart: [],
-  buyItNow: {},
-  shippingCost: postageForCountry('GB'),
   authenticate: { token: null, error: false },
   loadMore: { all: ITEMS_PER_PAGE },
   instagramData: { data: [], currentlyVisible: 0 },
@@ -43,23 +36,6 @@ const cart = (state = initialState.cart, action) => {
   }
   if (CLEAR_CART === action.type) {
     return [];
-  }
-  return state;
-};
-
-const buyItNow = (state = initialState.buyItNow, action) => {
-  if (BUY_IT_NOW === action.type) {
-    return action.item;
-  }
-  if (CLEAR_BUY_IT_NOW === action.type) {
-    return {};
-  }
-  return state;
-};
-
-const shippingCost = (state = initialState.shippingCost, action) => {
-  if (COUNT_SHIPPING_COST === action.type) {
-    return postageForCountry(action.country);
   }
   return state;
 };
@@ -105,17 +81,6 @@ const instagramData = (state = initialState.instagramData, action) => {
   return state;
 };
 
-const promo = (state = initialState.promo, action) => {
-  if (ADD_DISCOUNT === action.type) {
-    return {
-      code: action.code,
-      discount: promoCodes.filter((obj) => obj.code === action.code)[0]
-        .discount,
-    };
-  }
-  return state;
-};
-
 const filter = (state = initialState.filter, action) => {
   if (FILTER_OPTION === action.type) {
     return {
@@ -132,12 +97,9 @@ const filter = (state = initialState.filter, action) => {
 
 const dovile = combineReducers({
   cart,
-  buyItNow,
-  shippingCost,
   loadMore,
   authenticate,
   instagramData,
-  promo,
   filter,
 });
 

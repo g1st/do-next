@@ -5,29 +5,14 @@ import Router from 'next/router';
 import {
   Button,
   Typography,
-  Paper,
   List,
   ListItem,
   ListItemText,
-  Tooltip,
 } from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
 import { withStyles } from '@material-ui/core/styles';
 
 import CartItem from './CartItem';
-import PromoCode from '../PromoCode/PromoCode';
 import { cartHelper } from '../../util/helpers';
-import {
-  PaymentIcons,
-  IconImage,
-  StripeIcon,
-  AcceptedCards,
-  StripeIconLink,
-} from '../../styles/Checkout';
-import Visa from '../../public/images/visa.svg';
-import Mastercard from '../../public/images/mastercard.svg';
-import AmericanExpress from '../../public/images/american-express.svg';
-import Stripe from '../../public/images/stripe.svg';
 
 const styles = {
   button: {
@@ -55,21 +40,9 @@ const styles = {
   cardIcons: {
     padding: '6px 16px',
   },
-  discounted: {
-    textDecoration: 'line-through',
-  },
 };
 
-const CartDrawerContent = ({
-  classes,
-  inForm,
-  closeDrawer,
-  cart,
-  buyItNow,
-  buyItNowItem,
-  shippingCost,
-  discount,
-}) => {
+const CartDrawerContent = ({ classes, closeDrawer, cart }) => {
   const buttonClickHandler = () => {
     Router.push('/gallery');
     closeDrawer();
@@ -99,14 +72,10 @@ const CartDrawerContent = ({
       </Button>
     </>
   );
-  if (cart.length > 0 || buyItNow) {
+  if (cart.length > 0) {
     content = (
       <div>
-        <CartItem
-          data={buyItNow ? [buyItNowItem] : cart}
-          buyItNow={buyItNow}
-          closeDrawer={closeDrawer}
-        />
+        <CartItem data={cart} closeDrawer={closeDrawer} />
         <List className={classes.list}>
           <ListItem>
             <ListItemText>
@@ -114,7 +83,7 @@ const CartDrawerContent = ({
             </ListItemText>
             <ListItemText className={classes.textRight}>
               <Typography variant="body1">
-                {buyItNow ? buyItNowItem.quantity : cartHelper.totalItems(cart)}
+                {cartHelper.totalItems(cart)}
               </Typography>
             </ListItemText>
           </ListItem>
@@ -122,34 +91,8 @@ const CartDrawerContent = ({
             <Typography display="inline" variant="body1">
               Shipping
             </Typography>
-            <div classes={{ display: 'inline-block' }}>
-              <Tooltip
-                enterTouchDelay={0}
-                aria-label="Info"
-                placement="right"
-                title={
-                  <>
-                    <Typography variant="body1" style={{ color: '#fff' }}>
-                      UK - Free
-                    </Typography>
-                    <Typography variant="body1" style={{ color: '#fff' }}>
-                      EU - £9
-                    </Typography>
-                    <Typography variant="body1" style={{ color: '#fff' }}>
-                      Worldwide - £16
-                    </Typography>
-                  </>
-                }
-              >
-                <InfoIcon
-                  style={{ fill: 'rgba(0, 0, 0, 0.54)', marginLeft: '6px' }}
-                />
-              </Tooltip>
-            </div>
             <ListItemText className={classes.textRight}>
-              <Typography variant="body1">
-                {shippingCost !== 0 ? `£${shippingCost.toFixed(2)}` : 'Free'}
-              </Typography>
+              <Typography variant="body1">Free</Typography>
             </ListItemText>
           </ListItem>
           <ListItem>
@@ -157,65 +100,14 @@ const CartDrawerContent = ({
               <Typography variant="body1">Total</Typography>
             </ListItemText>
             <ListItemText className={classes.textRight}>
-              <Typography
-                variant="body1"
-                className={discount ? classes.discounted : ''}
-                color={discount ? 'textSecondary' : 'textPrimary'}
-                display="inline"
-              >
-                £
-                {cartHelper.priceToPay(
-                  buyItNow,
-                  buyItNowItem,
-                  cart,
-                  shippingCost
-                )}
+              <Typography variant="body1" color="textPrimary" display="inline">
+                £{cartHelper.totalPrice(cart)}
               </Typography>
-              {discount ? (
-                <Typography variant="body1" display="inline">
-                  {' '}
-                  £
-                  {cartHelper.priceToPay(
-                    buyItNow,
-                    buyItNowItem,
-                    cart,
-                    shippingCost,
-                    discount
-                  )}
-                </Typography>
-              ) : null}
             </ListItemText>
           </ListItem>
-          <PromoCode />
-          {inForm ? (
-            <ListItem className={classes.cardIcons}>
-              <PaymentIcons>
-                <AcceptedCards>
-                  <IconImage src={Visa} alt="VISA logo" />
-                  <IconImage src={Mastercard} alt="Mastercard logo" />
-                  <IconImage
-                    src={AmericanExpress}
-                    alt="American Express logo"
-                  />
-                </AcceptedCards>
-                <StripeIconLink
-                  href="https://www.stripe.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="To Stripe homepage"
-                >
-                  <StripeIcon src={Stripe} alt="Stripe logo" />
-                </StripeIconLink>
-              </PaymentIcons>
-            </ListItem>
-          ) : null}
         </List>
       </div>
     );
-  }
-
-  if (inForm) {
-    content = <Paper>{content}</Paper>;
   }
 
   return content;
@@ -223,13 +115,10 @@ const CartDrawerContent = ({
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
-  buyItNowItem: state.buyItNow,
-  shippingCost: state.shippingCost,
-  discount: state.promo.discount,
 });
 
 CartDrawerContent.propTypes = {
-  buyItNow: PropTypes.bool,
+  classes: PropTypes.object,
 };
 
 export default React.memo(

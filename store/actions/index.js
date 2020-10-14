@@ -10,11 +10,7 @@ export const removeFromCart = (id) => ({
   id,
 });
 
-export const buyItNow = (item) => ({ type: actionTypes.BUY_IT_NOW, item });
-
 export const clearCart = () => ({ type: actionTypes.CLEAR_CART });
-
-export const clearBuyItNow = () => ({ type: actionTypes.CLEAR_BUY_IT_NOW });
 
 export const increaseLoadedItems = (collection) => ({
   type: actionTypes.INCREASE_LOADED_ITEMS,
@@ -68,16 +64,6 @@ export const deauthenticate = () => (dispatch) => {
   Router.push('/');
   dispatch({ type: actionTypes.DEAUTHENTICATE });
 };
-
-export const countShippingCost = (country) => ({
-  type: actionTypes.COUNT_SHIPPING_COST,
-  country,
-});
-
-export const addDiscount = (code) => ({
-  type: actionTypes.ADD_DISCOUNT,
-  code,
-});
 
 export const changeOption = (option) => ({
   type: actionTypes.FILTER_OPTION,
