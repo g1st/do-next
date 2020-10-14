@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Router from 'next/router';
-import { Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/SwipeableDrawer';
 
-import { clearBuyItNow } from '../../store/actions';
 import { DrawerContext } from '../DrawerContext';
 import CartDrawerContent from './CartDrawerContent';
+import StripeCheckoutButton from '../Stripe/StripeCheckoutButton';
 
 const styles = {
   list: {
     width: 320,
     marginTop: '8px',
-  },
-  button: {
-    margin: '20px 20px',
   },
   cart: {
     paddingTop: '10px',
@@ -27,21 +23,13 @@ class CartDrawer extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     uniqueCartItems: PropTypes.number,
-    clearBuyItNow: PropTypes.func,
+    cart: PropTypes.array,
   };
 
   static contextType = DrawerContext;
 
-  handleCheckout = () => {
-    const { clearBuyItNow: clearBuyItNowRedux } = this.props;
-    clearBuyItNowRedux();
-    Router.push('/checkout');
-    const { toggleDrawer } = this.context;
-    toggleDrawer('drawerCart', false)();
-  };
-
   render() {
-    const { classes, uniqueCartItems } = this.props;
+    const { classes, uniqueCartItems, cart } = this.props;
     const { drawerCart, toggleDrawer } = this.context;
 
     const sideCart = (
@@ -68,16 +56,7 @@ class CartDrawer extends Component {
           {sideCart}
           {uniqueCartItems > 0 ? (
             <div style={{ width: 280 }}>
-              <Button
-                className={classes.button}
-                size="large"
-                variant="contained"
-                color="secondary"
-                fullWidth
-                onClick={() => this.handleCheckout()}
-              >
-                Checkout
-              </Button>
+              <StripeCheckoutButton items={cart} name="checkout" />
             </div>
           ) : null}
         </div>
@@ -88,13 +67,7 @@ class CartDrawer extends Component {
 
 const mapStateToProps = (state) => ({
   uniqueCartItems: state.cart.length,
+  cart: state.cart,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  clearBuyItNow: () => dispatch(clearBuyItNow()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(CartDrawer));
+export default connect(mapStateToProps)(withStyles(styles)(CartDrawer));

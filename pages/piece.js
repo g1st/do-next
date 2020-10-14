@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Router from 'next/router';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Link from 'next/link';
@@ -9,7 +8,7 @@ import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ArrowRight } from '@material-ui/icons';
 
-import { addToCart, buyItNow } from '../store/actions';
+import { addToCart } from '../store/actions';
 import Layout from '../components/Layout.js';
 import PieceGallery from '../components/Gallery/PieceGallery';
 import {
@@ -33,10 +32,9 @@ import DialogForm from '../components/DialogForm/DialogForm';
 import SizeInput from '../components/Piece/SizeInput';
 import SilverFinishInput from '../components/Piece/SilverFinishInput';
 import SizesInfo from '../components/Piece/SizesDialog';
+import StripeCheckoutButton from '../components/Stripe/StripeCheckoutButton';
 import { pluralise, deslugify, onImageError } from '../util/helpers';
 import Error from './_error';
-
-import * as gtag from '../lib/gtag';
 
 const styles = {
   price: {
@@ -49,7 +47,7 @@ const styles = {
   },
   button: {
     padding: '10px',
-    margin: '0 auto 2rem auto',
+    margin: '2rem auto',
     width: '100%',
   },
   filterLine: {
@@ -83,7 +81,6 @@ class Piece extends React.Component {
     collections: PropTypes.arrayOf(PropTypes.string),
     onePieceData: PropTypes.arrayOf(PropTypes.object),
     user: PropTypes.string,
-    buyItNow: PropTypes.func,
     addToCart: PropTypes.func,
     data: PropTypes.array,
   };
@@ -101,32 +98,26 @@ class Piece extends React.Component {
     return true;
   }
 
-  handleBuyItNow = (item) => {
-    const { buyItNow: buyItNowRedux, onePieceData } = this.props;
+  checkInputs = (item) => {
+    const { onePieceData } = this.props;
     const silverFinishRequired = onePieceData[0].silverFinish;
     const { size, silverFinishStyle } = this.state;
-    gtag.event({
-      action: 'click_buyitnow',
-      category: 'Purchase',
-      label: 'BuyItNow',
-    });
 
     if (item.madeToOrder && item.category === 'ring') {
       item.ringSize = size;
       if (size === '') {
-        return this.setState({ error: true });
+        this.setState({ error: true });
+        return true;
       }
     }
 
     if (silverFinishRequired) {
       item.silverFinishStyle = silverFinishStyle;
       if (silverFinishStyle === '') {
-        return this.setState({ error: true });
+        this.setState({ error: true });
+        return true;
       }
     }
-
-    buyItNowRedux(item);
-    Router.push('/checkout');
   };
 
   handleAddToCart = (cartData) => {
@@ -134,12 +125,6 @@ class Piece extends React.Component {
     const silverFinishRequired = onePieceData[0].silverFinish;
 
     const { size, silverFinishStyle } = this.state;
-
-    gtag.event({
-      action: 'click_addToCart',
-      category: 'Purchase',
-      label: 'AddToCart',
-    });
 
     if (cartData.madeToOrder && cartData.category === 'ring') {
       cartData.ringSize = size;
@@ -414,15 +399,11 @@ class Piece extends React.Component {
 
               {available ? (
                 <ButtonsWrapper>
-                  <Button
-                    size="large"
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    onClick={() => this.handleBuyItNow(dataForCart)}
-                  >
-                    Buy It Now
-                  </Button>
+                  <StripeCheckoutButton
+                    items={[dataForCart]}
+                    name="buy it now"
+                    checkInputs={this.checkInputs}
+                  />
                   <Button
                     size="large"
                     variant="contained"
@@ -499,7 +480,6 @@ Piece.getInitialProps = async ({ req, query }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addToCart: (item) => dispatch(addToCart(item)),
-  buyItNow: (item) => dispatch(buyItNow(item)),
 });
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(Piece));
