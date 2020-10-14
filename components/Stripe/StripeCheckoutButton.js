@@ -16,7 +16,7 @@ const stripePromise = loadStripe(
 const StripeCheckoutButton = ({ items, name, checkInputs }) => {
   const [error, setError] = useState(null);
 
-  const handleClick = async (event) => {
+  const handleClick = async () => {
     // it is present when buying with "buy it not"
     if (checkInputs) {
       if (checkInputs(items[0])) {

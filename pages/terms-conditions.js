@@ -11,7 +11,7 @@ import {
   Text,
   Figure,
 } from '../styles/TermsAndConditions';
-import { StyledAnchorLink, Strong } from '../styles/Shared';
+import { StyledAnchorLink } from '../styles/Shared';
 import TermsImage from '../public/images/terms-conditions.JPG';
 
 const styles = () => ({
