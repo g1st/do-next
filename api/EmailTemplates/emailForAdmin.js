@@ -1,25 +1,17 @@
 /* eslint-disable camelcase */
 const mjml2html = require('mjml');
+const { amountInPounds } = require('../../util/helpers');
 
-module.exports = function emailForClient(
-  data,
-  price,
-  shippingCost,
-  clientInfo,
-  withDiscount
-) {
+module.exports = function emailForClient(data, customerEmail, orderInfo) {
   const {
-    address1,
-    additional_info,
-    address2,
-    city,
-    full_country_name,
-    email,
-    first_name,
-    last_name,
-    postal_code,
-    phone,
-  } = clientInfo;
+    shipping: {
+      address: { city, country, line1, line2, postal_code },
+      name,
+    },
+    amount_subtotal,
+    amount_total,
+    total_details: { amount_discount },
+  } = orderInfo;
 
   const options = {};
 
@@ -48,7 +40,7 @@ module.exports = function emailForClient(
     <mj-section>
       <mj-column>
         <mj-text>
-          Hello Doviliuk!
+          Hello dovileko,
         </mj-text>
         <mj-text>
           a new order just have been placed!
@@ -97,36 +89,34 @@ module.exports = function emailForClient(
           </tr>
           <tr style="text-align:left;">
             <th style="font-weight: normal">Amount</th>
-            <td>£${price}</td>
+            <td>£${amountInPounds(amount_total)}</td>
           </tr>
           <tr style="text-align:left;">
-            <th style="font-weight: normal">Shipping cost</th>
-            <td>${shippingCost === 0 ? 'Free' : `£${shippingCost}`}</td>
+            <th style="font-weight: normal">Shipping</th>
+            <td>Free</td>
           </tr>
           ${
-            withDiscount
+            amount_discount > 0
               ? `
               <tr style="text-align:left;">
                 <th style="font-weight: normal">Amount before discount
                 </th>
-                <td>£${price + shippingCost}</td>
+                <td>£${amountInPounds(amount_subtotal)}</td>
               </tr>
               <tr style="text-align:left;">
                 <th style="font-weight: normal">Discount
                 </th>
-                <td>"${withDiscount.code}"  -${
-                  withDiscount.discountPercentage
-                }% off</td>
+                <td>-£${amountInPounds(amount_discount)}</td>
               </tr>
               <tr style="border-top:1px solid #ecedee;text-align:left;;">
                 <th>Total amount paid
                 </th>
-                <td><strong>£${withDiscount.discountedPrice}</strong></td>
+                <td><strong>£${amountInPounds(amount_total)}</strong></td>
               </tr>
             `
               : `<tr style="border-top:1px solid #ecedee;text-align:left;">
               <th>Total amount</th>
-              <td><strong>£${price + shippingCost}</strong></td>
+              <td><strong>£${amountInPounds(amount_total)}</strong></td>
             </tr>`
           }
         </mj-table>
@@ -138,23 +128,19 @@ module.exports = function emailForClient(
          <mj-table>
           <tr style="text-align:left;">
             <th style="font-weight: normal">Name</th>
-            <td>${first_name} ${last_name}</td>
+            <td>${name}</td>
           </tr>
           <tr style="text-align:left;">
             <th style="font-weight: normal">Email</th>
-            <td>${email}</td>
+            <td>${customerEmail}</td>
           </tr>
           <tr style="text-align:left;">
-            <th style="font-weight: normal">Phone</th>
-            <td>${phone || 'Not provided'}</td>
+            <th style="font-weight: normal">Address 1</th>
+            <td>${line1}</td>
           </tr>
           <tr style="text-align:left;">
-            <th style="font-weight: normal">Address1</th>
-            <td>${address1}</td>
-          </tr>
-          <tr style="text-align:left;">
-            <th style="font-weight: normal">Address2</th>
-            <td>${address2 || 'Not provided'}</td>
+            <th style="font-weight: normal">Address 2</th>
+            <td>${line2 || 'Not provided'}</td>
           </tr>
           <tr style="text-align:left;">
             <th style="font-weight: normal">City</th>
@@ -166,23 +152,9 @@ module.exports = function emailForClient(
           </tr>
           <tr style="text-align:left;">
             <th style="font-weight: normal">Country</th>
-            <td>${full_country_name}</td>
+            <td>${country}</td>
           </tr>
           </mj-table>
-          ${
-            additional_info &&
-            `
-          <mj-text>Additional order information:</mj-text>
-          ${additional_info
-            .split('\n')
-            .map(
-              (p) => `
-          <mj-text>${p}</mj-text>
-        `
-            )
-            .join(' ')}
-          `
-          }
       </mj-column>
     </mj-section>
     <mj-section padding-bottom="0">

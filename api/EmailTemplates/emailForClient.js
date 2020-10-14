@@ -1,20 +1,17 @@
 /* eslint-disable camelcase */
 const mjml2html = require('mjml');
+const { amountInPounds } = require('../../util/helpers');
 
-module.exports = function emailForClient(
-  data,
-  price,
-  shippingCost,
-  clientInfo,
-  withDiscount
-) {
+module.exports = function emailForClient(data, orderInfo) {
   const {
-    first_name,
-    address1,
-    address2,
-    city,
-    full_country_name,
-  } = clientInfo;
+    shipping: {
+      address: { city, country, line1, line2, postal_code },
+      name,
+    },
+    amount_subtotal,
+    amount_total,
+    total_details: { amount_discount },
+  } = orderInfo;
 
   const options = {};
 
@@ -43,7 +40,7 @@ module.exports = function emailForClient(
     <mj-section>
       <mj-column>
         <mj-text>
-          Hello ${first_name}!
+          Hello ${name.split(' ')[0]},
         </mj-text>
         <mj-text>
           THANK YOU for your purchase, this e-mail confirms your order.
@@ -55,7 +52,7 @@ module.exports = function emailForClient(
           PLEASE NOTE, that <i>made to order</i> items producing times are indicated at each piece's description. Producing times and delivery options for commissions are discussed individually by e-mail.
         </mj-text>
         <mj-text>
-          Delivery times will vary but usually, it is 1-2 days for UK, 3-7 days for Europe and 5-10 days worldwide. Delivery times may be extended during particularly busy periods such as Christmas.
+          Delivery times will vary but usually, it is 1-3 days for UK, 3-7 days for Europe and 5-10 days worldwide. Delivery times may be extended during particularly busy periods such as Christmas.
         </mj-text>
       </mj-column>
     </mj-section>
@@ -97,36 +94,34 @@ module.exports = function emailForClient(
             .join(' ')}
           <tr style="text-align:left;">
             <th style="font-weight: normal">Amount</th>
-            <td>£${price}</td>
+            <td>£${amountInPounds(amount_subtotal)}</td>
           </tr>
           <tr style="text-align:left;">
-            <th style="font-weight: normal">Shipping cost</th>
-            <td>${shippingCost === 0 ? 'Free' : `£${shippingCost}`}</td>
+            <th style="font-weight: normal">Shipping</th>
+            <td>Free</td>
           </tr>
           ${
-            withDiscount
+            amount_discount > 0
               ? `
               <tr style="text-align:left;">
                 <th style="font-weight: normal">Amount before discount
                 </th>
-                <td>£${price + shippingCost}</td>
+                <td>£${amountInPounds(amount_subtotal)}</td>
               </tr>
               <tr style="text-align:left;">
                 <th style="font-weight: normal">Discount
                 </th>
-                <td>"${withDiscount.code}"  -${
-                  withDiscount.discountPercentage
-                }% off</td>
+                <td>-£${amountInPounds(amount_discount)}</td>
               </tr>
               <tr style="border-top:1px solid #ecedee;text-align:left;;">
                 <th>Total amount paid
                 </th>
-                <td><strong>£${withDiscount.discountedPrice}</strong></td>
+                <td><strong>£${amountInPounds(amount_total)}</strong></td>
               </tr>
             `
               : `<tr style="border-top:1px solid #ecedee;text-align:left;">
               <th>Total amount</th>
-              <td><strong>£${price + shippingCost}</strong></td>
+              <td><strong>£${amountInPounds(amount_total)}</strong></td>
             </tr>`
           }
         </mj-table>
@@ -135,14 +130,15 @@ module.exports = function emailForClient(
     <mj-section>
       <mj-column>
         <mj-text>Shipping address:</mj-text>
-        <mj-text padding-bottom="0" padding-top="0">${address1}</mj-text>
+        <mj-text padding-bottom="0" padding-top="0">${line1}</mj-text>
         ${
-          address2
-            ? `<mj-text padding-bottom="0" padding-top="0">${address2}</mj-text>`
+          line2
+            ? `<mj-text padding-bottom="0" padding-top="0">${line2}</mj-text>`
             : ''
         }
         <mj-text padding-bottom="0" padding-top="0">${city}</mj-text>
-        <mj-text padding-bottom="0" padding-top="0">${full_country_name}</mj-text>
+        <mj-text padding-bottom="0" padding-top="0">${postal_code}</mj-text>
+        <mj-text padding-bottom="0" padding-top="0">${country}</mj-text>
       </mj-column>
     </mj-section>
     <mj-section>
