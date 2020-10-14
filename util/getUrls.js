@@ -15,7 +15,7 @@ module.exports = async () => {
         file !== '404.js' &&
         file !== 'edit.js' &&
         file !== 'admin.js' &&
-        file !== 'checkout.js'
+        file !== 'success.js'
     );
 
     const works = await Works.find({});
