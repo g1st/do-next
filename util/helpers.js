@@ -241,6 +241,11 @@ exports.amountInCents = (amount) => {
   return parseFloat(cents.toFixed(2));
 };
 
+exports.amountInPounds = (amount) => {
+  const pounds = amount / 100;
+  return pounds.toFixed(2);
+};
+
 exports.mediumToHighResolutionUri = (mediumResUrl) => {
   // new aws url
   if (mediumResUrl.match(/_300\./)) {
@@ -248,4 +253,36 @@ exports.mediumToHighResolutionUri = (mediumResUrl) => {
   }
   // old url from the server
   return mediumResUrl.replace(/300\./, '.');
+};
+
+exports.makeObject = (items) =>
+  items
+    // remove images
+    .map(({ images, ...rest }) => ({ ...rest }))
+    // add index number to each
+    .map((item, i) => {
+      const keys = Object.keys(item);
+      const newObj = {};
+      keys.forEach((key) => {
+        newObj[`${key}_${i}`] = item[key];
+      });
+      return newObj;
+    })
+    // combine into one object
+    .reduce((acc, curr) => {
+      const obj = { ...acc, ...curr };
+      return obj;
+    }, {});
+
+exports.itemsObjectToArray = (obj) => {
+  const separatedObject = Object.keys(obj).reduce((acc, cur) => {
+    const suffix = cur.slice(-2);
+    const prefix = cur.slice(0, -2);
+    const object = { ...acc };
+    object[suffix] = { ...object[suffix], [prefix]: obj[cur] };
+    return object;
+  }, {});
+
+  const objKeys = Object.keys(separatedObject);
+  return objKeys.map((item) => separatedObject[item]);
 };
