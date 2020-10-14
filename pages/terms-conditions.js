@@ -119,17 +119,11 @@ const TermsAndConditions = ({ collections, classes, user }) => (
         >
           SHIPPING COSTS
         </Typography>
-        <Typography variant="body1" color="secondary">
-          United Kingdom <Strong>FREE</Strong>
-        </Typography>
-        <Typography variant="body1" color="secondary">
-          European Union <Strong>£9</Strong>
+        <Typography variant="body1" paragraph color="secondary">
+          Shipping is free of charge.
         </Typography>
         <Typography variant="body1" paragraph color="secondary">
-          Worldwide <Strong>£16</Strong>
-        </Typography>
-        <Typography variant="body1" paragraph color="secondary">
-          Delivery times will vary but usually, it is 1-2 days for UK, 3-7 days
+          Delivery times will vary but usually, it is 1-3 days for UK, 3-7 days
           for Europe and 5-10 days worldwide. Delivery times may be extended
           during particularly busy periods such as Christmas.
         </Typography>
