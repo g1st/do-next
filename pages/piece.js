@@ -121,23 +121,10 @@ class Piece extends React.Component {
   };
 
   handleAddToCart = (cartData) => {
-    const { addToCart: addToCartRedux, onePieceData } = this.props;
-    const silverFinishRequired = onePieceData[0].silverFinish;
-
-    const { size, silverFinishStyle } = this.state;
-
-    if (cartData.madeToOrder && cartData.category === 'ring') {
-      cartData.ringSize = size;
-      if (size === '') {
-        return this.setState({ error: true });
-      }
-    }
-
-    if (silverFinishRequired) {
-      cartData.silverFinishStyle = silverFinishStyle;
-      if (silverFinishStyle === '') {
-        return this.setState({ error: true });
-      }
+    const { addToCart: addToCartRedux } = this.props;
+    if (this.checkInputs(cartData)) {
+      // there are not selected inputs
+      return;
     }
 
     addToCartRedux(cartData);
