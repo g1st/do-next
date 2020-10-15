@@ -54,7 +54,7 @@ const Success = function ({
       <WidthContainer>
         <Typography variant="body1" className={classes.marginTop}>
           Your order was successful and a confirmation email was sent to your
-          provided email.
+          email.
         </Typography>
         <Typography variant="body1" className={classes.marginTop}>
           Please note that it can take a couple of minutes to arrive and might
