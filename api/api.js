@@ -3,7 +3,6 @@ const express = require('express');
 const slugify = require('slugify');
 const { check, validationResult } = require('express-validator');
 const axios = require('axios');
-const bodyParser = require('body-parser');
 
 const Work = require('./models/works');
 const Subscriber = require('./models/subscribers');

@@ -19,10 +19,7 @@ const webhook = async (req, res) => {
     // Retrieve the event by verifying the signature using the raw body and secret.
     let event;
     const signature = req.headers['stripe-signature'];
-    console.log('req.body', req.body);
-    console.log('req.rawBody', req.rawBody);
-    console.log('signature', signature);
-    console.log('webhookSecret', webhookSecret);
+
     try {
       event = stripe.webhooks.constructEvent(
         req.rawBody,
