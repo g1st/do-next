@@ -3,6 +3,7 @@ const express = require('express');
 const slugify = require('slugify');
 const { check, validationResult } = require('express-validator');
 const axios = require('axios');
+const bodyParser = require('body-parser');
 
 const Work = require('./models/works');
 const Subscriber = require('./models/subscribers');
@@ -423,7 +424,11 @@ module.exports = (db, upload) => {
   // Fetch the Checkout Session to display the JSON result on the success page
   router.get('/checkout-session', checkoutSession);
 
-  router.post('/webhook', webhook);
+  router.post(
+    '/webhook',
+    bodyParser.raw({ type: 'application/json' }),
+    webhook
+  );
 
   router.post(
     '/subscribe',
