@@ -20,7 +20,6 @@ export const initialState = {
   authenticate: { token: null, error: false },
   loadMore: { all: ITEMS_PER_PAGE },
   instagramData: { data: [], currentlyVisible: 0 },
-  promo: {},
   filter: {},
 };
 
