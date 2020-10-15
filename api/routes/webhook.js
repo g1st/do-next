@@ -1,4 +1,6 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2020-08-27',
+});
 const { itemsObjectToArray } = require('../../util/helpers');
 const sendEmails = require('../sendEmails');
 const Work = require('../models/works');
@@ -7,8 +9,13 @@ const Work = require('../models/works');
 const webhook = async (req, res) => {
   let data;
   let eventType;
+  const webhookSecret =
+    process.env.NODE_ENV === 'production'
+      ? process.env.STRIPE_WEBHOOK_SECRET
+      : null;
+
   // Check if webhook signing is configured.
-  if (process.env.STRIPE_WEBHOOK_SECRET) {
+  if (webhookSecret) {
     // Retrieve the event by verifying the signature using the raw body and secret.
     let event;
     const signature = req.headers['stripe-signature'];
@@ -17,7 +24,7 @@ const webhook = async (req, res) => {
       event = stripe.webhooks.constructEvent(
         req.rawBody,
         signature,
-        process.env.STRIPE_WEBHOOK_SECRET
+        webhookSecret
       );
     } catch (err) {
       console.log(`⚠️  Webhook signature verification failed.`);
@@ -32,7 +39,6 @@ const webhook = async (req, res) => {
     data = req.body.data;
     eventType = req.body.type;
   }
-
   if (eventType === 'checkout.session.completed') {
     console.log(`🔔  Payment received!`);
     const customer = await stripe.customers.retrieve(data.object.customer);
