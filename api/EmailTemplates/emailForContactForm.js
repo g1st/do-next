@@ -28,7 +28,7 @@ module.exports = function emailForContactForm(message, email, subject) {
     <mj-section>
       <mj-column>
         <mj-text>
-          Hello Doviliuk!
+          Hello dovileko,
         </mj-text>
         <mj-text>
           Someone (${email}) just contacted you through contact form.
