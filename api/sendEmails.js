@@ -27,8 +27,7 @@ module.exports = ({ customerEmail, items, orderData }) => {
     // mail for business owner
     axios.post(`${process.env.NEXT_PUBLIC_APP_URL}/api/send`, {
       subject: 'New order @dovilejewellery.com',
-      // email: 'hello@dovilejewellery.com',
-      email: 'gintstan@gmail.com',
+      email: 'hello@dovilejewellery.com',
       message: adminHTML,
     }),
     // mail to client
