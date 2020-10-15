@@ -424,11 +424,7 @@ module.exports = (db, upload) => {
   // Fetch the Checkout Session to display the JSON result on the success page
   router.get('/checkout-session', checkoutSession);
 
-  router.post(
-    '/webhook',
-    bodyParser.raw({ type: 'application/json' }),
-    webhook
-  );
+  router.post('/webhook', webhook);
 
   router.post(
     '/subscribe',

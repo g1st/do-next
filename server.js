@@ -40,7 +40,15 @@ app
 
     server.use(compression());
     server.use(cors());
-    server.use(body.json());
+    server.use(
+      body.json({
+        verify(req, res, buf) {
+          if (req.originalUrl.startsWith('/api/webhook')) {
+            req.rawBody = buf.toString();
+          }
+        },
+      })
+    );
     server.use((req, res, next) => {
       // Also expose the MongoDB database handle so Next.js can access it.
       req.db = db;
