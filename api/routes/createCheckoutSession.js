@@ -11,7 +11,7 @@ const createCheckoutSession = async (req, res) => {
     payment_method_types: ['card'],
     line_items: req.body.lineItems,
     mode: 'payment',
-    allow_promotion_codes: true,
+    allow_promotion_codes: false,
     shipping_address_collection: {
       allowed_countries: supportedCountries,
     },
