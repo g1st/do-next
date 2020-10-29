@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import { increaseLoadedItems } from '../../store/actions';
 import Filter from './Filter';
+import ShowAvailable from './ShowAvailable';
 import { ITEMS_PER_PAGE } from '../../util/globals';
 import {
   FilterWrapper,
@@ -65,6 +66,7 @@ class Gallery extends React.Component {
     showFilter: PropTypes.bool,
     user: PropTypes.string,
     option: PropTypes.string,
+    display: PropTypes.string,
   };
 
   constructor(props) {
@@ -128,7 +130,6 @@ class Gallery extends React.Component {
 
   handleChange = (value) => {
     const { showCollection } = this.props;
-
     this.setState({
       withFilter: {
         [showCollection]: { filter: value, category: value },
@@ -258,7 +259,15 @@ class Gallery extends React.Component {
   };
 
   render() {
-    const { classes, data, showCollection, showFilter, user } = this.props;
+    const {
+      classes,
+      data,
+      showCollection,
+      showFilter,
+      user,
+      display,
+      option,
+    } = this.props;
     const { withFilter, collections, updating, toSwap } = this.state;
 
     if (data.length < 1) {
@@ -278,6 +287,11 @@ class Gallery extends React.Component {
       originalData = collections[showCollection].data.filter(
         (obj) => obj.display || obj.display === undefined
       );
+    }
+
+    // apply display filter (all or only available to buy)
+    if (display === 'available') {
+      originalData = originalData.filter((obj) => obj.available);
     }
 
     const sorted = this.sort(originalData);
@@ -322,6 +336,7 @@ class Gallery extends React.Component {
                 : ''
             }
           />
+          <ShowAvailable />
         </FilterWrapper>
       );
     }
@@ -404,6 +419,7 @@ class Gallery extends React.Component {
 const mapStateToProps = (state) => ({
   reduxLoadedItems: state.loadMore,
   option: state.filter.option,
+  display: state.filter.display,
 });
 
 const mapDispatchToProps = (dispatch) => ({

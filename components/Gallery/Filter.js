@@ -30,7 +30,7 @@ const styles = () => ({
   },
   filterLine: {
     color: '#595959',
-    letterSpacing: '1px',
+    letterSpacing: '0.5px',
   },
   menuItemText: {
     textTransform: 'lowercase',

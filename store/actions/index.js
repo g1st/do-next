@@ -73,3 +73,8 @@ export const changeOption = (option) => ({
 export const clearOption = () => ({
   type: actionTypes.CLEAR_FILTER_OPTION,
 });
+
+export const changeDisplay = (option) => ({
+  type: actionTypes.DISPLAY_OPTION,
+  option,
+});

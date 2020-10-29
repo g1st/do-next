@@ -7,6 +7,13 @@ ItemsContainer.displayName = 'ItemsContainer';
 
 export const FilterWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 FilterWrapper.displayName = 'FilterWrapper';
 

@@ -12,6 +12,7 @@ import {
   ADD_INSTAGRAM_DATA,
   UPDATE_INSTAGRAM_VISIBLE_ITEMS,
   FILTER_OPTION,
+  DISPLAY_OPTION,
   CLEAR_FILTER_OPTION,
 } from '../constants/action-types';
 
@@ -20,7 +21,7 @@ export const initialState = {
   authenticate: { token: null, error: false },
   loadMore: { all: ITEMS_PER_PAGE },
   instagramData: { data: [], currentlyVisible: 0 },
-  filter: {},
+  filter: { option: '', display: 'all' },
 };
 
 const cart = (state = initialState.cart, action) => {
@@ -83,13 +84,18 @@ const instagramData = (state = initialState.instagramData, action) => {
 const filter = (state = initialState.filter, action) => {
   if (FILTER_OPTION === action.type) {
     return {
+      ...state,
       option: action.option,
     };
   }
   if (CLEAR_FILTER_OPTION === action.type) {
     return {
+      ...state,
       option: '',
     };
+  }
+  if (DISPLAY_OPTION === action.type) {
+    return { ...state, display: action.option };
   }
   return state;
 };
