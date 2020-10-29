@@ -287,7 +287,8 @@ class Gallery extends React.Component {
 
     if (
       Object.prototype.hasOwnProperty.call(withFilter, showCollection) &&
-      withFilter[showCollection].filter
+      withFilter[showCollection].filter !== '' &&
+      withFilter[showCollection].filter === option
     ) {
       filtered = sorted.filter(
         (item) => item.category === withFilter[showCollection].category
