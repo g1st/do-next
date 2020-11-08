@@ -60,3 +60,9 @@ export const WidthContainer = styled.div`
   padding: 5.5em 1em 0;
 `;
 WidthContainer.displayName = 'WidthContainer';
+
+export const LogoImage = styled.img`
+  max-width: 160px;
+  height: auto;
+  vertical-align: middle;
+`;

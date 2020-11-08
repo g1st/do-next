@@ -21,7 +21,7 @@ export const BrandLogo = styled.div`
 BrandLogo.displayName = 'BrandLogo';
 
 export const Logo = styled.img`
-  width: 80px;
+  width: 200px;
   margin: 40px auto 0 auto;
 `;
 Logo.displayName = 'Logo';

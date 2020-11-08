@@ -23,9 +23,10 @@ import CartDrawer from '../CartDrawer/CartDrawer';
 import { DrawerContext } from '../DrawerContext';
 import ShoppingBasket from './ShoppingBasket';
 import { Wrapper, WrapSpan, Span, Icon } from '../../styles/NavBar';
-import { AnchorLink } from '../../styles/Shared';
+import { AnchorLink, LogoImage } from '../../styles/Shared';
 import { deslugify } from '../../util/helpers';
 import { clearOption } from '../../store/actions';
+import logo from '../../public/images/logo.svg';
 
 const styles = (theme) => ({
   flex: {
@@ -227,7 +228,7 @@ class NavBar extends React.Component {
               >
                 <Link href="/">
                   <AnchorLink className={classes.heading}>
-                    Dovile Jewellery
+                    <LogoImage src={logo} alt="dovileko logo" />
                   </AnchorLink>
                 </Link>
               </Typography>
