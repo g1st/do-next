@@ -52,8 +52,8 @@ const styles = {
   },
   filterLine: {
     color: '#595959',
-    letterSpacing: '1px',
-    lineHeight: '43px',
+    letterSpacing: '0.5px',
+    lineHeight: '45px',
   },
   svg: {
     top: '.3em',
