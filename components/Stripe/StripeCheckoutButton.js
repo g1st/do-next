@@ -36,7 +36,7 @@ const StripeCheckoutButton = ({ items, name, checkInputs }) => {
           name: item.name,
           description: item.ringSize ? item.ringSize : undefined,
           images: item.images.map(
-            (img) => `${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${img.thumb}`
+            (img) => `${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${img.big}`
           ),
         },
         unit_amount: amountInCents(item.price),
