@@ -90,6 +90,11 @@ exports.filterCollections = (data, user) => {
       return acc;
     }, []);
   }
+
+  // make sure 'various' collection is at the end
+  const variousIndex = collections.findIndex((c) => c === 'various');
+  collections = collections.concat(collections.splice(variousIndex, 1));
+
   return collections;
 };
 
