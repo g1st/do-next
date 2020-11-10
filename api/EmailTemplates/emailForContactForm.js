@@ -8,8 +8,8 @@ module.exports = function emailForContactForm(message, email, subject) {
   <mjml lang="en">
   <mj-head>
     <mj-font name="Roboto" href="https://fonts.googleapis.com/css?family=Roboto" />
-    <mj-title>${subject} @dovilejewellery.com</mj-title>
-    <mj-preview>${subject} @dovilejewellery.com</mj-preview>
+    <mj-title>${subject} @dovileko.com</mj-title>
+    <mj-preview>${subject} @dovileko.com</mj-preview>
     <mj-attributes>
       <mj-body background-color="#ffffff" />
       <mj-all font-family="Roboto, Helvetica, Arial, sans-serif" />
@@ -22,7 +22,7 @@ module.exports = function emailForContactForm(message, email, subject) {
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-image src="https://www.dovilejewellery.com/images/terms-conditions.JPG" alt="Dovile Jewellery FLOW brooch" />
+        <mj-image src="https://www.dovileko.com/images/terms-conditions.JPG" alt="Dovile Ko FLOW brooch" />
       </mj-column>
     </mj-section>
     <mj-section>
@@ -58,8 +58,8 @@ module.exports = function emailForContactForm(message, email, subject) {
     <mj-section padding-top="0">
       <mj-column>
         <mj-text align="center">
-          <a href="https://www.dovilejewellery.com/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none;">dovilejewellery</a>
-          <a href="https://www.instagram.com/dovilejewellery/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none; padding: 0 20px">instagram</a>
+          <a href="https://www.dovileko.com/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none;">Dovile Ko</a>
+          <a href="https://www.instagram.com/dovilekojewellery/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none; padding: 0 20px">instagram</a>
           <a href="https://www.facebook.com/artdovile/" target="_blank" style="color: #bdbdbd; font-size: 10px; text-decoration: none;">facebook</a>
         </mj-text>
       </mj-column>

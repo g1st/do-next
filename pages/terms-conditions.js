@@ -26,7 +26,7 @@ const TermsAndConditions = ({ collections, classes, user }) => (
   <Layout
     pathname={false}
     collections={collections}
-    title="Terms and Conditions | Dovile Jewellery"
+    title="Terms and Conditions | Dovile Ko"
     user={user}
   >
     <Wrapper>
@@ -54,12 +54,12 @@ const TermsAndConditions = ({ collections, classes, user }) => (
           INFORMATION ON THE SITE
         </Typography>
         <Typography variant="body1" paragraph color="secondary">
-          At www.dovilejewellery.com, I make every effort to ensure that online
-          gallery &amp; shop is as accurate and complete as possible. In order
-          to give you the opportunity to view pieces in full detail, some pieces
-          may appear larger or smaller than their actual size in photographs;
-          and since every computer monitor is set differently, size or colour
-          may vary slightly.
+          At www.dovileko.com, I make every effort to ensure that online gallery
+          &amp; shop is as accurate and complete as possible. In order to give
+          you the opportunity to view pieces in full detail, some pieces may
+          appear larger or smaller than their actual size in photographs; and
+          since every computer monitor is set differently, size or colour may
+          vary slightly.
         </Typography>
         <Typography
           color="secondary"
@@ -70,10 +70,10 @@ const TermsAndConditions = ({ collections, classes, user }) => (
           PRODUCT AVAILABILITY
         </Typography>
         <Typography variant="body1" paragraph color="secondary">
-          All of Dovile Jewellery is made by me at my workshop In Birmingham’s
-          famous Jewellery Quarter. If you are interested in a piece that is
-          currently not available to purchase, please contact me to discuss a
-          commission in related design to meet your personal needs.
+          All of Dovile Ko jewellery is made by me at my workshop in
+          Birmingham’s famous Jewellery Quarter. If you are interested in a
+          piece that is currently not available to purchase, please contact me
+          to discuss a commission in related design to meet your personal needs.
         </Typography>
         <Typography variant="body1" paragraph color="secondary">
           Production times are indicated on each item, usually, it takes 1-4

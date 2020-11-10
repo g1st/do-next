@@ -48,7 +48,7 @@ const Success = function ({
     <Layout
       pathname={false}
       collections={collections}
-      title="Successful payment | Dovile Jewellery"
+      title="Successful payment | Dovile Ko"
       user={user}
     >
       <WidthContainer>

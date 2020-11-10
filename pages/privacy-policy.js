@@ -25,7 +25,7 @@ const TermsAndConditions = ({ collections, classes, user }) => (
   <Layout
     pathname={false}
     collections={collections}
-    title="Privacy Policy | Dovile Jewellery"
+    title="Privacy Policy | Dovile Ko"
     user={user}
   >
     <Wrapper>
@@ -54,9 +54,9 @@ const TermsAndConditions = ({ collections, classes, user }) => (
           PRIVACY POLICY
         </Typography>
         <Typography variant="body1" paragraph color="secondary">
-          This privacy policy describes how Dovile Jewellery collects and uses
-          personal information in accordance with the GDPR (General Data
-          Protection Regulations).
+          This privacy policy describes how Dovile Ko collects and uses personal
+          information in accordance with the GDPR (General Data Protection
+          Regulations).
         </Typography>
         <Typography variant="body1" paragraph color="secondary">
           Personal information is any data which can identify an individual,

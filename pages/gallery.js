@@ -16,7 +16,7 @@ const Gallery = ({ data, router, pathname, collections, user }) => {
     <Layout
       pathname={pathname}
       collections={collections}
-      title="Gallery | Dovile Jewellery"
+      title="Gallery | Dovile Ko"
       user={user}
     >
       <WidthContainer>

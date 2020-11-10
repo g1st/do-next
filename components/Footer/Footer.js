@@ -53,7 +53,7 @@ const Footer = (props) => {
     <Wrapper>
       <Divider />
       <BrandLogo>
-        <Logo src={DovileLogo} alt="Dovile Jewellery logo" />
+        <Logo src={DovileLogo} alt="Dovile Ko logo" />
       </BrandLogo>
       <FlexContainer>
         <Social>
@@ -132,7 +132,7 @@ const Footer = (props) => {
         </FooterLinks>
       </FlexContainer>
       <Typography color="textSecondary" classes={{ root: classes.root }}>
-        &copy; {new Date().getFullYear()} Dovile Jewellery
+        &copy; 2015&mdash;{new Date().getFullYear()} Dovile Ko
       </Typography>
     </Wrapper>
   );

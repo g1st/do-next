@@ -56,7 +56,7 @@ const About = ({ pathname, collections, classes, user }) => (
   <Layout
     pathname={pathname}
     collections={collections}
-    title="About | Dovile Jewellery"
+    title="About | Dovile Ko"
     user={user}
   >
     <Wrapper>

@@ -9,7 +9,7 @@ const CustomError = ({
 }) => (
   <Layout
     collections={collections}
-    title="Jewellery artist Dovile Kondrasovaite | Dovile Jewellery"
+    title="Jewellery artist Dovile Kondrasovaite | Dovile Ko"
     description="Contemporary amber and precious metals jewellery by an independent artist Dovile Kondrasovaite. Handmade in Birmingham's historic Jewellery Quarter, UK."
     pathname={pathname}
   >

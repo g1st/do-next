@@ -228,7 +228,7 @@ class NavBar extends React.Component {
               >
                 <Link href="/">
                   <AnchorLink className={classes.heading}>
-                    <LogoImage src={logo} alt="dovileko logo" />
+                    <LogoImage src={logo} alt="Dovile Ko logo" />
                   </AnchorLink>
                 </Link>
               </Typography>

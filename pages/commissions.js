@@ -25,7 +25,7 @@ const Commissions = ({ collections, classes, user }) => (
   <Layout
     pathname={false}
     collections={collections}
-    title="Commissions | Dovile Jewellery"
+    title="Commissions | Dovile Ko"
     user={user}
   >
     <Wrapper>

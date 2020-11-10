@@ -9,7 +9,7 @@ const Layout = ({
   children,
   collections,
   pathname,
-  title = 'Jewellery artist Dovile Kondrasovaite | Dovile Jewellery',
+  title = 'Jewellery artist Dovile Kondrasovaite | Dovile Ko',
   description = "Contemporary amber and precious metals jewellery by an independent artist Dovile Kondrasovaite. Handmade in Birmingham's historic Jewellery Quarter, UK.",
   user,
   image = '/images/Dovile-Kondrasovaite.jpeg',

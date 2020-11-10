@@ -14,7 +14,7 @@ const Contact = ({ pathname, collections, user }) => (
   <Layout
     pathname={pathname}
     collections={collections}
-    title="Contact | Dovile Jewellery"
+    title="Contact | Dovile Ko"
     user={user}
   >
     <Wrapper>

@@ -3,4 +3,4 @@ Disallow: /admin
 Disallow: /edit
 Disallow: /success
 
-Sitemap: https://www.dovilejewellery.com/sitemap.xml
+Sitemap: https://www.dovileko.com/sitemap.xml

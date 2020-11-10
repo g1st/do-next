@@ -29,13 +29,13 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
   <Layout
     pathname={pathname}
     collections={collections}
-    title="Where To Find | Dovile Jewellery"
+    title="Where To Find | Dovile Ko"
     user={user}
   >
     <Wrapper>
       <Stockist>
         <ImageWrapper>
-          <Image src={WhereToFindImage1} alt="dovile jewellery" />
+          <Image src={WhereToFindImage1} alt="Dovile Ko Flow collection" />
         </ImageWrapper>
         <StockistText>
           <Typography variant="h2" className={classes.heading}>
@@ -95,7 +95,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
       <Events>
         <UpcomingEvents>
           <ImageWrapper>
-            <Image src={WhereToFindImage2} alt="dovile jewellery" />
+            <Image src={WhereToFindImage2} alt="Dovile Ko Flow collection" />
           </ImageWrapper>
           <Typography variant="h2" className={classes.heading}>
             UPCOMING EVENTS

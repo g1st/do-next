@@ -270,7 +270,7 @@ class Piece extends React.Component {
         pathname="/gallery"
         piecePath={`${process.env.NEXT_PUBLIC_APP_URL}/piece/${slug}`}
         collections={collections}
-        title={`${name} | Dovile Jewellery`}
+        title={`${name} | Dovile Ko`}
         description={`${description} | ${materials}`}
         user={user}
         image={`${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${images[0].big}`}

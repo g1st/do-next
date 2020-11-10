@@ -4,7 +4,7 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#contributing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[dovilejewellery.com](https://dovilejewellery.com)
+[dovileko.com](https://dovileko.com)
 
 ## Main features
 
@@ -103,7 +103,7 @@ Contributions are welcome.
 
 ## Acknowledgments
 
-- [Dovile Kondrasovaite](https://dovilejewellery.com/about)
+- [Dovile Kondrasovaite](https://dovileko.com/about)
 - [nikrb](https://github.com/nikrb)
 - [fcc](https://www.freecodecamp.org/)
 - Red Pandas

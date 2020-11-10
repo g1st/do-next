@@ -26,7 +26,7 @@ const sendMail = ({ email, subject, message, contactForm }) => {
 
   // setup email data with unicode symbols
   const mailOptions = {
-    from: '"Dovile Jewellery" <hello@dovilejewellery.com>', // sender address
+    from: '"Dovile Ko" <hello@dovilejewellery.com>', // sender address
     to: contactForm ? EMAIL : email, // list of receivers
     subject, // Subject line
     text: `${message} From: ${email}`, // plain text body

@@ -26,7 +26,7 @@ const CareGuide = ({ collections, classes, user }) => (
   <Layout
     pathname={false}
     collections={collections}
-    title="Care Guide | Dovile Jewellery"
+    title="Care Guide | Dovile Ko"
     user={user}
   >
     <Wrapper>

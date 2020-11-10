@@ -102,10 +102,7 @@ const LandingPageGallery = ({ classes }) => {
       >
         <figure className={classes.paper}>
           <Close onClick={handleClose} aria-label="Close Image Modal Box" />
-          <ModalImage
-            src={src}
-            alt="Presentational Dovile Jewellery art piece"
-          />
+          <ModalImage src={src} alt="Presentational Dovile Ko art piece" />
           <Figcaption>
             <Typography variant="body1" id="jewellery-piece-description">
               {figcaption}
@@ -126,7 +123,7 @@ const LandingPageGallery = ({ classes }) => {
                   )
                 }
                 src={LandingImage1}
-                alt="Presentational Dovile Jewellery art piece"
+                alt="Presentational Dovile Ko art piece"
                 onKeyDown={(e) =>
                   handleKeyDown(
                     e,
@@ -145,7 +142,7 @@ const LandingPageGallery = ({ classes }) => {
                   )
                 }
                 src={LandingImage2}
-                alt="Presentational Dovile Jewellery art piece"
+                alt="Presentational Dovile Ko art piece"
                 onKeyDown={(e) =>
                   handleKeyDown(
                     e,
@@ -163,7 +160,7 @@ const LandingPageGallery = ({ classes }) => {
                   onImageClick(e, 'FLOW n°R29 | ring | Baltic amber, ebony')
                 }
                 src={LandingImage3}
-                alt="Presentational Dovile Jewellery art piece"
+                alt="Presentational Dovile Ko art piece"
                 onKeyDown={(e) =>
                   handleKeyDown(e, 'FLOW n°R29 | ring | Baltic amber, ebony')
                 }
@@ -179,7 +176,7 @@ const LandingPageGallery = ({ classes }) => {
                   )
                 }
                 src={LandingImage4}
-                alt="Presentational Dovile Jewellery art piece"
+                alt="Presentational Dovile Ko art piece"
                 onKeyDown={(e) =>
                   handleKeyDown(
                     e,
