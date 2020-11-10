@@ -16,7 +16,6 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
-import Link from 'next/link';
 
 import NavDrawer from '../NavDrawer/NavDrawer';
 import CartDrawer from '../CartDrawer/CartDrawer';
@@ -226,11 +225,12 @@ class NavBar extends React.Component {
                 color="inherit"
                 className={classes.title}
               >
-                <Link href="/">
-                  <AnchorLink className={classes.heading}>
-                    <LogoImage src={logo} alt="Dovile Ko logo" />
-                  </AnchorLink>
-                </Link>
+                <AnchorLink
+                  className={classes.heading}
+                  onClick={(e) => this.handleNavBarChange(e, '/')}
+                >
+                  <LogoImage src={logo} alt="Dovile Ko logo" />
+                </AnchorLink>
               </Typography>
             </div>
             {navigation}
