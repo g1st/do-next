@@ -137,6 +137,11 @@ app
       }
     });
 
+    server.get(['/favicon.ico', '*/static/images/*'], (req, res) => {
+      res.setHeader('Cache-Control', 'public,max-age=31536000,immutable');
+      return handle(req, res);
+    });
+
     server.get('*', (req, res) => handle(req, res));
 
     server.listen(PORT, () => {
