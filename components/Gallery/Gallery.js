@@ -22,7 +22,6 @@ const styles = () => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    paddingTop: '10px',
     '@media (min-width: 1460px)': { margin: '0 -80px' },
   },
   grid: {

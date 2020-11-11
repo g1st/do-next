@@ -26,7 +26,10 @@ const styles = () => ({
     top: '.3em',
     position: 'relative',
     color: '#595959',
-    margin: '0 12px',
+    margin: '0 0.2rem',
+    '@media (min-width: 420px)': {
+      margin: '0 0.8rem',
+    },
   },
   filterLine: {
     color: '#595959',
