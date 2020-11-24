@@ -67,6 +67,9 @@ const styles = {
   boldLink: {
     fontWeight: 500,
   },
+  mt: {
+    marginTop: '1rem',
+  },
   heading: {
     fontSize: '1.5rem',
     '@media (min-width: 600px)': {
@@ -359,10 +362,17 @@ class Piece extends React.Component {
                   </SizesWrapper>
                 )}
               </SelectionWrapper>
-              <Typography variant="body1" paragraph>
+              <Typography
+                display="inline"
+                variant="body1"
+                className={classes.boldLink}
+              >
+                Free worldwide shipping.{' '}
+              </Typography>
+              <Typography display="inline" variant="body1">
                 All purchases come in a branded box.
               </Typography>
-              <Typography variant="body1" paragraph>
+              <Typography variant="body1" paragraph className={classes.mt}>
                 All items being sold as gold or silver are hallmarked to confirm
                 that they meet the legal standard in accordance with the British
                 Assay Office.
