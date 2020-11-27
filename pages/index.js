@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Router from 'next/router';
 import { InView } from 'react-intersection-observer';
 
 import Layout from '../components/Layout';
@@ -9,7 +7,6 @@ import LandingPageGallery from '../components/LandingPageGallery/LandingPageGall
 import LandingPageGalleryWooden from '../components/LandingPageGallery/LandingPageGalleryWooden';
 import Newsletter from '../components/Newsletter/Newsletter';
 import InstagramGallery from '../components/InstagramGallery/InstagramGallery';
-import UpcomingEvent from '../components/UpcomingEvent/UpcomingEvent';
 import GridGallery from '../components/Gallery/Gallery';
 import Featured from '../components/Featured.js';
 import { WidthContainer } from '../styles/Shared';
@@ -21,11 +18,7 @@ const styles = () => ({
   },
 });
 
-const handleButton = () => {
-  Router.push('/gallery');
-};
-
-const Index = ({ pathname, collections, classes, user, data, router }) => {
+const Index = ({ pathname, collections, user, data, router }) => {
   let { collection } = router.query;
 
   if (!collections.includes(collection)) {
@@ -40,23 +33,12 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
         {({ inView, ref }) => (
           <WidthContainer ref={ref}>
             {inView ? (
-              <>
-                <GridGallery
-                  user={user}
-                  data={data}
-                  showCollection={collection}
-                  collectionsNames={collections}
-                />
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={classes.button}
-                  onClick={handleButton}
-                  size="large"
-                >
-                  Show more
-                </Button>
-              </>
+              <GridGallery
+                user={user}
+                data={data}
+                showCollection={collection}
+                collectionsNames={collections}
+              />
             ) : null}
           </WidthContainer>
         )}
@@ -76,7 +58,6 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
 Index.propTypes = {
   pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   collections: PropTypes.arrayOf(PropTypes.string),
-  classes: PropTypes.object.isRequired,
   user: PropTypes.string,
   data: PropTypes.array,
   router: PropTypes.object,
