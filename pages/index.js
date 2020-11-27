@@ -34,7 +34,6 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
   return (
     <Layout pathname={pathname} collections={collections} user={user}>
       <LandingPageGallery />
-      <UpcomingEvent />
       <LandingPageGalleryWooden />
       <Featured data={data.filter((item) => item.featured)} />
       <InView triggerOnce rootMargin="200px">
@@ -44,7 +43,7 @@ const Index = ({ pathname, collections, classes, user, data, router }) => {
               <>
                 <GridGallery
                   user={user}
-                  data={data.filter((item) => item.group === 'silver-flow')}
+                  data={data}
                   showCollection={collection}
                   collectionsNames={collections}
                 />
