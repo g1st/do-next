@@ -128,10 +128,7 @@ class InstagramGallery extends React.Component {
     const token = process.env.NEXT_PUBLIC_INSTAGRAM_TOKEN;
     const url = `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${token}`;
 
-    axios
-      .get(url)
-      .then((res) => console.log('Instagram token renewed', res))
-      .catch((e) => console.error(e));
+    axios.get(url).catch((e) => console.error(e));
   };
 
   render() {
