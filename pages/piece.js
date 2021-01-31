@@ -370,12 +370,13 @@ class Piece extends React.Component {
                 Free worldwide shipping.{' '}
               </Typography>
               <Typography display="inline" variant="body1">
-                All purchases come in a branded box.
+                Please note, for orders outside of the UK customs charges might
+                apply.{' '}
               </Typography>
               <Typography variant="body1" paragraph className={classes.mt}>
-                All items being sold as gold or silver are hallmarked to confirm
-                that they meet the legal standard in accordance with the British
-                Assay Office.
+                All purchases come in a branded box. All items being sold as
+                gold or silver are hallmarked to confirm that they meet the
+                legal standard in accordance with the British Assay Office.
               </Typography>
               <MarginBottomWrapper>
                 <Typography display="inline" variant="body1" paragraph>
