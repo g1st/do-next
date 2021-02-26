@@ -35,14 +35,12 @@ module.exports = (db, upload) => {
 
   router.get(
     '/',
-    wrapAsync(async function () {
-      return Work.find();
-    })
+    wrapAsync(async () => Work.find())
   );
 
   router.get(
     '/collections',
-    wrapAsync(async function () {
+    wrapAsync(async () => {
       const data = await Work.find();
       return filterCollections(data, null);
     })
@@ -50,7 +48,7 @@ module.exports = (db, upload) => {
 
   router.get(
     '/single',
-    wrapAsync(async function (req) {
+    wrapAsync(async (req) => {
       const { slug } = req.query;
 
       return Work.findOne({ slug });
@@ -59,7 +57,7 @@ module.exports = (db, upload) => {
 
   router.delete(
     '/delete',
-    wrapAsync(async function (req, res) {
+    wrapAsync(async (req, res) => {
       const id = req.query._id;
       const group = req.query.collection;
 
@@ -427,7 +425,7 @@ module.exports = (db, upload) => {
 
   router.post(
     '/subscribe',
-    wrapAsync(async function (req) {
+    wrapAsync(async (req) => {
       const { email } = req.body;
       const name = email.split('@')[0];
 

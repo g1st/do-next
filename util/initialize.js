@@ -13,7 +13,7 @@ export default function initializeUser(ctx) {
     const { token } = ctx.reduxStore.getState().authenticate;
 
     if (token && (ctx.pathname === '/signin' || ctx.pathname === '/signup')) {
-      setTimeout(function () {
+      setTimeout(() => {
         Router.push('/');
       }, 0);
     }
