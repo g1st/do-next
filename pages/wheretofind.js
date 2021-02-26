@@ -105,7 +105,7 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body1">2020</Typography>
+                  <Typography variant="body1">2021</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body1" display="inline">
