@@ -18,7 +18,7 @@
   "license": "MIT",
   "engines": {
     "node": "16.13.0",
-    "npm": ">=6.0.0"
+    "npm": ">=8.0.0"
   },
   "scripts": {
     "start": "NODE_ENV=production node server.js",
