@@ -61,7 +61,7 @@ class NavDrawerContent extends React.Component {
     return (
       <List>
         <ListItem button onKeyDown={(e) => this.handleKeyDown(e, null, '/')}>
-          <Link href="/">
+          <Link href="/" passHref>
             <ListItemText primary="Home" classes={{ primary: classes.link }} />
           </Link>
         </ListItem>
@@ -113,7 +113,7 @@ class NavDrawerContent extends React.Component {
           to="/about"
           onKeyDown={(e) => this.handleKeyDown(e, null, '/about')}
         >
-          <Link href="/about">
+          <Link href="/about" passHref>
             <ListItemText primary="About" classes={{ primary: classes.link }} />
           </Link>
         </ListItem>
@@ -122,7 +122,7 @@ class NavDrawerContent extends React.Component {
           to="/wheretofind"
           onKeyDown={(e) => this.handleKeyDown(e, null, '/wheretofind')}
         >
-          <Link href="/wheretofind">
+          <Link href="/wheretofind" passHref>
             <ListItemText
               primary="Where To Find"
               classes={{ primary: classes.link }}
@@ -134,7 +134,7 @@ class NavDrawerContent extends React.Component {
           to="/contact"
           onKeyDown={(e) => this.handleKeyDown(e, null, '/contact')}
         >
-          <Link href="/contact">
+          <Link href="/contact" passHref>
             <ListItemText
               primary="Contact"
               classes={{ primary: classes.link }}

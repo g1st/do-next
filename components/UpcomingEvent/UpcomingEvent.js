@@ -15,7 +15,11 @@ const UpcomingEvent = () => {
 
   return (
     <EventWrapper>
-      <Link href="/gallery?collection=silver-flow" as="/gallery/silver-flow">
+      <Link
+        href="/gallery?collection=silver-flow"
+        as="/gallery/silver-flow"
+        passHref
+      >
         <Image
           src={Banner}
           alt="Silver Flow collection banner"

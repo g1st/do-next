@@ -101,7 +101,7 @@ class Filter extends React.Component {
         <div>
           {collection !== 'all' ? (
             <>
-              <Link href="/gallery">
+              <Link href="/gallery" passHref>
                 <AnchorLink>
                   <Typography
                     display="inline"

@@ -10,6 +10,7 @@ const ImageWithLoading = ({ src, srcSet, alt }) => {
   const handleLoaded = () => {
     setLoaded(true);
   };
+
   const handleError = (e) => {
     const fallbackImage = '/images/fallback.png';
     if (e.src.indexOf('/images/fallback.png') === -1) {

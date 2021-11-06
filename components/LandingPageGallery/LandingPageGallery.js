@@ -83,7 +83,7 @@ const styles = (theme) => ({
 });
 
 const Card = ({ alt, src, slug, classes }) => (
-  <Link href={`/piece?slug=${slug}`} as={`/piece/${slug}`}>
+  <Link href={`/piece?slug=${slug}`} as={`/piece/${slug}`} passHref>
     <ButtonBase classes={{ root: classes.buttonBase }} focusRipple>
       <ImageWithLoading src={src} srcSet={`${src} 1x, ${src} 2x`} alt={alt} />
     </ButtonBase>

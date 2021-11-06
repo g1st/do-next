@@ -470,6 +470,7 @@ class AdminForm extends Component {
               <Link
                 href={`/piece?slug=${itemToEdit.slug}`}
                 as={`/piece/${itemToEdit.slug}`}
+                passHref
               >
                 <Button size="small" variant="contained" color="secondary">
                   To {itemToEdit.name} page

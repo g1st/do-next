@@ -31,7 +31,7 @@ const Admin = ({
         <div style={styles.header}>
           <p>Hello {user}!</p>
           <div>
-            <Link href="/">
+            <Link href="/" passHref>
               <Button>Home</Button>
             </Link>
             <Button onClick={reduxPropDeauthenticate}>Logout</Button>

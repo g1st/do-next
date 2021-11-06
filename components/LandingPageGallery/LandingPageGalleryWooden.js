@@ -113,7 +113,7 @@ const LandingPageGallery = ({ classes }) => {
       <Content>
         <ImagesWrapper>
           <TwoImages>
-            <Image>
+            <Image alt="Presentational Dovile Ko art piece">
               <Input
                 type="image"
                 onClick={(e) =>
@@ -123,7 +123,6 @@ const LandingPageGallery = ({ classes }) => {
                   )
                 }
                 src={LandingImage1}
-                alt="Presentational Dovile Ko art piece"
                 onKeyDown={(e) =>
                   handleKeyDown(
                     e,
@@ -132,7 +131,7 @@ const LandingPageGallery = ({ classes }) => {
                 }
               />
             </Image>
-            <Image>
+            <Image alt="Presentational Dovile Ko art piece">
               <Input
                 type="image"
                 onClick={(e) =>
@@ -142,7 +141,6 @@ const LandingPageGallery = ({ classes }) => {
                   )
                 }
                 src={LandingImage2}
-                alt="Presentational Dovile Ko art piece"
                 onKeyDown={(e) =>
                   handleKeyDown(
                     e,
@@ -153,20 +151,19 @@ const LandingPageGallery = ({ classes }) => {
             </Image>
           </TwoImages>
           <TwoImages>
-            <Image>
+            <Image alt="Presentational Dovile Ko art piece">
               <Input
                 type="image"
                 onClick={(e) =>
                   onImageClick(e, 'FLOW n°R29 | ring | Baltic amber, ebony')
                 }
                 src={LandingImage3}
-                alt="Presentational Dovile Ko art piece"
                 onKeyDown={(e) =>
                   handleKeyDown(e, 'FLOW n°R29 | ring | Baltic amber, ebony')
                 }
               />
             </Image>
-            <Image>
+            <Image alt="Presentational Dovile Ko art piece">
               <Input
                 type="image"
                 onClick={(e) =>
@@ -176,7 +173,6 @@ const LandingPageGallery = ({ classes }) => {
                   )
                 }
                 src={LandingImage4}
-                alt="Presentational Dovile Ko art piece"
                 onKeyDown={(e) =>
                   handleKeyDown(
                     e,

@@ -96,7 +96,7 @@ const TermsAndConditions = ({ collections, classes, user }) => (
           PLEASE NOTE that <i>made to order</i> items producing times are
           indicated at each piece’s description. Producing times and delivery
           options for commissions are discussed individually by{' '}
-          <Link href="/contact">
+          <Link href="/contact" passHref>
             <StyledAnchorLink>e-mail</StyledAnchorLink>
           </Link>
           .
@@ -108,7 +108,7 @@ const TermsAndConditions = ({ collections, classes, user }) => (
           supply pricing for alternative methods.
         </Typography>
         <Typography variant="body1" paragraph color="secondary">
-          Please be sure you've entered the correct shipping address at the
+          Please be sure you&apos;ve entered the correct shipping address at the
           checkout.
         </Typography>
         <Typography

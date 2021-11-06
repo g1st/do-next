@@ -87,7 +87,7 @@ const About = ({ pathname, collections, classes, user }) => (
               variant="h3"
               className={`${classes.fontSize} ${classes.button}`}
             >
-              READ ARTIST'S STATEMENT
+              READ ARTIST&apos;S STATEMENT
             </Typography>
           </ToArtistStatement>
           <ToArtistStatement href="#artist-statement">
@@ -461,7 +461,7 @@ const About = ({ pathname, collections, classes, user }) => (
             paragraph
             id="artist-statement"
           >
-            ARTIST'S STATEMENT
+            ARTIST&apos;S STATEMENT
           </Typography>
           <Typography variant="h4" className={classes.h4} paragraph>
             THE DIALOGUE BETWEEN PAST, PRESENT AND FUTURE

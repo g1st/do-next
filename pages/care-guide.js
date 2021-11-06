@@ -87,10 +87,10 @@ const CareGuide = ({ collections, classes, user }) => (
           </ListItem>
           <ListItem>
             <Typography variant="body1" paragraph color="secondary">
-              A Silver 'Dip' treatment is a great way to clean silver jewellery,
-              but always make sure the jewellery is rinsed thoroughly with water
-              afterwards and the instructions for the product are strictly
-              followed.
+              A Silver &apos;Dip&apos; treatment is a great way to clean silver
+              jewellery, but always make sure the jewellery is rinsed thoroughly
+              with water afterwards and the instructions for the product are
+              strictly followed.
             </Typography>
           </ListItem>
           <ListItem>
@@ -132,8 +132,8 @@ const CareGuide = ({ collections, classes, user }) => (
           </ListItem>
           <ListItem>
             <Typography variant="body1" paragraph color="secondary">
-              All Dovile's jewellery is made from solid, natural hardwood; do
-              not try to force or bend it and be careful not to drop it.
+              All Dovile&apos;s jewellery is made from solid, natural hardwood;
+              do not try to force or bend it and be careful not to drop it.
             </Typography>
           </ListItem>
           <ListItem>

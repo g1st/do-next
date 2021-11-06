@@ -25,7 +25,7 @@ const styles = {
 };
 
 const Card = ({ item, classes }) => (
-  <Link href={`/piece?slug=${item.slug}`} as={`/piece/${item.slug}`}>
+  <Link href={`/piece?slug=${item.slug}`} as={`/piece/${item.slug}`} passHref>
     <ButtonBase classes={{ root: classes.buttonBase }} focusRipple>
       <ImageWithLoading
         src={`${process.env.NEXT_PUBLIC_AWS_BUCKET}/photos/${item.frontImage}`}

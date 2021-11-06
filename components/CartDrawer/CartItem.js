@@ -17,11 +17,13 @@ const CartItem = ({
 }) => {
   const handleRemove = (id) => removeFromCartRedux(id);
 
-  const handleKeyDown = (href, as) => ({ key }) => {
-    if (key === 'Enter') {
-      Router.push(href, as);
-    }
-  };
+  const handleKeyDown =
+    (href, as) =>
+    ({ key }) => {
+      if (key === 'Enter') {
+        Router.push(href, as);
+      }
+    };
 
   const getItemImage = (item) => {
     if (item && item.images && item.images.length) {
@@ -54,6 +56,7 @@ const CartItem = ({
               <Link
                 href={`/piece?slug=${item.slug}`}
                 as={`/piece/${item.slug}`}
+                passHref
               >
                 <StyledAnchorLink
                   target="_self"

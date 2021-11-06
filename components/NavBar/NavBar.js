@@ -102,6 +102,18 @@ class NavBar extends React.Component {
     };
   }
 
+  componentDidMount() {
+    Router.events.on('routeChangeComplete', () => {
+      window.scrollTo(0, 0);
+    });
+  }
+
+  componentWillUnmount() {
+    Router.events.off('routeChangeComplete', () => {
+      window.scrollTo(0, 0);
+    });
+  }
+
   handleNavBarChange = (event, value) => {
     const { clearOptionRedux } = this.props;
     // on gallery click we just opening menu, not redirecting
@@ -127,18 +139,9 @@ class NavBar extends React.Component {
   };
 
   render() {
-    const {
-      classes,
-      collections,
-      pathname,
-      uniqueCartItems,
-      user,
-    } = this.props;
+    const { classes, collections, pathname, uniqueCartItems, user } =
+      this.props;
     const { anchorEl } = this.state;
-
-    Router.events.on('routeChangeComplete', () => {
-      window.scrollTo(0, 0);
-    });
 
     const navigation = (
       <Tabs

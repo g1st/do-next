@@ -84,7 +84,7 @@ const Footer = (props) => {
         </Social>
         <FooterLinks>
           <FooterLink>
-            <Link href="/terms-conditions">
+            <Link href="/terms-conditions" passHref>
               <AnchorLink
                 tabIndex={0}
                 onKeyDown={(e) => handleKeyDown('/terms-conditions', e.key)}
@@ -96,7 +96,7 @@ const Footer = (props) => {
             </Link>
           </FooterLink>
           <FooterLink>
-            <Link href="/care-guide">
+            <Link href="/care-guide" passHref>
               <AnchorLink
                 tabIndex={0}
                 onKeyDown={(e) => handleKeyDown('/care-guide', e.key)}
@@ -108,7 +108,7 @@ const Footer = (props) => {
             </Link>
           </FooterLink>
           <FooterLink>
-            <Link href="/commissions">
+            <Link href="/commissions" passHref>
               <AnchorLink
                 tabIndex={0}
                 onKeyDown={(e) => handleKeyDown('/commissions', e.key)}
@@ -118,7 +118,7 @@ const Footer = (props) => {
             </Link>
           </FooterLink>
           <FooterLink>
-            <Link href="/privacy-policy">
+            <Link href="/privacy-policy" passHref>
               <AnchorLink
                 tabIndex={0}
                 onKeyDown={(e) => handleKeyDown('/privacy-policy', e.key)}

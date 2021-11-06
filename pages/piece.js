@@ -208,14 +208,14 @@ class Piece extends React.Component {
 
     const edit = (
       <div>
-        <Link href={`/edit?slug=${slug}`} as={`/edit/${slug}`}>
+        <Link href={`/edit?slug=${slug}`} as={`/edit/${slug}`} passHref>
           <AdminLink>
             <Typography display="inline" variant="body1">
               Edit
             </Typography>
           </AdminLink>
         </Link>
-        <Link href="/admin">
+        <Link href="/admin" passHref>
           <AdminLink>
             <Typography display="inline" variant="body1">
               Add new
@@ -234,7 +234,7 @@ class Piece extends React.Component {
 
     const pathLine = (
       <PathLineContainer>
-        <Link href="/gallery">
+        <Link href="/gallery" passHref>
           <AnchorLink>
             <Typography
               display="inline"
@@ -249,6 +249,7 @@ class Piece extends React.Component {
         <Link
           href={`/gallery?collection=${collection}`}
           as={`/gallery/${collection}`}
+          passHref
         >
           <AnchorLink>
             <Typography
@@ -382,7 +383,7 @@ class Piece extends React.Component {
                 <Typography display="inline" variant="body1" paragraph>
                   Please read{' '}
                 </Typography>
-                <Link href="/care-guide">
+                <Link href="/care-guide" passHref>
                   <StyledAnchorLink>
                     <Typography
                       display="inline"

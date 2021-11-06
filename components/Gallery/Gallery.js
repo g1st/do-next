@@ -70,13 +70,8 @@ class Gallery extends React.Component {
 
   constructor(props) {
     super(props);
-    const {
-      data,
-      collectionsNames,
-      reduxLoadedItems,
-      showCollection,
-      option,
-    } = props;
+    const { data, collectionsNames, reduxLoadedItems, showCollection, option } =
+      props;
     const collections = {
       all: { data, itemsLoaded: reduxLoadedItems.all },
     };
@@ -258,15 +253,8 @@ class Gallery extends React.Component {
   };
 
   render() {
-    const {
-      classes,
-      data,
-      showCollection,
-      showFilter,
-      user,
-      display,
-      option,
-    } = this.props;
+    const { classes, data, showCollection, showFilter, user, display, option } =
+      this.props;
     const { withFilter, collections, updating, toSwap } = this.state;
 
     if (data.length < 1) {
@@ -352,7 +340,7 @@ class Gallery extends React.Component {
               variant="contained"
               color="primary"
             >
-              Save gallery item's position
+              Save gallery item&apos;s position
             </Button>
           )}
           <Grid container spacing={10} className={classes.gridWrapper}>

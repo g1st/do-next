@@ -30,10 +30,10 @@ const Edit = ({
         <div style={styles.header}>
           <p>Hello {user}!</p>
           <div>
-            <Link href="/">
+            <Link href="/" passHref>
               <Button>Home</Button>
             </Link>
-            <Link href="/admin">
+            <Link href="/admin" passHref>
               <Button>Add new</Button>
             </Link>
             <Button onClick={reduxPropDeauthenticate}>Logout</Button>
