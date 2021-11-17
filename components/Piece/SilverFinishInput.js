@@ -55,6 +55,7 @@ const SilverFinishInput = ({ error, errorText, handleChange, classes }) => {
         <option value="" aria-label="default blank" />
         <option value="regular">regular (white)</option>
         <option value="oxidized">oxidized (black)</option>
+        <option value="gold-plated">gold plated</option>
       </Select>
       {error && silverFinishError && <Error>{errorText}</Error>}
     </FormControl>
