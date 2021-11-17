@@ -59,8 +59,7 @@ const Featured = ({ data, classes }) => {
           color="secondary"
           className={classes.heading}
         >
-          Reclaimed dark hardwood and natural Baltic amber jewellery | FLOW
-          COLLECTION
+          PEBBLES AND DREAMERS
         </Typography>
         <CarouselProvider
           totalSlides={data.length}
