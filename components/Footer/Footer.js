@@ -132,7 +132,7 @@ const Footer = (props) => {
         </FooterLinks>
       </FlexContainer>
       <Typography color="textSecondary" classes={{ root: classes.root }}>
-        &copy; 2015&mdash;{new Date().getFullYear()} Dovile Ko
+        &copy; {new Date().getFullYear()} Dovile Ko
       </Typography>
     </Wrapper>
   );

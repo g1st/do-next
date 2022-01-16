@@ -189,6 +189,17 @@ const About = ({ pathname, collections, classes, user }) => (
           <tbody>
             <Row>
               <Data>
+                <Typography variant="body1">2021</Typography>
+              </Data>
+              <Data>
+                <Typography variant="body1" gutterBottom>
+                  THE DREAMERS, collection preview, Meno Materija, Kaunas,
+                  Lithuania
+                </Typography>
+              </Data>
+            </Row>
+            <Row>
+              <Data>
                 <Typography variant="body1">2019</Typography>
               </Data>
               <Data>
