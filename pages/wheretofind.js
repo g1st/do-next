@@ -66,11 +66,24 @@ const WhereToFind = ({ pathname, collections, classes, user }) => (
               <Row>
                 <Data>
                   {' '}
-                  <Typography variant="body1">2022</Typography>
+                  <Typography variant="body1">30 Sep - 1 Oct</Typography>
                 </Data>
                 <Data>
                   <Typography variant="body1" display="inline">
-                    To be confirmed.
+                    Open Studios at The Quarterworkshop, 13-15 Fleet St,
+                    Birmingham B3 1JP
+                  </Typography>
+                </Data>
+              </Row>
+              <Row>
+                <Data>
+                  {' '}
+                  <Typography variant="body1">14 - 15 Oct</Typography>
+                </Data>
+                <Data>
+                  <Typography variant="body1" display="inline">
+                    Made In Leamington, Contemporary Design & Craft Fair, The
+                    Royal Pump Rooms, Leamington Spa CV32 4AA
                   </Typography>
                 </Data>
               </Row>

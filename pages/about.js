@@ -130,6 +130,26 @@ const About = ({ pathname, collections, classes, user }) => (
             <Row>
               <Data>
                 <Typography variant="body1" gutterBottom>
+                  2020 - current
+                </Typography>
+              </Data>
+              <Data>
+                <Typography variant="body1" gutterBottom>
+                  Insignia jeweller,{' '}
+                  <AnchorLink
+                    href="https://toye.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Toye, Kenning & Spencer
+                  </AnchorLink>
+                  , Birmingham, UK
+                </Typography>{' '}
+              </Data>
+            </Row>
+            <Row>
+              <Data>
+                <Typography variant="body1" gutterBottom>
                   2016 - current
                 </Typography>
               </Data>
@@ -137,7 +157,7 @@ const About = ({ pathname, collections, classes, user }) => (
                 <Typography variant="body1" gutterBottom>
                   Jewellery tutor,{' '}
                   <AnchorLink
-                    href="http://www.thequarterworkshop.com/"
+                    href="https://www.thequarterworkshop.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -474,45 +494,34 @@ const About = ({ pathname, collections, classes, user }) => (
           >
             ARTIST&apos;S STATEMENT
           </Typography>
-          <Typography variant="h4" className={classes.h4} paragraph>
-            THE DIALOGUE BETWEEN PAST, PRESENT AND FUTURE
+          <Typography variant="body1" paragraph>
+            My artistic journey as a jewellery maker is steeped in the
+            exploration of time and the beauty of natural ageing processes. I
+            imbue each piece with a sense of life and growth, using hand-carved
+            amber and wood, symbolising the timeless allure of nature. Deeply
+            rooted in my Baltic identity, I&apos;m committed to sustainable
+            sourcing, aiming to redefine the use of amber in contemporary
+            jewellery.
           </Typography>
           <Typography variant="body1" paragraph>
-            The central concept of my jewellery is time and natural ageing
-            processes. This is shown through the use of hand-carved amber and
-            wood, their interplay, giving a sense of the growth to the wearer.
-            My task is to make an object which itself cannot be measured clearly
-            within a timescale. The shapes I am making could look like driftwood
-            or a still growing structure. To me, ageing is an absolutely
-            gorgeous process which naturally creates such great lines no matter
-            if it is my face getting wrinkles, a tree bark or a bud of flower
-            starting to bloom or even a coming wave. It could take seconds or
-            centuries.
+            In my creative palette, I also extensively work with precious metals
+            and gemstones. My &quot;We Are All Dreamers&quot; earring collection
+            is a tribute to the shared human spirit of dreaming, weaving
+            intricate silver designs with vibrant gemstones to mirror the
+            colourful range of our collective aspirations.
           </Typography>
           <Typography variant="body1" paragraph>
-            The materials I have chosen to work with have gone through long
-            ageing processes until they have reached my hands as natural raw
-            Baltic amber and bog oak and other naturally black hardwoods. Amber
-            as a material is deeply rooted in my Baltic identity and, sadly, is
-            not a self-renewable resource. Its overuse within commercial mass
-            produced jewellery design has inspired me to explore the material
-            within my own work with a hope to modify the image of amber and to
-            use it in a more considered and contemporary way.
+            Inspired by the dynamic volumes of the sea, my &apos;Flow&apos;
+            collection breaks the mould of conventional jewellery. It explores
+            large, statement pieces that extend the traditional understanding of
+            a ring, reflecting the fluidity and ceaseless rhythm of ocean waves.
           </Typography>
           <Typography variant="body1" paragraph>
-            I bring wood and amber together into sculptural shapes. The visual
-            confrontation of hard black wood and fragile amber and dynamic
-            volume creates intriguing dialogue. Every design in shaping comes
-            spontaneously without sketching or modelling. It is a satisfying
-            journey following the very special material and my inner mood.
-            Sometimes it goes into a very dramatic structure sometimes turn into
-            a still and light design.
-          </Typography>
-          <Typography variant="body1" paragraph>
-            Over the time and with wear the objects will change, the surface may
-            rub off, may crack and polish naturally. It is sustainable
-            jewellery, which after wearing could be dropped into the bog or the
-            sea again to continue the processes.
+            Over time, my pieces, like nature, evolve gracefully. Their surfaces
+            change, revealing the traces of time and the cyclical journey of
+            nature. Through my work, I invite wearers to embrace this
+            transformation, encapsulating the cycle of life and time in each
+            unique piece.
           </Typography>
         </ArtistStatement>
         <ImageWrapper>
