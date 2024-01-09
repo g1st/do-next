@@ -47,7 +47,7 @@
     "mjml": "^4.8.1",
     "mongoose": "^5.11.13",
     "multer": "^1.4.2",
-    "next": "^10.0.5",
+    "next": "^10.0.6",
     "next-optimized-images": "^2.6.2",
     "nodemailer": "^6.4.17",
     "prop-types": "^15.7.2",
